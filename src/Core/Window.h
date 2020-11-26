@@ -15,12 +15,14 @@ class Window {
         SDL_Window *pWin;
         Screen tScreen;
     public:
-        Window();
-        ~Window() {
-            SDL_DestroyWindow( this->pWin );
-        }
-
+        SDL_Window* Handle() { return pWin; };
         HGResult SetCenterScreen();
+        HGResult GetSize( IN_OUT Math::HGRect* pSize );
+
+        Window(const char *title,
+               int x, int y, int w,
+               int h, Uint32 flags = SDL_WINDOW_SHOWN);
+        ~Window();
 };
 
 }

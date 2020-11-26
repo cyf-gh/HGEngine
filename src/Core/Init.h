@@ -9,6 +9,7 @@ namespace HG {
     class Init {
     public:
         void SDL();
+        void App();
     };
 }
 

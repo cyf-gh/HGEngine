@@ -8,6 +8,7 @@ namespace HG { namespace Math {
     };
 
     struct HGRect {
+        HGRect() : H(0), W(0) {}
         HGRect(int w, int h) : H(h), W(w) {}
         int H, W;
     };
