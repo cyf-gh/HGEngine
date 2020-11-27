@@ -8,7 +8,7 @@
 #include "Memory.h"
 #include "Error.h"
 
-namespace HG {
+namespace HGCore {
     class HGLog {
     private:
         const char *getErrorDesc( const char * strFuncName ) {

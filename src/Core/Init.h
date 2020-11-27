@@ -5,7 +5,7 @@
 #ifndef HONEYGAME_INIT_H
 #define HONEYGAME_INIT_H
 
-namespace HG {
+namespace HGCore {
     class Init {
     public:
         void SDL();

@@ -1,7 +1,7 @@
 # Core
 HoneyGame core components which include:
 * SDL wrapper
-* HG type, conversation, error definitions 
+* HGCore type, conversation, error definitions 
 
 ## TODO list
 ### done
@@ -14,7 +14,7 @@ HoneyGame core components which include:
 #### functional
 * complete window component
 #### code
-* change namespace to HGCore instead of HG
+* change namespace to HGCore instead of HGCore
 ### future todo
 #### functional
 * support fullscreen

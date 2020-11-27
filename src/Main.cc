@@ -13,7 +13,7 @@
 #include "Core/Log.h"
 #include "Core/Window.h"
 #include "Core/Init.h"
-using namespace HG;
+using namespace HGCore;
 using namespace Math;
 
 int main( int argc, char **argv ) {

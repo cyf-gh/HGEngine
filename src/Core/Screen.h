@@ -7,7 +7,7 @@
 #include "Error.h"
 #include "Math.h"
 
-namespace HG {
+namespace HGCore {
     class Screen {
     public:
         /// \brief get center position of screen

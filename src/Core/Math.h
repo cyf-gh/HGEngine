@@ -1,6 +1,6 @@
 #pragma once
 
-namespace HG { namespace Math {
+namespace HGCore { namespace Math {
     struct HGPos {
         HGPos() : X(0), Y(0) {}
         HGPos(int x, int y) : X(x), Y(y) {}

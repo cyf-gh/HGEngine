@@ -8,7 +8,7 @@
 #include "Error.h"
 #include "Screen.h"
 
-namespace HG {
+namespace HGCore {
 
 class Window {
     private:
@@ -26,6 +26,4 @@ class Window {
 };
 
 }
-
-
-#endif //HONEYGAME_WINDOW_H
+#endif // HONEYGAME_WINDOW_H

@@ -1,7 +1,7 @@
 /// type
 #pragma once
 
-namespace HG {
+namespace HGCore {
     typedef int HGResult;
 }
 
