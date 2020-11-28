@@ -5,8 +5,11 @@
 #ifndef HONEYGAME_INIT_H
 #define HONEYGAME_INIT_H
 
+#include "Memory.h"
+
 namespace HGCore {
     class Init {
+        HG_MEM_NO_BINARY_COPY( Init );
     public:
         void SDL();
         void App();

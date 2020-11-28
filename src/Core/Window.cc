@@ -15,11 +15,7 @@ Window::Window(
         int x, int y, int w,
         int h, Uint32 flags ) {
     this->pWin = SDL_CreateWindow( title, x, y, w, h, flags );
-    if (this->pWin == nullptr){
-        Log->Failed(SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow");
-    } else {
-        Log->Info( SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow" );
-    }
+    HG_LOG_CHECK_SDL_HANDLE_IS_NULL(this->pWin, SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow");
 }
 
 Window::~Window() {
@@ -42,8 +38,8 @@ HGResult Window::SetCenterScreen() {
     HGRect tSize;
     HG_RESULT_RES
 
-    CHECK_ERR( GetSize( &tSize ) )
-    CHECK_ERR( tScreen.GetCenterPos( tSize.W, tSize.H, &tPos ) )
+    HG_CHECK_ERR(GetSize(&tSize ) )
+    HG_CHECK_ERR(tScreen.GetCenterPos(tSize.W, tSize.H, &tPos ) )
     SDL_SetWindowPosition( pWin, tPos.X, tPos.Y );
     return HG_ERR_OK;
 }

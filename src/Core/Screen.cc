@@ -13,7 +13,7 @@ HGResult Screen::GetCenterPos(int w, int h, HGPos *pCenterPos, int displayIndex)
 
     SDL_LogInfo( SDL_LOG_CATEGORY_SYSTEM, "Get center position of window index: %d", displayIndex );
     if ( SDL_GetDesktopDisplayMode(displayIndex, &dm) != 0 ) {
-        Log->Failed(SDL_LOG_CATEGORY_SYSTEM, "SDL_GetDesktopDisplayMode" );
+        Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_GetDesktopDisplayMode");
         return HG_ERR_NULL_OUTPUT;
     }
 

@@ -7,10 +7,11 @@
 #include <SDL.h>
 #include "Error.h"
 #include "Screen.h"
-
+#include "Memory.h"
 namespace HGCore {
 
 class Window {
+        HG_MEM_NO_BINARY_COPY( Window );
     private:
         SDL_Window *pWin;
         Screen tScreen;
@@ -22,7 +23,7 @@ class Window {
         Window(const char *title,
                int x, int y, int w,
                int h, Uint32 flags = SDL_WINDOW_SHOWN);
-        ~Window();
+        virtual ~Window();
 };
 
 }

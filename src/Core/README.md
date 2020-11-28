@@ -11,6 +11,7 @@ HoneyGame core components which include:
 * dump log to file
 
 ### in process
+* write thread component
 #### functional
 * complete window component
 #### code

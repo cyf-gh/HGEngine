@@ -41,7 +41,7 @@ namespace HGCore {
             strLogFile += ".txt";
             tOfs.open( strLogFile.c_str(), std::ofstream::out | std::ofstream::app );
             if ( !tOfs.is_open() ) {
-                std::cerr<<"failed to open file: "<< SYS_ERROR() <<std::endl;
+                std::cerr << "failed to open file: " << HG_ERR_SYS_ERROR() << std::endl;
                 std::cerr<<"log component may do not work";
             }
         };
@@ -59,25 +59,30 @@ namespace HGCore {
             tOfs << std::endl;
             tOfs.flush();
         }
-        void Log2Console(  const int priority, const char* message, const char* category ) {
-            std::cout << category  << "[" << getTimeStr() << "]" << "("<< priority << ")\t" << message << std::endl;
+        void Log2Console(  const int sdlCategory, const char* message, const char* category ) {
+            std::cout << category  << "[" << getTimeStr() << "]" << "("<< sdlCategory << ")\t" << message << std::endl;
         }
-        void Failed( const int priority, const char* strFuncName ) {
-            Log2File( priority, getErrorDesc( strFuncName ), "FAILED" );
-            Log2Console( priority, getErrorDesc( strFuncName ), "FAILED" );
+        void FailedSDL(const int sdlCategory, const char* strFuncName ) {
+            Log2File( sdlCategory, getErrorDesc( strFuncName ), "FAILED SDL" );
+            Log2Console( sdlCategory, getErrorDesc( strFuncName ), "FAILED SDL" );
         }
-        void Success( const int priority, const char* message ) {
-            Log2File( priority, message, "SUCCESS" );
-            Log2Console( priority, message, "SUCCESS" );
+        void Failed( const int sdlCategory, const char* message ) {
+            Log2File( sdlCategory, message, "FAILED" );
+            Log2Console( sdlCategory, message, "FAILED" );
         }
-        void Info( const int priority, const char* message ) {
-            Log2File( priority, message, "INFO" );
-            Log2Console( priority, message, "INFO" );
+        void Success( const int sdlCategory, const char* message ) {
+            Log2File( sdlCategory, message, "SUCCESS" );
+            Log2Console( sdlCategory, message, "SUCCESS" );
         }
-        void Warning( const int priority, const char* message ) {
-            Log2File( priority, message, "WARNING" );
-            Log2Console( priority, message, "WARNING" );
+        void Info( const int sdlCategory, const char* message ) {
+            Log2File( sdlCategory, message, "INFO" );
+            Log2Console( sdlCategory, message, "INFO" );
         }
+        void Warning( const int sdlCategory, const char* message ) {
+            Log2File( sdlCategory, message, "WARNING" );
+            Log2Console( sdlCategory, message, "WARNING" );
+        }
+        void FlushLogFile() { tOfs.flush(); }
     private:
         std::ofstream tOfs;
         char *strDate;
@@ -86,3 +91,20 @@ namespace HGCore {
     };
     static auto* Log = new HGLog();
 }
+
+/// \brief check if SDL object return with a non-nullptr value and log verbose
+/// \param P SDL handle pointer
+/// \param SDL_LOG_CATEGORY SDL_LOG_CATEGORY_XXX
+/// \param FUNC_NAME e.g. "foo::foo"
+#define HG_LOG_CHECK_SDL_HANDLE_IS_NULL( P, SDL_LOG_CATEGORY, FUNC_NAME ) \
+if ( P == nullptr){ \
+    HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ); \
+    return; \
+} else { \
+    HGCore::Log->Info( SDL_LOG_CATEGORY, FUNC_NAME ); \
+}
+
+/// \brief log the SDL error directly
+/// \sa HG_LOG_CHECK_SDL_HANDLE_IS_NULL
+#define HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ) \
+HGCore::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );

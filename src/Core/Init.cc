@@ -11,7 +11,7 @@ using namespace HGCore;
 
 void HGCore::Init::SDL() {
     if ( SDL_Init(SDL_INIT_EVERYTHING ) == -1 ){
-        Log->Failed( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+        Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init");
     } else {
         Log->Info( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
     }

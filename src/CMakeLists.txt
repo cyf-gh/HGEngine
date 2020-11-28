@@ -10,7 +10,7 @@ find_package(SDL2 REQUIRED)
 
 aux_source_directory(. DIR_SRCS)
 
-add_executable(hg ${DIR_SRCS} Core/Window.cc Core/Window.h Core/Init.cc Core/Init.h Core/Screen.cc Core/Screen.h Core/Renderer.cc Core/Renderer.h)
+add_executable(hg ${DIR_SRCS} Core/Window.cc Core/Window.h Core/Init.cc Core/Init.h Core/Screen.cc Core/Screen.h Core/Renderer.cc Core/Renderer.h EngineImpl/HGEngineImpl.cc EngineImpl/HGEngineImpl.h Core/Loop.cc Core/Loop.h Core/Thread.cc Core/Thread.h Engine/HG.cc Engine/HG.h EngineImpl/HGSceneImpl.cc EngineImpl/HGSceneImpl.h)
 include_directories(${SDL2_INCLUDE_DIR})
 
 target_link_libraries(hg ${SDL2_LIBRARY})
