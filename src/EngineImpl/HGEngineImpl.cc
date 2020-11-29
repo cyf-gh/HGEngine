@@ -3,6 +3,7 @@
 //
 
 #include <SDL_events.h>
+#include <string>
 #include "../Core/Log.h"
 #include "HGEngineImpl.h"
 #include "../Core/Error.h"
@@ -56,8 +57,16 @@ HGEngineImpl::~HGEngineImpl() {
 void HGMainLoop::_RunTask() {
     SDL_Event event;
     while ( SDL_PollEvent( &event ) ) {
+        // https://wiki.libsdl.org/SDL_Event
         switch ( event.type ) {
-
+            case SDL_KEYDOWN:
+                // https://wiki.libsdl.org/SDL_Keycode
+                Log->Info( SDL_LOG_CATEGORY_SYSTEM, SDL_GetKeyName( event.key.keysym.sym) );
+                break;
+            case SDL_QUIT:
+                Log->Info( SDL_LOG_CATEGORY_SYSTEM, "window quit" );
+                SDL_Quit();
+                exit(0); // break;
         }
     }
 }

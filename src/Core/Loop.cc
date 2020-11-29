@@ -9,23 +9,22 @@ using namespace HGCore;
 
 void Loop::Run() {
     while( true ) {
-        try {
-            switch ( eStatus ) {
-                case RUN:
-                    this->_RunTask();
-                    // SDL_Event event; while ( SDL_PollEvent( &event ) ) {switch ( event.type ) {}}
-                    SDL_Delay( unRunInterval );
-                    break;
-                case STOP:
-                    this->_StopTask();
-                    goto THREAD_EXIT; // break;
-                case PADDING:
-                    this->_PaddingTask();
-                    SDL_Delay( unPaddingInterval );
-                    break;
-            }
-        } catch ( std::exception ex ) {
-
+        switch ( eStatus ) {
+            case RUN:
+                this->_RunTask();
+                // SDL_Event event; while ( SDL_PollEvent( &event ) ) {switch ( event.type ) {}}
+                SDL_Delay( unRunInterval );
+                break;
+            case STOP:
+                this->_StopTask();
+                goto THREAD_EXIT; // break;
+            case PADDING:
+                this->_PaddingTask();
+                SDL_Delay( unPaddingInterval );
+                break;
+            default:
+                Log->Fault( SDL_LOG_CATEGORY_SYSTEM, "Unknown loop status. loop break." );
+                return;
         }
     }
     THREAD_EXIT:

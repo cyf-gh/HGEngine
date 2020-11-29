@@ -1,16 +1,25 @@
+cmake_minimum_required (VERSION 3.0)
+
 set(CMAKE_VERBOSE_MAKEFILE ON)
-cmake_minimum_required (VERSION 3.6)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS_DEBUG   "-O0" )
+
 project (HoneyGame)
 
-set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH "C:/Program Files/CMake/modules")
+# set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/build/lib)
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin)
 
 set(SDL2_PATH "L:/SDL2-devel-2.0.12-mingw/SDL2-2.0.12/x86_64-w64-mingw32")
 find_package(SDL2 REQUIRED)
 
-aux_source_directory(. DIR_SRCS)
+aux_source_directory(. DIR_MAIN_SRCS)
+add_subdirectory(Core)
+add_subdirectory(EngineImpl)
+add_executable(hg ${DIR_MAIN_SRCS} )
 
-add_executable(hg ${DIR_SRCS} Core/Window.cc Core/Window.h Core/Init.cc Core/Init.h Core/Screen.cc Core/Screen.h Core/Renderer.cc Core/Renderer.h EngineImpl/HGEngineImpl.cc EngineImpl/HGEngineImpl.h Core/Loop.cc Core/Loop.h Core/Thread.cc Core/Thread.h Engine/HG.cc Engine/HG.h EngineImpl/HGSceneImpl.cc EngineImpl/HGSceneImpl.h)
 include_directories(${SDL2_INCLUDE_DIR})
-
-target_link_libraries(hg ${SDL2_LIBRARY})
+target_link_libraries( hg ${SDL2_LIBRARY} )
+target_link_libraries( hg HGCore )
+target_link_libraries( hg HGEngineImpl )

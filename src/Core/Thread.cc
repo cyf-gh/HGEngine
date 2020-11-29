@@ -9,6 +9,8 @@
 using namespace std;
 using namespace HGCore;
 
+std::unordered_map<const char*, Thread*> Thread::Threads = {};
+
 Thread::Thread(SDL_ThreadFunction pf, const char *strThreadName, void *pData, bool isAwait )
     : IsAwait( isAwait ) {
     pHandle = SDL_CreateThread( pf, strThreadName, pData );

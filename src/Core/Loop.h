@@ -34,9 +34,9 @@ namespace HGCore {
         /// \sa eStatus
         virtual void _StopTask();
 
-        Loop() = default;
-        Loop(Uint32 unRunInterval, Uint32 unPaddingInterval )
-            : unPaddingInterval(unPaddingInterval), unRunInterval( unRunInterval ) { };
+        Loop() : eStatus( LoopStatus::RUN ){};
+        Loop(Uint32 unRunInterval, Uint32 unPaddingInterval, const LoopStatus& status )
+            : unPaddingInterval(unPaddingInterval), unRunInterval( unRunInterval ), eStatus( status ) { };
         virtual ~Loop() = default;
     };
 
