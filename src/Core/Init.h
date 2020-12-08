@@ -11,8 +11,8 @@ namespace HGCore {
     class Init {
         HG_MEM_NO_BINARY_COPY( Init );
     public:
-        void SDL();
-        void App();
+        Init* SDL();
+        Init* App();
     };
 }
 

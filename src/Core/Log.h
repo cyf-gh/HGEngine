@@ -111,3 +111,8 @@ if ( P == nullptr){ \
 /// \sa HG_LOG_CHECK_SDL_HANDLE_IS_NULL
 #define HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ) \
 HGCore::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
+
+
+/// \brief log info
+#define HG_LOG_INFO( info ) \
+HGCore::Log->Info( SDL_LOG_CATEGORY_SYSTEM, info )

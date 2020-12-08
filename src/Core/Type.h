@@ -1,9 +1,23 @@
 /// type
 #pragma once
 
+#include <cstdint>
+
 namespace HGCore {
     typedef int HGResult;
 }
+
+typedef char			ch8;
+typedef int8_t			n8;
+typedef int16_t		    n16;
+typedef int32_t		    n32, stResult;
+typedef int64_t		    n64;
+typedef uint8_t		    un8, byte8;
+typedef uint16_t		un16;
+typedef uint32_t		un32;
+typedef uint64_t		un64;
+typedef float			f32;
+typedef double			f64;
 
 /// \brief means you can input a null pointer here, and new heap object will be allocated inside the function
 #define OUT

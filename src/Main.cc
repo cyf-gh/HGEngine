@@ -6,10 +6,12 @@
  * @Description: What is mind? No matter. What is matter? Nevermind.
  */
 
-#include "EngineImpl/HGEngineImpl.h"
+#include "EngineImpl/EngineImpl.h"
+#include "SceneMainGame.h"
 
 int main( int argc, char **argv ) {
-    __HGImpl::V1::HGEngineImpl tEngine( argc, argv );
+    SceneMainGame t("SceneMainGame");
+    __HGImpl::V1::EngineImpl tEngine(argc, argv );
     tEngine.Run();
     return 0;
 }

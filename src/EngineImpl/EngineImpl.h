@@ -2,13 +2,14 @@
 // Created by cyf-m on 2020/11/27.
 //
 
-#ifndef HONEYGAME_HGENGINEIMPL_H
-#define HONEYGAME_HGENGINEIMPL_H
+#ifndef HONEYGAME_ENGINEIMPL_H
+#define HONEYGAME_ENGINEIMPL_H
 
 #include "../Engine/HG.h"
 #include "../Core/Loop.h"
 #include "../Core/Window.h"
 #include "../Core/Thread.h"
+#include "Scene.h"
 
 namespace __HGImpl { namespace V1 {
     class HGMainLoop : public HGCore::Loop {
@@ -29,7 +30,7 @@ namespace __HGImpl { namespace V1 {
         void _PaddingTask() override;
         void _StopTask() override;
     };
-    class HGEngineImpl : public HG::V1::Engine {
+    class EngineImpl : public HG::V1::Engine {
         private:
             HGMainLoop tLoopMain;
             HGUpdateLoop tLoopUpdate;
@@ -39,12 +40,15 @@ namespace __HGImpl { namespace V1 {
             HGCore::Thread *pRenderThread{};
 
             HGCore::Window *pWindow;
+
+            static Scene* pCurrentScene;
         public:
+            static Scene* GetCurrentScene() { return pCurrentScene; }
             int Run() override;
-            HGEngineImpl( int argc, char **argv );
-            virtual ~HGEngineImpl();
+            EngineImpl(int argc, char **argv );
+            virtual ~EngineImpl();
     };
 
 } }
 
-#endif //HONEYGAME_HGENGINEIMPL_H
+#endif //HONEYGAME_ENGINEIMPL_H

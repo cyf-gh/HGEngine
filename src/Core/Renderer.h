@@ -8,6 +8,8 @@
 #include <SDL_render.h>
 #include "Memory.h"
 
+namespace HGCore {
+
 class Renderer {
     HG_MEM_NO_BINARY_COPY(Renderer );
 private:
@@ -20,5 +22,6 @@ public:
     virtual ~Renderer();
 };
 
+}
 
 #endif //HONEYGAME_RENDERER_H
