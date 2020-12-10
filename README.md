@@ -1,5 +1,5 @@
 # HoneyGame
-HoneyGame - A 2D Battle Game
+HoneyGame - GameEngine Reborn of st2d
 
 ## Dependencies
 * https://github.com/cyf-gh/sdl2-cmake-scripts

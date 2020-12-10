@@ -9,9 +9,10 @@
 #include "../Core/Loop.h"
 #include "../Core/Window.h"
 #include "../Core/Thread.h"
-#include "Scene.h"
+#include "Renderer2D.h"
 
 namespace __HGImpl { namespace V1 {
+    class Scene;
     class HGMainLoop : public HGCore::Loop {
     public:
         void _RunTask() override;
@@ -30,6 +31,10 @@ namespace __HGImpl { namespace V1 {
         void _PaddingTask() override;
         void _StopTask() override;
     };
+
+    /// \brief the engine of HG
+    /// \note the initialization order of Scenes, GameObjects, Engine Should be
+    /// Scenes -> Engine -> GameObjects
     class EngineImpl : public HG::V1::Engine {
         private:
             HGMainLoop tLoopMain;
@@ -41,10 +46,24 @@ namespace __HGImpl { namespace V1 {
 
             HGCore::Window *pWindow;
 
-            static Scene* pCurrentScene;
+            Renderer2D *pRenderer;
+
+            Scene* pCurrentScene;
+            static void SetEngine( EngineImpl* pEngine ) { EngineImpl::pEngine = pEngine; }
+
         public:
-            static Scene* GetCurrentScene() { return pCurrentScene; }
+            Scene* GetCurrentScene() { return pCurrentScene; }
+            void NavigateScene(const char * strSceneName );
+            static EngineImpl* GetEngine() { return pEngine; }
+            static EngineImpl* pEngine;
+
+            HGCore::Window * GetWindow() const { return pWindow; }
+            Renderer2D * GetRenderer2D() const { return pRenderer; }
+
+            void Exit();
+
             int Run() override;
+
             EngineImpl(int argc, char **argv );
             virtual ~EngineImpl();
     };

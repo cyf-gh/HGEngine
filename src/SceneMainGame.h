@@ -11,7 +11,7 @@
 
 using namespace __HGImpl::V1;
 
-class SceneMainGame : Scene {
+class SceneMainGame : public Scene {
 public:
     void Update( void* pe ) override {
         auto pEvent = static_cast<SDL_Event *>( pe );
@@ -21,8 +21,8 @@ public:
                 break;
             case SDL_QUIT:
                 HG_LOG_INFO( "bye!!!" );
-                SDL_Quit();
-                exit(0); // break;
+                EngineImpl::GetEngine()->Exit();
+                break;
         }
     }
     void OnEnable() override {
@@ -31,7 +31,11 @@ public:
     void OnDisable() override {
 
     }
+    void OnAttach() override  {
+
+    }
     void Render( HGCore::Renderer *pRenderer ) override {
+        renderAllGameObjects( pRenderer );
     }
     explicit SceneMainGame( const char* strName ) : Scene( strName ) {
 

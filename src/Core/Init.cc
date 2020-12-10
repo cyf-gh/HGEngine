@@ -13,7 +13,7 @@ Init* HGCore::Init::SDL() {
     if ( SDL_Init(SDL_INIT_EVERYTHING ) == -1 ){
         Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init");
     } else {
-        Log->Info( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+        Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
     }
     return this;
 }

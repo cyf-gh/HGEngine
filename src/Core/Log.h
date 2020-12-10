@@ -116,3 +116,10 @@ HGCore::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
 /// \brief log info
 #define HG_LOG_INFO( info ) \
 HGCore::Log->Info( SDL_LOG_CATEGORY_SYSTEM, info )
+
+/// \brief log failed info
+#define HG_LOG_FAILED( info ) \
+HGCore::Log->Failed( SDL_LOG_CATEGORY_SYSTEM, info )
+
+#define HG_LOG_SUCCESS( info ) \
+HGCore::Log->Success( SDL_LOG_CATEGORY_SYSTEM, info )

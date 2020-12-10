@@ -3,6 +3,7 @@
 //
 
 #include <SDL_events.h>
+#include <SDL_image.h>
 #include <string>
 #include "../Core/Log.h"
 #include "EngineImpl.h"
@@ -10,6 +11,7 @@
 #include "../Core/Window.h"
 #include "../Core/Init.h"
 #include "../Core/Thread.h"
+#include "Scene.h"
 #include "EventProc.h"
 #include "GameObject.h"
 
@@ -18,7 +20,7 @@ using namespace HGCore;
 static int _UpdateThreadFn( void* data );
 static int _RenderThreadFn( void* data );
 
-Scene* EngineImpl::pCurrentScene = nullptr;
+EngineImpl* EngineImpl::pEngine = nullptr;
 
 int EngineImpl::Run() {
     pUpdateThread = new Thread( _UpdateThreadFn, "UPDATE", &(this->tLoopUpdate), false );
@@ -27,15 +29,32 @@ int EngineImpl::Run() {
     return 0; // for return tEngine.Run(); in main()
 }
 
+void InitSDLImage() {
+    int flags = IMG_INIT_JPG | IMG_INIT_PNG;
+    int res = IMG_Init(flags);
+    if( ( res & flags ) != flags ) {
+        HG_LOG_FAILED("failed to init required jpg and png support! Details next log.");
+        HG_LOG_FAILED( IMG_GetError() );
+        exit( -1 );
+    } else {
+        HG_LOG_SUCCESS( "IMG_Init" );
+    }
+}
+
 EngineImpl::EngineImpl(int argc, char **argv )
-: pUpdateThread( nullptr ), pRenderThread( nullptr ) {
+: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ) {
+    SetEngine( this );
+
     Init init;
     init.App()->SDL();
+    InitSDLImage();
 
     Log->Info(SDL_LOG_CATEGORY_SYSTEM, "Start HoneyGame Engine ...");
 
     pWindow = new Window( "HG Engine", 0, 0, 800, 640 );
     pWindow->SetCenterScreen();
+
+    pRenderer = new Renderer2D( pWindow->Handle() );
 
     tLoopUpdate.unPaddingInterval = 100;
     tLoopUpdate.unRunInterval = 100;
@@ -50,9 +69,31 @@ EngineImpl::EngineImpl(int argc, char **argv )
 }
 
 EngineImpl::~EngineImpl() {
+    IMG_Quit();
+    SDL_Quit();
+
     HG_SAFE_DEL( pUpdateThread );
     HG_SAFE_DEL( pRenderThread );
+    HG_SAFE_DEL( pRenderer );
+    HG_SAFE_DEL( pWindow );
+    HG_SAFE_DEL( Log );
 }
+
+void EngineImpl::Exit() {
+    tLoopRender.eStatus = Loop::STOP;
+    tLoopUpdate.eStatus = Loop::STOP;
+    tLoopMain.eStatus = Loop::STOP;
+}
+
+void EngineImpl::NavigateScene(const char *strSceneName) {
+    pCurrentScene = Scene::Find( strSceneName );
+    if ( pCurrentScene != nullptr ) {
+        pCurrentScene->OnAttach();
+    } else {
+        HG_LOG_FAILED(std::string("no such scene named:").append(strSceneName).c_str() );
+    }
+}
+
 
 /// =========
 /// main loop
@@ -64,7 +105,7 @@ void HGMainLoop::_RunTask() {
     SDL_Event event;
 
     while ( SDL_PollEvent( &event ) ) {
-        EngineImpl::GetCurrentScene()->Update( (void*) &event );
+        EngineImpl::GetEngine()->GetCurrentScene()->Update( (void*) &event );
     }
 }
 
@@ -104,6 +145,10 @@ static int _RenderThreadFn( void* data ) {
 }
 
 void HGRenderLoop::_RunTask() {
+    auto pRd2D =  EngineImpl::GetEngine()->GetRenderer2D();
+    pRd2D->Clear( 100, 100, 100, 255 );
+    EngineImpl::GetEngine()->GetCurrentScene()->Render( pRd2D );
+    pRd2D->Present();
 }
 
 void HGRenderLoop::_PaddingTask() {

@@ -8,10 +8,15 @@
 #include "Memory.h"
 
 namespace HGCore {
+    /// \brief do some init things
+    /// \note
+    /// this class is only a UTIL class; it does not have responsibility to release memory.
+    /// the release behavior was done in ~EngineImpl::EngineImpl()
     class Init {
         HG_MEM_NO_BINARY_COPY( Init );
     public:
         Init* SDL();
+        /// \brief init log
         Init* App();
     };
 }

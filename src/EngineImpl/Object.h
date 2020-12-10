@@ -21,15 +21,17 @@ namespace __HGImpl { namespace V1 {
 
         public:
             /// \brief all instances of this object
-            static std::unordered_map<const char*, T*> umTheseOnes;
-            static T* Find( const char* strName ) { return umTheseOnes; }
+            static std::unordered_map<std::string, T*> umTheseOnes;
+            static T* Find( const char* strName ) { return umTheseOnes.count( strName ) == 0 ? nullptr : umTheseOnes[strName]; }
 
             const un32 UID;
             const char* GetName() const { return mStrName.c_str(); }
 
             /// \brief will be invoked every
+            /// \note use auto pEvent = static_cast<SDL_Event *>( pe ); to get the event
             virtual void Update( void* pEvent ) = 0;
             virtual void Render( HGCore::Renderer *pRenderer ) = 0;
+            virtual void OnAttach() = 0;
             virtual void OnEnable() = 0;
             virtual void OnDisable() = 0;
             void Enable() { mIsEnable = true; OnEnable(); }
@@ -42,7 +44,7 @@ namespace __HGImpl { namespace V1 {
                 umTheseOnes[GetName()] = nullptr;
             }
         };
-        template<class T> std::unordered_map<const char*, T*>  Object<T>::umTheseOnes = std::unordered_map<const char*, T*>();
+        template<class T> std::unordered_map<std::string, T*>  Object<T>::umTheseOnes = std::unordered_map<std::string, T*>();
 } }
 
 #endif //HONEYGAME_OBJECT_H
