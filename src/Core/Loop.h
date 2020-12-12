@@ -14,6 +14,9 @@ namespace HGCore {
     public:
         Uint32 unPaddingInterval;
         Uint32 unRunInterval;
+        double f64CurrentElapsedTimeS;
+        double GetCurrentElpasedTimeMS() const { return f64CurrentElapsedTimeS * 1000; }
+        double GetCurrentFps() const { return 1 / f64CurrentElapsedTimeS; }
         enum LoopStatus {
             RUN,
             STOP,

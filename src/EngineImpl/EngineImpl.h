@@ -1,6 +1,5 @@
-//
-// Created by cyf-m on 2020/11/27.
-//
+/// \file EngineImpl.h
+/// \brief Engine implementation
 
 #ifndef HONEYGAME_ENGINEIMPL_H
 #define HONEYGAME_ENGINEIMPL_H
@@ -13,18 +12,26 @@
 
 namespace __HGImpl { namespace V1 {
     class Scene;
+    /// \brief main loop of engine
+    /// \details main loop is a event loop main thread
+    /// , faster is better
+    /// \sa EngineImpl::GetMainLoop()
     class HGMainLoop : public HGCore::Loop {
     public:
         void _RunTask() override;
         void _PaddingTask() override;
         void _StopTask() override;
     };
+    /// \brief update loop of engine
+    /// \sa EngineImpl::GetUpdateLoop()
     class HGUpdateLoop : public HGCore::Loop {
     public:
         void _RunTask() override;
         void _PaddingTask() override;
         void _StopTask() override;
     };
+    /// \brief render loop of engine
+    /// \sa EngineImpl::GetRenderLoop()
     class HGRenderLoop : public HGCore::Loop {
     public:
         void _RunTask() override;
@@ -52,6 +59,10 @@ namespace __HGImpl { namespace V1 {
             static void SetEngine( EngineImpl* pEngine ) { EngineImpl::pEngine = pEngine; }
 
         public:
+            const HGMainLoop& GetMainLoop() { return tLoopMain; }
+            const HGUpdateLoop& GetUpdateLoop() { return tLoopUpdate; }
+            const HGRenderLoop& GetRenderLoop() { return tLoopRender; }
+
             Scene* GetCurrentScene() { return pCurrentScene; }
             void NavigateScene(const char * strSceneName );
             static EngineImpl* GetEngine() { return pEngine; }

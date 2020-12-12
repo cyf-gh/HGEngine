@@ -18,7 +18,7 @@ class Window {
     public:
         SDL_Window* Handle() { return pWin; };
         HGResult SetCenterScreen();
-        HGResult GetSize( IN_OUT Math::HGRect* pSize );
+        HGResult GetSize( IN_OUT Math::HGSize* pSize );
 
         Window(const char *title,
                int x, int y, int w,

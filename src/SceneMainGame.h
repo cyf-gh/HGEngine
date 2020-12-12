@@ -18,6 +18,9 @@ public:
         switch ( pEvent->type ) {
             case SDL_KEYDOWN:
                 HG_LOG_INFO( SDL_GetKeyName( pEvent->key.keysym.sym ) );
+                HG_LOG_INFO( std::to_string( EngineImpl::GetEngine()->GetMainLoop().GetCurrentFps() ).append(" <- main loop fps").c_str() );
+                HG_LOG_INFO( std::to_string( EngineImpl::GetEngine()->GetRenderLoop().GetCurrentFps() ).append(" <- render loop fps").c_str() );
+                HG_LOG_INFO( std::to_string( EngineImpl::GetEngine()->GetUpdateLoop().GetCurrentFps() ).append(" <- update loop fps").c_str() );
                 break;
             case SDL_QUIT:
                 HG_LOG_INFO( "bye!!!" );

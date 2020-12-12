@@ -1,4 +1,6 @@
-/// type
+/// \brief hg type definitions
+/// \file Type.h
+/// \details recover form https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/core/Def.h
 #pragma once
 
 #include <cstdint>
@@ -25,6 +27,15 @@ typedef double			f64;
 #define IN const
 /// \brief means you must input a heap or stack allocated object
 #define IN_OUT
-
 /// \brief mention the function is used for callback
 #define CALLBACK
+
+#ifdef _MSC_VER
+#   pragma warning( disable : 4996)
+#   define ST_INLINE  __forceinline
+        /* !_MSC_VER */
+#elif defined( __GNUC__ )
+#   define ST_INLINE inline
+#endif  /* !__GNUC__ */
+
+#define HG_INLINE ST_INLINE

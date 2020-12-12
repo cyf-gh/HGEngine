@@ -15,7 +15,7 @@ namespace __HGImpl { namespace V1 {
             /// \brief create a texture via file name, after you have
             SDL_Texture *CreateTextureFromFile(const char* pStrFileName);
             std::unordered_map<std::string, SDL_Texture*> umTextures;
-            void Copy( const GameObject2D *pGameObject );
+            void Copy( const GameObject2D *pGameObject, HGCore::Math::HGRect *pSrcRect = nullptr, HGCore::Math::HGRect *pDstRect = nullptr );
             Renderer2D(
                     SDL_Window* window,
                     int index = -1,

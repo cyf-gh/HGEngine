@@ -16,7 +16,7 @@ namespace __HGImpl { namespace V1 {
 
     public:
         HGCore::Math::HGPos tPosition;
-        HGCore::Math::HGRect tRect;
+        HGCore::Math::HGSize tRect;
 
         void Update( void* pEvent ) override;
         void Render( HGCore::Renderer *pRenderer ) override;

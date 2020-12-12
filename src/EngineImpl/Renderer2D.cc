@@ -4,10 +4,12 @@
 
 #include <SDL_image.h>
 #include <string>
-#include "Renderer2D.h"
+#include "../Core/Math.h"
 #include "../Core/Log.h"
+#include "Renderer2D.h"
 
 using namespace __HGImpl::V1;
+using namespace HGCore::Math;
 
 SDL_Texture *Renderer2D::CreateTextureFromFile(const char *pStrFileName) {
     auto pImg = IMG_Load(pStrFileName );
@@ -34,6 +36,24 @@ SDL_Texture *Renderer2D::CreateTextureFromFile(const char *pStrFileName) {
     return pTex;
 }
 
-void Renderer2D::Copy(const GameObject2D *pGameObject) {
-    SDL_RenderCopy( pHandle, pGameObject->GetTexture(), nullptr, nullptr );
+void Renderer2D::Copy(const GameObject2D *pGameObject, HGRect *pSrcRect, HGRect *pDstRect ) {
+    SDL_Rect *pSrc = nullptr, *pDst = nullptr;
+
+    if ( pSrcRect != nullptr ) {
+        auto tSrc = SDL_Rect {
+            .h = pSrcRect->H,
+            .w = pSrcRect->W,
+            .x = pSrcRect->X,
+            .y = pSrcRect->Y,
+        };
+    }
+    if ( pDstRect != nullptr ) {
+        auto tDst = SDL_Rect{
+                .h = pDstRect->H,
+                .w = pDstRect->W,
+                .x = pDstRect->X,
+                .y = pDstRect->Y,
+        };
+    }
+    SDL_RenderCopy( pHandle, pGameObject->GetTexture(), pSrc, pDst );
 }

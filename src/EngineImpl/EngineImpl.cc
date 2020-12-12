@@ -57,13 +57,13 @@ EngineImpl::EngineImpl(int argc, char **argv )
     pRenderer = new Renderer2D( pWindow->Handle() );
 
     tLoopUpdate.unPaddingInterval = 100;
-    tLoopUpdate.unRunInterval = 100;
+    tLoopUpdate.unRunInterval = 50;
 
     tLoopRender.unPaddingInterval = 100;
-    tLoopRender.unRunInterval = 10;
+    tLoopRender.unRunInterval = 1;  // v-sync here, frame locked to screen fresh-rate.
 
     tLoopMain.unPaddingInterval = 100;
-    tLoopMain.unRunInterval = 1; // for high quality input
+    tLoopMain.unRunInterval = 2; // for high quality input
 
     pCurrentScene = Scene::umTheseOnes.begin()->second;
 }
