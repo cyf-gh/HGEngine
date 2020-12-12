@@ -15,9 +15,8 @@ Scene::Scene(const char *strName): Object<Scene>(strName) {
 
 Scene::~Scene() {
     HG_LOG_INFO( std::string("scene [").append(GetName()).append("] destructed").c_str() );
-    auto it = umGameObjectsByName.begin();
-    while ( it != umGameObjectsByName.end() ) {
-        HG_SAFE_DEL( it->second );
+    for(auto& it : umGameObjectsByName ) {
+        HG_SAFE_DEL( it.second );
     }
 }
 

@@ -3,6 +3,7 @@
 //
 
 #include <SDL_image.h>
+#include <SDL.h>
 #include "GameObject2D.h"
 #include "Renderer2D.h"
 #include "EngineImpl.h"
@@ -19,9 +20,11 @@ GameObject2D::GameObject2D(const char *strObjectName, const char *strFileName)
 
 GameObject2D::~GameObject2D() {
     if ( pTexture != nullptr ) {
+        auto *pEngine = EngineImpl::GetEngine();
+        if ( pEngine != nullptr ) {
+            pEngine->GetRenderer2D()->umTextures[strFileName] = nullptr;
+        }
         SDL_DestroyTexture( pTexture ) ;
-        EngineImpl::GetEngine()->GetRenderer2D()->umTextures[strFileName] = nullptr;
-        HG_SAFE_DEL( pTexture );
     }
 }
 

@@ -3,6 +3,7 @@
 /// \details recover from https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/utils/Maths.h
 #pragma once
 
+#include "Type.h"
 #include <cmath>
 
 namespace HGCore { namespace Math {

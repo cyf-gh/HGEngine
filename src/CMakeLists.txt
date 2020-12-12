@@ -2,8 +2,8 @@ cmake_minimum_required (VERSION 3.0)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG   "-O0" )
+# set(CMAKE_CXX_FLAGS "-Wall")
+# set(CMAKE_CXX_FLAGS_DEBUG   "-O0" )
 set(CMAKE_MODULE_PATH "C:/Program Files/CMake/modules")
 
 project (HoneyGame)

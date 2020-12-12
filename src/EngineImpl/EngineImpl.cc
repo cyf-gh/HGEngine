@@ -77,11 +77,16 @@ EngineImpl::~EngineImpl() {
     HG_SAFE_DEL( pRenderer );
     HG_SAFE_DEL( pWindow );
     HG_SAFE_DEL( Log );
+
+    SetEngine( nullptr );
 }
 
 void EngineImpl::Exit() {
     tLoopRender.eStatus = Loop::STOP;
     tLoopUpdate.eStatus = Loop::STOP;
+    while ( !tLoopRender.IsExit() || !tLoopUpdate.IsExit() ) {
+        SDL_Delay( 100 );
+    }
     tLoopMain.eStatus = Loop::STOP;
 }
 

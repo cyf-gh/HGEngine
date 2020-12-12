@@ -11,6 +11,8 @@ namespace HGCore {
     /// \brief loop logic which would be used by Update Thread, Main Thread, Render Thread etc.
     /// to use it, you can inherit this class and overwrite _RunTask; _PaddingTask and _StopTask method
     class Loop {
+    private:
+        bool m_IsExit;
     public:
         Uint32 unPaddingInterval;
         Uint32 unRunInterval;
@@ -37,9 +39,12 @@ namespace HGCore {
         /// \sa eStatus
         virtual void _StopTask();
 
+        /// \brief is loop exit
+        bool IsExit() const { return m_IsExit; }
+
         Loop() : eStatus( LoopStatus::RUN ){};
         Loop(Uint32 unRunInterval, Uint32 unPaddingInterval, const LoopStatus& status )
-            : unPaddingInterval(unPaddingInterval), unRunInterval( unRunInterval ), eStatus( status ) { };
+            : unPaddingInterval(unPaddingInterval), unRunInterval( unRunInterval ), eStatus( status ), m_IsExit(false) { };
         virtual ~Loop() = default;
     };
 

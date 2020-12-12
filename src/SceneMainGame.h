@@ -43,6 +43,7 @@ public:
     explicit SceneMainGame( const char* strName ) : Scene( strName ) {
 
     }
+    virtual ~SceneMainGame() = default;
 };
 
 

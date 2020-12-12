@@ -33,7 +33,11 @@ Thread::Thread(SDL_ThreadFunction pf, const char *strThreadName, void *pData, bo
 }
 
 Thread::~Thread() {
+    int nReturnValue = 0;
+    SDL_WaitThread( pHandle, &nReturnValue );
+    HG_LOG_INFO(std::string( GetName() ).append( " <- return with value: ").append( to_string( nReturnValue ) ).c_str() );
     Threads[GetName()] = nullptr;
+    HG_LOG_INFO(std::string( GetName() ).append( " <- thread destructed").c_str() );
 }
 
 const char *Thread::GetName() {

@@ -23,7 +23,7 @@ namespace HGCore {
         /// \sa Thread::~Thread()
         static std::unordered_map<const char*, Thread*> Threads;
         /// \brief set current thread priority
-        static HGResult SetPriority(SDL_ThreadPriority priority);
+        static HGResult SetPriority( SDL_ThreadPriority priority );
 
     public:
         SDL_Thread *pHandle;

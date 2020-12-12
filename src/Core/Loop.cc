@@ -36,7 +36,8 @@ void Loop::Run() {
         unCurrentElapsedTimeMS = ( un64End - un64Start ) / SDL_GetPerformanceFrequency();
     }
     THREAD_EXIT:
-    Log->Info(SDL_LOG_CATEGORY_SYSTEM, "Thread exit");
+    m_IsExit = true;
+    Log->Info(SDL_LOG_CATEGORY_SYSTEM, "loop exit");
 }
 
 void Loop::_RunTask() {

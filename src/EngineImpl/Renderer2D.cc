@@ -41,18 +41,18 @@ void Renderer2D::Copy(const GameObject2D *pGameObject, HGRect *pSrcRect, HGRect 
 
     if ( pSrcRect != nullptr ) {
         auto tSrc = SDL_Rect {
-            .h = pSrcRect->H,
-            .w = pSrcRect->W,
             .x = pSrcRect->X,
             .y = pSrcRect->Y,
+            .w = static_cast<int>(pSrcRect->W),
+            .h = static_cast<int>(pSrcRect->H),
         };
     }
     if ( pDstRect != nullptr ) {
         auto tDst = SDL_Rect{
-                .h = pDstRect->H,
-                .w = pDstRect->W,
                 .x = pDstRect->X,
                 .y = pDstRect->Y,
+                .w = static_cast<int>(pDstRect->W),
+                .h = static_cast<int>(pDstRect->H),
         };
     }
     SDL_RenderCopy( pHandle, pGameObject->GetTexture(), pSrc, pDst );

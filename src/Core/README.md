@@ -2,6 +2,7 @@
 HoneyGame core components which include:
 * SDL wrapper
 * HGCore type, conversation, error definitions 
+* Code recover of stLib
 
 ## TODO list
 ### done
@@ -10,14 +11,16 @@ HoneyGame core components which include:
 * create hg log component
 * dump log to file
 
-### in process
+
 * write thread component
 #### functional
 * complete window component
 #### code
 * change namespace to HGCore instead of HGCore
+
+### in process
 ### future todo
 #### functional
-* support fullscreen
+* support fullscreen( this needs a screen render and a game render)
 #### test
 * add test( maybe gtest )
