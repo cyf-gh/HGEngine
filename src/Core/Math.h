@@ -95,7 +95,7 @@ namespace HGCore { namespace Math {
 
     struct HGRect {
         n32 X, Y;
-        un32 H, W ;
+        un32 H, W;
 
         HG_INLINE n32 Left() const { return X; }
         HG_INLINE n32 Right() const { return X + W; }

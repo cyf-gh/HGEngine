@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="..\src\CMakeLists.txt" />
+    <Text Include="..\src\EngineImpl\CMakeLists.txt" />
+    <Text Include="..\src\Core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Main.cc" />
+    <ClCompile Include="..\src\EngineImpl\Camera.cc" />
+    <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
+    <ClCompile Include="..\src\EngineImpl\EventProc.cc" />
+    <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
+    <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\Object.cc" />
+    <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\Scene.cc" />
+    <ClCompile Include="..\src\Core\Init.cc" />
+    <ClCompile Include="..\src\Core\Loop.cc" />
+    <ClCompile Include="..\src\Core\Random.cc" />
+    <ClCompile Include="..\src\Core\Renderer.cc" />
+    <ClCompile Include="..\src\Core\Screen.cc" />
+    <ClCompile Include="..\src\Core\Thread.cc" />
+    <ClCompile Include="..\src\Core\Window.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\SceneMainGame.h" />
+    <ClInclude Include="..\src\EngineImpl\Camera.h" />
+    <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
+    <ClInclude Include="..\src\EngineImpl\Event.h" />
+    <ClInclude Include="..\src\EngineImpl\EventProc.h" />
+    <ClInclude Include="..\src\EngineImpl\GameObject.h" />
+    <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
+    <ClInclude Include="..\src\EngineImpl\Object.h" />
+    <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
+    <ClInclude Include="..\src\EngineImpl\Scene.h" />
+    <ClInclude Include="..\src\Engine\HG.h" />
+    <ClInclude Include="..\src\Core\Error.h" />
+    <ClInclude Include="..\src\Core\Init.h" />
+    <ClInclude Include="..\src\Core\Log.h" />
+    <ClInclude Include="..\src\Core\Loop.h" />
+    <ClInclude Include="..\src\Core\Math.h" />
+    <ClInclude Include="..\src\Core\Memory.h" />
+    <ClInclude Include="..\src\Core\Random.h" />
+    <ClInclude Include="..\src\Core\Renderer.h" />
+    <ClInclude Include="..\src\Core\Screen.h" />
+    <ClInclude Include="..\src\Core\Thread.h" />
+    <ClInclude Include="..\src\Core\Type.h" />
+    <ClInclude Include="..\src\Core\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\Core\README.md" />
+  </ItemGroup>
+</Project>

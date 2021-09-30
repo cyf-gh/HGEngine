@@ -1,9 +1,26 @@
 #include "EngineImpl/EngineImpl.h"
 #include "SceneMainGame.h"
 #include <string>
+#undef main
 
+#define __HG_TEST__
+/*
+*/
 using namespace __HGImpl::V1;
 
+#ifdef __HG_TEST__
+
+int main() {
+    HGCore::Math::HGRect rect {
+        .X = 0,
+        .Y = 0,
+        .H = 600,
+        .W = 800
+    };
+    
+}
+
+#else
 int main( int argc, char **argv ) {
     // scenes -> engine -> game objects
     auto *pScene = new SceneMainGame("SceneMainGame");
@@ -21,5 +38,4 @@ int main( int argc, char **argv ) {
     HG_SAFE_DEL( tEngine );
     return 0;
 }
-
-
+#endif

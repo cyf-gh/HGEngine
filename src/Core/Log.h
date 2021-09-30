@@ -11,11 +11,11 @@
 namespace HGCore {
     class HGLog {
     private:
-        const char *getErrorDesc( const char * strFuncName ) {
+        const std::string getErrorDesc( const char * strFuncName ) {
             std::string desc( strFuncName );
             desc += " failed: %s";
             desc += SDL_GetError();
-            return desc.c_str();
+            return desc;
         }
         inline const char *getDateStr() {
             time_t now = time(nullptr );
@@ -62,12 +62,20 @@ namespace HGCore {
             std::cout << category  << "\t[" << getTimeStr() << "]" << "("<< sdlCategory << ")\t" << message << std::endl;
         }
         void FailedSDL(const int sdlCategory, const char* strFuncName ) {
-            Log2File( sdlCategory, getErrorDesc( strFuncName ), "FAILED SDL" );
-            Log2Console( sdlCategory, getErrorDesc( strFuncName ), "FAILED SDL" );
+            Log2File( sdlCategory, getErrorDesc( strFuncName ).c_str(), "FAILED SDL" );
+            Log2Console( sdlCategory, getErrorDesc( strFuncName ).c_str(), "FAILED SDL" );
         }
         void Failed( const int sdlCategory, const char* message ) {
             Log2File( sdlCategory, message, "FAILED" );
             Log2Console( sdlCategory, message, "FAILED" );
+        }
+        void AssertFailed( const int sdlCategory, const char* message ) {
+            Log2File( sdlCategory, message, "ASSERT FAILED" );
+            Log2Console( sdlCategory, message, "ASSERT FAILED" );
+        }
+        void AssertSuccess( const int sdlCategory, const char* message ) {
+            Log2File( sdlCategory, message, "ASSERT SUCCESS" );
+            Log2Console( sdlCategory, message, "ASSERT SUCCESS" );
         }
         void Fault( const int sdlCategory, const char* message ) {
             Log2File( sdlCategory, message, "FAULT" );
@@ -123,3 +131,11 @@ HGCore::Log->Failed( SDL_LOG_CATEGORY_SYSTEM, info )
 
 #define HG_LOG_SUCCESS( info ) \
 HGCore::Log->Success( SDL_LOG_CATEGORY_SYSTEM, info )
+
+/// \brief log failed info
+#define HG_LOG_TEST_ASSERT_SUCCESS( info ) \
+HGCore::Log->AssertSuccess( SDL_LOG_CATEGORY_SYSTEM, info )
+
+/// \brief log failed info
+#define HG_LOG_TEST_ASSERT_FAILED( info ) \
+HGCore::Log->AssertFailed( SDL_LOG_CATEGORY_SYSTEM, info )

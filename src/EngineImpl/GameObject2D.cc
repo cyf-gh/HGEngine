@@ -22,7 +22,7 @@ GameObject2D::~GameObject2D() {
     if ( pTexture != nullptr ) {
         auto *pEngine = EngineImpl::GetEngine();
         if ( pEngine != nullptr ) {
-            pEngine->GetRenderer2D()->umTextures[strFileName] = nullptr;
+            pEngine->GetRenderer2D()->m_umTextures[strFileName] = nullptr;
         }
         SDL_DestroyTexture( pTexture ) ;
     }

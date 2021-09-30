@@ -19,7 +19,7 @@ namespace HGCore {
         double f64CurrentElapsedTimeS;
         double GetCurrentElpasedTimeMS() const { return f64CurrentElapsedTimeS * 1000; }
         double GetCurrentFps() const { return 1 / f64CurrentElapsedTimeS; }
-        enum LoopStatus {
+        enum class LoopStatus {
             RUN,
             STOP,
             PADDING
@@ -42,9 +42,8 @@ namespace HGCore {
         /// \brief is loop exit
         bool IsExit() const { return m_IsExit; }
 
-        Loop() : eStatus( LoopStatus::RUN ){};
         Loop(Uint32 unRunInterval, Uint32 unPaddingInterval, const LoopStatus& status )
-            : unPaddingInterval(unPaddingInterval), unRunInterval( unRunInterval ), eStatus( status ), m_IsExit(false) { };
+            : unPaddingInterval(unPaddingInterval), unRunInterval( unRunInterval ), eStatus( status ), f64CurrentElapsedTimeS( 0 ), m_IsExit(false) { };
         virtual ~Loop() = default;
     };
 
