@@ -10,8 +10,7 @@ using namespace HGCore;
 void Loop::Run() {
     Uint64 un64Start = 0;
     Uint64 un64End = 0;
-    f64CurrentElapsedTimeS = 0;
-    un32 unCurrentElapsedTimeMS = 0;
+    unCurrentElapsedTimeMS = 0;
     while( true ) {
         un64Start = SDL_GetPerformanceCounter();
         switch ( eStatus ) {
@@ -32,8 +31,8 @@ void Loop::Run() {
         }
         un64End = SDL_GetPerformanceCounter();
         /// todo: asm
-        f64CurrentElapsedTimeS = static_cast<double>( un64End - un64Start ) / static_cast<double>(SDL_GetPerformanceFrequency());
-        unCurrentElapsedTimeMS = ( un64End - un64Start ) / SDL_GetPerformanceFrequency();
+        f32CurrentElapsedTimeS = (un64End - un64Start) / (float)SDL_GetPerformanceFrequency();
+        // f64CurrentElapsedTimeS = static_cast<double>( unCurrentElapsedTimeMS ) / static_cast<double>( SDL_GetPerformanceFrequency() ) / 1000;
     }
     THREAD_EXIT:
     m_IsExit = true;

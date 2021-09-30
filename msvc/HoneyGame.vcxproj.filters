@@ -47,6 +47,9 @@
     <ClInclude Include="..\src\Core\Thread.h" />
     <ClInclude Include="..\src\Core\Type.h" />
     <ClInclude Include="..\src\Core\Window.h" />
+    <ClInclude Include="..\src\Core\Test.hpp" />
+    <ClInclude Include="..\src\Core\Directory.hpp" />
+    <ClInclude Include="..\src\EngineImpl\Font.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

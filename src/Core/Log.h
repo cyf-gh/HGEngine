@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Memory.h"
 #include "Error.h"
+#include "Directory.hpp"
 
 namespace HGCore {
     class HGLog {
@@ -36,12 +37,14 @@ namespace HGCore {
         /// \note rather ./Log/ than ./Log
         explicit HGLog( const char* strLogFilePath = "./Log/")
             :ptm( nullptr ), strTime( new char[9] ), strDate( new char[11] ) {
+            HGCore::HGDirectory::CreateDirectoryIfDoesNotExsit( strLogFilePath );
+            
             std::string strLogFile( strLogFilePath );
             strLogFile.append( getDateStr() ).append(".txt" );
             tOfs.open( strLogFile.c_str(), std::ofstream::out | std::ofstream::app );
             if ( !tOfs.is_open() ) {
                 std::cerr << "failed to open file: " << HG_ERR_SYS_ERROR() << std::endl;
-                std::cerr<<"log component may do not work";
+                std::cerr<<" log component may do not work";
             }
         };
         ~HGLog() {

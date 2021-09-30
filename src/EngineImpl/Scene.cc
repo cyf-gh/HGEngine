@@ -9,7 +9,7 @@
 using namespace __HGImpl::V1;
 using namespace HGCore;
 
-Scene::Scene(const char *strName): Object<Scene>(strName) {
+Scene::Scene(const char *strName): GameObject(strName, nullptr, true) {
     HG_LOG_INFO( std::string("scene [").append(GetName()).append("] constructed").c_str() );
 }
 
@@ -35,7 +35,7 @@ GameObject *Scene::FindGameObject(const char *strName) {
 }
 
 void Scene::renderAllGameObjects( HGCore::Renderer* pRd ) {
-    for(auto& it : umGameObjectsByName ) {
+    for( auto& it : umGameObjectsByName ) {
         if ( it.second->IsEnable() ) {
             it.second->Render( pRd );
         }

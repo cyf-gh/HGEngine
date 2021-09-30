@@ -72,9 +72,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -96,7 +96,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -167,6 +167,7 @@
     <ClCompile Include="..\src\Main.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Core\Directory.hpp" />
     <ClInclude Include="..\src\Core\Error.h" />
     <ClInclude Include="..\src\Core\Init.h" />
     <ClInclude Include="..\src\Core\Log.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="..\src\Core\Random.h" />
     <ClInclude Include="..\src\Core\Renderer.h" />
     <ClInclude Include="..\src\Core\Screen.h" />
+    <ClInclude Include="..\src\Core\Test.hpp" />
     <ClInclude Include="..\src\Core\Thread.h" />
     <ClInclude Include="..\src\Core\Type.h" />
     <ClInclude Include="..\src\Core\Window.h" />
@@ -183,6 +185,7 @@
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
     <ClInclude Include="..\src\EngineImpl\Event.h" />
     <ClInclude Include="..\src\EngineImpl\EventProc.h" />
+    <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
     <ClInclude Include="..\src\EngineImpl\Object.h" />

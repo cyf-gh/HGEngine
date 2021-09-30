@@ -1,3 +1,4 @@
+#pragma once
 #include "./Log.h"
 
 namespace HGCore {
@@ -12,9 +13,10 @@ public:
 			HG_LOG_TEST_ASSERT_SUCCESS( info );
 		}
 	}
-	HGTest( const char* strName ):Name( strName ) { }
+	HGTest( const char* strName ) : Name( strName ) { 
+		HG_LOG_INFO( ( "[TEST]\t" + std::string( strName ) ).c_str() );
+	}
 	~HGTest() {}
-
 private:
 
 };
@@ -22,7 +24,10 @@ private:
 }
 
 #define HG_TEST_START( TEST_NAME ) \
-	HGCore::Test::HGTest t( TEST_NAME ) \
+	static HGCore::Test::HGTest tTest( TEST_NAME )
 
-#define HG_TEST_ASSERT_TRUE( isTrue ) 
+#define HG_TEST_ASSERT_TRUE( EXPRESSION, INFO ) \
+	tTest.Assert( ( EXPRESSION ), INFO );
 	
+#define HG_TEST_ASSERT_FALSE( EXPRESSION, INFO ) \
+	tTest.Assert( !( EXPRESSION ), INFO );
