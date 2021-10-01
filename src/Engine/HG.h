@@ -5,8 +5,9 @@
 #ifndef HONEYGAME_HG_H
 #define HONEYGAME_HG_H
 
-namespace HG { namespace V1 {
-    class Engine {
+namespace HG { namespace V1SDL {
+    class IEngine {
+    public:
         /// \brief this is main thread of game; this is a Read-Write thread
         /// \note process for user input.
         virtual int Run() = 0;

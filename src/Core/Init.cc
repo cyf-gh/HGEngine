@@ -7,9 +7,9 @@
 #include "Init.h"
 #include "Log.h"
 
-using namespace HGCore;
+using namespace __HGImpl;
 
-Init* HGCore::Init::SDL() {
+Init* __HGImpl::Init::SDL() {
     if ( SDL_Init(SDL_INIT_EVERYTHING ) == -1 ){
         Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init");
     } else {

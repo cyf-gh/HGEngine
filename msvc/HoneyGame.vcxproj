@@ -161,7 +161,6 @@
     <ClCompile Include="..\src\EngineImpl\EventProc.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
-    <ClCompile Include="..\src\EngineImpl\Object.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Scene.cc" />
     <ClCompile Include="..\src\Main.cc" />
@@ -183,16 +182,18 @@
     <ClInclude Include="..\src\Core\Window.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
-    <ClInclude Include="..\src\EngineImpl\Event.h" />
     <ClInclude Include="..\src\EngineImpl\EventProc.h" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
-    <ClInclude Include="..\src\EngineImpl\Object.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
     <ClInclude Include="..\src\EngineImpl\Scene.h" />
     <ClInclude Include="..\src\Engine\HG.h" />
-    <ClInclude Include="..\src\SceneMainGame.h" />
+    <ClInclude Include="..\src\Engine\HGBehaviour.h" />
+    <ClInclude Include="..\src\Engine\HGComponent.h" />
+    <ClInclude Include="..\src\Engine\HGEvent.h" />
+    <ClInclude Include="..\src\Engine\HGObject.h" />
+    <ClInclude Include="..\src\Engine\HGRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

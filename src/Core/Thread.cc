@@ -7,49 +7,42 @@
 #include "Log.h"
 
 using namespace std;
-using namespace HGCore;
+using namespace __HGImpl;
 
 std::unordered_map<const char*, Thread*> Thread::Threads = {};
 
-Thread::Thread(SDL_ThreadFunction pf, const char *strThreadName, void *pData, bool isAwait )
-    : IsAwait( isAwait ) {
-    pHandle = SDL_CreateThread( pf, strThreadName, pData );
-    HG_LOG_CHECK_SDL_HANDLE_IS_NULL( pHandle, SDL_LOG_CATEGORY_SYSTEM, "Thread::Thread" );
+Thread::Thread( SDL_ThreadFunction pf, const char* strThreadName, void* pData, bool isAwait )
+	: IsAwait( isAwait ), strName( strThreadName ) {
+	pHandle = SDL_CreateThread( pf, strThreadName, pData );
+	HG_LOG_CHECK_SDL_HANDLE_IS_NULL( pHandle, SDL_LOG_CATEGORY_SYSTEM, "Thread::Thread" );
 
-    string strLogInfo;
-    strLogInfo.append( strThreadName ).append( " start running with mode: ").append(isAwait ? "AWAIT" : "ASYNC" );
-    Log->Info( SDL_LOG_CATEGORY_SYSTEM, strLogInfo.c_str() );
+	string strLogInfo;
+	strLogInfo.append( strThreadName ).append( " start running with mode: " ).append( isAwait ? "AWAIT" : "ASYNC" );
+	Log->Info( SDL_LOG_CATEGORY_SYSTEM, strLogInfo.c_str() );
 
-    if ( isAwait ) {
-        int status = 0;
-        SDL_WaitThread( pHandle, &status );
-        string strLogInfoFinished = strThreadName;
-        strLogInfoFinished.append(" finished with code: ").append( to_string(status) );
-        Log->Info( SDL_LOG_CATEGORY_SYSTEM, strLogInfoFinished.c_str() );
-    } else {
-        Threads[GetName()] = this;
-        SDL_DetachThread( pHandle );
-    }
+	if( isAwait ) {
+		int status = 0;
+		SDL_WaitThread( pHandle, &status );
+		string strLogInfoFinished = strThreadName;
+		strLogInfoFinished.append( " finished with code: " ).append( to_string( status ) );
+		Log->Info( SDL_LOG_CATEGORY_SYSTEM, strLogInfoFinished.c_str() );
+	} else {
+		Threads[GetName()] = this;
+		SDL_DetachThread( pHandle );
+	}
 }
 
 Thread::~Thread() {
-    int nReturnValue = 0;
-    SDL_WaitThread( pHandle, &nReturnValue );
-    HG_LOG_INFO(std::string( GetName() ).append( " <- return with value: ").append( to_string( nReturnValue ) ).c_str() );
-    Threads[GetName()] = nullptr;
-    HG_LOG_INFO(std::string( GetName() ).append( " <- thread destructed").c_str() );
+	Threads[GetName()] = nullptr;
+	HG_LOG_INFO( std::string( GetName() ).append( " <- thread destructed" ).c_str() );
 }
 
-const char *Thread::GetName() {
-    return SDL_GetThreadName( pHandle );
-}
-
-HGResult Thread::SetPriority(SDL_ThreadPriority priority) {
-    if ( 0 == SDL_SetThreadPriority( priority ) ) {
-        HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY_SYSTEM, "Thread::SetPriority" );
-        return HG_ERR_THREAD;
-    } else {
-        return HG_ERR_OK;
-    }
+HGResult Thread::SetPriority( SDL_ThreadPriority priority ) {
+	if( 0 == SDL_SetThreadPriority( priority ) ) {
+		HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY_SYSTEM, "Thread::SetPriority" );
+		return HG_ERR_THREAD;
+	} else {
+		return HG_ERR_OK;
+	}
 }
 

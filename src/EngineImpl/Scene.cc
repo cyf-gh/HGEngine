@@ -6,18 +6,20 @@
 #include "GameObject.h"
 #include "../Core/Log.h"
 
-using namespace __HGImpl::V1;
-using namespace HGCore;
+using namespace __HGImpl::V1SDL;
+using namespace __HGImpl;
 
-Scene::Scene(const char *strName): GameObject(strName, nullptr, true) {
+using namespace HG::V1SDL;
+
+Scene::Scene(const char *strName): HGObject<Scene>(strName) {
     HG_LOG_INFO( std::string("scene [").append(GetName()).append("] constructed").c_str() );
 }
 
 Scene::~Scene() {
-    HG_LOG_INFO( std::string("scene [").append(GetName()).append("] destructed").c_str() );
     for(auto& it : umGameObjectsByName ) {
         HG_SAFE_DEL( it.second );
     }
+    HG_LOG_INFO( std::string("scene [").append(GetName()).append("] destructed").c_str() );
 }
 
 void Scene::AttachGameObject( GameObject *pGameObject ) {
@@ -34,7 +36,17 @@ GameObject *Scene::FindGameObject(const char *strName) {
     return umGameObjectsByName.count( strName ) == 0 ? nullptr : umGameObjectsByName[strName];
 }
 
-void Scene::renderAllGameObjects( HGCore::Renderer* pRd ) {
+void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
+    HG_EVENT_CALL( OnUpdate, pEvent );
+    updateAllGameObjects( pEvent );
+}
+
+void __HGImpl::V1SDL::Scene::Render( void* pRenderer ) {
+    HG_EVENT_CALL( OnRender, pRenderer );
+    renderAllGameObjects( static_cast< Renderer* >( pRenderer ) );
+}
+
+void Scene::renderAllGameObjects( __HGImpl::Renderer* pRd ) {
     for( auto& it : umGameObjectsByName ) {
         if ( it.second->IsEnable() ) {
             it.second->Render( pRd );

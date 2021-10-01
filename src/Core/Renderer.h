@@ -8,10 +8,10 @@
 #include <SDL_render.h>
 #include "Memory.h"
 
-namespace HGCore {
+namespace __HGImpl {
 
 class Renderer {
-    HG_MEM_NO_BINARY_COPY(Renderer );
+    HG_MEM_NO_BINARY_COPY( Renderer );
 private:
 public:
     SDL_Renderer *pHandle = nullptr;

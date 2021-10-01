@@ -1,6 +1,6 @@
 #include <filesystem>
 
-namespace HGCore {
+namespace __HGImpl {
 class HGDirectory {
 public:
 	/// \brief 路径不存在时进行创建

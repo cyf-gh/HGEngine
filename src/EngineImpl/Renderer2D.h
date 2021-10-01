@@ -10,8 +10,8 @@
 #include <unordered_map>
 
 namespace __HGImpl {
-namespace V1 {
-class Renderer2D : public HGCore::Renderer {
+namespace V1SDL {
+class Renderer2D : public __HGImpl::Renderer {
 public:
 	/// \brief create a texture via file name, after you have
 	SDL_Texture* CreateTextureFromFile( const char* pStrFileName );

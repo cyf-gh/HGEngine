@@ -8,15 +8,16 @@
 #include "../Core/Math.h"
 #include "GameObject.h"
 #include "Font.hpp"
+#include "../Engine/HGComponent.h"
 
 namespace __HGImpl {
-namespace V1 {
+namespace V1SDL {
 
 /// \brief 形状，包含位置与大小信息 （figure, which contains position and size infomation）
-class Figure {
+class Figure : public HG::V1SDL::HGComponent {
 public:
-	HGCore::Math::HGPos tPosition;
-	HGCore::Math::HGSize tRect;
+	__HGImpl::Math::HGPos tPosition;
+	__HGImpl::Math::HGSize tRect;
 	SDL_Rect ToSDLRect() {
 		return SDL_Rect {
 			.x = tPosition.X,
@@ -31,15 +32,15 @@ public:
 		tRect.H = 0;
 		tRect.W = 0;
 	}
-	Figure() {
+	Figure( const char* strName ) : HG::V1SDL::HGComponent( strName ) {
 		Zero();
 	}
 	bool IsZero() const {
-		return 		
-		tPosition.X == 0 &&
-		tPosition.Y == 0 &&
-		tRect.H == 0 &&
-		tRect.W == 0;
+		return
+			tPosition.X == 0 &&
+			tPosition.Y == 0 &&
+			tRect.H == 0 &&
+			tRect.W == 0;
 	}
 };
 
@@ -49,14 +50,8 @@ protected:
 	const std::string strFileName;
 
 public:
-	Figure tDestFigure;
-	Figure tSrcFigure;
-	
 	void Update( void* pEvent ) override;
-	void Render( HGCore::Renderer* pRenderer ) override;
-	void OnAttach() override;
-	void OnEnable() override;
-	void OnDisable() override;
+	void Render( void* pRenderer ) override;
 	SDL_Texture* GetTexture() const { return m_pTexture; }
 	explicit GameObject2D( const char* strObjectName = "", const char* strFileName = "" );
 	virtual ~GameObject2D();
@@ -65,13 +60,13 @@ public:
 class GameObjectText : public GameObject2D {
 private:
 	SDL_Surface* m_pText;
-	Font *m_pFont;
+	Font* m_pFont;
 public:
 	std::string Text;
 	SDL_Color tColor;
 
 	void Update( void* pEvent ) override;
-	void Render( HGCore::Renderer* pRenderer ) override;
+	void Render( void* pRenderer ) override;
 	explicit GameObjectText( const char* strObjectName, Font* pFont, const char* text = "" );
 	virtual ~GameObjectText();
 };

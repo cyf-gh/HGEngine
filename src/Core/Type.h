@@ -1,11 +1,11 @@
-/// \brief hg type definitions
+/// \brief HG 类型定义 （hg type definitions）
 /// \file Type.h
 /// \details recover form https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/core/Def.h
 #pragma once
 
 #include <cstdint>
 
-namespace HGCore {
+namespace __HGImpl {
     typedef int HGResult;
 }
 
@@ -32,6 +32,7 @@ typedef double			f64;
 
 #ifdef _MSC_VER
 #   pragma warning( disable : 4996)
+#   pragma warning( disable : 4114)
 #   define ST_INLINE  __forceinline
         /* !_MSC_VER */
 #elif defined( __GNUC__ )

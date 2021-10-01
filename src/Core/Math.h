@@ -6,7 +6,7 @@
 #include "Type.h"
 #include <cmath>
 
-namespace HGCore { namespace Math {
+namespace __HGImpl { namespace Math {
 
     static const f32 ST_PI = 3.141592654f;
 

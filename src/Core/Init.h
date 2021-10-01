@@ -7,7 +7,7 @@
 
 #include "Memory.h"
 
-namespace HGCore {
+namespace __HGImpl {
     /// \brief do some init things
     /// \note
     /// this class is only a UTIL class; it does not have responsibility to release memory.

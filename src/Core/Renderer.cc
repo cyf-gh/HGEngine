@@ -4,7 +4,7 @@
 
 #include "Renderer.h"
 #include "Log.h"
-using namespace HGCore;
+using namespace __HGImpl;
 
 Renderer::Renderer( SDL_Window * window, int index, Uint32 flags ) {
     this->pHandle = SDL_CreateRenderer( window, index, flags );

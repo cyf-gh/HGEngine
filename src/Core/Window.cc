@@ -7,8 +7,8 @@
 #include "Math.h"
 #include "Log.h"
 
-using namespace HGCore;
-using namespace HGCore::Math;
+using namespace __HGImpl;
+using namespace __HGImpl::Math;
 
 Window::Window(
         const char *title,

@@ -1,7 +1,7 @@
 #pragma once
 #include "./Log.h"
 
-namespace HGCore {
+namespace __HGImpl {
 namespace Test {
 class HGTest {
 public:
@@ -24,7 +24,7 @@ private:
 }
 
 #define HG_TEST_START( TEST_NAME ) \
-	static HGCore::Test::HGTest tTest( TEST_NAME )
+	static __HGImpl::Test::HGTest tTest( TEST_NAME )
 
 #define HG_TEST_ASSERT_TRUE( EXPRESSION, INFO ) \
 	tTest.Assert( ( EXPRESSION ), INFO );

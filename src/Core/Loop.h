@@ -7,7 +7,7 @@
 
 #include <SDL.h>
 
-namespace HGCore {
+namespace __HGImpl {
     /// \brief loop logic which would be used by Update Thread, Main Thread, Render Thread etc.
     /// to use it, you can inherit this class and overwrite _RunTask; _PaddingTask and _StopTask method
     class Loop {

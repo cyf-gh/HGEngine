@@ -7,7 +7,7 @@
 
 #include "Type.h"
 
-namespace HGCore {
+namespace __HGImpl {
     class Random {
     public:
         virtual un32 GetRandUInt() = 0;

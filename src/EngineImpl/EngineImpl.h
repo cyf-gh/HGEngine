@@ -10,13 +10,13 @@
 #include "../Core/Thread.h"
 #include "Renderer2D.h"
 
-namespace __HGImpl { namespace V1 {
+namespace __HGImpl { namespace V1SDL {
     class Scene;
     /// \brief main loop of engine
     /// \details main loop is a event loop main thread
     /// , faster is better
     /// \sa EngineImpl::GetMainLoop()
-    class HGMainLoop : public HGCore::Loop {
+    class HGMainLoop : public __HGImpl::Loop {
     public:
         void _RunTask() override;
         void _PaddingTask() override;
@@ -24,7 +24,7 @@ namespace __HGImpl { namespace V1 {
     };
     /// \brief update loop of engine
     /// \sa EngineImpl::GetUpdateLoop()
-    class HGUpdateLoop : public HGCore::Loop {
+    class HGUpdateLoop : public __HGImpl::Loop {
     public:
         void _RunTask() override;
         void _PaddingTask() override;
@@ -32,7 +32,7 @@ namespace __HGImpl { namespace V1 {
     };
     /// \brief render loop of engine
     /// \sa EngineImpl::GetRenderLoop()
-    class HGRenderLoop : public HGCore::Loop {
+    class HGRenderLoop : public __HGImpl::Loop {
     public:
         void _RunTask() override;
         void _PaddingTask() override;
@@ -42,16 +42,16 @@ namespace __HGImpl { namespace V1 {
     /// \brief the engine of HG
     /// \note the initialization order of Scenes, GameObjects, Engine Should be
     /// Scenes -> Engine -> GameObjects
-    class EngineImpl : public HG::V1::Engine {
+    class EngineImpl : public HG::V1SDL::IEngine {
         private:
             HGMainLoop tLoopMain;
             HGUpdateLoop tLoopUpdate;
             HGRenderLoop tLoopRender;
 
-            HGCore::Thread *pUpdateThread{};
-            HGCore::Thread *pRenderThread{};
+            __HGImpl::Thread *pUpdateThread{};
+            __HGImpl::Thread *pRenderThread{};
 
-            HGCore::Window *pWindow;
+            __HGImpl::Window *pWindow;
 
             Renderer2D *pRenderer;
 
@@ -68,14 +68,14 @@ namespace __HGImpl { namespace V1 {
             static EngineImpl* GetEngine() { return pEngine; }
             static EngineImpl* pEngine;
 
-            HGCore::Window * GetWindow() const { return pWindow; }
+            __HGImpl::Window * GetWindow() const { return pWindow; }
             Renderer2D * GetRenderer2D() const { return pRenderer; }
 
             void Exit();
 
             int Run() override;
 
-            EngineImpl(int argc, char **argv );
+            explicit EngineImpl(int argc, char **argv );
             virtual ~EngineImpl();
     };
 

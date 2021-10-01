@@ -8,7 +8,7 @@
 #include "Error.h"
 #include "Screen.h"
 #include "Memory.h"
-namespace HGCore {
+namespace __HGImpl {
 
 class Window {
         HG_MEM_NO_BINARY_COPY( Window );

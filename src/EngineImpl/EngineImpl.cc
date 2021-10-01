@@ -16,8 +16,8 @@
 #include "EventProc.h"
 #include "GameObject.h"
 
-using namespace __HGImpl::V1;
-using namespace HGCore;
+using namespace __HGImpl::V1SDL;
+using namespace __HGImpl;
 static int _UpdateThreadFn( void* data );
 static int _RenderThreadFn( void* data );
 
@@ -89,9 +89,8 @@ EngineImpl::~EngineImpl() {
 	HG_SAFE_DEL( pRenderThread );
 	HG_SAFE_DEL( pRenderer );
 	HG_SAFE_DEL( pWindow );
-	HG_SAFE_DEL( Log );
-
-	SetEngine( nullptr );
+	
+	EngineImpl::pEngine = nullptr;
 }
 
 void EngineImpl::Exit() {
@@ -106,7 +105,7 @@ void EngineImpl::Exit() {
 void EngineImpl::NavigateScene( const char* strSceneName ) {
 	pCurrentScene = static_cast<Scene*>( Scene::Find( strSceneName ) );
 	if( pCurrentScene != nullptr ) {
-		pCurrentScene->OnAttach();
+		HG_EVENT_CALL_NO_DATA( pCurrentScene->OnAttach );
 	} else {
 		HG_LOG_FAILED( std::string( "no such scene named:" ).append( strSceneName ).c_str() );
 	}
@@ -143,7 +142,7 @@ static int _UpdateThreadFn( void* data ) {
 }
 
 void HGUpdateLoop::_RunTask() { 
-
+	// EngineImpl::GetEngine()->GetCurrentScene()->Update();
 }
 
 void HGUpdateLoop::_PaddingTask() { }

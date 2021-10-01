@@ -5,7 +5,7 @@
 #include <cmath>
 #include "Loop.h"
 #include "Log.h"
-using namespace HGCore;
+using namespace __HGImpl;
 
 void Loop::Run() {
     Uint64 un64Start = 0;

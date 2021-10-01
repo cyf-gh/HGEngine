@@ -5,8 +5,8 @@
 #include "Screen.h"
 #include "Log.h"
 
-using namespace HGCore;
-using namespace HGCore::Math;
+using namespace __HGImpl;
+using namespace __HGImpl::Math;
 
 HGResult Screen::GetCenterPos(int w, int h, HGPos *pCenterPos, int displayIndex) {
     SDL_DisplayMode dm;

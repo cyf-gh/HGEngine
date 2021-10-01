@@ -7,10 +7,11 @@
 #include "EngineImpl.h"
 #include "Scene.h"
 
-using namespace __HGImpl::V1;
-using namespace HGCore;
+using namespace __HGImpl::V1SDL;
+using namespace __HGImpl;
 
-GameObject::GameObject( const char* strName, Scene* pScene, bool IsScene ) : Object<GameObject>( strName ), m_pScene( pScene ) {
+GameObject::GameObject( const char* strName, Scene* pScene, bool IsScene ) 
+: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents() {
     if ( m_pScene == nullptr && !IsScene ) {
         m_pScene = EngineImpl::GetEngine()->GetCurrentScene();
     }
@@ -21,5 +22,9 @@ GameObject::GameObject( const char* strName, Scene* pScene, bool IsScene ) : Obj
 }
 
 GameObject::~GameObject() {
+    for( auto& c : m_vecComponents ) {
+        HG_LOG_INFO( (std::string("game object [").append(GetName()) + "] component [" + c->GetName() + "] destructed").c_str() );
+        HG_SAFE_DEL( c );
+    }
     HG_LOG_INFO( std::string("game object [").append(GetName()).append("] destructed").c_str() );
 }

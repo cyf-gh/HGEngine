@@ -8,8 +8,8 @@
 #include "../Core/Log.h"
 #include "Renderer2D.h"
 
-using namespace __HGImpl::V1;
-using namespace HGCore::Math;
+using namespace __HGImpl::V1SDL;
+using namespace __HGImpl::Math;
 
 SDL_Texture* Renderer2D::CreateTextureFromFile( const char* pStrFileName ) {
 	auto pImg = IMG_Load( pStrFileName );
