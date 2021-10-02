@@ -42,3 +42,10 @@ void Renderer2D::Copy( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect
 	}
 	SDL_RenderCopy( pHandle, pGameObject->GetTexture(), pSrcRect,  pDstRect );
 }
+
+void __HGImpl::V1SDL::Renderer2D::CopyEx( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect, const SDL_Rect* pDstRect, const double f64Angle, const SDL_Point* pCenter, const SDL_RendererFlip& tFlip ) { 
+	if( !pGameObject ) {
+		return;
+	}
+	SDL_RenderCopyEx( pHandle, pGameObject->GetTexture(), pSrcRect,  pDstRect, f64Angle, pCenter, tFlip );
+}

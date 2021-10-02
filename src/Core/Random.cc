@@ -117,19 +117,19 @@ Xorshift.
 ============
 */
 un32 RandomXORSHIFT::GetRandUInt() {
-    static un32 x = 123456789;
-    static un32 y = 362436069;
+    static un32 X = 123456789;
+    static un32 Y = 362436069;
     static un32 z = 521288629;
     un32 t;
 
-    x ^= x << 16;
-    x ^= x >> 5;
-    x ^= x << 1;
+    X ^= X << 16;
+    X ^= X >> 5;
+    X ^= X << 1;
 
-    t = x;
-    x = y;
-    y = z;
-    z = t ^ x ^ y;
+    t = X;
+    X = Y;
+    Y = z;
+    z = t ^ X ^ Y;
 
     return z;
 }

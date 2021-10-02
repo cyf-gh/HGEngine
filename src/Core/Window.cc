@@ -12,9 +12,9 @@ using namespace __HGImpl::Math;
 
 Window::Window(
         const char *title,
-        int x, int y, int w,
+        int X, int Y, int w,
         int h, Uint32 flags ) {
-    this->pWin = SDL_CreateWindow( title, x, y, w, h, flags );
+    this->pWin = SDL_CreateWindow( title, X, Y, w, h, flags );
     HG_LOG_CHECK_SDL_HANDLE_IS_NULL(this->pWin, SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow");
 }
 

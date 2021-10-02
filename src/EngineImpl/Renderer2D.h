@@ -17,6 +17,8 @@ public:
 	SDL_Texture* CreateTextureFromFile( const char* pStrFileName );
 	std::unordered_map<std::string, SDL_Texture*> m_umTextures;
 	void Copy( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect,const SDL_Rect* pDstRect );
+	void CopyEx( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect,const SDL_Rect* pDstRect, const double f64Angle, const SDL_Point* pCenter, const SDL_RendererFlip &tFlip );
+
 	Renderer2D(
 		SDL_Window* pWindow,
 		int index = -1,

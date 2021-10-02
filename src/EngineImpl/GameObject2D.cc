@@ -13,8 +13,7 @@ using namespace __HGImpl::V1SDL;
 
 GameObject2D::GameObject2D( const char* strObjectName, const char* strFileName )
 	: GameObject( strObjectName ), m_pTexture( nullptr ), strFileName( strFileName ) {
-	AddComponent( new Figure("SrcFigure") );
-	AddComponent( new Figure("DesFigure") );
+	AddComponent( new Transform("Transform") );
 	if( strlen( strFileName ) != 0 ) {
 		m_pTexture = EngineImpl::GetEngine()->GetRenderer2D()->CreateTextureFromFile( strFileName );
 	}
@@ -31,24 +30,24 @@ GameObject2D::~GameObject2D() {
 }
 
 void GameObject2D::Update( void* pEvent ) {
-	HG_EVENT_CALL( OnUpdate, pEvent );
+	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 
 void GameObject2D::Render( void* pRenderer ) {
-	auto pSrcFigure = GetComponent<Figure>( "SrcFigure" );
-	auto pDestFigure = GetComponent<Figure>( "DesFigure" );
+	auto pTransform = GetComponent<Transform>();
 
 	auto pRd2D = static_cast< Renderer2D* >( pRenderer );
-	HG_EVENT_CALL( OnRender, pRd2D );
-	auto tSrcRect = pSrcFigure->ToSDLRect();
-	auto tDestRect = pDestFigure->ToSDLRect();
-	pRd2D->Copy( this, pSrcFigure->IsZero() ? nullptr : &tSrcRect, pDestFigure->IsZero() ? nullptr : &tDestRect );
+	HG_EVENT_CALL( OnRender, pRd2D, this );
+	auto tSrcRect = pTransform->ToSDLRectLocal();
+	auto tDestRect = pTransform->ToSDLRectGlobal();
+	auto tCenterPt = pTransform->ToSDLPoint();
+	pRd2D->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 void __HGImpl::V1SDL::GameObjectText::Update( void* pEvent ) {
-	HG_EVENT_CALL( OnUpdate, pEvent );
+	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 
 void __HGImpl::V1SDL::GameObjectText::Render( void* pRenderer ) { 
@@ -59,13 +58,16 @@ void __HGImpl::V1SDL::GameObjectText::Render( void* pRenderer ) {
 	}
 	if( m_pText != nullptr ) {
 		auto pRd2D = static_cast< Renderer2D* >( pRenderer );
-		auto pSrcFigure = GetComponent<Figure>( "SrcFigure" );
-		auto pDestFigure = GetComponent<Figure>( "DesFigure" );
+		auto pTransform = GetComponent<Transform>();
 
 		m_pTexture = SDL_CreateTextureFromSurface( pRd2D->pHandle, m_pText );
-		auto tSrcRect = pSrcFigure->ToSDLRect();
-		auto tDestRect = pDestFigure->ToSDLRect();
-		pRd2D->Copy( this, pSrcFigure->IsZero() ? nullptr : &tSrcRect, pDestFigure->IsZero() ? nullptr : &tDestRect );
+
+		HG_EVENT_CALL( OnRender, pRd2D, this );
+		auto tSrcRect = pTransform->ToSDLRectLocal();
+		auto tDestRect = pTransform->ToSDLRectGlobal();
+		auto tCenterPt = pTransform->ToSDLPoint();
+		pRd2D->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
+
 	}
 }
 

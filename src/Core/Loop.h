@@ -18,6 +18,7 @@ namespace __HGImpl {
         Uint32 unRunInterval;
         Uint64 unCurrentElapsedTimeMS;
         float f32CurrentElapsedTimeS;
+        float DeltaTime() const { return f32CurrentElapsedTimeS; }
         double GetCurrentElpasedTimeMS() const { return static_cast<double>( f32CurrentElapsedTimeS ) * 1000; }
         double GetCurrentFps() const { return 1.0f / f32CurrentElapsedTimeS; }
         enum LoopStatus {

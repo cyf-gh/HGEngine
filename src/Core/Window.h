@@ -21,7 +21,7 @@ class Window {
         HGResult GetSize( IN_OUT Math::HGSize* pSize );
 
         Window(const char *title,
-               int x, int y, int w,
+               int X, int Y, int w,
                int h, Uint32 flags = SDL_WINDOW_SHOWN);
         virtual ~Window();
 };

@@ -64,18 +64,86 @@ namespace __HGImpl { namespace Math {
     }
 
     /* id Software */
-    static ST_INLINE f32 inv_sqrt( f32 x ) {
-        f32 xhalf = 0.5f * x;
-        int i = * ( int * ) &x;
+    static ST_INLINE f32 inv_sqrt( f32 X ) {
+        f32 xhalf = 0.5f * X;
+        int i = * ( int * ) &X;
         i = 0x5f3759df - (i >> 1);
-        x = *( f32 * ) &i;
-        x = x * ( 1.5f - xhalf * x * x);
-        return x;
+        X = *( f32 * ) &i;
+        X = X * ( 1.5f - xhalf * X * X);
+        return X;
     }
+    /***********************************************************************
+    stVec2
+    ***********************************************************************/
+
+    template<typename digit_type>
+    class HGVec2 {
+
+    public:
+        digit_type X;
+        digit_type Y;
+
+        typedef digit_type trait_type;
+    public:
+        HGVec2 UnitVec() const {
+            const digit_type base = inv_sqrt(X * X + Y * Y);
+
+            return HGVec2(X * base, Y * base);
+        }
+        const digit_type Length()  const {
+            const digit_type base = inv_sqrt(X * X + Y * Y);
+
+            return ( !IsEqual( base, 0 ) ) ?
+                ( 1 / base ) : 0;
+        }
+
+        bool IsZero() const { return (IsEqual( X, 0 ) && IsEqual( Y, 0 ) ); }
+
+        HGVec2 & Take( digit_type lmd ) {
+            X *= lmd;
+            Y *= lmd;
+            return *this;
+        }
+
+        static bool	IsNegative(const HGVec2 &v1, const HGVec2 &v2) {
+            return IsEqual(-v1.X, v2.X) && IsEqual(-v1.Y, v2.Y);
+        }
+
+        static bool	IsParallel(const HGVec2 &v1, const HGVec2 &v2) {
+            return (v1.IsZero() || v2.IsZero()) ?
+                true : IsEqual(v1.X / v2.X, v1.Y / v2.Y);
+        }
+
+        static bool	IsVertical(const HGVec2 &v1, const HGVec2 &v2) {
+            return IsEqual(GetScalarProduct(v1, v2), 0);
+        }
+
+        static digit_type GetIncludeAngle(const HGVec2 &v1, const HGVec2 &v2) {
+            return acos(GetScalarProduct(v1, v2) / (v1.Length() * v2.Length()));
+        }
+
+        static digit_type GetScalarProduct(const HGVec2 &v1, const HGVec2 &v2) {
+            return (v1.X * v2.X) + (v1.Y * v2.Y);
+        }
+
+        static HGVec2 Add(const HGVec2 &v1, const HGVec2 &v2) {
+            return HGVec2(v1.X + v2.X, v1.Y + v2.Y);
+        }
+        static HGVec2 Sub(const HGVec2 &v1, const HGVec2 &v2) {
+            return HGVec2(v1.X - v2.X, v1.Y - v2.Y);
+        }
+
+        HGVec2( const HGVec2 &v ) { X = v.X; Y = v.Y; }
+        HGVec2( const digit_type X, const digit_type Y )
+            : X( X ), Y( Y ) { }
+        HGVec2()
+            : X( 0 ), Y( 0 ) { }
+        virtual	~HGVec2() { }
+    };
 
     struct HGPos {
         HGPos() : X(0), Y(0) {}
-        HGPos(int x, int y) : X(x), Y(y) {}
+        HGPos(int X, int Y) : X(X), Y(Y) {}
         n32 X, Y;
         HG_INLINE static un32 DistancePow2( n32 x1, n32 y1, n32 x2, n32 y2 ) {
             n32 d1 = x1 - x2;
@@ -92,7 +160,13 @@ namespace __HGImpl { namespace Math {
         HGSize(int w, int h) : H(h), W(w) {}
         un32 H, W;
     };
-
+    
+    static ST_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize& tSize ,HGPos& p ) {
+        p.X = tPos.X + ( tSize.W >> 1 );
+        p.Y = tPos.Y + ( tSize.H >> 1 );
+        return p;
+    }
+    
     struct HGRect {
         n32 X, Y;
         un32 H, W;

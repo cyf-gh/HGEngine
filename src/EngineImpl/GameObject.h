@@ -26,8 +26,8 @@ protected:
 	std::vector<HG::V1SDL::HGComponent*> m_vecComponents;
 
 public:
-	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable ); }
-	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable ); }
+	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
+	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }
 
 	std::vector<HG::V1SDL::HGComponent*> GetComponents() const { return m_vecComponents; }
@@ -61,5 +61,7 @@ public:
 };
 }
 }
+
+#define HG_EVENT_THIS_GAMEOBJECT static_cast<GameObject *>(pThis)
 
 #endif //HONEYGAME_GAMEOBJECT_H

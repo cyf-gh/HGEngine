@@ -105,7 +105,7 @@ void EngineImpl::Exit() {
 void EngineImpl::NavigateScene( const char* strSceneName ) {
 	pCurrentScene = static_cast<Scene*>( Scene::Find( strSceneName ) );
 	if( pCurrentScene != nullptr ) {
-		HG_EVENT_CALL_NO_DATA( pCurrentScene->OnAttach );
+		HG_EVENT_CALL_NO_DATA( pCurrentScene->OnAttach, this );
 	} else {
 		HG_LOG_FAILED( std::string( "no such scene named:" ).append( strSceneName ).c_str() );
 	}
@@ -115,15 +115,14 @@ void EngineImpl::NavigateScene( const char* strSceneName ) {
 /// =========
 /// main loop
 /// =========
+SDL_Event HGMainLoop::tEvent = SDL_Event();
 
 // https://wiki.libsdl.org/SDL_Keycode
 // https://wiki.libsdl.org/SDL_Event
 void HGMainLoop::_RunTask() {
-	SDL_Event event;
-
-	( SDL_PollEvent( &event ) != 0 ) ;
+	( SDL_PollEvent( &HGMainLoop::tEvent ) != 0 ) ;
 	{
-		EngineImpl::GetEngine()->GetCurrentScene()->Update( ( void* ) &event );
+		EngineImpl::GetEngine()->GetCurrentScene()->Update( ( void* ) &HGMainLoop::tEvent );
 	}
 }
 
