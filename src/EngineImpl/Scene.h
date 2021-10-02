@@ -20,8 +20,6 @@ class Camera;
 class Scene : public HG::V1SDL::HGObject<Scene>, public HG::V1SDL::HGBehaviour {
 protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
-	void updateAllGameObjects( void* pEv );
-	void renderAllGameObjects( __HGImpl::Renderer* pRd );
 	Camera *m_pMainCamera;
 
 public:
