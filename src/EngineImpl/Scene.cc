@@ -12,7 +12,8 @@ using namespace __HGImpl;
 
 using namespace HG::V1SDL;
 
-Scene::Scene( const char* strName ) : HGObject<Scene>( strName ) {
+Scene::Scene( const char* strName ) : HGObject<Scene>( strName ), m_pMainCamera( nullptr ) {
+	HG_EVENT_CALL_NO_DATA( OnBeforeConstruct, this );
 	HG_LOG_INFO( std::string( "scene [" ).append( GetName() ).append( "] constructed" ).c_str() );
 }
 
@@ -38,31 +39,34 @@ GameObject* Scene::FindGameObject( const char* strName ) {
 }
 
 void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
+	static bool IsStart = false;
+	if( !IsStart ) {
+		HG_EVENT_CALL( this->Start, pEvent, this );
+		for( auto& it : umGameObjectsByName ) {
+			if( it.second->IsEnable() ) {
+				HG_EVENT_CALL( it.second->Start, pEvent, it.second );
+			}
+		}
+		IsStart = true;
+	}
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
-	updateAllGameObjects( pEvent );
+	for( auto& it : umGameObjectsByName ) {
+		if( it.second->IsEnable() ) {
+			it.second->Update( pEvent );
+		}
+	}
 }
 
 void __HGImpl::V1SDL::Scene::Render( void* pRenderer ) {
 	HG_EVENT_CALL( OnUpdate, pRenderer, this );
 	HG_EVENT_CALL( OnRender, pRenderer, this );
-	renderAllGameObjects( static_cast< Renderer* >( pRenderer ) );
-}
 
-void Scene::renderAllGameObjects( __HGImpl::Renderer* pRd ) {
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {
-			if( HG_EVENT_CALLABLE( it.second->OnUpdate ) ) {
-				HG_EVENT_CALL( it.second->OnUpdate, &HGMainLoop::tEvent, this );
-			}
-			it.second->Render( pRd );
+			HG_EVENT_CALL( it.second->OnUpdate, &HGMainLoop::tEvent, it.second );
+			it.second->Render( pRenderer );
+			HG_EVENT_CALL( it.second->OnPostRender, pRenderer, it.second );
 		}
 	}
-}
-
-void Scene::updateAllGameObjects( void* pEv ) {
-	for( auto& it : umGameObjectsByName ) {
-		if( it.second->IsEnable() ) {
-			it.second->Update( pEv );
-		}
-	}
+	HG_EVENT_CALL( OnPostRender, pRenderer, this );
 }

@@ -15,14 +15,29 @@ public:
 	pEvent OnFixedUpdate;
 	/// \brief 每帧更新 （update per frame）
 	/// \note
+	/// * ！！！该方法由Scene调用，不应当由GameObject::Render调用！！！
 	///	* GameObject将于调用OnRender之前调用该方法，见Scene::renderAllGameObjects （GameObject will invoke this event before OnRender, see Scene::renderAllGameObjects）
 	/// * Scene将于调用OnRender之前调用该方法，见Scene::Render （Scene will invoke this event before OnRender, see Scene::Render）
 	pEvent OnUpdate;
 	/// 
 	pEvent OnRender;
+
+	pEvent OnPostRender;
+
 	pEvent OnAttach;
+
 	pEvent OnEnable;
+
 	pEvent OnDisable;
+
+	/// \brief 于对象被构造前被调用 （invoke before object being constructed）
+	pEvent OnBeforeConstruct;
+
+	/// \brief 于Update的第一帧被调用
+	/// \note 
+	/// * Scene::Start -> GameObject::Start
+	/// * See Scene::Update
+	pEvent Start;
 };
 }
 }

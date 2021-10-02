@@ -8,6 +8,7 @@
 #include "../Core/Loop.h"
 #include "../Core/Window.h"
 #include "../Core/Thread.h"
+#include "Camera.h"
 #include "Renderer2D.h"
 
 namespace __HGImpl {
@@ -56,7 +57,7 @@ private:
 	__HGImpl::Window* pWindow;
 
 	Renderer2D* pRenderer;
-
+	
 	Scene* pCurrentScene;
 	static void SetEngine( EngineImpl* pEngine ) { EngineImpl::pEngine = pEngine; }
 

@@ -1,6 +1,21 @@
 ## HoneyGame
 HoneyGame - Reborn of st2d
 
+### TODO
+
+#### Utility
+
+- [ ] Timer
+
+#### Camera
+
+- [ ] Get rid of rotated GameObjects
+
+#### Component
+
+- [x] Transform
+- [ ] Rigidbody
+
 ### Dependencies
 * https://github.com/cyf-gh/sdl2-cmake-scripts
 * https://www.libsdl.org/download-2.0.php

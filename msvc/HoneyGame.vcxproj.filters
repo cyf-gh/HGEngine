@@ -7,7 +7,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Main.cc" />
-    <ClCompile Include="..\src\EngineImpl\Camera.cc" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\EventProc.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
@@ -21,6 +20,7 @@
     <ClCompile Include="..\src\Core\Screen.cc" />
     <ClCompile Include="..\src\Core\Thread.cc" />
     <ClCompile Include="..\src\Core\Window.cc" />
+    <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
@@ -51,6 +51,7 @@
     <ClInclude Include="..\src\Engine\HGEvent.h" />
     <ClInclude Include="..\src\Engine\HGObject.h" />
     <ClInclude Include="..\src\Engine\HGComponent.h" />
+    <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

@@ -10,9 +10,10 @@
 using namespace __HGImpl::V1SDL;
 using namespace __HGImpl;
 
-GameObject::GameObject( const char* strName, Scene* pScene, bool IsScene ) 
+GameObject::GameObject( const char* strName, Scene* pScene ) 
 : HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents() {
-    if ( m_pScene == nullptr && !IsScene ) {
+    HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
+    if ( m_pScene == nullptr ) {
         m_pScene = EngineImpl::GetEngine()->GetCurrentScene();
     }
     if ( m_pScene != nullptr ) {

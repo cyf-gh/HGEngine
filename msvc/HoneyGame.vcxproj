@@ -156,7 +156,7 @@
     <ClCompile Include="..\src\Core\Screen.cc" />
     <ClCompile Include="..\src\Core\Thread.cc" />
     <ClCompile Include="..\src\Core\Window.cc" />
-    <ClCompile Include="..\src\EngineImpl\Camera.cc" />
+    <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\EventProc.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
@@ -188,6 +188,7 @@
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
     <ClInclude Include="..\src\EngineImpl\Scene.h" />
+    <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
     <ClInclude Include="..\src\Engine\HG.h" />
     <ClInclude Include="..\src\Engine\HGBehaviour.h" />
     <ClInclude Include="..\src\Engine\HGComponent.h" />

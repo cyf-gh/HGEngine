@@ -29,6 +29,9 @@ public:
 	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
 	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }
+	
+	void Update( void* pEvent ) override { };
+	void Render( void* pRenderer ) override { };
 
 	std::vector<HG::V1SDL::HGComponent*> GetComponents() const { return m_vecComponents; }
 	HG::V1SDL::HGComponent* AddComponent( HG::V1SDL::HGComponent* pComp ) {
@@ -56,7 +59,7 @@ public:
 	/// \brief scene that the GameObject is part of.
 	Scene* GetScene() const { return m_pScene; }
 	/// \brief default's, the game object will be attached to the current scene
-	explicit GameObject( const char* strName, Scene* pScene = nullptr, bool IsScene = false );
+	explicit GameObject( const char* strName, Scene* pScene = nullptr );
 	virtual ~GameObject();
 };
 }

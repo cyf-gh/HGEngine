@@ -67,6 +67,10 @@ int main( int argc, char** argv ) {
 	auto* tEngine = new EngineImpl( argc, argv );
 	HG_LOG_INFO( tEngine->GetCurrentScene()->GetName() );
 
+	Camera* pCamera = new Camera("camera");
+	pCamera->Enable();
+	pCamera->SetCameraSizeToRendererSize();
+	tEngine->GetCurrentScene()->SetMainCamera( pCamera );
 	GameObject2D* pImgTest = new GameObject2D( "test_full_screen", R"(C:\Users\cyf-m\Pictures\icon.png)" );
 	GameObjectText* pText = new GameObjectText( "test_fps", new Font( "font1", R"(C:\Users\cyf-m\Documents\Minimal.ttf)", 24 ), "0" );
 	auto df = pText->GetComponent<Transform>();
@@ -76,12 +80,35 @@ int main( int argc, char** argv ) {
 	df->tRect.H = 30;
 	df->tRect.W = 200;
 
+	auto df3 = pCamera->GetComponent<Transform>();
+	df3->tRect.H = 600;
+	df3->tRect.W = 800;
+
+	pCamera->OnFixedUpdate = HG_EVENT_ONUPDATE() {
+		auto _this = HG_EVENT_THIS_GAMEOBJECT;
+		auto df = _this->GetComponent<Transform>();
+		switch( HG_EVENT_ONUPDATE_EVENT->type ) {
+		case SDL_KEYDOWN:
+		HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
+			df->tPosition.Y -= 100 * HG_ENGINE_TIMEDELTA;
+		}
+		HG_EVENT_ONUPDATE_ISKEY( SDLK_DOWN ) {
+			df->tPosition.Y += 100 * HG_ENGINE_TIMEDELTA;
+		}
+		HG_EVENT_ONUPDATE_ISKEY( SDLK_LEFT ) {
+			df->tPosition.X -= 100 * HG_ENGINE_TIMEDELTA;
+		}
+		HG_EVENT_ONUPDATE_ISKEY( SDLK_RIGHT ) {
+			df->tPosition.X += 100 * HG_ENGINE_TIMEDELTA;
+		}
+		break;
+		}		
+		return 0;
+	};
+
 	pText->OnFixedUpdate = HG_EVENT_ONUPDATE() {
 		auto _this = HG_EVENT_THIS_GAMEOBJECT;
 		auto df = _this->GetComponent<Transform>();
-		auto timedelta = HG_ENGINE_TIMEDELTA;
-		// df->f64Angle += 10 * HG_ENGINE_TIMEDELTA;
-
 		switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 		case SDL_KEYDOWN:
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
@@ -98,16 +125,20 @@ int main( int argc, char** argv ) {
 		}
 		break;
 		}
-		df->ResetRotateCenter();
 		return 0;
 	};
+	
+	auto df2 = pImgTest->GetComponent<Transform>();
+	df2->tPosition.X = 50;
+	df2->tPosition.Y = 50;
+	df2->tRect.W = 100;
+	df2->tRect.H = 100;
 
 	pImgTest->OnFixedUpdate = HG_EVENT_ONUPDATE() {
 		auto _this = HG_EVENT_THIS_GAMEOBJECT;
 		auto df = _this->GetComponent<Transform>();
-		df->f64Angle += 10 * HG_ENGINE_TIMEDELTA;
-		df->tRotateCenter.X = 400;
-		df->tRotateCenter.Y = 300;
+		// df->f64Angle += 10 * HG_ENGINE_TIMEDELTA;
+		// df->ResetRotateCenter();
 		return 0;
 	};
 	pImgTest->Enable();

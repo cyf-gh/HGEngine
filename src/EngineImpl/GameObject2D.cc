@@ -8,6 +8,8 @@
 #include "Renderer2D.h"
 #include "EngineImpl.h"
 #include "../Core/Log.h"
+#include "Transform.hpp"
+#include "Scene.h"
 
 using namespace __HGImpl::V1SDL;
 
@@ -29,19 +31,37 @@ GameObject2D::~GameObject2D() {
 	}
 }
 
+void GameObject2D::renderCameraView( Renderer2D* pRenderer ) {
+	auto pTransform = GetComponent<Transform>();
+	auto tSrcRect = pTransform->ToSDLRectLocal();
+	auto tDestRect = pTransform->ToSDLRectGlobal();
+	auto tCenterPt = pTransform->ToSDLPoint();
+	if( m_pScene != nullptr ) {
+		auto pCam = m_pScene->GetMainCamera();
+		if( pCam != nullptr ) {
+			auto pCamTransform = pCam->GetComponent<Transform>();
+			if( pCam->RenderInViewOnly ) {
+				auto rect1 = pTransform->ToHGRectGlobal();
+				auto rect2 = pCamTransform->ToHGRectGlobal();
+				if ( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) ) {
+					return;
+				}
+			}
+			tDestRect.x -= pCamTransform->tPosition.X;
+			tDestRect.y -= pCamTransform->tPosition.Y;
+		}
+	}
+	pRenderer->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
+}
+
 void GameObject2D::Update( void* pEvent ) {
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 
 void GameObject2D::Render( void* pRenderer ) {
-	auto pTransform = GetComponent<Transform>();
-
 	auto pRd2D = static_cast< Renderer2D* >( pRenderer );
 	HG_EVENT_CALL( OnRender, pRd2D, this );
-	auto tSrcRect = pTransform->ToSDLRectLocal();
-	auto tDestRect = pTransform->ToSDLRectGlobal();
-	auto tCenterPt = pTransform->ToSDLPoint();
-	pRd2D->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
+	renderCameraView( pRd2D );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -58,16 +78,10 @@ void __HGImpl::V1SDL::GameObjectText::Render( void* pRenderer ) {
 	}
 	if( m_pText != nullptr ) {
 		auto pRd2D = static_cast< Renderer2D* >( pRenderer );
-		auto pTransform = GetComponent<Transform>();
-
 		m_pTexture = SDL_CreateTextureFromSurface( pRd2D->pHandle, m_pText );
 
 		HG_EVENT_CALL( OnRender, pRd2D, this );
-		auto tSrcRect = pTransform->ToSDLRectLocal();
-		auto tDestRect = pTransform->ToSDLRectGlobal();
-		auto tCenterPt = pTransform->ToSDLPoint();
-		pRd2D->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
-
+		renderCameraView( pRd2D );
 	}
 }
 

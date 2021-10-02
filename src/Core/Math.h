@@ -183,8 +183,14 @@ namespace __HGImpl { namespace Math {
         }
 
         HG_INLINE bool IsOverlap( const HGRect& dstRect ) {
-            return !( ( Right() < dstRect.Left() ) || ( Left() > dstRect.Right() ) ||
-                      ( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
+            return ( !( ( Right() < dstRect.Left() ) || ( Left() > dstRect.Right() ) ) &&
+                      ! ( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
+        }
+        HG_INLINE bool IsIn( const HGRect& dstRect ) {
+            const HGRect* r1 = &dstRect;
+            const HGRect* r2 = this;
+
+            return ( r1->Bottom() <= r2->Bottom() && r1->Top() >= r2->Top() && r1->Right() <= r2->Right() && r1->Left() >= r2->Left() );
         }
         HG_INLINE bool IsIntersect( const HGRect& dstRect ) {
             return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||

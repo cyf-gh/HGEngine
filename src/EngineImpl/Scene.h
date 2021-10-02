@@ -12,7 +12,7 @@
 
 namespace __HGImpl {
 namespace V1SDL {
-
+class Camera;
 /// \brief 游戏场景 （Scene）
 /// \note 
 /// * Scene::OnAttach于EngineImpl::NavigateScene被调用 （Scene::OnAttach will be invoked in EngineImpl::NavigateScene）
@@ -22,8 +22,11 @@ protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	void updateAllGameObjects( void* pEv );
 	void renderAllGameObjects( __HGImpl::Renderer* pRd );
+	Camera *m_pMainCamera;
 
 public:
+	Camera *GetMainCamera() const { return m_pMainCamera; }
+	void SetMainCamera( Camera * pCamera ) { m_pMainCamera = pCamera; }
 	/// \brief 将一个GameObject加入场景 （attach a new game object to scene）
 	/// \note 
 	/// * 同名GameObject并不会覆盖原有的GameObject （game object which has a duplicated name will not recover the old one）
