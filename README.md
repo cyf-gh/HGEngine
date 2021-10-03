@@ -16,6 +16,10 @@ HoneyGame - Reborn of st2d
 - [x] Transform
 - [ ] Rigidbody
 
+Optimization
+
+- [ ] ToSDLXXX no copy
+
 ### Dependencies
 * https://github.com/cyf-gh/sdl2-cmake-scripts
 * https://www.libsdl.org/download-2.0.php
@@ -27,6 +31,7 @@ HoneyGame - Reborn of st2d
 * [SDL2 wiki](https://wiki.libsdl.org/)
 * [cplusplus reference](https://www.cplusplus.com/reference)
 * https://thenumbat.github.io/cpp-course/index.html#sdl
+* https://www.doxygen.nl
 
 ### Compile
 

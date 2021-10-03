@@ -14,10 +14,9 @@
 namespace __HGImpl {
 /// \brief wrapped SDL_Thread
 /// \note await thread should not be used in main thread to avoid UI blocking.
-class Thread {
+class Thread : HGCore::Memory::NonCopyable {
 private:
 	std::string strName;
-	HG_MEM_NO_BINARY_COPY( Thread );
 public:
 	/// \brief threads map
 	/// \note await thread will not be attached here; async thread won't become nullptr until Thread

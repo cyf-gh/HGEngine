@@ -7,14 +7,14 @@
 #define __HG_TEST__
 */
 
-
+using namespace std;
 #ifdef __HG_TEST__
 
 #undef main
 int main() {
 	HG_TEST_START( "rect" );
 
-	HGCore::Math::HGRect rect {
+	__HGImpl::Math::HGRect rect {
 		.X = 0,
 		.Y = 0,
 		.H = 600,
@@ -23,7 +23,9 @@ int main() {
 
 	auto center = rect.GetCenter();
 	HG_TEST_ASSERT_TRUE( center.X == 400 && center.Y == 300, "HGCore::Math::HGRect.GetCenter()" );
-
+	__HGImpl::Math::HGShape<float> tRect;
+	rect.ToShape<float>(tRect);
+	tRect.Rotate( 90, rect.GetCenter().ToVec2<float>() );
 	return 0;
 }
 
@@ -50,6 +52,7 @@ int main( int argc, char** argv ) {
 		return 0;
 		break;
 		}
+		return 0;
 	};
 	pScene->OnRender = HG_EVENT_ONRENDER() {
 		static int i = 0;
@@ -90,16 +93,16 @@ int main( int argc, char** argv ) {
 		switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 		case SDL_KEYDOWN:
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
-			df->tPosition.Y -= 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.Y -= 200 * HG_ENGINE_TIMEDELTA;
 		}
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_DOWN ) {
-			df->tPosition.Y += 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.Y += 200 * HG_ENGINE_TIMEDELTA;
 		}
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_LEFT ) {
-			df->tPosition.X -= 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.X -= 200 * HG_ENGINE_TIMEDELTA;
 		}
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_RIGHT ) {
-			df->tPosition.X += 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.X += 200 * HG_ENGINE_TIMEDELTA;
 		}
 		break;
 		}		
@@ -112,16 +115,16 @@ int main( int argc, char** argv ) {
 		switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 		case SDL_KEYDOWN:
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
-			df->tPosition.Y -= 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.Y -= 200 * HG_ENGINE_TIMEDELTA;
 		}
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_DOWN ) {
-			df->tPosition.Y += 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.Y += 200 * HG_ENGINE_TIMEDELTA;
 		}
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_LEFT ) {
-			df->tPosition.X -= 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.X -= 200 * HG_ENGINE_TIMEDELTA;
 		}
 		HG_EVENT_ONUPDATE_ISKEY( SDLK_RIGHT ) {
-			df->tPosition.X += 100 * HG_ENGINE_TIMEDELTA;
+			df->tPosition.X += 200 * HG_ENGINE_TIMEDELTA;
 		}
 		break;
 		}
@@ -137,8 +140,12 @@ int main( int argc, char** argv ) {
 	pImgTest->OnFixedUpdate = HG_EVENT_ONUPDATE() {
 		auto _this = HG_EVENT_THIS_GAMEOBJECT;
 		auto df = _this->GetComponent<Transform>();
-		// df->f64Angle += 10 * HG_ENGINE_TIMEDELTA;
-		// df->ResetRotateCenter();
+		df->f64Angle += 40 * HG_ENGINE_TIMEDELTA;
+
+		df->ResetRotateCenter();
+
+		__HGImpl::Math::HGShape<float> s ;
+		df->GetRotatedRectGlobal( s );
 		return 0;
 	};
 	pImgTest->Enable();

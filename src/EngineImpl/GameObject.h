@@ -30,6 +30,7 @@ public:
 	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }
 	
+	bool IsInCameraView();
 	void Update( void* pEvent ) override { };
 	void Render( void* pRenderer ) override { };
 

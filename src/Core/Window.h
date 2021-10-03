@@ -10,8 +10,7 @@
 #include "Memory.h"
 namespace __HGImpl {
 
-class Window {
-        HG_MEM_NO_BINARY_COPY( Window );
+class Window : HGCore::Memory::NonCopyable {
     private:
         SDL_Window *pWin;
         Screen tScreen;

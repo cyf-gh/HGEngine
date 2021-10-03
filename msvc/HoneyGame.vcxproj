@@ -187,6 +187,7 @@
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
+    <ClInclude Include="..\src\EngineImpl\RigidBody.hpp" />
     <ClInclude Include="..\src\EngineImpl\Scene.h" />
     <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
     <ClInclude Include="..\src\Engine\HG.h" />

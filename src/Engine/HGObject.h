@@ -26,6 +26,8 @@ public:
 
 	static T* Find( const char* strName ) { return umTheseOnes.count( strName ) == 0 ? nullptr : umTheseOnes[strName]; }
 	static T* FindById( const un32 unId ) { return umTheseOnesById.count( unId ) == 0 ? nullptr : umTheseOnesById[unId]; }
+
+public:
 	const un32 UID;
 	const char* GetName() const { return mStrName.c_str(); }
 

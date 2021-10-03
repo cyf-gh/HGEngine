@@ -27,12 +27,11 @@ typedef double			f64;
 #define IN const
 /// \brief means you must input a heap or stack allocated object
 #define IN_OUT
-/// \brief mention the function is used for callback
-#define CALLBACK
 
 #ifdef _MSC_VER
 #   pragma warning( disable : 4996)
 #   pragma warning( disable : 4114)
+#   pragma warning( disable : 4180)
 #   define ST_INLINE  __forceinline
         /* !_MSC_VER */
 #elif defined( __GNUC__ )

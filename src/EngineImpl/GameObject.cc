@@ -8,9 +8,30 @@
 #include "Scene.h"
 
 using namespace __HGImpl::V1SDL;
+using namespace __HGImpl::Math;
 using namespace __HGImpl;
 
-GameObject::GameObject( const char* strName, Scene* pScene ) 
+bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
+    auto pScene = EngineImpl::GetEngine()->GetCurrentScene();
+    if ( nullptr == pScene ) { return false; }
+    auto pCam =  pScene->GetMainCamera();
+    if( pCam == nullptr ) {
+        return false;
+    }
+    auto pCamTransform =pCam->GetComponent<Transform>();
+    auto pT = this->GetComponent<Transform>();
+    auto rect1 = pT->ToHGRectGlobal();
+    auto rect2 = pCamTransform->ToHGRectGlobal();
+    if( pT->f64Angle == 0 ) {
+        return !( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) );
+    } else {
+        HGShape<double> s;
+        rect1.ToShape( s );
+        return rect2.IsIntersect( s.GetCircumscribedCircle() );
+    }
+}
+
+GameObject::GameObject( const char* strName, Scene* pScene )
 : HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents() {
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
     if ( m_pScene == nullptr ) {

@@ -40,12 +40,8 @@ void GameObject2D::renderCameraView( Renderer2D* pRenderer ) {
 		auto pCam = m_pScene->GetMainCamera();
 		if( pCam != nullptr ) {
 			auto pCamTransform = pCam->GetComponent<Transform>();
-			if( pCam->RenderInViewOnly ) {
-				auto rect1 = pTransform->ToHGRectGlobal();
-				auto rect2 = pCamTransform->ToHGRectGlobal();
-				if ( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) ) {
-					return;
-				}
+			if( pCam->RenderInViewOnly && !this->IsInCameraView() ) {
+				return;
 			}
 			tDestRect.x -= pCamTransform->tPosition.X;
 			tDestRect.y -= pCamTransform->tPosition.Y;

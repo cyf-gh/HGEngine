@@ -10,8 +10,7 @@
 
 namespace __HGImpl {
 
-class Renderer {
-    HG_MEM_NO_BINARY_COPY( Renderer );
+class Renderer : HGCore::Memory::NonCopyable {
 private:
 public:
     SDL_Renderer *pHandle = nullptr;

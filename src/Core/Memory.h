@@ -12,7 +12,27 @@
 /// \sa st_zero_memory
 #define HG_ZERO_MEMORY st_zero_memory
 
-/// \brief ban not sure binary copy.
+namespace HGCore {
+namespace Memory {
+	/// \brief 对象拷贝 （object non copyable）
+	class NonCopyable {
+	protected:
+		NonCopyable() = default;
+		virtual ~NonCopyable() = default;
+
+	public:
+		NonCopyable(const NonCopyable &) = delete;
+		NonCopyable(NonCopyable &&) noexcept = default;
+		NonCopyable &operator=(const NonCopyable &) = delete;
+		NonCopyable &operator=(NonCopyable &&) noexcept = default;
+	};
+}
+}
+
+
+/// \brief ban not sure binary copy.\
+/// \note 
+/// * 推荐使用HGCore::Memory::NonCopyable （HGCore::Memory::NonCopyable is recommended）
 #define HG_MEM_NO_BINARY_COPY( CLASSNAME ) \
 public: \
 CLASSNAME&operator=( const CLASSNAME& rhs ) = delete; \

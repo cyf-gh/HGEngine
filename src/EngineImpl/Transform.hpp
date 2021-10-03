@@ -6,12 +6,15 @@
 namespace __HGImpl {
 namespace V1SDL {
 
-/// \brief 形状，包含位置与大小信息 （figure, which contains position and size infomation）
+/// \~chinese \brief 形体变换，包含位置与大小信息 
+/// \~english \brief figure, which contains position and size infomation
 class Transform : public HG::V1SDL::HGComponent {
 public:
 	__HGImpl::Math::HGVec2<float> tLocalPos;
 	__HGImpl::Math::HGSize tLocalRect;
 	__HGImpl::Math::HGVec2<float> tPosition;
+	/// \~chinese \brief 世界坐标系中的大小，也可理解为渲染至全局的大小
+	/// \~english \brief size in global area, also it's the ouput rendering size 
 	__HGImpl::Math::HGSize tRect;
 
 	double f64Angle;
@@ -21,14 +24,24 @@ public:
 		__HGImpl::Math::Center( tPosition, tRect, tRotateCenter );
 	}
 
-	SDL_Point ToSDLPoint() {
+	/// \~chinese \brief 获取旋转后的矩形
+	/// \~english \brief get rect after being rotated
+	///	\~chinese \param tRect 旋转后的矩形 以四个二维向量作为保存
+	/// \~english \param tRect rect after being rotated which contains 4 vectors
+	void GetRotatedRectGlobal( 
+		__HGImpl::Math::HGShape<float>& tRect ) {
+		this->ToHGRectGlobal().ToShape<float>(tRect);
+		tRect.Rotate( f64Angle, tRotateCenter.ToVec2<float>() );
+	}
+
+	HG_INLINE SDL_Point ToSDLPoint() {
 		return SDL_Point {
 			.x = tRotateCenter.X,
 			.y = tRotateCenter.Y
 		};
 	}
 
-	SDL_Rect ToSDLRectGlobal() {
+	HG_INLINE SDL_Rect ToSDLRectGlobal() {
 		return SDL_Rect {
 			.x = (int)tPosition.X,
 			.y = (int)tPosition.Y,
@@ -36,7 +49,7 @@ public:
 			.h = static_cast< int >( tRect.H ),
 		};
 	}
-	SDL_Rect ToSDLRectLocal() {
+	HG_INLINE SDL_Rect ToSDLRectLocal() {
 		return SDL_Rect {
 			.x = (int)tLocalPos.X,
 			.y = (int)tLocalPos.Y,
@@ -45,7 +58,7 @@ public:
 		};
 	}
 
-	__HGImpl::Math::HGRect ToHGRectLocal() {
+	HG_INLINE __HGImpl::Math::HGRect ToHGRectLocal() {
 		return __HGImpl::Math::HGRect {
 			.X = static_cast< n32 >( tLocalPos.X ),
 			.Y = static_cast< n32 >( tLocalPos.Y ),
@@ -53,7 +66,7 @@ public:
 			.W = static_cast< un32 >( tLocalRect.W ),
 		};
 	}
-	__HGImpl::Math::HGRect ToHGRectGlobal() {
+	HG_INLINE __HGImpl::Math::HGRect ToHGRectGlobal() {
 		return __HGImpl::Math::HGRect {
 			.X = static_cast< n32 >( tPosition.X ),
 			.Y = static_cast< n32 >( tPosition.Y ),

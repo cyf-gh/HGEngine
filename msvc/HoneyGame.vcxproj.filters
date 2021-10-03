@@ -51,9 +51,19 @@
     <ClInclude Include="..\src\Engine\HGEvent.h" />
     <ClInclude Include="..\src\Engine\HGObject.h" />
     <ClInclude Include="..\src\Engine\HGComponent.h" />
-    <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
+    <ClInclude Include="..\src\EngineImpl\RigidBody.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Transform.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{e3f97470-3655-45d9-8075-3b3b7ffa4c63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

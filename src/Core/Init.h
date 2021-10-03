@@ -12,8 +12,7 @@ namespace __HGImpl {
     /// \note
     /// this class is only a UTIL class; it does not have responsibility to release memory.
     /// the release behavior was done in ~EngineImpl::EngineImpl()
-    class Init {
-        HG_MEM_NO_BINARY_COPY( Init );
+    class Init : HGCore::Memory::NonCopyable {
     public:
         Init* SDL();
         /// \brief init log
