@@ -6,7 +6,9 @@
 #include "Log.h"
 
 using namespace __HGImpl;
-using namespace __HGImpl::Math;
+using namespace __HGImpl::V1SDL;
+using namespace HG::Math;
+using namespace HG;
 
 HGResult Screen::GetCenterPos(int w, int h, HGPos *pCenterPos, int displayIndex) {
     SDL_DisplayMode dm;

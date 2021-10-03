@@ -10,7 +10,7 @@
 //#include "../Core/Type.h"
 //
 //namespace __HGImpl { namespace V1 {
-//    typedef const HGCore::HGResult* (*FuncProc)(SDL_Event* , void *);
+//    typedef const HG::HGResult* (*FuncProc)(SDL_Event* , void *);
 //    struct Event {
 //    public:
 //        FuncProc pFP;

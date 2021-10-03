@@ -5,7 +5,6 @@
 namespace __HGImpl { namespace V1SDL { class GameObject; } }
 
 namespace HG {
-namespace V1SDL {
 class HGComponent : public HGObject<HGComponent> {
 protected:
 	__HGImpl::V1SDL::GameObject *m_pGameObject;
@@ -15,5 +14,4 @@ public:
 	explicit HGComponent( const char* strName ) : HGObject<HGComponent>( strName ) { }
 	virtual ~HGComponent() = default;
 };
-}
 }

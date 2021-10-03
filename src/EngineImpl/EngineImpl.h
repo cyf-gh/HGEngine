@@ -46,15 +46,15 @@ public:
 /// \note 
 /// * 初始化顺序应当为 （the initialization order of Scenes, GameObjects, Engine Should be）
 /// * Scenes -> Engine -> GameObjects
-class EngineImpl : public HG::V1SDL::IEngine {
+class EngineImpl : public HG::HGEngine {
 private:
 	HGMainLoop tLoopMain;
 	HGUpdateLoop tLoopUpdate;
 	HGRenderLoop tLoopRender;
-	__HGImpl::Thread* pUpdateThread {};
-	__HGImpl::Thread* pRenderThread {};
+	__HGImpl::V1SDL::Thread* pUpdateThread {};
+	__HGImpl::V1SDL::Thread* pRenderThread {};
 
-	__HGImpl::Window* pWindow;
+	__HGImpl::V1SDL::Window* pWindow;
 
 	Renderer2D* pRenderer;
 	
@@ -75,7 +75,7 @@ public:
 	static EngineImpl* pEngine;
 	
 	float GetFixedUpdateTimeDelta() const { return tLoopMain.DeltaTime(); }
-	__HGImpl::Window* GetWindow() const { return pWindow; }
+	__HGImpl::V1SDL::Window* GetWindow() const { return pWindow; }
 	Renderer2D* GetRenderer2D() const { return pRenderer; }
 
 	void Exit();

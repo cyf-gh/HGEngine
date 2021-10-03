@@ -7,7 +7,7 @@
 #include <SDL.h>
 #include "Random.h"
 
-using namespace __HGImpl;
+using namespace HG::Random;
 
 /*
 ============

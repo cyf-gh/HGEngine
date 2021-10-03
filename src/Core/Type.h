@@ -5,7 +5,7 @@
 
 #include <cstdint>
 
-namespace __HGImpl {
+namespace HG {
     typedef int HGResult;
 }
 

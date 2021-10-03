@@ -18,6 +18,8 @@
 
 using namespace __HGImpl::V1SDL;
 using namespace __HGImpl;
+using namespace HG;
+
 static int _UpdateThreadFn( void* data );
 static int _RenderThreadFn( void* data );
 

@@ -7,7 +7,7 @@
 #include <cmath>
 #include <vector> 
 
-namespace __HGImpl {
+namespace HG {
 namespace Math {
 
 static const f32 ST_PI = 3.141592654f;

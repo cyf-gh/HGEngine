@@ -8,7 +8,7 @@
 #include "Scene.h"
 
 using namespace __HGImpl::V1SDL;
-using namespace __HGImpl::Math;
+using namespace HG::Math;
 using namespace __HGImpl;
 
 bool __HGImpl::V1SDL::GameObject::IsInCameraView() {

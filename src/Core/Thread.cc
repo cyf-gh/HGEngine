@@ -7,7 +7,8 @@
 #include "Log.h"
 
 using namespace std;
-using namespace __HGImpl;
+using namespace __HGImpl::V1SDL;
+using namespace HG;
 
 std::unordered_map<const char*, Thread*> Thread::Threads = {};
 

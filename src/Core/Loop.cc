@@ -6,6 +6,7 @@
 #include "Loop.h"
 #include "Log.h"
 using namespace __HGImpl;
+using namespace HG;
 
 void Loop::Run() {
     Uint64 un64Start = 0;

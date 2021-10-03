@@ -196,6 +196,7 @@
     <ClInclude Include="..\src\Engine\HGEvent.h" />
     <ClInclude Include="..\src\Engine\HGObject.h" />
     <ClInclude Include="..\src\Engine\HGRenderer.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

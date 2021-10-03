@@ -8,11 +8,13 @@
 #include "Math.h"
 
 namespace __HGImpl {
+namespace V1SDL {
     class Screen {
     public:
         /// \brief get center position of screen
-        HGResult GetCenterPos( int w, int h, IN_OUT Math::HGPos* pOutCenterPos, int displayIndex = 0);
+        HG::HGResult GetCenterPos( int w, int h, IN_OUT HG::Math::HGPos* pOutCenterPos, int displayIndex = 0);
     };
+}
 }
 
 #endif //HONEYGAME_SCREEN_H

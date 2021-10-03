@@ -9,8 +9,9 @@
 #include "Memory.h"
 
 namespace __HGImpl {
+namespace V1SDL {
 
-class Renderer : HGCore::Memory::NonCopyable {
+class Renderer : HG::Memory::NonCopyable {
 private:
 public:
     SDL_Renderer *pHandle = nullptr;
@@ -22,7 +23,7 @@ public:
             Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     virtual ~Renderer();
 };
-
+}
 }
 
 #endif //HONEYGAME_RENDERER_H

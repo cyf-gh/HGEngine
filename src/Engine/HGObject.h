@@ -14,7 +14,6 @@
 #include "../Core/Random.h"
 
 namespace HG {
-namespace V1SDL {
 template<class T> class HGObject {
 protected:
 	std::string mStrName;
@@ -31,7 +30,7 @@ public:
 	const un32 UID;
 	const char* GetName() const { return mStrName.c_str(); }
 
-	explicit HGObject( const char* strName ) : mStrName( strName ), UID( __HGImpl::RandomXORSHIFT::Random.GetRandUInt() ) {
+	explicit HGObject( const char* strName ) : mStrName( strName ), UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
 		umTheseOnes[strName] = static_cast< T* >( this );
 	}
 	virtual ~HGObject() {
@@ -40,7 +39,6 @@ public:
 };
 template<class T> std::unordered_map<std::string, T*>  HGObject<T>::umTheseOnes = std::unordered_map<std::string, T*>();
 template<class T> std::unordered_map<un32, T*>  HGObject<T>::umTheseOnesById = std::unordered_map<un32, T*>();
-}
 }
 
 #endif //HONEYGAME_OBJECT_H

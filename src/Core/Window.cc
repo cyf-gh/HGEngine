@@ -8,7 +8,9 @@
 #include "Log.h"
 
 using namespace __HGImpl;
-using namespace __HGImpl::Math;
+using namespace __HGImpl::V1SDL;
+using namespace HG::Math;
+using namespace HG;
 
 Window::Window(
         const char *title,

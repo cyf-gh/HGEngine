@@ -14,7 +14,7 @@ using namespace std;
 int main() {
 	HG_TEST_START( "rect" );
 
-	__HGImpl::Math::HGRect rect {
+	HG::Math::HGRect rect {
 		.X = 0,
 		.Y = 0,
 		.H = 600,
@@ -22,8 +22,8 @@ int main() {
 	};
 
 	auto center = rect.GetCenter();
-	HG_TEST_ASSERT_TRUE( center.X == 400 && center.Y == 300, "HGCore::Math::HGRect.GetCenter()" );
-	__HGImpl::Math::HGShape<float> tRect;
+	HG_TEST_ASSERT_TRUE( center.X == 400 && center.Y == 300, "HG::Math::HGRect.GetCenter()" );
+	HG::Math::HGShape<float> tRect;
 	rect.ToShape<float>(tRect);
 	tRect.Rotate( 90, rect.GetCenter().ToVec2<float>() );
 	return 0;
@@ -144,7 +144,7 @@ int main( int argc, char** argv ) {
 
 		df->ResetRotateCenter();
 
-		__HGImpl::Math::HGShape<float> s ;
+		HG::Math::HGShape<float> s ;
 		df->GetRotatedRectGlobal( s );
 		return 0;
 	};

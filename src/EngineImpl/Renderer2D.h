@@ -11,7 +11,7 @@
 
 namespace __HGImpl {
 namespace V1SDL {
-class Renderer2D : public __HGImpl::Renderer {
+class Renderer2D : public __HGImpl::V1SDL::Renderer {
 public:
 	/// \brief create a texture via file name, after you have
 	SDL_Texture* CreateTextureFromFile( const char* pStrFileName );

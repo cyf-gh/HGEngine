@@ -1,7 +1,7 @@
 #pragma once
 #include "./Log.h"
 
-namespace __HGImpl {
+namespace HG {
 namespace Test {
 class HGTest {
 public:

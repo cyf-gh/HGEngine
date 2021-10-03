@@ -17,7 +17,7 @@ class Camera;
 /// \note 
 /// * Scene::OnAttach于EngineImpl::NavigateScene被调用 （Scene::OnAttach will be invoked in EngineImpl::NavigateScene）
 /// * 所有的场景都应当在Engine的构造之前完成 （all scene should be constructed before the construction of Engine）
-class Scene : public HG::V1SDL::HGObject<Scene>, public HG::V1SDL::HGBehaviour {
+class Scene : public HG::HGObject<Scene>, public HG::HGBehaviour {
 protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	Camera *m_pMainCamera;

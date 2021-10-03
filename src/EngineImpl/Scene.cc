@@ -9,8 +9,8 @@
 
 using namespace __HGImpl::V1SDL;
 using namespace __HGImpl;
+using namespace HG;
 
-using namespace HG::V1SDL;
 
 Scene::Scene( const char* strName ) : HGObject<Scene>( strName ), m_pMainCamera( nullptr ) {
 	HG_EVENT_CALL_NO_DATA( OnBeforeConstruct, this );

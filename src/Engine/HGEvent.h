@@ -5,9 +5,8 @@
 #ifndef HONEYGAME_EVENT_H
 #define HONEYGAME_EVENT_H
 
-namespace HG { namespace V1SDL {
+namespace HG {
 typedef int ( *pEvent )( void* pData, void *pThis );
-}
 }
 
 #define HG_EVENT_CALL_NO_DATA( EVENT, PTHIS ) \

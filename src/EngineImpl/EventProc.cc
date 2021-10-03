@@ -6,7 +6,7 @@
 //#include "../Core/Log.h"
 //
 //using namespace __HGImpl::V1;
-//using namespace HGCore;
+//using namespace HG;
 //using namespace std;
 //
 //EventProc::EventProc() {

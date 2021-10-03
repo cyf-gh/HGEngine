@@ -3,7 +3,6 @@
 #include "HGEvent.h"
 
 namespace HG {
-namespace V1SDL {
 class HGBehaviour {
 public:
 	/// \brief will be invoked every
@@ -39,7 +38,6 @@ public:
 	/// * See Scene::Update
 	pEvent Start;
 };
-}
 }
 
 #define HG_EVENT_ONUPDATE() []( void *pEventRaw, void *pThis ) -> int

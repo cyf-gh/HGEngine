@@ -12,9 +12,10 @@
 #include "Error.h"
 
 namespace __HGImpl {
+namespace V1SDL {
 /// \brief wrapped SDL_Thread
 /// \note await thread should not be used in main thread to avoid UI blocking.
-class Thread : HGCore::Memory::NonCopyable {
+class Thread : HG::Memory::NonCopyable {
 private:
 	std::string strName;
 public:
@@ -24,7 +25,7 @@ public:
 	/// \sa Thread::~Thread()
 	static std::unordered_map<const char*, Thread*> Threads;
 	/// \brief set current thread priority
-	static HGResult SetPriority( SDL_ThreadPriority priority );
+	static HG::HGResult SetPriority( SDL_ThreadPriority priority );
 	
 public:
 	SDL_Thread* pHandle;
@@ -34,6 +35,7 @@ public:
 	virtual ~Thread();
 };
 
+}
 }
 
 #endif //HONEYGAME_THREAD_H

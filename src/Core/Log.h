@@ -9,7 +9,7 @@
 #include "Error.h"
 #include "Directory.hpp"
 
-namespace __HGImpl {
+namespace HG {
     class HGLog {
     private:
         const std::string getErrorDesc( const char * strFuncName ) {
@@ -37,7 +37,7 @@ namespace __HGImpl {
         /// \note rather ./Log/ than ./Log
         explicit HGLog( const char* strLogFilePath = "./Log/")
             :ptm( nullptr ), strTime( new char[9] ), strDate( new char[11] ) {
-            __HGImpl::HGDirectory::CreateDirectoryIfDoesNotExsit( strLogFilePath );
+            HGDirectory::CreateDirectoryIfDoesNotExsit( strLogFilePath );
             
             std::string strLogFile( strLogFilePath );
             strLogFile.append( getDateStr() ).append(".txt" );
@@ -115,30 +115,30 @@ if ( P == nullptr){ \
     HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ); \
     return; \
 } else { \
-    __HGImpl::Log->Success( SDL_LOG_CATEGORY, FUNC_NAME ); \
+    HG::Log->Success( SDL_LOG_CATEGORY, FUNC_NAME ); \
 }
 
 /// \brief log the SDL error directly
 /// \sa HG_LOG_CHECK_SDL_HANDLE_IS_NULL
 #define HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ) \
-__HGImpl::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
+HG::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
 
 
 /// \brief log info
 #define HG_LOG_INFO( info ) \
-__HGImpl::Log->Info( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->Info( SDL_LOG_CATEGORY_SYSTEM, info )
 
 /// \brief log failed info
 #define HG_LOG_FAILED( info ) \
-__HGImpl::Log->Failed( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->Failed( SDL_LOG_CATEGORY_SYSTEM, info )
 
 #define HG_LOG_SUCCESS( info ) \
-__HGImpl::Log->Success( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->Success( SDL_LOG_CATEGORY_SYSTEM, info )
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_SUCCESS( info ) \
-__HGImpl::Log->AssertSuccess( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->AssertSuccess( SDL_LOG_CATEGORY_SYSTEM, info )
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_FAILED( info ) \
-__HGImpl::Log->AssertFailed( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->AssertFailed( SDL_LOG_CATEGORY_SYSTEM, info )

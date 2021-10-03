@@ -19,11 +19,11 @@ class Scene;
 /// \brief game object of HG
 /// \note game object should be constructed after scenes;
 /// if you dont want to attach to the current scene, you may construct the game objects before Engine
-class GameObject : public HG::V1SDL::HGObject<GameObject>, public HG::V1SDL::HGBehaviour {
+class GameObject : public HG::HGObject<GameObject>, public HG::HGBehaviour {
 protected:
 	Scene* m_pScene;
 	bool mIsEnable = false;
-	std::vector<HG::V1SDL::HGComponent*> m_vecComponents;
+	std::vector<HG::HGComponent*> m_vecComponents;
 
 public:
 	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
@@ -34,11 +34,20 @@ public:
 	void Update( void* pEvent ) override { };
 	void Render( void* pRenderer ) override { };
 
-	std::vector<HG::V1SDL::HGComponent*> GetComponents() const { return m_vecComponents; }
-	HG::V1SDL::HGComponent* AddComponent( HG::V1SDL::HGComponent* pComp ) {
-		m_vecComponents.push_back( static_cast< HG::V1SDL::HGComponent* >( pComp ) );
-		static_cast< HG::V1SDL::HGComponent* >( pComp )->SetGameObject( this );
+	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
+	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {
+		m_vecComponents.push_back( static_cast< HG::HGComponent* >( pComp ) );
+		static_cast< HG::HGComponent* >( pComp )->SetGameObject( this );
 		return pComp;
+	}
+	template<typename T> std::vector<T*> GetComponents() { 
+		std::vector<T*> m_vecComps;
+		for( auto& c : m_vecComponents ) {
+			if( typeid(T) == typeid(*c) ) {
+				m_vecComps.push_back( c );
+			}
+		}
+		return m_vecComps;
 	}
 
 	template<typename T> T* GetComponent() {
