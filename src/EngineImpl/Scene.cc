@@ -10,9 +10,13 @@
 using namespace __HGImpl::V1SDL;
 using namespace __HGImpl;
 using namespace HG;
+using namespace std;
 
-
-Scene::Scene( const char* strName ) : HGObject<Scene>( strName ), m_pMainCamera( nullptr ) {
+Scene::Scene( const char* strName )
+	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ) {
+	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
+		m_vecLayers.push_back( new Layer( ( string( "Layer" ) + to_string( i ) ).c_str(), i ) );
+	}
 	HG_LOG_INFO( std::string( "scene [" ).append( GetName() ).append( "] constructed" ).c_str() );
 }
 
@@ -42,6 +46,7 @@ void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
 	if( !IsStart ) {
 		for( auto& it : umGameObjectsByName ) {
 			if( it.second->IsEnable() ) {
+				HG_EVENT_CALL( Start, pEvent, it.second );
 			}
 		}
 		IsStart = true;
@@ -56,7 +61,9 @@ void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
 void __HGImpl::V1SDL::Scene::Render( void* pRenderer ) {
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {
+			HG_EVENT_CALL( OnUpdate, &HGMainLoop::tEvent, it.second );
 			it.second->Render( pRenderer );
+			HG_EVENT_CALL( OnPostRender, pRenderer, it.second );
 		}
 	}
 }

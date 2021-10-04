@@ -42,9 +42,9 @@ public:
 	void _StopTask() override;
 };
 
-/// \brief HoneyGame主引擎 （engine of HG）
+/// \brief HoneyGame主引擎 <br>engine of HG
 /// \note 
-/// * 初始化顺序应当为 （the initialization order of Scenes, GameObjects, Engine Should be）
+/// * 初始化顺序应当为 <br>the initialization order of Scenes, GameObjects, Engine Should be
 /// * Scenes -> Engine -> GameObjects
 class EngineImpl : public HG::HGEngine {
 private:
@@ -62,7 +62,7 @@ private:
 	static void SetEngine( EngineImpl* pEngine ) { EngineImpl::pEngine = pEngine; }
 
 public:
-	/// \brief 获取主线程句柄 （get main loop handle）
+	/// \brief 获取主线程句柄 <br>get main loop handle
 	/// \note
 	/// 该循环运行于主线程之中
 	const HGMainLoop& GetMainLoop() { return tLoopMain; }

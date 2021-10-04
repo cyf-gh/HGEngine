@@ -6,31 +6,47 @@
 namespace __HGImpl {
 namespace V1SDL {
 
-/// \~chinese \brief 形体变换，包含位置与大小信息 
-/// \~english \brief figure, which contains position and size infomation
+/// \brief 
+/// 形体变换，包含位置与大小信息<br>
+/// figure, which contains position and size infomation
 class Transform : public HG::HGComponent {
 public:
+	/// \brief 
+	/// 局部坐标系中的为u照顾，也可理解为对原物体的裁剪位置<br>
+	/// size in local area, also it's the clip start point of this object
 	HG::Math::HGVec2<float> tLocalPos;
+	/// \brief 
+	/// 局部坐标系中的大小，也可理解为对原物体的裁剪大小<br>
+	/// size in global area,  also it's the clip size of this object
 	HG::Math::HGSize tLocalRect;
+	/// \brief 
+	/// 世界坐标系中的位置<br>
+	/// position in global area
 	HG::Math::HGVec2<float> tPosition;
-	/// \~chinese \brief 世界坐标系中的大小，也可理解为渲染至全局的大小
-	/// \~english \brief size in global area, also it's the ouput rendering size 
+	/// \brief 
+	/// 世界坐标系中的大小，也可理解为渲染至全局的大小<br>
+	/// size in global area, also it's the ouput rendering size
 	HG::Math::HGSize tRect;
 
 	double f64Angle;
 	HG::Math::HGPos tRotateCenter;
 
+	/// \brief
+	/// * 重置旋转中心为Rect中心
+	/// * reset the rotate center to rect center
 	void ResetRotateCenter() {
 		HG::Math::Center( tPosition, tRect, tRotateCenter );
 	}
 
-	/// \~chinese \brief 获取旋转后的矩形
-	/// \~english \brief get rect after being rotated
-	///	\~chinese \param tRect 旋转后的矩形 以四个二维向量作为保存
-	/// \~english \param tRect rect after being rotated which contains 4 vectors
-	void GetRotatedRectGlobal( 
+	/// \brief 
+	///	* 获取旋转后的矩形
+	/// * get rect after being rotated
+	///	\param tRect 
+	///	* 旋转后的矩形 以四个二维向量作为保存
+	/// * rect after being rotated which contains 4 vectors
+	void GetRotatedRectGlobal(
 		HG::Math::HGShape<float>& tRect ) {
-		this->ToHGRectGlobal().ToShape<float>(tRect);
+		this->ToHGRectGlobal().ToShape<float>( tRect );
 		tRect.Rotate( f64Angle, tRotateCenter.ToVec2<float>() );
 	}
 
@@ -43,16 +59,16 @@ public:
 
 	HG_INLINE SDL_Rect ToSDLRectGlobal() {
 		return SDL_Rect {
-			.x = (int)tPosition.X,
-			.y = (int)tPosition.Y,
+			.x = ( int ) tPosition.X,
+			.y = ( int ) tPosition.Y,
 			.w = static_cast< int >( tRect.W ),
 			.h = static_cast< int >( tRect.H ),
 		};
 	}
 	HG_INLINE SDL_Rect ToSDLRectLocal() {
 		return SDL_Rect {
-			.x = (int)tLocalPos.X,
-			.y = (int)tLocalPos.Y,
+			.x = ( int ) tLocalPos.X,
+			.y = ( int ) tLocalPos.Y,
 			.w = static_cast< int >( tLocalRect.W ),
 			.h = static_cast< int >( tLocalRect.H ),
 		};
@@ -74,13 +90,18 @@ public:
 			.W = static_cast< un32 >( tRect.W ),
 		};
 	}
-
+	/// \brief 
+	/// * 将物体于世界的坐标与大小归零
+	/// * reset the global position and size to zero
 	void ZeroGlobal() {
 		tPosition.X = 0;
 		tPosition.Y = 0;
 		tRect.H = 0;
 		tRect.W = 0;
 	}
+	/// \brief 
+	/// * 将物体于本地的坐标与大小归零
+	/// * reset the local position and size to zero
 	void ZeroLocal() {
 		tLocalPos.X = 0;
 		tLocalPos.Y = 0;
@@ -107,4 +128,5 @@ public:
 	}
 };
 
-}}
+}
+}

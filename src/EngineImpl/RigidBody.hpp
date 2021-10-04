@@ -5,17 +5,10 @@
 
 namespace __HGImpl {
 namespace V1SDL {
-/// \brief 计时器组件
-class Timer : public HG::HGComponent {
+/// \brief 刚体组件
+class RigidBody : public HG::HGComponent {
 public:
-	HG::pEvent pOnComplete;
-	HG::pEvent pOnInterval;
-	double Delay;
-	void Stop() {}
-	void Start( float f32Interval, n32 unRepeatCount, HG::pEvent pOnInterval, HG::pEvent pOnComplete ) {}
-	void DelayStart( float f32Delay, HG::pEvent pOnComplete ) {}
-	void Reset() {}
-	void Restart() {}
+
 };
 }
 }

@@ -22,6 +22,7 @@
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\test\Script1.cpp" />
     <ClCompile Include="..\src\Engine\HGEvent.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
@@ -57,9 +58,13 @@
     <ClInclude Include="..\src\EngineImpl\Transform.hpp">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="..\src\EngineImpl\Collision.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Timer.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Layer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

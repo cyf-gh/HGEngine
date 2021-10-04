@@ -14,7 +14,7 @@
 
 namespace HG {
 namespace Memory {
-	/// \brief 对象拷贝 （object non copyable）
+	/// \brief 对象拷贝 <br>object non copyable
 	class NonCopyable {
 	protected:
 		NonCopyable() = default;
@@ -32,7 +32,7 @@ namespace Memory {
 
 /// \brief ban not sure binary copy.\
 /// \note 
-/// * 推荐使用HG::Memory::NonCopyable （HG::Memory::NonCopyable is recommended）
+/// * 推荐使用HG::Memory::NonCopyable <br>HG::Memory::NonCopyable is recommended
 #define HG_MEM_NO_BINARY_COPY( CLASSNAME ) \
 public: \
 CLASSNAME&operator=( const CLASSNAME& rhs ) = delete; \

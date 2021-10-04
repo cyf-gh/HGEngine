@@ -34,7 +34,7 @@ bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
 }
 
 GameObject::GameObject( const char* strName, Scene* pScene )
-: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents() {
+: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), Layer( 0 ) {
     AddComponent( new HGBehaviour( "Behaviour" ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
     if ( m_pScene == nullptr ) {

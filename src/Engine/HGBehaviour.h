@@ -4,17 +4,33 @@
 #include "HGComponent.h"
 
 namespace HG {
+/// \brief 
+/// 行为组件，GameObject默认创建该组件，生命周期主要由Scene控制<br>
+/// behavior component, which is created by game object by default. events' life cycles are controlled by Scene
+/// \see __HGImpl::V1SDL::GameObject
+/// \sa __HGImpl::V1SDL::Scene
 class HGBehaviour : public HGComponent {
 public:	
-	/// \brief 每固定时间更新 （update per fixed time）
+	/// \brief 
+	/// 更新事件，每固定时间更新<br>
+	/// update per fixed time
 	pEvent OnFixedUpdate;
-	/// \brief 每帧更新 （update per frame）
+	/// \brief 
+	///	更新事件，每帧更新，与OnRender同步<br>
+	///	update per frame, sync with OnRender
 	/// \note
-	/// * ！！！该方法由Scene调用，不应当由GameObject::Render调用！！！
-	///	* GameObject将于调用OnRender之前调用该方法，见Scene::renderAllGameObjects （GameObject will invoke this event before OnRender, see Scene::renderAllGameObjects）
-	/// * Scene将于调用OnRender之前调用该方法，见Scene::Render （Scene will invoke this event before OnRender, see Scene::Render）
+	/// * 该方法由Scene调用，不应当由GameObject::Render调用<br>
+	/// this event is invoked by scene, you should not call it in GameObject::Render
+	///	* GameObject将于调用OnRender之前调用该方法<br>
+	/// GameObject will invoke this event before OnRender
+	/// * Scene将于调用OnRender之前调用该方法<br>
+	/// Scene will invoke this event before OnRender
+	/// \see __HGImpl::V1SDL::Scene::Render
 	pEvent OnUpdate;
-	/// 
+	/// \brief 
+	///	渲染事件<br>
+	/// render event
+	/// \see __HGImpl::V1SDL::Scene::Render
 	pEvent OnRender;
 
 	pEvent OnPostRender;
@@ -25,19 +41,31 @@ public:
 
 	pEvent OnDisable;
 
-	/// \brief 于对象被构造前被调用 （invoke before object being constructed）
+	/// \brief 于对象被构造前被调用<br>
+	/// invoke before object being constructed
 	pEvent OnBeforeConstruct;
 
-	/// \brief 于Update的第一帧被调用
-	/// \note 
-	/// * Scene::Start -> GameObject::Start
-	/// * See Scene::Update
+	/// \brief 
+	/// 于Update的第一帧被调用<br>
+	/// invoked at first frame in Update
+	/// \see __HGImpl::V1SDL::Scene::Update
 	pEvent Start;
+
+	/// \brief 
+	/// 当附加于新的 Layer 前时调用
+	/// \note 
+	/// * pData 传入的值为 LayerIndex
+	/// \see __HGImpl::V1SDL::Layer::AttachGameObject
+	pEvent OnAttachToLayer;
 	
+	/// \brief 
+	/// 当从原本的 Layer 解除前调用
+	/// \note 
+	/// * pData 传入的值为 LayerIndex
+	/// \see __HGImpl::V1SDL::Layer::DetachGameObject
+	pEvent OnDetachFromLayer;
 public:
-	HGBehaviour( const char* strName ) : HGComponent( strName ) {
-		
-	}
+	HGBehaviour( const char* strName ) : HGComponent( strName ) { }
 	virtual ~HGBehaviour() {}
 };
 }

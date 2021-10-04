@@ -21,6 +21,7 @@ class Scene;
 class GameObject : public HG::HGObject<GameObject> {
 protected:
 	Scene* m_pScene;
+	Layer* m_pLayer;
 	bool mIsEnable = false;
 	std::vector<HG::HGComponent*> m_vecComponents;
 
@@ -34,7 +35,7 @@ public:
 	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
 	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }
-	
+
 	bool IsInCameraView();
 	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
 	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {
@@ -68,8 +69,11 @@ public:
 		}
 		return nullptr;
 	}
-	/// \brief scene that the GameObject is part of.
 	Scene* GetScene() const { return m_pScene; }
+	void SetScene( Scene* pS ) { m_pScene = pS; }
+	Layer* GetLayer() const { return m_pLayer; }
+	void SetLayer( Layer* pL ) { m_pLayer = pL; }
+
 	/// \brief default's, the game object will be attached to the current scene
 	explicit GameObject( const char* strName, Scene* pScene = nullptr );
 	virtual ~GameObject();

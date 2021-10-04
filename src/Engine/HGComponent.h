@@ -5,6 +5,10 @@
 namespace __HGImpl { namespace V1SDL { class GameObject; } }
 
 namespace HG {
+/// \brief 
+/// 组件基类，其集合由GameObject拥有<br>
+/// Component base class, the set of components is owned by GameObject
+/// \see __HGImpl::V1SDL::GameObject
 class HGComponent : public HGObject<HGComponent> {
 protected:
 	__HGImpl::V1SDL::GameObject *m_pGameObject;

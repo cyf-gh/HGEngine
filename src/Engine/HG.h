@@ -8,8 +8,10 @@
 namespace HG { 
     class HGEngine {
     public:
-        /// \brief this is main thread of game; this is a Read-Write thread
-        /// \note process for user input.
+        /// \brief 游戏主线程，该线程对数据可读可写 <br>this is main thread of game; this is a Read-Write thread
+        /// \note 
+        /// * 与渲染线程不同步 <br> async with render thread 
+        /// * OnFixedUpdate于此函数中处理
         virtual int Run() = 0;
     };
 }

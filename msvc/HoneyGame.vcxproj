@@ -160,6 +160,7 @@
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Scene.cc" />
     <ClCompile Include="..\src\Engine\HGEvent.cpp" />
@@ -182,13 +183,16 @@
     <ClInclude Include="..\src\Core\Type.h" />
     <ClInclude Include="..\src\Core\Window.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
+    <ClInclude Include="..\src\EngineImpl\Collision.hpp" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
+    <ClInclude Include="..\src\EngineImpl\Layer.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
     <ClInclude Include="..\src\EngineImpl\RigidBody.hpp" />
     <ClInclude Include="..\src\EngineImpl\Scene.h" />
+    <ClInclude Include="..\src\EngineImpl\Timer.hpp" />
     <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
     <ClInclude Include="..\src\Engine\HG.h" />
     <ClInclude Include="..\src\Engine\HGBehaviour.h" />
@@ -196,7 +200,6 @@
     <ClInclude Include="..\src\Engine\HGEvent.h" />
     <ClInclude Include="..\src\Engine\HGObject.h" />
     <ClInclude Include="..\src\Engine\HGRenderer.h" />
-    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

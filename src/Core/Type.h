@@ -1,4 +1,4 @@
-/// \brief HG 类型定义 （hg type definitions）
+/// \brief HG 类型定义 <br>hg type definitions
 /// \file Type.h
 /// \details recover form https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/core/Def.h
 #pragma once
