@@ -11,7 +11,7 @@ protected:
 public:
 	__HGImpl::V1SDL::GameObject *GetGameObject() const { return m_pGameObject; }
 	void SetGameObject( __HGImpl::V1SDL::GameObject *pGameObject ) { m_pGameObject = pGameObject; }
-	explicit HGComponent( const char* strName ) : HGObject<HGComponent>( strName ) { }
+	explicit HGComponent( const char* strName ) : m_pGameObject( nullptr ), HGObject<HGComponent>( strName ) { }
 	virtual ~HGComponent() = default;
 };
 }

@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;../.ref/lua/src/;../.ref/luna</IncludePath>
     <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -158,12 +158,13 @@
     <ClCompile Include="..\src\Core\Window.cc" />
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
-    <ClCompile Include="..\src\EngineImpl\EventProc.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Scene.cc" />
+    <ClCompile Include="..\src\Engine\HGEvent.cpp" />
     <ClCompile Include="..\src\Main.cc" />
+    <ClCompile Include="..\test\Script1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Directory.hpp" />
@@ -182,7 +183,6 @@
     <ClInclude Include="..\src\Core\Window.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
-    <ClInclude Include="..\src\EngineImpl\EventProc.h" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />

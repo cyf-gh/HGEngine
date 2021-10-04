@@ -14,5 +14,7 @@ namespace HG {
     };
 }
 
+#define HGMain( ARGC, ARGV ) int main( ARGC, ARGV )
+
 
 #endif //HONEYGAME_HG_H

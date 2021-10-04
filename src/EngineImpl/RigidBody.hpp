@@ -1,21 +1,21 @@
-/// https://segmentfault.com/a/1190000015325310
 #pragma once
 
-#include "../Engine/HGComponent.h"
 #include "../Engine/HGEvent.h"
+#include "../Engine/HGComponent.h"
 
 namespace __HGImpl {
 namespace V1SDL {
+/// \brief 计时器组件
 class Timer : public HG::HGComponent {
 public:
-	HG::V1SDL::pEvent pOnComplete;
-	HG::V1SDL::pEvent pOnInterval;
+	HG::pEvent pOnComplete;
+	HG::pEvent pOnInterval;
 	double Delay;
-	void Stop();
-	void Start( float f32Interval, n32 unRepeatCount, HG::V1SDL::pEvent pOnInterval, HG::V1SDL::pEvent pOnComplete );
-	void DelayStart( float f32Delay, HG::V1SDL::pEvent pOnComplete );
-	void Reset();
-	void Restart();
+	void Stop() {}
+	void Start( float f32Interval, n32 unRepeatCount, HG::pEvent pOnInterval, HG::pEvent pOnComplete ) {}
+	void DelayStart( float f32Delay, HG::pEvent pOnComplete ) {}
+	void Reset() {}
+	void Restart() {}
 };
 }
 }

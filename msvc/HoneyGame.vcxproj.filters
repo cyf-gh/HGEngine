@@ -8,7 +8,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\Main.cc" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
-    <ClCompile Include="..\src\EngineImpl\EventProc.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
@@ -21,11 +20,12 @@
     <ClCompile Include="..\src\Core\Thread.cc" />
     <ClCompile Include="..\src\Core\Window.cc" />
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
+    <ClCompile Include="..\test\Script1.cpp" />
+    <ClCompile Include="..\src\Engine\HGEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
-    <ClInclude Include="..\src\EngineImpl\EventProc.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />

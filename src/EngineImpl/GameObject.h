@@ -8,32 +8,34 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "../Engine/HGBehaviour.h"
 #include "../Engine/HGObject.h"
-#include "../Engine/HGBehaviour.h"
 #include "../Engine/HGComponent.h"
+#include "../Engine/HGBehaviour.h"
 
 namespace __HGImpl {
 namespace V1SDL {
 class Scene;
 /// \brief game object of HG
 /// \note game object should be constructed after scenes;
-/// if you dont want to attach to the current scene, you may construct the game objects before Engine
-class GameObject : public HG::HGObject<GameObject>, public HG::HGBehaviour {
+/// if you don't want to attach to the current scene, you may construct the game objects before Engine
+class GameObject : public HG::HGObject<GameObject> {
 protected:
 	Scene* m_pScene;
 	bool mIsEnable = false;
 	std::vector<HG::HGComponent*> m_vecComponents;
 
 public:
+	/// \brief will be invoked every
+	/// \note use auto pEvent = static_cast<SDL_Event *>( pe ); to get the event
+	virtual void Update( void* pEvent ) = 0;
+	virtual void Render( void* pRenderer ) = 0;
+
+	virtual GameObject* Clone() = 0;
 	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
 	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }
 	
 	bool IsInCameraView();
-	void Update( void* pEvent ) override { };
-	void Render( void* pRenderer ) override { };
-
 	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
 	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {
 		m_vecComponents.push_back( static_cast< HG::HGComponent* >( pComp ) );

@@ -17,7 +17,7 @@ class Camera;
 /// \note 
 /// * Scene::OnAttach于EngineImpl::NavigateScene被调用 （Scene::OnAttach will be invoked in EngineImpl::NavigateScene）
 /// * 所有的场景都应当在Engine的构造之前完成 （all scene should be constructed before the construction of Engine）
-class Scene : public HG::HGObject<Scene>, public HG::HGBehaviour {
+class Scene : public HG::HGObject<Scene> {
 protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	Camera *m_pMainCamera;
@@ -35,8 +35,10 @@ public:
 	/// \return 当未找到相应名字的GameObject时，返回nullptr （nullptr when the specified game object does not exist）
 	GameObject* FindGameObject( const char* strName );
 
-	void Update( void* pEvent ) override;
-	void Render( void* pRenderer ) override;
+	void Update( void* pEvent );
+	void Render( void* pRenderer );
+
+	HG::pEvent OnAttach;
 
 	explicit Scene( const char* strName );
 	virtual ~Scene();

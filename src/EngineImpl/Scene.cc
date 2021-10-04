@@ -13,7 +13,6 @@ using namespace HG;
 
 
 Scene::Scene( const char* strName ) : HGObject<Scene>( strName ), m_pMainCamera( nullptr ) {
-	HG_EVENT_CALL_NO_DATA( OnBeforeConstruct, this );
 	HG_LOG_INFO( std::string( "scene [" ).append( GetName() ).append( "] constructed" ).c_str() );
 }
 
@@ -41,15 +40,12 @@ GameObject* Scene::FindGameObject( const char* strName ) {
 void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
 	static bool IsStart = false;
 	if( !IsStart ) {
-		HG_EVENT_CALL( this->Start, pEvent, this );
 		for( auto& it : umGameObjectsByName ) {
 			if( it.second->IsEnable() ) {
-				HG_EVENT_CALL( it.second->Start, pEvent, it.second );
 			}
 		}
 		IsStart = true;
 	}
-	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {
 			it.second->Update( pEvent );
@@ -58,15 +54,9 @@ void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
 }
 
 void __HGImpl::V1SDL::Scene::Render( void* pRenderer ) {
-	HG_EVENT_CALL( OnUpdate, pRenderer, this );
-	HG_EVENT_CALL( OnRender, pRenderer, this );
-
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {
-			HG_EVENT_CALL( it.second->OnUpdate, &HGMainLoop::tEvent, it.second );
 			it.second->Render( pRenderer );
-			HG_EVENT_CALL( it.second->OnPostRender, pRenderer, it.second );
 		}
 	}
-	HG_EVENT_CALL( OnPostRender, pRenderer, this );
 }

@@ -16,57 +16,57 @@ static const f32 ST_PI = 3.141592654f;
 		Mathematical operations
 ***********************************************************************/
 
-static ST_INLINE f64 Max( f64 num1, f64 num2 ) {
+static HG_INLINE f64 Max( f64 num1, f64 num2 ) {
 	return num1 > num2 ? num1 : num2;
 }
 
-static ST_INLINE f64 Min( f64 num1, f64 num2 ) {
+static HG_INLINE f64 Min( f64 num1, f64 num2 ) {
 	return num1 > num2 ? num2 : num1;
 }
 
-static ST_INLINE bool IsEqualF( f64 num1, f64 num2 ) {
+static HG_INLINE bool IsEqualF( f64 num1, f64 num2 ) {
 	return fabs( num1 - num2 ) < 0.000001;
 }
 
-static ST_INLINE bool IsIn( f64 numMin, f64 numMax, f64 numCmp ) {
+static HG_INLINE bool IsIn( f64 numMin, f64 numMax, f64 numCmp ) {
 	return ( ( numCmp >= numMin ) && ( numMax <= numCmp ) );
 }
 
-static ST_INLINE bool IsPositive( f64 dNum ) {
+static HG_INLINE bool IsPositive( f64 dNum ) {
 	return ( dNum > 0 );
 }
 
-static ST_INLINE f64 Avg( f64 num1, f64 num2 ) {
+static HG_INLINE f64 Avg( f64 num1, f64 num2 ) {
 	return ( num1 + num2 ) / 2;
 }
 
-static ST_INLINE f64 Abs( f64 dNum ) {
+static HG_INLINE f64 Abs( f64 dNum ) {
 	return dNum > 0 ? dNum : -dNum;
 }
 
-static ST_INLINE n32 Avg( n32 nNum1, n32 nNum2 ) {
+static HG_INLINE n32 Avg( n32 nNum1, n32 nNum2 ) {
 	return ( nNum1 >> 1 ) + ( nNum2 >> 1 );
 }
 
-static ST_INLINE n32 Half( n32 nNum ) {
+static HG_INLINE n32 Half( n32 nNum ) {
 	return ( nNum >> 1 );
 }
 
-static ST_INLINE n32 Twofold( n32 nNum ) {
+static HG_INLINE n32 Twofold( n32 nNum ) {
 	return ( nNum << 1 );
 }
 
-static ST_INLINE n32 Opposite( n32 nNum ) {
+static HG_INLINE n32 Opposite( n32 nNum ) {
 	return ( ~nNum + 1 );
 }
 
-static ST_INLINE n32 Abs( n32 nNum ) {
+static HG_INLINE n32 Abs( n32 nNum ) {
 	const n32 nTmp = ( nNum >> 31 );
 	return ( ( nNum ^ nTmp ) - nTmp );
 }
 
 /* id Software */
-static ST_INLINE f32 inv_sqrt( f32 X ) {
+static HG_INLINE f32 inv_sqrt( f32 X ) {
 	f32 xhalf = 0.5f * X;
 	int i = *( int* ) &X;
 	i = 0x5f3759df - ( i >> 1 );
@@ -182,7 +182,7 @@ struct HGSize {
 	un32 H, W;
 };
 
-static ST_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize& tSize, HGPos& p ) {
+static HG_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize& tSize, HGPos& p ) {
 	p.X = static_cast< un32 >( tPos.X ) + ( tSize.W >> 1 );
 	p.Y = static_cast< un32 >( tPos.Y ) + ( tSize.H >> 1 );
 	return p;

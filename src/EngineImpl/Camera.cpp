@@ -1,7 +1,8 @@
 #include "Camera.h"
 #include "EngineImpl.h"
+#include "../Engine/HGBehaviour.h"
 using namespace __HGImpl::V1SDL;
-
+using namespace HG;
 void __HGImpl::V1SDL::Camera::Update( void* pEvent ) { 
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }

@@ -17,11 +17,12 @@ public:
 	/// \brief 是否仅渲染Camera视野中的GameObjects （whether render GameObjects in view only）
 	bool RenderInViewOnly;
 
-	explicit Camera( const char * strName, Scene* pScene = nullptr ) : GameObject( strName ), RenderInViewOnly( true ), pTarget( nullptr ) {
-		AddComponent( new Transform("Transform") );
+	explicit Camera( const char* strName, Scene* pScene = nullptr ) : GameObject( strName ), RenderInViewOnly( true ), pTarget( nullptr ) {
+		AddComponent( new Transform( "Transform" ) );
 	}
 	void Update( void* pEvent ) override;
 	void Render( void* pRenderer ) override;
+	GameObject* Clone() override { return new Camera( *this ); };
 	/// \brief 将摄像机大小设置为Renderer输出的同样大小 （set view size of camera the same size as renderer output size）
 	void SetCameraSizeToRendererSize();
 	virtual ~Camera() { }

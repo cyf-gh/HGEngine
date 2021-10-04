@@ -32,10 +32,8 @@ typedef double			f64;
 #   pragma warning( disable : 4996)
 #   pragma warning( disable : 4114)
 #   pragma warning( disable : 4180)
-#   define ST_INLINE  __forceinline
+#   define HG_INLINE  __forceinline
         /* !_MSC_VER */
 #elif defined( __GNUC__ )
-#   define ST_INLINE inline
+#   define HG_INLINE inline
 #endif  /* !__GNUC__ */
-
-#define HG_INLINE ST_INLINE

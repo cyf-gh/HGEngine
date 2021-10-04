@@ -3,13 +3,15 @@
 //
 
 #include "../Core/Log.h"
+#include "../Engine/HGBehaviour.h"
 #include "GameObject.h"
 #include "EngineImpl.h"
 #include "Scene.h"
 
-using namespace __HGImpl::V1SDL;
-using namespace HG::Math;
 using namespace __HGImpl;
+using namespace __HGImpl::V1SDL;
+using namespace HG;
+using namespace HG::Math;
 
 bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
     auto pScene = EngineImpl::GetEngine()->GetCurrentScene();
@@ -33,6 +35,7 @@ bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
 
 GameObject::GameObject( const char* strName, Scene* pScene )
 : HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents() {
+    AddComponent( new HGBehaviour( "Behaviour" ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
     if ( m_pScene == nullptr ) {
         m_pScene = EngineImpl::GetEngine()->GetCurrentScene();

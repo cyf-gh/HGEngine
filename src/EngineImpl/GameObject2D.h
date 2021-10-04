@@ -26,7 +26,12 @@ protected:
 public:
 	void Update( void* pEvent ) override;
 	void Render( void* pRenderer ) override;
+	/// \brief 克隆2D游戏对象
+	/// \note 
+	///	* 克隆后的2D游戏对象公用同一 Texture
+	GameObject* Clone() override { return new GameObject2D(*this); }
 	SDL_Texture* GetTexture() const { return m_pTexture; }
+	void SetTexture( SDL_Texture* pT ) { m_pTexture = pT; }
 	explicit GameObject2D( const char* strObjectName = "", const char* strFileName = "" );
 	virtual ~GameObject2D();
 };
