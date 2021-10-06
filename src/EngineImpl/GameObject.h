@@ -5,6 +5,7 @@
 #ifndef HONEYGAME_GAMEOBJECT_H
 #define HONEYGAME_GAMEOBJECT_H
 
+#include <typeinfo>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -15,6 +16,8 @@
 namespace __HGImpl {
 namespace V1SDL {
 class Scene;
+class Layer;
+
 /// \brief game object of HG
 /// \note game object should be constructed after scenes;
 /// if you don't want to attach to the current scene, you may construct the game objects before Engine
@@ -35,7 +38,10 @@ public:
 	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
 	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }
-
+	
+	/// \brief GameObject 是否于 Camera 的 View 之中
+	/// \note
+	/// * 该方法未使用 Collision 组件
 	bool IsInCameraView();
 	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
 	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {

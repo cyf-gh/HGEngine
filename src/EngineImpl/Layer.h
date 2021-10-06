@@ -30,6 +30,9 @@ enum HG_LAYER_INDEX : char {
 class Layer : public HG::HGObject<Layer>, public HG::Memory::NonCopyable {
 protected:
 	std::vector<GameObject*> m_vecObjs;
+	std::vector<GameObject*> m_vecX;
+	std::vector<GameObject*> m_vecY;
+
 public:
 	/// \see __HGImpl::V1SDL::HG_LAYER_INDEX
 	const char LayerIndex;

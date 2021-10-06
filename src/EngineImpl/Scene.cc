@@ -30,7 +30,7 @@ Scene::~Scene() {
 void Scene::AttachGameObject( GameObject* pGameObject ) {
 	if( umGameObjectsByName.count( pGameObject->GetName() ) == 0 ) {
 		umGameObjectsByName[pGameObject->GetName()] = pGameObject;
-		// pGameObject->OnAttach();
+		HG_EVENT_CALL( OnAttachToScene, this, pGameObject );
 		HG_LOG_INFO( std::string( "attached [" ).append( pGameObject->GetName() ).append( "] to scene: " ).append( GetName() ).c_str() );
 	} else {
 		Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::string( "trying to attach a same name game object, which will do not recover the original one. Name: " ).append( pGameObject->GetName() ).c_str() );

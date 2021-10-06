@@ -13,12 +13,15 @@ class HGBehaviour : public HGComponent {
 public:	
 	/// \brief 
 	/// 更新事件，每固定时间更新<br>
+	/// \note
+	/// * pData 为 SDL_Event
 	/// update per fixed time
 	pEvent OnFixedUpdate;
 	/// \brief 
 	///	更新事件，每帧更新，与OnRender同步<br>
 	///	update per frame, sync with OnRender
 	/// \note
+	/// * pData 为 SDL_Event
 	/// * 该方法由Scene调用，不应当由GameObject::Render调用<br>
 	/// this event is invoked by scene, you should not call it in GameObject::Render
 	///	* GameObject将于调用OnRender之前调用该方法<br>
@@ -30,40 +33,78 @@ public:
 	/// \brief 
 	///	渲染事件<br>
 	/// render event
+	/// \note 
+	/// * pData 为 __HGImpl::V1SDL::Render2D
 	/// \see __HGImpl::V1SDL::Scene::Render
 	pEvent OnRender;
-
+	/// \brief 
+	///	渲染后被调用事件<br>
+	/// post render event
+	/// \note 
+	/// * pData 为 __HGImpl::V1SDL::Render2D
+	/// \see __HGImpl::V1SDL::Scene::Render
 	pEvent OnPostRender;
-
-	pEvent OnAttach;
-
+	/// \brief 
+	///	当附加于新的 Scene 前时调用<br>
+	/// \note 
+	/// * pData 为 Scene
+	/// \see __HGImpl::V1SDL::Scene::AttachGameObject
+	pEvent OnAttachToScene;
+	/// \brief 
+	///	被激活时调用<br>
+	/// \note 
+	/// * pData 为 nullptr
+	/// \see __HGImpl::V1SDL::GameObject::Enable
 	pEvent OnEnable;
-
+	/// \brief 
+	///	被关闭激活时调用<br>
+	/// \note 
+	/// * pData 为 nullptr
+	/// \see __HGImpl::V1SDL::GameObject::Disable
 	pEvent OnDisable;
-
 	/// \brief 于对象被构造前被调用<br>
+	/// \note
+	/// * pData 为 SDL_Event
 	/// invoke before object being constructed
 	pEvent OnBeforeConstruct;
-
 	/// \brief 
 	/// 于Update的第一帧被调用<br>
 	/// invoked at first frame in Update
+	/// \note
+	/// * pData 为 SDL_Event
 	/// \see __HGImpl::V1SDL::Scene::Update
 	pEvent Start;
-
 	/// \brief 
 	/// 当附加于新的 Layer 前时调用
 	/// \note 
 	/// * pData 传入的值为 LayerIndex
 	/// \see __HGImpl::V1SDL::Layer::AttachGameObject
 	pEvent OnAttachToLayer;
-	
 	/// \brief 
 	/// 当从原本的 Layer 解除前调用
 	/// \note 
 	/// * pData 传入的值为 LayerIndex
 	/// \see __HGImpl::V1SDL::Layer::DetachGameObject
 	pEvent OnDetachFromLayer;
+	/// \brief 
+	/// 当与另一个 GameObject 第一次接触时调用
+	/// \note 
+	/// * pData 为 另一个GameObject
+	/// \see __HGImpl::V1SDL::Collision::procCollided
+	pEvent OnCollisionEnter;
+	/// \brief 
+	/// 当与另一个 GameObject 持续接触时调用
+	/// \note 
+	/// * pData 为 另一个GameObject
+	/// \see __HGImpl::V1SDL::Collision::procCollided
+	pEvent OnCollisionStay;
+	/// \brief 
+	/// 当与另一个 GameObject 原本接触但离开时
+	/// \note 
+	/// * pData 为 另一个GameObject
+	/// \see __HGImpl::V1SDL::Collision::procCollided
+	pEvent OnCollisionExit;
+
 public:
 	HGBehaviour( const char* strName ) : HGComponent( strName ) { }
 	virtual ~HGBehaviour() {}

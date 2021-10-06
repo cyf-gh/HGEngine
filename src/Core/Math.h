@@ -192,6 +192,10 @@ template<typename digit_type>
 struct HGCircle {
 	HGVec2<digit_type> tCenter;
 	digit_type Radius;
+public:
+	HG_INLINE bool IsIntersect( const HGCircle& c ) {
+		return Radius <= HGVec2<digit_type>::Sub( tCenter, c.tCenter ).Norm();
+	}
 };
 
 template<typename digit_type>
@@ -289,7 +293,7 @@ struct HGRect {
 	HG_INLINE bool IsIntersect( const HGCircle<digit_type>& dstCircle ) {
 		HGVec2<digit_type> vec = GetCenter().ToVec2<digit_type>();
 		auto centerDist = HGVec2<digit_type>::Sub( vec, dstCircle.tCenter ).Norm();
-		auto intersectDistMin = ( GetDiagonal() / 2 ) + dstCircle.Radius + 50; // 50ÎªÎó²îÈÝ´íÁ¿
+		auto intersectDistMin = ( GetDiagonal() / 2 ) + dstCircle.Radius + 1; // 1 ÎªÎó²îÈÝ´íÁ¿
 	 	return ( centerDist <= intersectDistMin );
 	}
 

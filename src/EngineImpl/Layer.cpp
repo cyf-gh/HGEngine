@@ -1,12 +1,26 @@
+#include <algorithm>
+#include "Transform.hpp"
 #include "Layer.h"
 
 using namespace __HGImpl::V1SDL;
 using namespace std;
 
-void __HGImpl::V1SDL::Layer::AttachGameObject( GameObject* pGameObject ) { 
+void __HGImpl::V1SDL::Layer::AttachGameObject( GameObject* pGameObject ) {
 	HG_EVENT_CALL( OnAttachToLayer, &LayerIndex, pGameObject ); 
 	pGameObject->SetLayer( this );
 	m_vecObjs.push_back( pGameObject );
+	m_vecX.push_back( pGameObject );
+	std::sort( m_vecX.begin(), m_vecX.end(), []( GameObject* pA, GameObject* pB )-> bool {
+		auto ta = pA->GetComponent<Transform>();
+		auto tb = pB->GetComponent<Transform>();
+		return ta->tPosition.X < tb->tPosition.X;
+	} );
+	m_vecY.push_back( pGameObject );
+	std::sort( m_vecY.begin(), m_vecY.end(), []( GameObject* pA, GameObject* pB )-> bool {
+		auto ta = pA->GetComponent<Transform>();
+		auto tb = pB->GetComponent<Transform>();
+		return ta->tPosition.Y < tb->tPosition.Y;
+	} );
 }
 
 bool __HGImpl::V1SDL::Layer::DetachGameObject( GameObject* pGameObject ) {
@@ -14,26 +28,30 @@ bool __HGImpl::V1SDL::Layer::DetachGameObject( GameObject* pGameObject ) {
 }
 
 bool __HGImpl::V1SDL::Layer::DetachGameObject( const char* strName ) {
-	vector<int>::iterator it;
-	for( int i = 0; i < m_vecObjs.size(); ++i ) {
-		if( 0 == strcmp( m_vecObjs[i]->GetName(), strName ) ) {
-			HG_EVENT_CALL( OnDetachFromLayer, &LayerIndex, m_vecObjs[i] );
-			m_vecObjs[i]->SetLayer( nullptr );
-			m_vecObjs.erase( m_vecObjs.begin() + i );
-			return true;
-		}
-	}
-	return false;
+	return DetachGameObject( GameObject::Find( strName ) );
 }
 
 bool __HGImpl::V1SDL::Layer::DetachGameObject( const un32 Id ) {
 	vector<int>::iterator it;
+	bool detached = false;
 	for( int i = 0; i < m_vecObjs.size(); ++i ) {
 		if( m_vecObjs[i]->UID == Id ) {
 			HG_EVENT_CALL( OnDetachFromLayer, &LayerIndex, m_vecObjs[i] );
 			m_vecObjs[i]->SetLayer( nullptr );
 			m_vecObjs.erase( m_vecObjs.begin() + i );
-			return true;
+			detached = true;
+		}
+	}
+	for( int i = 0; i < m_vecX.size(); ++i ) {
+		if( m_vecX[i]->UID == Id ) {
+			m_vecX.erase( m_vecX.begin() + i );
+			break;
+		}
+	}
+	for( int i = 0; i < m_vecY.size(); ++i ) {
+		if( m_vecY[i]->UID == Id ) {
+			m_vecY.erase( m_vecY.begin() + i );
+			break;
 		}
 	}
 	return false;

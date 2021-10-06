@@ -23,6 +23,9 @@
     <ClCompile Include="..\test\Script1.cpp" />
     <ClCompile Include="..\src\Engine\HGEvent.cpp" />
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Collision.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
@@ -58,7 +61,7 @@
     <ClInclude Include="..\src\EngineImpl\Transform.hpp">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\EngineImpl\Collision.hpp">
+    <ClInclude Include="..\src\EngineImpl\Collision.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\Timer.hpp">

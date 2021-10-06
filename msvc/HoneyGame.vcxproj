@@ -157,6 +157,7 @@
     <ClCompile Include="..\src\Core\Thread.cc" />
     <ClCompile Include="..\src\Core\Window.cc" />
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Collision.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
@@ -183,7 +184,7 @@
     <ClInclude Include="..\src\Core\Type.h" />
     <ClInclude Include="..\src\Core\Window.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
-    <ClInclude Include="..\src\EngineImpl\Collision.hpp" />
+    <ClInclude Include="..\src\EngineImpl\Collision.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
