@@ -37,6 +37,8 @@ public:
 	/// \see __HGImpl::V1SDL::HG_LAYER_INDEX
 	const char LayerIndex;
 
+	void DoCheck();
+
 	/// \brief 检查所在的层级是否合法
 	bool IsLayerIndexLegal() const { return LayerIndex >= HG_LAYER_0 && LayerIndex < HG_LAYER_LENGTH; }
 
@@ -50,6 +52,8 @@ public:
 	bool DetachGameObject( GameObject* pGameObject );
 	bool DetachGameObject( const char *strName );
 	bool DetachGameObject( const un32 Id );
+
+	un32 SortXY( GameObject* pGameObject );
 
 	explicit Layer( const char* strName, const char un8Index ) : HG::HGObject<Layer>( strName ), LayerIndex( un8Index ) { }
 	virtual ~Layer() { }

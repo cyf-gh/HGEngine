@@ -171,7 +171,7 @@ struct HGPos {
 	template<typename digit_type> 
 	HG_INLINE HGVec2<digit_type> ToVec2() {
 		HGVec2<digit_type> v;
-		v.X = X; v.Y = Y;
+		v.X = (digit_type)X; v.Y = (digit_type)Y;
 		return v;
 	}
 };
@@ -193,7 +193,7 @@ struct HGCircle {
 	HGVec2<digit_type> tCenter;
 	digit_type Radius;
 public:
-	HG_INLINE bool IsIntersect( const HGCircle& c ) {
+	HG_INLINE bool IsOverlap( const HGCircle& c ) {
 		return Radius <= HGVec2<digit_type>::Sub( tCenter, c.tCenter ).Norm();
 	}
 };
@@ -290,7 +290,7 @@ struct HGRect {
 				 ( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
 	}
 	template<typename digit_type> 	
-	HG_INLINE bool IsIntersect( const HGCircle<digit_type>& dstCircle ) {
+	HG_INLINE bool IsOverlap( const HGCircle<digit_type>& dstCircle ) {
 		HGVec2<digit_type> vec = GetCenter().ToVec2<digit_type>();
 		auto centerDist = HGVec2<digit_type>::Sub( vec, dstCircle.tCenter ).Norm();
 		auto intersectDistMin = ( GetDiagonal() / 2 ) + dstCircle.Radius + 1; // 1 ÎªÎó²îÈÝ´íÁ¿

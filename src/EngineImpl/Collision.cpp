@@ -5,19 +5,31 @@
 #include "Transform.hpp"
 
 bool __HGImpl::V1SDL::BoundingCollision::DoCheck( GameObject* pObj ) {
-	auto pC = pObj->GetComponent<Collision>();
+	auto pC = pObj->GetComponent<Collision>("Collision");
+	this->SetCollisionBoundingByTransform();
+	pC->SetCollisionBoundingByTransform();
 	bool collided = false;
 	if( pC == nullptr ) {
 		return false;
 	}
 	if( typeid( *pC ) == typeid( BoundingCollision ) ) {
-		collided = Rect.IsIntersect( static_cast< BoundingCollision* >( pC )->Rect );
+		collided = Rect.IsOverlap( static_cast< BoundingCollision* >( pC )->Rect );
 	}
 	if( typeid( *pC ) == typeid( CircleCollision ) ) {
-		collided = Rect.IsIntersect( static_cast< CircleCollision* >( pC )->Circle );
+		collided = Rect.IsOverlap( static_cast< CircleCollision* >( pC )->Circle );
 	}
 	procCollided( collided, pObj );
 	return collided;
+}
+
+void __HGImpl::V1SDL::BoundingCollision::SetCollisionBoundingByTransform() {
+	auto pC = m_pGameObject->GetComponent<Transform>();
+	this->Rect = HG::Math::HGRect {
+		.X = (int)pC->tPosition.X,
+		.Y = (int)pC->tPosition.Y,
+		.H = (un32)pC->tRect.H,
+		.W = (un32)pC->tRect.W,
+	};
 }
 
 bool __HGImpl::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
@@ -27,10 +39,10 @@ bool __HGImpl::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
 		return false;
 	}
 	if( typeid( *pC ) == typeid( BoundingCollision ) ) {
-		collided = static_cast< BoundingCollision* >( pC )->Rect.IsIntersect( Circle );
+		collided = static_cast< BoundingCollision* >( pC )->Rect.IsOverlap( Circle );
 	}
 	if( typeid( *pC ) == typeid( CircleCollision ) ) {
-		collided = Circle.IsIntersect( static_cast< CircleCollision* >( pC )->Circle );
+		collided = Circle.IsOverlap( static_cast< CircleCollision* >( pC )->Circle );
 	}
 	procCollided( collided, pObj );
 	return collided;
@@ -41,9 +53,11 @@ void __HGImpl::V1SDL::Collision::procCollided( bool collided, GameObject* pObj  
 		if( collided ) {
 			// 之前已经碰撞过且继续碰撞
 			HG_EVENT_CALL( OnCollisionStay, pObj, this->m_pGameObject );
+			HG_EVENT_CALL( OnCollisionStay, this->m_pGameObject, pObj );
 		} else {
 			// 之前已经碰撞过但现在不碰撞
 			HG_EVENT_CALL( OnCollisionExit, pObj, this->m_pGameObject );
+			HG_EVENT_CALL( OnCollisionExit, this->m_pGameObject, pObj );
 			for( auto itList = m_lColList.begin(); itList != m_lColList.end(); ) {
 				if( *itList == pObj ) {
 					m_lColList.erase( itList++ );
@@ -56,6 +70,7 @@ void __HGImpl::V1SDL::Collision::procCollided( bool collided, GameObject* pObj  
 	} else {
 		if( collided ) {
 			HG_EVENT_CALL( OnCollisionEnter, pObj, this->m_pGameObject );
+			HG_EVENT_CALL( OnCollisionEnter, this->m_pGameObject, pObj );
 			m_lColList.push_back( pObj );
 		}
 	}

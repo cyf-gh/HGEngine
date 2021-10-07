@@ -1,26 +1,34 @@
 #include <algorithm>
+#include "../Core/Log.h"
+#include "Scene.h"
 #include "Transform.hpp"
 #include "Layer.h"
+#include "Collision.h"
 
 using namespace __HGImpl::V1SDL;
 using namespace std;
 
+void __HGImpl::V1SDL::Layer::DoCheck() {
+	int j = 0;
+	for( auto& x : m_vecX ) {
+		Collision* col = x->GetComponent<BoundingCollision>("Collision");
+		if( col == nullptr ) {
+			goto CONTI;
+		}
+		for( int i = j + 1; i < m_vecX.size(); ++i ) {
+			col->DoCheck( m_vecX[i] );
+		}
+		CONTI:
+		j++;
+	}
+}
+
 void __HGImpl::V1SDL::Layer::AttachGameObject( GameObject* pGameObject ) {
-	HG_EVENT_CALL( OnAttachToLayer, &LayerIndex, pGameObject ); 
+	HG_EVENT_CALL( OnAttachToLayer, &LayerIndex, pGameObject );
 	pGameObject->SetLayer( this );
 	m_vecObjs.push_back( pGameObject );
-	m_vecX.push_back( pGameObject );
-	std::sort( m_vecX.begin(), m_vecX.end(), []( GameObject* pA, GameObject* pB )-> bool {
-		auto ta = pA->GetComponent<Transform>();
-		auto tb = pB->GetComponent<Transform>();
-		return ta->tPosition.X < tb->tPosition.X;
-	} );
-	m_vecY.push_back( pGameObject );
-	std::sort( m_vecY.begin(), m_vecY.end(), []( GameObject* pA, GameObject* pB )-> bool {
-		auto ta = pA->GetComponent<Transform>();
-		auto tb = pB->GetComponent<Transform>();
-		return ta->tPosition.Y < tb->tPosition.Y;
-	} );
+	HG_LOG_INFO( std::format( "Scene[{}]->Layer[{}]->GameObject[{}] ! Attached", pGameObject->GetScene()->GetName(), std::to_string( LayerIndex ), pGameObject->GetName() ).c_str() );
+	SortXY( pGameObject );
 }
 
 bool __HGImpl::V1SDL::Layer::DetachGameObject( GameObject* pGameObject ) {
@@ -55,5 +63,21 @@ bool __HGImpl::V1SDL::Layer::DetachGameObject( const un32 Id ) {
 		}
 	}
 	return false;
+}
+
+un32 __HGImpl::V1SDL::Layer::SortXY( GameObject* pGameObject ) {
+	m_vecX.push_back( pGameObject );
+	std::sort( m_vecX.begin(), m_vecX.end(), []( GameObject* pA, GameObject* pB )-> bool {
+		auto ta = pA->GetComponent<Transform>();
+		auto tb = pB->GetComponent<Transform>();
+		return ta->tPosition.X < tb->tPosition.X;
+	} );
+	m_vecY.push_back( pGameObject );
+	std::sort( m_vecY.begin(), m_vecY.end(), []( GameObject* pA, GameObject* pB )-> bool {
+		auto ta = pA->GetComponent<Transform>();
+		auto tb = pB->GetComponent<Transform>();
+		return ta->tPosition.Y < tb->tPosition.Y;
+	} );
+	return 0;
 }
 

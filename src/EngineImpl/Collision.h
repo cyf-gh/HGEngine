@@ -16,6 +16,7 @@ protected:
 	std::list<GameObject *> m_lColList;
 
 public:
+	virtual void SetCollisionBoundingByTransform() = 0;
 	virtual bool DoCheck( GameObject* pTarget ) = 0;
 	explicit Collision( const char* strName ) : HGComponent( strName ), m_lColList() { }
 	virtual ~Collision() {}
@@ -25,6 +26,7 @@ public:
 	HG::Math::HGRect Rect;
 
 	bool DoCheck( GameObject* pTarget ) override;
+	void SetCollisionBoundingByTransform() override;
 	explicit BoundingCollision( const char* strName ) : Collision( strName ) {}
 	virtual ~BoundingCollision(){}
 };
@@ -34,7 +36,7 @@ public:
 	HG::Math::HGCircle<double> Circle;
 	
 	bool DoCheck( GameObject* pTarget ) override;
-
+	void SetCollisionBoundingByTransform() override{}
 	explicit CircleCollision( const char* strName ) : Collision( strName ) {}
 	virtual ~CircleCollision(){}
 };

@@ -32,7 +32,7 @@ public:
 	/// * 同名GameObject并不会覆盖原有的GameObject <br>game object which has a duplicated name will not recover the old one
 	/// * 该方法不应该由用户调用，GameObject的构造将自动调用该方法 <br> this method should NOT be invoked by user; it will be invoked in the constructor of GameObject
 	/// \sa GameObject::GameObject
-	void AttachGameObject( GameObject* pGameObject );
+	void AttachGameObject( GameObject* pGameObject, char LayerIndex = 0 );
 	/// \brief 通过Name寻找GameObject<br>find game object by name
 	/// \return 当未找到相应名字的GameObject时，返回nullptr<br>nullptr when the specified game object does not exist
 	GameObject* FindGameObject( const char* strName );

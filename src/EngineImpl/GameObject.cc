@@ -29,19 +29,20 @@ bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
     } else {
         HGShape<double> s;
         rect1.ToShape( s );
-        return rect2.IsIntersect( s.GetCircumscribedCircle() );
+        return rect2.IsOverlap( s.GetCircumscribedCircle() );
     }
 }
 
 GameObject::GameObject( const char* strName, Scene* pScene )
 : HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), m_pLayer( nullptr ) {
     AddComponent( new HGBehaviour( "Behaviour" ) );
+	AddComponent( new Transform( "Transform" ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
     if ( m_pScene == nullptr ) {
         m_pScene = EngineImpl::GetEngine()->GetCurrentScene();
     }
     if ( m_pScene != nullptr ) {
-        HG_LOG_INFO( std::string("game object [").append(GetName()).append("] constructed").c_str() );
+        HG_LOG_INFO( std::format("GameObject[{}] Constructed", GetName() ).c_str() );
         m_pScene->AttachGameObject( this );
     }
 }

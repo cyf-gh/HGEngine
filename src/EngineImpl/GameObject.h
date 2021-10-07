@@ -69,7 +69,7 @@ public:
 	}
 	template<typename T> T* GetComponent( const char* strName ) {
 		for( auto& c : m_vecComponents ) {
-			if( typeid(T) == typeid(*c) && ( strcmp( c->GetName(), strName ) == 0 ) ) {
+			if( ( strcmp( c->GetName(), strName ) == 0 ) ) {
 				return static_cast< T* >( c );
 			}
 		}

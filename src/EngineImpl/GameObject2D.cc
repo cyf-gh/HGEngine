@@ -15,7 +15,6 @@ using namespace __HGImpl::V1SDL;
 
 GameObject2D::GameObject2D( const char* strObjectName, const char* strFileName )
 	: GameObject( strObjectName ), m_pTexture( nullptr ), strFileName( strFileName ) {
-	AddComponent( new Transform("Transform") );
 	if( strlen( strFileName ) != 0 ) {
 		m_pTexture = EngineImpl::GetEngine()->GetRenderer2D()->CreateTextureFromFile( strFileName );
 	}
