@@ -4,7 +4,7 @@
 #include "Collision.h"
 #include "Transform.hpp"
 
-bool __HGImpl::V1SDL::BoundingCollision::DoCheck( GameObject* pObj ) {
+bool __HGImpl::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
 	auto pC = pObj->GetComponent<Collision>("Collision");
 	this->SetCollisionBoundingByTransform();
 	pC->SetCollisionBoundingByTransform();
@@ -12,8 +12,8 @@ bool __HGImpl::V1SDL::BoundingCollision::DoCheck( GameObject* pObj ) {
 	if( pC == nullptr ) {
 		return false;
 	}
-	if( typeid( *pC ) == typeid( BoundingCollision ) ) {
-		collided = Rect.IsOverlap( static_cast< BoundingCollision* >( pC )->Rect );
+	if( typeid( *pC ) == typeid( BoxCollision ) ) {
+		collided = Rect.IsOverlap( static_cast< BoxCollision* >( pC )->Rect );
 	}
 	if( typeid( *pC ) == typeid( CircleCollision ) ) {
 		collided = Rect.IsOverlap( static_cast< CircleCollision* >( pC )->Circle );
@@ -22,7 +22,7 @@ bool __HGImpl::V1SDL::BoundingCollision::DoCheck( GameObject* pObj ) {
 	return collided;
 }
 
-void __HGImpl::V1SDL::BoundingCollision::SetCollisionBoundingByTransform() {
+void __HGImpl::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
 	auto pC = m_pGameObject->GetComponent<Transform>();
 	this->Rect = HG::Math::HGRect {
 		.X = (int)pC->tPosition.X,
@@ -38,8 +38,8 @@ bool __HGImpl::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
 	if( pC == nullptr ) {
 		return false;
 	}
-	if( typeid( *pC ) == typeid( BoundingCollision ) ) {
-		collided = static_cast< BoundingCollision* >( pC )->Rect.IsOverlap( Circle );
+	if( typeid( *pC ) == typeid( BoxCollision ) ) {
+		collided = static_cast< BoxCollision* >( pC )->Rect.IsOverlap( Circle );
 	}
 	if( typeid( *pC ) == typeid( CircleCollision ) ) {
 		collided = Circle.IsOverlap( static_cast< CircleCollision* >( pC )->Circle );

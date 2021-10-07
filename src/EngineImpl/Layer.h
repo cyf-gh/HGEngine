@@ -52,7 +52,11 @@ public:
 	bool DetachGameObject( GameObject* pGameObject );
 	bool DetachGameObject( const char *strName );
 	bool DetachGameObject( const un32 Id );
-
+	
+	/// \brief
+	/// 进行按照X与Y轴的排序
+	/// \note
+	///	应当在移动物体时进行调用
 	un32 SortXY( GameObject* pGameObject );
 
 	explicit Layer( const char* strName, const char un8Index ) : HG::HGObject<Layer>( strName ), LayerIndex( un8Index ) { }

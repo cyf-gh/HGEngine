@@ -18,8 +18,8 @@ GameObject2D* pImgTest = new GameObject2D( "test_full_screen", R"(C:\Users\cyf-m
 GameObject2D* pImgTestColMain = new GameObject2D( "test_main", R"(C:\Users\cyf-m\Pictures\icon.png)" );
 GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", R"(C:\Users\cyf-m\Pictures\icon.png)" );
 
-auto bcMain = static_cast< BoundingCollision* >( pImgTestColMain->AddComponent( new BoundingCollision( "Collision" ) ) );
-auto bc2 = static_cast< BoundingCollision* >( pImgTestCol2->AddComponent( new BoundingCollision( "Collision" ) ) );
+auto bcMain = static_cast< BoxCollision* >( pImgTestColMain->AddComponent( new BoxCollision( "Collision" ) ) );
+auto bc2 = static_cast< BoxCollision* >( pImgTestCol2->AddComponent( new BoxCollision( "Collision" ) ) );
 
 auto dfMain = pImgTestColMain->GetComponent<Transform>();
 dfMain->tPosition.X = 300;
@@ -176,13 +176,13 @@ df2->tPosition.X = 50;
 df2->tPosition.Y = 50;
 df2->tRect.W = 100;
 df2->tRect.H = 100;
+df2->ResetRotateCenter();
 
 HG_EVENT_BIND( pImgTest, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
 	auto df = _this->GetComponent<Transform>();
 	df->f64Angle += 40 * HG_ENGINE_TIMEDELTA;
 
-	df->ResetRotateCenter();
 
 	HG::Math::HGShape<float> s;
 	df->GetRotatedRectGlobal( s );

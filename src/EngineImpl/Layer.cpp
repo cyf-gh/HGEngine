@@ -11,7 +11,7 @@ using namespace std;
 void __HGImpl::V1SDL::Layer::DoCheck() {
 	int j = 0;
 	for( auto& x : m_vecX ) {
-		Collision* col = x->GetComponent<BoundingCollision>("Collision");
+		Collision* col = x->GetComponent<BoxCollision>("Collision");
 		if( col == nullptr ) {
 			goto CONTI;
 		}

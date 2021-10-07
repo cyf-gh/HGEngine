@@ -35,7 +35,9 @@ public:
 	/// * 重置旋转中心为Rect中心
 	/// * reset the rotate center to rect center
 	void ResetRotateCenter() {
-		HG::Math::Center( tPosition, tRect, tRotateCenter );
+		// HG::Math::Center( tPosition, tRect, tRotateCenter );
+		tRotateCenter.X = tRect.W / 2;
+		tRotateCenter.Y = tRect.H / 2;
 	}
 
 	/// \brief 

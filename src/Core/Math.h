@@ -168,10 +168,10 @@ struct HGPos {
 	HG_INLINE un32 DistancePow2( const HGPos& dstPos ) {
 		return HGPos::DistancePow2( X, Y, dstPos.X, dstPos.Y );
 	}
-	template<typename digit_type> 
+	template<typename digit_type>
 	HG_INLINE HGVec2<digit_type> ToVec2() {
 		HGVec2<digit_type> v;
-		v.X = (digit_type)X; v.Y = (digit_type)Y;
+		v.X = ( digit_type ) X; v.Y = ( digit_type ) Y;
 		return v;
 	}
 };
@@ -187,6 +187,13 @@ static HG_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize& tSize, 
 	p.Y = static_cast< un32 >( tPos.Y ) + ( tSize.H >> 1 );
 	return p;
 }
+
+static HG_INLINE SDL_Point& Center( const SDL_Rect& rect, SDL_Point& p ) {
+	p.x = rect.x + ( rect.w >> 1 );
+	p.y = rect.y + ( rect.h >> 1 );
+	return p;
+}
+
 
 template<typename digit_type>
 struct HGCircle {
@@ -208,7 +215,7 @@ public:
 		vecPoints.push_back( v );
 		return this;
 	}
-	HG_INLINE HGShape* Rotate( double a, HGVec2<digit_type>vCenter ) {
+	HG_INLINE HGShape* Rotate( double a, const HGVec2<digit_type>& vCenter ) {
 		for( HGVec2<digit_type>& pt : vecPoints ) {
 			pt.Rotate( vCenter, pt, a, pt );
 		}
@@ -230,7 +237,7 @@ public:
 			digit_type norm = pt.Norm();
 			min = norm < min ? norm : min;
 			p = &pt;
-		}	
+		}
 		if( p == nullptr ) {
 			return HGVec2<digit_type>();
 		}
@@ -243,7 +250,7 @@ public:
 			digit_type norm = pt.Norm();
 			max = norm > max ? norm : max;
 			p = &pt;
-		}	
+		}
 		if( p == nullptr ) {
 			return HGVec2<digit_type>();
 		}
@@ -260,10 +267,10 @@ struct HGRect {
 	HG_INLINE n32 Right() const { return X + W; }
 	HG_INLINE n32 Top() const { return Y; }
 	HG_INLINE n32 Bottom() const { return Y + H; }
-	
-	template<typename digit_type> 
+
+	template<typename digit_type>
 	HG_INLINE HGShape<digit_type>& ToShape( HGShape<digit_type>& inout ) {
-		inout.AddVec2( Left(), Top() ) ->AddVec2( Left(), Bottom() )
+		inout.AddVec2( Left(), Top() )->AddVec2( Left(), Bottom() )
 			->AddVec2( Right(), Top() )->AddVec2( Right(), Bottom() );
 		return inout;
 	}
@@ -277,7 +284,7 @@ struct HGRect {
 
 	HG_INLINE bool IsOverlap( const HGRect& dstRect ) {
 		return ( !( ( Right() < dstRect.Left() ) || ( Left() > dstRect.Right() ) ) &&
-				 !( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
+			!( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
 	}
 	HG_INLINE bool IsIn( const HGRect& dstRect ) {
 		const HGRect* r1 = &dstRect;
@@ -287,21 +294,38 @@ struct HGRect {
 	}
 	HG_INLINE bool IsIntersect( const HGRect& dstRect ) {
 		return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||
-				 ( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
+			( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
 	}
-	template<typename digit_type> 	
+	template<typename digit_type>
 	HG_INLINE bool IsOverlap( const HGCircle<digit_type>& dstCircle ) {
-		HGVec2<digit_type> vec = GetCenter().ToVec2<digit_type>();
-		auto centerDist = HGVec2<digit_type>::Sub( vec, dstCircle.tCenter ).Norm();
-		auto intersectDistMin = ( GetDiagonal() / 2 ) + dstCircle.Radius + 1; // 1 ÎªÎó²îÈÝ´íÁ¿
-	 	return ( centerDist <= intersectDistMin );
+		HGVec2<digit_type> vecClosest;
+		if( dstCircle.tCenter.X < X ) {
+			vecClosest.X = X;
+		} else if ( dstCircle.tCenter.X > X + W ) {
+			vecClosest.X = X + W;
+		} else {
+			vecClosest.X = dstCircle.tCenter.X;
+		}
+		if( dstCircle.tCenter.Y <= Y ) {
+			vecClosest.Y = Y;
+		} else if( dstCircle.tCenter.Y > Y + H ) {
+			vecClosest.Y = Y + H;
+		} else {
+			vecClosest.Y = dstCircle.tCenter.Y;
+		}
+		auto centerDist = HGVec2<digit_type>::Sub( vecClosest, dstCircle.tCenter ).Norm();
+		return ( centerDist < dstCircle.Radius ) || IsOverlap( HGRect{ 
+			.X = (n32)dstCircle.tCenter.X,
+			.Y = (n32)dstCircle.tCenter.Y,
+			.H = (un32)1, 
+			.W = (un32)1 });
 	}
 
 	HG_INLINE double GetDiagonal() {
-		return 1 / inv_sqrt( H*H + W*W );
+		return 1 / inv_sqrt( H * H + W * W );
 	}
 
-	template<typename digit_type> 
+	template<typename digit_type>
 	HG_INLINE HGCircle<digit_type> GetCircumscribedCircle() {
 		HGCircle<digit_type> c;
 		c.tCenter = GetCenter().ToVec2<digit_type>();

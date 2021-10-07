@@ -29,6 +29,10 @@ bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
     } else {
         HGShape<double> s;
         rect1.ToShape( s );
+        HGVec2<double> c;
+        c.X = pT->tRotateCenter.X + pT->tPosition.X;
+        c.Y = pT->tRotateCenter.Y + pT->tPosition.Y;
+        s.Rotate( pT->f64Angle, c );
         return rect2.IsOverlap( s.GetCircumscribedCircle() );
     }
 }
