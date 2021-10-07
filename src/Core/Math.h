@@ -188,13 +188,6 @@ static HG_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize& tSize, 
 	return p;
 }
 
-static HG_INLINE SDL_Point& Center( const SDL_Rect& rect, SDL_Point& p ) {
-	p.x = rect.x + ( rect.w >> 1 );
-	p.y = rect.y + ( rect.h >> 1 );
-	return p;
-}
-
-
 template<typename digit_type>
 struct HGCircle {
 	HGVec2<digit_type> tCenter;

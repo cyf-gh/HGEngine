@@ -26,6 +26,9 @@
     <ClCompile Include="..\src\EngineImpl\Collision.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\RigidBody.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
@@ -55,7 +58,7 @@
     <ClInclude Include="..\src\Engine\HGEvent.h" />
     <ClInclude Include="..\src\Engine\HGObject.h" />
     <ClInclude Include="..\src\Engine\HGComponent.h" />
-    <ClInclude Include="..\src\EngineImpl\RigidBody.hpp">
+    <ClInclude Include="..\src\EngineImpl\RigidBody.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\Transform.hpp">

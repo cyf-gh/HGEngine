@@ -4,6 +4,8 @@
 #include "Transform.hpp"
 #include "Layer.h"
 #include "Collision.h"
+#include "RigidBody.h"
+#include "EngineImpl.h"
 
 using namespace __HGImpl::V1SDL;
 using namespace std;
@@ -11,15 +13,21 @@ using namespace std;
 void __HGImpl::V1SDL::Layer::DoCheck() {
 	int j = 0;
 	for( auto& x : m_vecX ) {
-		Collision* col = x->GetComponent<BoxCollision>("Collision");
+		Collision* col = x->GetComponent<BoxCollision>( "Collision" );
 		if( col == nullptr ) {
 			goto CONTI;
 		}
 		for( int i = j + 1; i < m_vecX.size(); ++i ) {
 			col->DoCheck( m_vecX[i] );
 		}
-		CONTI:
+CONTI:
 		j++;
+	}
+	for( auto& x : m_vecX ) {
+		RigidBody* rb = x->GetComponent<RigidBody>();
+		if( rb != nullptr ) {
+			rb->Proc( HG_ENGINE_TIMEDELTA );
+		}
 	}
 }
 

@@ -4,6 +4,8 @@
 #include "../src/Core/Test.hpp"
 #include "../src/EngineImpl/Scene.h"
 #include "../src/EngineImpl/Collision.h"
+#include "../src/EngineImpl/RigidBody.h"
+
 #include <string>
 using namespace __HGImpl::V1SDL;
 
@@ -19,17 +21,26 @@ GameObject2D* pImgTestColMain = new GameObject2D( "test_main", R"(C:\Users\cyf-m
 GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", R"(C:\Users\cyf-m\Pictures\icon.png)" );
 
 auto bcMain = static_cast< BoxCollision* >( pImgTestColMain->AddComponent( new BoxCollision( "Collision" ) ) );
+auto rb = static_cast< RigidBody* >( pImgTestColMain->AddComponent( new RigidBody( "RigidBody" ) ) );
 auto bc2 = static_cast< BoxCollision* >( pImgTestCol2->AddComponent( new BoxCollision( "Collision" ) ) );
+auto rb2 = static_cast< RigidBody* >( pImgTestCol2->AddComponent( new RigidBody( "RigidBody" ) ) );
+
+rb->LinearDrag = 50.0f;
+rb->Velocity.X = 0.f;
+rb->Velocity.Y = 0.f;
+rb->GravityDrag = 300.f;
+
+rb2->IsFrozen = true;
 
 auto dfMain = pImgTestColMain->GetComponent<Transform>();
-dfMain->tPosition.X = 300;
+dfMain->tPosition.X = 200;
 dfMain->tPosition.Y = 400;
-dfMain->tRect.W = 100;
-dfMain->tRect.H = 100;
+dfMain->tRect.W = 50;
+dfMain->tRect.H = 50;
 dfMain = pImgTestCol2->GetComponent<Transform>();
-dfMain->tPosition.X = 100;
-dfMain->tPosition.Y = 100;
-dfMain->tRect.W = 300;
+dfMain->tPosition.X = -100;
+dfMain->tPosition.Y = 500;
+dfMain->tRect.W = 1000;
 dfMain->tRect.H = 300;
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
@@ -124,20 +135,24 @@ HG_EVENT_BIND( pText2, OnFixedUpdate ) {
 };
 HG_EVENT_BIND( pImgTestColMain, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
-	auto df = _this->GetComponent<Transform>();
+	auto rb = _this->GetComponent<RigidBody>();
+	HG::Math::HGVec2<float> a;
+	a.X = 200;
 	switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 	case SDL_KEYDOWN:
-	HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
-		df->tPosition.Y -= 200 * HG_ENGINE_TIMEDELTA;
+	HG_EVENT_ONUPDATE_ISKEY( SDLK_SPACE ) {
+		if ( rb->Velocity.Y <= 10 ) {
+			rb->MovePosition( rb->Velocity.X, -200 );
+		}
 	}
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_DOWN ) {
-		df->tPosition.Y += 200 * HG_ENGINE_TIMEDELTA;
+		rb->MovePosition( rb->Velocity.X, 200 );
 	}
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_LEFT ) {
-		df->tPosition.X -= 200 * HG_ENGINE_TIMEDELTA;
+		rb->MovePosition( -100, rb->Velocity.Y );
 	}
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_RIGHT ) {
-		df->tPosition.X += 200 * HG_ENGINE_TIMEDELTA;
+		rb->MovePosition( 100, rb->Velocity.Y );
 	}
 	break;
 	}

@@ -2,11 +2,48 @@
 #include <algorithm>
 #include <list>
 #include "Collision.h"
+#include "RigidBody.h"
 #include "Transform.hpp"
 
+char __HGImpl::V1SDL::BoxCollision::checkWhichSideCol( GameObject* pRectColObj ) {
+	auto tr2 = pRectColObj->GetComponent<BoxCollision>();
+
+	if( Rect.Bottom() >= tr2->Rect.Top() ) { return HG_BC_BOTTOM; }
+	if( Rect.Top() <= tr2->Rect.Bottom() ) { return HG_BC_TOP; }
+	if( Rect.Right() >= tr2->Rect.Left() ) { return HG_BC_RIGHT; }
+	if( Rect.Left() <= tr2->Rect.Right() ) { return HG_BC_LEFT; }
+	return HG_BC_NONE;
+}
+
+bool __HGImpl::V1SDL::BoxCollision::CanLeave( GameObject* pRectColObj ) {
+	auto rb1 = pRectColObj->GetComponent<RigidBody>();
+	auto rbThis = m_pGameObject->GetComponent<RigidBody>();
+	if( rb1 == nullptr || rbThis == nullptr ) {
+		return false;
+	}
+	if( rbThis->IsFrozen ) {
+		return false;
+	}
+	auto key = checkWhichSideCol( pRectColObj );
+	switch( key ) {
+	case HG_BC_TOP:
+	if( rbThis->Velocity.Y < 0 ) { rbThis->Velocity.Y = 0; return true; } break;
+	case HG_BC_BOTTOM:
+	if( rbThis->Velocity.Y > 0 ) { rbThis->Velocity.Y = 0; return true; } break;
+	case HG_BC_LEFT:
+	if( rbThis->Velocity.X < 0 ) { rbThis->Velocity.X = 0; return true; } break;
+	case HG_BC_RIGHT:
+	if( rbThis->Velocity.X > 0 ) { rbThis->Velocity.X = 0; return true; } break;
+	}
+	return false;
+}
+
 bool __HGImpl::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
-	auto pC = pObj->GetComponent<Collision>("Collision");
+	auto pC = pObj->GetComponent<Collision>( "Collision" );
 	this->SetCollisionBoundingByTransform();
+	if( pC == nullptr ) {
+		return false;
+	}
 	pC->SetCollisionBoundingByTransform();
 	bool collided = false;
 	if( pC == nullptr ) {
@@ -22,13 +59,15 @@ bool __HGImpl::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
 	return collided;
 }
 
+
+
 void __HGImpl::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
 	auto pC = m_pGameObject->GetComponent<Transform>();
 	this->Rect = HG::Math::HGRect {
-		.X = (int)pC->tPosition.X,
-		.Y = (int)pC->tPosition.Y,
-		.H = (un32)pC->tRect.H,
-		.W = (un32)pC->tRect.W,
+		.X = ( int ) pC->tPosition.X,
+		.Y = ( int ) pC->tPosition.Y,
+		.H = ( un32 ) pC->tRect.H,
+		.W = ( un32 ) pC->tRect.W,
 	};
 }
 
@@ -48,7 +87,7 @@ bool __HGImpl::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
 	return collided;
 }
 
-void __HGImpl::V1SDL::Collision::procCollided( bool collided, GameObject* pObj  ) {
+void __HGImpl::V1SDL::Collision::procCollided( bool collided, GameObject* pObj ) {
 	if( std::find( m_lColList.begin(), m_lColList.end(), pObj ) != m_lColList.end() ) {
 		if( collided ) {
 			// 之前已经碰撞过且继续碰撞
@@ -71,6 +110,14 @@ void __HGImpl::V1SDL::Collision::procCollided( bool collided, GameObject* pObj  
 		if( collided ) {
 			HG_EVENT_CALL( OnCollisionEnter, pObj, this->m_pGameObject );
 			HG_EVENT_CALL( OnCollisionEnter, this->m_pGameObject, pObj );
+			auto rb1 = pObj->GetComponent<Collision>("Collision");
+			auto rbThis = m_pGameObject->GetComponent<Collision>("Collision");
+			auto a = rb1->CanLeave( pObj );
+			auto b = rbThis ->CanLeave( m_pGameObject );
+			if ( a || b )
+			{
+				return;
+			}
 			m_lColList.push_back( pObj );
 		}
 	}

@@ -163,6 +163,7 @@
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\RigidBody.cpp" />
     <ClCompile Include="..\src\EngineImpl\Scene.cc" />
     <ClCompile Include="..\src\Engine\HGEvent.cpp" />
     <ClCompile Include="..\src\Main.cc" />
@@ -191,7 +192,7 @@
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
-    <ClInclude Include="..\src\EngineImpl\RigidBody.hpp" />
+    <ClInclude Include="..\src\EngineImpl\RigidBody.h" />
     <ClInclude Include="..\src\EngineImpl\Scene.h" />
     <ClInclude Include="..\src\EngineImpl\Timer.hpp" />
     <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
