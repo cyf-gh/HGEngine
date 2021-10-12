@@ -263,8 +263,8 @@ struct HGRect {
 
 	template<typename digit_type>
 	HG_INLINE HGShape<digit_type>& ToShape( HGShape<digit_type>& inout ) {
-		inout.AddVec2( Left(), Top() )->AddVec2( Left(), Bottom() )
-			->AddVec2( Right(), Top() )->AddVec2( Right(), Bottom() );
+		inout.AddVec2( static_cast<digit_type>( Left() ), static_cast<digit_type>( Top() ) )->AddVec2( static_cast<digit_type>( Left()), static_cast<digit_type>( Bottom() ) )
+			->AddVec2( static_cast<digit_type>( Right() ), static_cast<digit_type>( Top() ) )->AddVec2(static_cast<digit_type>( Right() ), static_cast<digit_type>( Bottom() ) );
 		return inout;
 	}
 
@@ -315,7 +315,7 @@ struct HGRect {
 	}
 
 	HG_INLINE double GetDiagonal() {
-		return 1 / inv_sqrt( H * H + W * W );
+		return 1 / inv_sqrt( f32 ( H * H + W * W ) );
 	}
 
 	template<typename digit_type>

@@ -17,7 +17,7 @@ void __HGImpl::V1SDL::Layer::DoCheck() {
 		if( col == nullptr ) {
 			goto CONTI;
 		}
-		for( int i = j + 1; i < m_vecX.size(); ++i ) {
+		for( size_t i = j + 1; i < m_vecX.size(); ++i ) {
 			col->DoCheck( m_vecX[i] );
 		}
 CONTI:
