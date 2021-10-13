@@ -33,6 +33,10 @@ public:
 	explicit HGObject( const char* strName ) : mStrName( strName ), UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
 		umTheseOnes[strName] = static_cast< T* >( this );
 	}
+	explicit HGObject() : UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
+		mStrName = std::to_string( UID );
+		umTheseOnes[mStrName.c_str()] = static_cast< T* >( this );
+	}
 	virtual ~HGObject() {
 		umTheseOnes[GetName()] = nullptr;
 	}

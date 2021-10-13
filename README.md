@@ -25,6 +25,8 @@ Optimization
 * https://www.libsdl.org/download-2.0.php
 * https://www.libsdl.org/projects/SDL_ttf/
 * https://www.libsdl.org/projects/SDL_image/
+* https://github.com/Neargye/nameof
+* https://www.boost.org/
 
 ### Dev Essential
 

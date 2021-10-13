@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include</IncludePath>
+    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include</IncludePath>
     <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -187,6 +187,7 @@
     <ClInclude Include="..\src\Core\Random.h" />
     <ClInclude Include="..\src\Core\Renderer.h" />
     <ClInclude Include="..\src\Core\Screen.h" />
+    <ClInclude Include="..\src\Core\Serialization.h" />
     <ClInclude Include="..\src\Core\Test.hpp" />
     <ClInclude Include="..\src\Core\Thread.h" />
     <ClInclude Include="..\src\Core\Type.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\Collision.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
+    <ClInclude Include="..\src\EngineImpl\EngineObjectSerilization.hpp" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
@@ -213,8 +215,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\boost.1.77.0.0\build\boost.targets" Condition="Exists('packages\boost.1.77.0.0\build\boost.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\boost.1.77.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.77.0.0\build\boost.targets'))" />
+  </Target>
 </Project>

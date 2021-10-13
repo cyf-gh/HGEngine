@@ -12,7 +12,7 @@ namespace V1SDL {
 class Transform : public HG::HGComponent {
 public:
 	/// \brief 
-	/// 局部坐标系中的为u照顾，也可理解为对原物体的裁剪位置<br>
+	/// 局部坐标系中的位置，也可理解为对原物体的裁剪位置<br>
 	/// size in local area, also it's the clip start point of this object
 	HG::Math::HGVec2<float> tLocalPos;
 	/// \brief 
@@ -31,6 +31,7 @@ public:
 	double f64Angle;
 	HG::Math::HGPos tRotateCenter;
 
+public:
 	/// \brief
 	/// * 重置旋转中心为Rect中心
 	/// * reset the rotate center to rect center
@@ -110,6 +111,7 @@ public:
 		tLocalRect.H = 0;
 		tLocalRect.W = 0;
 	}
+	Transform() : HG::HGComponent() { }
 	Transform( const char* strName ) : HG::HGComponent( strName ) {
 		ZeroLocal();
 		ZeroGlobal();

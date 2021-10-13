@@ -48,5 +48,6 @@ public:
 }
 }
 
+#define HG_RANDOM_UN32 HG::Random::RandomXORSHIFT::Random.GetRandUInt()
 
 #endif //HONEYGAME_RANDOM_H

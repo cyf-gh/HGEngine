@@ -12,10 +12,6 @@ namespace Math {
 
 static const f32 ST_PI = 3.141592654f;
 
-/***********************************************************************
-		Mathematical operations
-***********************************************************************/
-
 static HG_INLINE f64 Max( f64 num1, f64 num2 ) {
 	return num1 > num2 ? num1 : num2;
 }
@@ -270,8 +266,8 @@ struct HGRect {
 
 	template<typename digit_type>
 	HG_INLINE HGShape<digit_type>& ToShape( HGShape<digit_type>& inout ) {
-		inout.AddVec2( static_cast<digit_type>( Left() ), static_cast<digit_type>( Top() ) )->AddVec2( static_cast<digit_type>( Left()), static_cast<digit_type>( Bottom() ) )
-			->AddVec2( static_cast<digit_type>( Right() ), static_cast<digit_type>( Top() ) )->AddVec2(static_cast<digit_type>( Right() ), static_cast<digit_type>( Bottom() ) );
+		inout.AddVec2( static_cast< digit_type >( Left() ), static_cast< digit_type >( Top() ) )->AddVec2( static_cast< digit_type >( Left() ), static_cast< digit_type >( Bottom() ) )
+			->AddVec2( static_cast< digit_type >( Right() ), static_cast< digit_type >( Top() ) )->AddVec2( static_cast< digit_type >( Right() ), static_cast< digit_type >( Bottom() ) );
 		return inout;
 	}
 
@@ -304,7 +300,7 @@ struct HGRect {
 		HGVec2<digit_type> vecClosest;
 		if( dstCircle.tCenter.X < X ) {
 			vecClosest.X = X;
-		} else if ( dstCircle.tCenter.X > X + W ) {
+		} else if( dstCircle.tCenter.X > X + W ) {
 			vecClosest.X = X + W;
 		} else {
 			vecClosest.X = dstCircle.tCenter.X;
@@ -317,15 +313,15 @@ struct HGRect {
 			vecClosest.Y = dstCircle.tCenter.Y;
 		}
 		auto centerDist = HGVec2<digit_type>::Sub( vecClosest, dstCircle.tCenter ).Norm();
-		return ( centerDist < dstCircle.Radius ) || IsOverlap( HGRect{ 
-			.X = (n32)dstCircle.tCenter.X,
-			.Y = (n32)dstCircle.tCenter.Y,
-			.H = (un32)1, 
-			.W = (un32)1 });
+		return ( centerDist < dstCircle.Radius ) || IsOverlap( HGRect {
+			.X = ( n32 ) dstCircle.tCenter.X,
+			.Y = ( n32 ) dstCircle.tCenter.Y,
+			.H = ( un32 ) 1,
+			.W = ( un32 ) 1 } );
 	}
 
 	HG_INLINE double GetDiagonal() {
-		return 1 / inv_sqrt( f32 ( H * H + W * W ) );
+		return 1 / inv_sqrt( f32( H * H + W * W ) );
 	}
 
 	template<typename digit_type>

@@ -1,3 +1,5 @@
+#include <string>
+#include <filesystem>
 #include "../src/Engine/HGEvent.h"
 #include "../src/EngineImpl/EngineImpl.h"
 #include "../src/Core/Math.h"
@@ -6,7 +8,7 @@
 #include "../src/EngineImpl/Collision.h"
 #include "../src/EngineImpl/RigidBody.h"
 #include "../src/EngineImpl/Animation.h"
-#include <string>
+#include "../src/EngineImpl/EngineObjectSerilization.hpp"
 using namespace __HGImpl::V1SDL;
 using namespace HG::Math;
 
@@ -47,6 +49,12 @@ dfMain->tPosition.X = -100;
 dfMain->tPosition.Y = 500;
 dfMain->tRect.W = 1000;
 dfMain->tRect.H = 300;
+
+boost::property_tree::ptree items;
+
+HG::Serialization::Marshal( *dfMain, items );
+boost::property_tree::write_json( std::string( "C:/Repos/HoneyGame/msvc/Debug/1.json" ),items);
+
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
 GameObjectText* pText = new GameObjectText( "test_fps", new Font( "font1", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
