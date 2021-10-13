@@ -2,9 +2,10 @@
 // Created by cyf-m on 2020/11/28.
 //
 
-#include "Scene.h"
-#include "GameObject.h"
 #include "../Core/Log.h"
+#include "Scene.h"
+#include "Animation.h"
+#include "GameObject.h"
 #include "EngineImpl.h"
 
 using namespace __HGImpl::V1SDL;
@@ -50,6 +51,7 @@ GameObject* Scene::FindGameObject( const char* strName ) {
 
 void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
 	static bool IsStart = false;
+	// 首次运行调用
 	if( !IsStart ) {
 		for( auto& it : umGameObjectsByName ) {
 			if( it.second->IsEnable() ) {

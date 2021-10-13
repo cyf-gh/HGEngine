@@ -75,6 +75,10 @@ void __HGImpl::V1SDL::GameObjectText::Update( void* pEvent ) {
 }
 
 void __HGImpl::V1SDL::GameObjectText::Render( void* pRenderer ) { 
+	SDL_FreeSurface( m_pText );
+	if (m_pTexture != nullptr) {
+		SDL_DestroyTexture(m_pTexture);
+	}
 	m_pText = TTF_RenderText_Solid( m_pFont->pHandle, Text.c_str(), tColor );
 	if( !m_pText ) {
 		HG_LOG_FAILED( "Failed to render text: " );

@@ -5,9 +5,10 @@
 #include "../src/EngineImpl/Scene.h"
 #include "../src/EngineImpl/Collision.h"
 #include "../src/EngineImpl/RigidBody.h"
-
+#include "../src/EngineImpl/Animation.h"
 #include <string>
 using namespace __HGImpl::V1SDL;
+using namespace HG::Math;
 
 HG_SCRIPT_START( SCRIPT1 )
 
@@ -16,14 +17,18 @@ Camera* pCamera = new Camera( "camera" );
 pCamera->Enable();
 pCamera->SetCameraSizeToRendererSize();
 EngineImpl::GetEngine()->GetCurrentScene()->SetMainCamera( pCamera );
-GameObject2D* pImgTest = new GameObject2D( "test_full_screen", R"(C:\Users\cyf-m\Pictures\icon.png)" );
-GameObject2D* pImgTestColMain = new GameObject2D( "test_main", R"(C:\Users\cyf-m\Pictures\icon.png)" );
-GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", R"(C:\Users\cyf-m\Pictures\icon.png)" );
+GameObject2D* pImgTest = new GameObject2D( "test_full_screen", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
+GameObject2D* pImgTestColMain = new GameObject2D( "test_main", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
+GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
 
 auto bcMain = static_cast< BoxCollision* >( pImgTestColMain->AddComponent( new BoxCollision( "Collision" ) ) );
 auto rb = static_cast< RigidBody* >( pImgTestColMain->AddComponent( new RigidBody( "RigidBody" ) ) );
 auto bc2 = static_cast< BoxCollision* >( pImgTestCol2->AddComponent( new BoxCollision( "Collision" ) ) );
 auto rb2 = static_cast< RigidBody* >( pImgTestCol2->AddComponent( new RigidBody( "RigidBody" ) ) );
+HGSize<un32> s;
+s.W = 48;
+s.H = 48;
+auto an = static_cast<Animator2D*>(pImgTestColMain->AddComponent(new Animator2D("Animator", s, 3, 4, 1, 0.4f, true)));
 
 rb->LinearDrag = 50.0f;
 rb->Velocity.X = 0.f;
@@ -44,8 +49,8 @@ dfMain->tRect.W = 1000;
 dfMain->tRect.H = 300;
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
-GameObjectText* pText = new GameObjectText( "test_fps", new Font( "font1", R"(C:\Users\cyf-m\Documents\Minimal.ttf)", 50 ), "0" );
-GameObjectText* pText2 = new GameObjectText( "test_texts", new Font( "font2", R"(C:\Users\cyf-m\Documents\Minimal.ttf)", 50 ), "0" );
+GameObjectText* pText = new GameObjectText( "test_fps", new Font( "font1", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
+GameObjectText* pText2 = new GameObjectText( "test_texts", new Font( "font2", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
 
 auto df = pText->GetComponent<Transform>();
 
@@ -136,6 +141,8 @@ HG_EVENT_BIND( pText2, OnFixedUpdate ) {
 HG_EVENT_BIND( pImgTestColMain, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
 	auto rb = _this->GetComponent<RigidBody>();
+	auto an = _this->GetComponent<Animator2D>();
+	an->IsIdle = false;
 	HG::Math::HGVec2<float> a;
 	a.X = 200;
 	switch( HG_EVENT_ONUPDATE_EVENT->type ) {
@@ -150,11 +157,25 @@ HG_EVENT_BIND( pImgTestColMain, OnFixedUpdate ) {
 	}
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_LEFT ) {
 		rb->MovePosition( -100, rb->Velocity.Y );
+		an->Row = 1;
+		an->ForceSetFrame();
 	}
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_RIGHT ) {
 		rb->MovePosition( 100, rb->Velocity.Y );
+		an->Row = 2;
+		an->ForceSetFrame();
 	}
 	break;
+	case SDL_KEYUP:
+	break;
+
+	}
+	if ( HG::Math::Abs( rb->Velocity.X ) <= 5  )
+	{
+		an->IsIdle = true;
+	}
+	if (an != nullptr) {
+		an->Play(HG_ENGINE_TIMEDELTA);
 	}
 	return 0;
 };

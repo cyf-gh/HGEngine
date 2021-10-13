@@ -18,7 +18,7 @@ class Window : HG::Memory::NonCopyable {
     public:
         SDL_Window* Handle() { return pWin; };
         HG::HGResult SetCenterScreen();
-        HG::HGResult GetSize( IN_OUT HG::Math::HGSize* pSize );
+        HG::HGResult GetSize( IN_OUT HG::Math::HGSize<un32>* pSize );
 
         Window(const char *title,
                int X, int Y, int w,

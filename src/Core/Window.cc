@@ -24,7 +24,7 @@ Window::~Window() {
     SDL_DestroyWindow( this->pWin );
 }
 
-HGResult Window::GetSize(HGSize* pSize ) {
+HGResult Window::GetSize(HGSize<un32>* pSize ) {
     int w = 0, h = 0;
     SDL_GetWindowSize( this->pWin, &w, &h );
     if ( w == 0 && h == 0 ) {
@@ -37,7 +37,7 @@ HGResult Window::GetSize(HGSize* pSize ) {
 
 HGResult Window::SetCenterScreen() {
     HGPos tPos;
-    HGSize tSize;
+    HGSize<un32> tSize;
     HG_RESULT_RES
 
     HG_CHECK_ERR(GetSize(&tSize ) )
