@@ -18,7 +18,7 @@ public:
 	/// \brief 
 	/// 局部坐标系中的大小，也可理解为对原物体的裁剪大小<br>
 	/// size in global area,  also it's the clip size of this object
-	HG::Math::HGSize tLocalRect;
+	HG::Math::HGSize<un32> tLocalRect;
 	/// \brief 
 	/// 世界坐标系中的位置<br>
 	/// position in global area
@@ -26,7 +26,7 @@ public:
 	/// \brief 
 	/// 世界坐标系中的大小，也可理解为渲染至全局的大小<br>
 	/// size in global area, also it's the ouput rendering size
-	HG::Math::HGSize tRect;
+	HG::Math::HGSize<un32> tRect;
 
 	double f64Angle;
 	HG::Math::HGPos tRotateCenter;

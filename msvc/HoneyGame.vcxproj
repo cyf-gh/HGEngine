@@ -162,6 +162,7 @@
     <ClCompile Include="..\src\Core\Screen.cc" />
     <ClCompile Include="..\src\Core\Thread.cc" />
     <ClCompile Include="..\src\Core\Window.cc" />
+    <ClCompile Include="..\src\EngineImpl\Animation.cpp" />
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\src\EngineImpl\Collision.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\src\Core\Thread.h" />
     <ClInclude Include="..\src\Core\Type.h" />
     <ClInclude Include="..\src\Core\Window.h" />
+    <ClInclude Include="..\src\EngineImpl\Animation.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\Collision.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />

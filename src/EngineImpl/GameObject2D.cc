@@ -4,14 +4,23 @@
 
 #include <SDL_image.h>
 #include <SDL.h>
+#include "../Core/Log.h"
+#include "../Core/Math.h"
 #include "GameObject2D.h"
 #include "Renderer2D.h"
 #include "EngineImpl.h"
-#include "../Core/Log.h"
-#include "Transform.hpp"
 #include "Scene.h"
+#include "Transform.hpp"
 
 using namespace __HGImpl::V1SDL;
+using namespace HG::Math;
+
+HGSize<int> GameObject2D::GetTextureSize()
+{
+	HGSize<int> size;
+	SDL_QueryTexture( m_pTexture, NULL, NULL, &size.W, &size.H );
+	return size;
+}
 
 GameObject2D::GameObject2D( const char* strObjectName, const char* strFileName )
 	: GameObject( strObjectName ), m_pTexture( nullptr ), strFileName( strFileName ) {

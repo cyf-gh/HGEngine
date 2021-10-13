@@ -74,9 +74,7 @@ static HG_INLINE f32 inv_sqrt( f32 X ) {
 	X = X * ( 1.5f - xhalf * X * X );
 	return X;
 }
-/***********************************************************************
-stVec2
-***********************************************************************/
+
 
 template<typename digit_type>
 class HGVec2 {
@@ -86,6 +84,7 @@ public:
 	digit_type Y;
 
 	typedef digit_type trait_type;
+
 public:
 	HGVec2 UnitVec() const {
 		const digit_type base = inv_sqrt( X * X + Y * Y );
@@ -176,13 +175,16 @@ struct HGPos {
 	}
 };
 
+template<typename digit_type>
 struct HGSize {
+	typedef digit_type trait_type;
+
 	HGSize() : H( 0 ), W( 0 ) { }
 	HGSize( int w, int h ) : H( h ), W( w ) { }
-	un32 H, W;
+	digit_type H, W;
 };
 
-static HG_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize& tSize, HGPos& p ) {
+static HG_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize<un32>& tSize, HGPos& p ) {
 	p.X = static_cast< un32 >( tPos.X ) + ( tSize.W >> 1 );
 	p.Y = static_cast< un32 >( tPos.Y ) + ( tSize.H >> 1 );
 	return p;
@@ -198,6 +200,8 @@ public:
 	}
 };
 
+/// \brief 形状
+/// \note  由点的有序集合组成
 template<typename digit_type>
 struct HGShape {
 public:
@@ -214,6 +218,7 @@ public:
 		}
 		return this;
 	}
+	/// \brief 得到外径圆
 	HG_INLINE HGCircle<digit_type> GetCircumscribedCircle() {
 		if( vecPoints.size() != 4 ) {
 			return HGCircle<digit_type>();
@@ -223,6 +228,7 @@ public:
 		c.Radius = HGVec2<digit_type>::Sub( vecPoints[0], vecPoints[3] ).Norm() / 2;
 		return c;
 	}
+	/// \brief 获取距离原点最近的点
 	HG_INLINE HGVec2<digit_type>Min() {
 		digit_type min = 0;
 		HGVec2<digit_type>* p = nullptr;
@@ -236,6 +242,7 @@ public:
 		}
 		return *p;
 	}
+	/// \brief 获取距离原点最远的点
 	HG_INLINE HGVec2<digit_type>Max() {
 		digit_type max = 0;
 		HGVec2<digit_type>* p = nullptr;
@@ -274,7 +281,8 @@ struct HGRect {
 		p.Y = this->Y + ( H >> 1 );
 		return p;
 	}
-
+	/// \brief 矩形与矩形是否重叠
+	/// \note  包括相交情况
 	HG_INLINE bool IsOverlap( const HGRect& dstRect ) {
 		return ( !( ( Right() < dstRect.Left() ) || ( Left() > dstRect.Right() ) ) &&
 			!( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
@@ -289,6 +297,8 @@ struct HGRect {
 		return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||
 			( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
 	}
+	/// \brief 矩形与园是否重叠
+	/// \note  包括相交情况
 	template<typename digit_type>
 	HG_INLINE bool IsOverlap( const HGCircle<digit_type>& dstCircle ) {
 		HGVec2<digit_type> vecClosest;

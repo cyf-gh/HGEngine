@@ -31,6 +31,7 @@ public:
 	///	* 克隆后的2D游戏对象公用同一 Texture
 	GameObject* Clone() override { return new GameObject2D(*this); }
 	SDL_Texture* GetTexture() const { return m_pTexture; }
+	HG::Math::HGSize<int> GetTextureSize();
 	void SetTexture( SDL_Texture* pT ) { m_pTexture = pT; }
 	explicit GameObject2D( const char* strObjectName = "", const char* strFileName = "" );
 	virtual ~GameObject2D();

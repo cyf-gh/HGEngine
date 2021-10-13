@@ -29,6 +29,9 @@
     <ClCompile Include="..\src\EngineImpl\RigidBody.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\Animation.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
@@ -71,6 +74,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
+    <ClInclude Include="..\src\EngineImpl\Animation.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
