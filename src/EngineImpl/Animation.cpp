@@ -2,11 +2,11 @@
 #include "GameObject2D.h"
 #include "Transform.hpp"
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 
 
-bool __HGImpl::V1SDL::Animator2D::CheckFramesValid() {
+bool HGEngine::V1SDL::Animator2D::CheckFramesValid() {
 	auto size = static_cast< GameObject2D* >( m_pGameObject )->GetTextureSize();
 	// if ( Col * tSingleFrameRect.W > size.W || countRow * tSingleFrameRect.H > size.H)
 	//{
@@ -18,7 +18,7 @@ bool __HGImpl::V1SDL::Animator2D::CheckFramesValid() {
 
 Animator2D::Animator2D( const char* strName ) : HGComponent( strName ), m_vecFrames() { }
 
-__HGImpl::V1SDL::Animator2D::Animator2D( const char* strName, const HG::Math::HGSize<un32>& tSingleFrameRect, const un32 countCol, const un32 countRow, const un32 idleIndex, const float f32Interval, const bool isIdle )
+HGEngine::V1SDL::Animator2D::Animator2D( const char* strName, const HG::Math::HGSize<un32>& tSingleFrameRect, const un32 countCol, const un32 countRow, const un32 idleIndex, const float f32Interval, const bool isIdle )
 	: HGComponent( strName ), m_vecFrames(), m_unIdleFrameIndex( idleIndex ), m_f32Delta( 0.f ), f32Interval( f32Interval ), IsIdle( isIdle ), isPosPlay( true ) {
 	for( size_t i = 0; i < countRow; i++ ) {
 		m_vecFrames.push_back( std::vector<Frame>() );
@@ -32,7 +32,7 @@ __HGImpl::V1SDL::Animator2D::Animator2D( const char* strName, const HG::Math::HG
 	}
 }
 
-void __HGImpl::V1SDL::Animator2D::Play( const f32 f32DeltaTime, const char cMode ) {
+void HGEngine::V1SDL::Animator2D::Play( const f32 f32DeltaTime, const char cMode ) {
 	if( IsIdle ) {
 		m_f32Delta = 0.f;
 		ForceSetFrame();
@@ -64,7 +64,7 @@ void __HGImpl::V1SDL::Animator2D::Play( const f32 f32DeltaTime, const char cMode
 }
 
 
-void __HGImpl::V1SDL::Animator2D::ForceSetFrame() {
+void HGEngine::V1SDL::Animator2D::ForceSetFrame() {
 	auto tr = m_pGameObject->GetComponent<Transform>();
 	if( IsIdle ) {
 		auto f = m_vecFrames[Row][m_unIdleFrameIndex];

@@ -11,14 +11,14 @@
 #include "Camera.h"
 #include "Renderer2D.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 class Scene;
 /// \brief main loop of engine
 /// \details main loop is a event loop main thread
 /// , faster is better
 /// \sa EngineImpl::GetMainLoop()
-class HGMainLoop : public __HGImpl::Loop {
+class HGMainLoop : public Loop {
 public:
 	static SDL_Event tEvent;
 	void _RunTask() override;
@@ -27,7 +27,7 @@ public:
 };
 /// \brief update loop of engine
 /// \sa EngineImpl::GetUpdateLoop()
-class HGUpdateLoop : public __HGImpl::Loop {
+class HGUpdateLoop : public Loop {
 public:
 	void _RunTask() override;
 	void _PaddingTask() override;
@@ -35,7 +35,7 @@ public:
 };
 /// \brief render loop of engine
 /// \sa EngineImpl::GetRenderLoop()
-class HGRenderLoop : public __HGImpl::Loop {
+class HGRenderLoop : public Loop {
 public:
 	void _RunTask() override;
 	void _PaddingTask() override;
@@ -46,15 +46,15 @@ public:
 /// \note 
 /// * 初始化顺序应当为 <br>the initialization order of Scenes, GameObjects, Engine Should be
 /// * Scenes -> Engine -> GameObjects
-class EngineImpl : public HG::HGEngine {
+class EngineImpl : public HG::IEngine {
 private:
 	HGMainLoop tLoopMain;
 	HGUpdateLoop tLoopUpdate;
 	HGRenderLoop tLoopRender;
-	__HGImpl::V1SDL::Thread* pUpdateThread {};
-	__HGImpl::V1SDL::Thread* pRenderThread {};
+	HGEngine::V1SDL::Thread* pUpdateThread {};
+	HGEngine::V1SDL::Thread* pRenderThread {};
 
-	__HGImpl::V1SDL::Window* pWindow;
+	HGEngine::V1SDL::Window* pWindow;
 
 	Renderer2D* pRenderer;
 	
@@ -75,7 +75,7 @@ public:
 	static EngineImpl* pEngine;
 	
 	float GetFixedUpdateTimeDelta() const { return tLoopMain.DeltaTime(); }
-	__HGImpl::V1SDL::Window* GetWindow() const { return pWindow; }
+	HGEngine::V1SDL::Window* GetWindow() const { return pWindow; }
 	Renderer2D* GetRenderer2D() const { return pRenderer; }
 
 	void Exit();

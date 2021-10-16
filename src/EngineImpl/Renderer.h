@@ -8,7 +8,7 @@
 #include <SDL_render.h>
 #include <Memory.h>
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 
 class Renderer : HG::Memory::NonCopyable {

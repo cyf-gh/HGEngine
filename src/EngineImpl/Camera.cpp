@@ -1,13 +1,13 @@
 #include "Camera.h"
 #include "EngineImpl.h"
 #include "../Engine/HGBehaviour.h"
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG;
-void __HGImpl::V1SDL::Camera::Update( void* pEvent ) { 
+void HGEngine::V1SDL::Camera::Update( void* pEvent ) { 
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 
-void __HGImpl::V1SDL::Camera::Render( void* pRenderer ) { 
+void HGEngine::V1SDL::Camera::Render( void* pRenderer ) { 
 	HG_EVENT_CALL( OnRender, pRenderer, this );
 }
 

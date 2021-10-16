@@ -11,7 +11,7 @@
 #include "GameObject.h"
 #include "Layer.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 class Camera;
 /// \brief ”Œœ∑≥°æ∞ <br>Scene

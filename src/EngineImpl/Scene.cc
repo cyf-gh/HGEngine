@@ -8,8 +8,8 @@
 #include "GameObject.h"
 #include "EngineImpl.h"
 
-using namespace __HGImpl::V1SDL;
-using namespace __HGImpl;
+using namespace HGEngine::V1SDL;
+using namespace HGEngine;
 using namespace HG;
 using namespace std;
 
@@ -49,7 +49,7 @@ GameObject* Scene::FindGameObject( const char* strName ) {
 	return umGameObjectsByName.count( strName ) == 0 ? nullptr : umGameObjectsByName[strName];
 }
 
-void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
+void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 	static bool IsStart = false;
 	// 首次运行调用
 	if( !IsStart ) {
@@ -70,7 +70,7 @@ void __HGImpl::V1SDL::Scene::Update( void* pEvent ) {
 	}
 }
 
-void __HGImpl::V1SDL::Scene::Render( void* pRenderer ) {
+void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {
 			HG_EVENT_CALL( OnUpdate, &HGMainLoop::tEvent, it.second );

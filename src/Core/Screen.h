@@ -7,7 +7,7 @@
 #include <Error.h>
 #include <Math.hpp>
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
     class Screen {
     public:

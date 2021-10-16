@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include "../Engine/HGComponent.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 
 /// \brief 

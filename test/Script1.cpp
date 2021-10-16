@@ -12,7 +12,7 @@
 #include "../src/EngineImpl/Animation.h"
 #include "../src/EngineImpl/EngineObjectSerilization.hpp"
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace std;
 
@@ -93,8 +93,8 @@ cout << data << endl;
 
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
-GameObjectText* pText = new GameObjectText( "test_fps", new Font( "font1", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
-GameObjectText* pText2 = new GameObjectText( "test_texts", new Font( "font2", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
+GameObjectText* pText = new GameObjectText( "test_fps", new FontImpl( "font1", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
+GameObjectText* pText2 = new GameObjectText( "test_texts", new FontImpl( "font2", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
 
 auto df = pText->GetComponent<Transform>();
 

@@ -31,7 +31,7 @@ int main() {
 
 #else
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 
 #undef main
 HGMain( int argc, char** argv ) {

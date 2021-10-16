@@ -15,8 +15,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 
-using namespace __HGImpl::V1SDL;
-using namespace __HGImpl;
+using namespace HGEngine::V1SDL;
+using namespace HGEngine;
 using namespace HG;
 
 static int _UpdateThreadFn( void* data );

@@ -4,7 +4,7 @@
 #include <Memory.h>
 #include "GameObject.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 
 enum HG_LAYER_INDEX : char {
@@ -35,7 +35,7 @@ protected:
 	std::vector<GameObject*> m_vecY;
 
 public:
-	/// \see __HGImpl::V1SDL::HG_LAYER_INDEX
+	/// \see HGEngine::V1SDL::HG_LAYER_INDEX
 	const char LayerIndex;
 
 	void DoCheck();

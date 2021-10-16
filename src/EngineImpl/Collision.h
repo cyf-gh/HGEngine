@@ -6,7 +6,7 @@
 #include "GameObject.h"
 #include "Layer.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 /// \brief Åö×²×é¼þ
 /// \note 

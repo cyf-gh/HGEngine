@@ -13,7 +13,7 @@
 #include "../Engine/HGComponent.h"
 #include "../Engine/HGBehaviour.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 class Scene;
 class Layer;
@@ -29,8 +29,7 @@ protected:
 	std::vector<HG::HGComponent*> m_vecComponents;
 
 public:
-	/// \brief will be invoked every
-	/// \note use auto pEvent = static_cast<SDL_Event *>( pe ); to get the event
+
 	virtual void Update( void* pEvent ) = 0;
 	virtual void Render( void* pRenderer ) = 0;
 

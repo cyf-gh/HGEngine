@@ -8,7 +8,7 @@
 #include "GameObject.h"
 #include "Transform.hpp"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 
 class Camera : public GameObject {

@@ -8,7 +8,7 @@
 #include "Thread.h"
 
 using namespace std;
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG;
 
 std::unordered_map<const char*, Thread*> Thread::Threads = {};

@@ -9,9 +9,9 @@
 #include "Renderer.h"
 #include "GameObject2D.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
-class Renderer2D : public __HGImpl::V1SDL::Renderer {
+class Renderer2D : public HGEngine::V1SDL::Renderer {
 public:
 	/// \brief create a texture via file name, after you have
 	SDL_Texture* CreateTextureFromFile( const char* pStrFileName );

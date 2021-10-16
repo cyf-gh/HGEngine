@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "RigidBody.h"
 
-void __HGImpl::V1SDL::RigidBody::Proc( f32 deltaTime ) {
+void HGEngine::V1SDL::RigidBody::Proc( f32 deltaTime ) {
 	if( IsFrozen ) {
 		return;
 	}
@@ -28,11 +28,11 @@ void __HGImpl::V1SDL::RigidBody::Proc( f32 deltaTime ) {
 	Velocity.Y += GravityDrag * deltaTime;
 }
 
-void __HGImpl::V1SDL::RigidBody::MovePosition( HG::Math::HGVec2<f32> vec2d ) {
+void HGEngine::V1SDL::RigidBody::MovePosition( HG::Math::HGVec2<f32> vec2d ) {
 	MovePosition( vec2d.X, vec2d.Y );
 }
 
-void __HGImpl::V1SDL::RigidBody::MovePosition( const f32 x, const f32 y ) {
+void HGEngine::V1SDL::RigidBody::MovePosition( const f32 x, const f32 y ) {
 	Velocity.X = x;
 	Velocity.Y = y;
 }

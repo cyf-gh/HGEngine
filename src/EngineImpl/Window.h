@@ -9,7 +9,7 @@
 #include <Memory.h>
 #include "Screen.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 class Window : HG::Memory::NonCopyable {
     private:

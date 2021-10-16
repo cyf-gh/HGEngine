@@ -7,7 +7,7 @@
 
 #include <Memory.h>
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
     /// \brief do some init things
     /// \note

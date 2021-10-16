@@ -3,7 +3,7 @@
 #include <vector>
 #include "../Engine/HGComponent.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 
 class Animator2D : public HG::HGComponent

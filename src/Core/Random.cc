@@ -8,44 +8,19 @@
 
 using namespace HG::Random;
 
-/*
-============
-Random::GetRandUInt
-============
-*/
 un32 Random::GetRandUInt( un32 max ) {
     return GetRandUInt() % ( max + 1 );
 }
 
-/*
-============
-Random::GetRandFloat
-============
-*/
+
 f32 Random::GetRandFloat() {
     return GetRandUInt( 1000000 ) / 1000000.f;
 }
 
-/*
-============
-Random::GetRandFloat
-============
-*/
 f32 Random::GetRandFloat( f32 minBound, f32 maxBound ) {
     return GetRandFloat() * ( maxBound - minBound ) + minBound;
 }
 
-/*
-==============================================================
-	WELL512
-==============================================================
-*/
-
-/*
-============
-stRandomWELL512::stRandomWELL512
-============
-*/
 RandomWELL512::RandomWELL512() {
     SetSeed( 123 );
 }
@@ -54,21 +29,10 @@ RandomWELL512::RandomWELL512( un32 seed ) {
     SetSeed( seed );
 }
 
-/*
-============
-stRandomWELL512::GetRandSeed
-============
-*/
 un32 RandomWELL512::GetRandSeed()  {
     return m_rdmSeed;
 }
 
-
-/*
-============
-stRandomWELL512::GetRandUInt
-============
-*/
 un32 RandomWELL512::GetRandUInt() {
     un32 a, b, c, d;
     a = m_state[ m_index ];
@@ -84,12 +48,6 @@ un32 RandomWELL512::GetRandUInt() {
     return m_state[ m_index ];
 }
 
-/*
-============
-stRandomWELL512::SetSeed
-WELL512.
-============
-*/
 void RandomWELL512::SetSeed( un32 seed ) {
     const un32 mask = ~0u;
 
@@ -102,19 +60,6 @@ void RandomWELL512::SetSeed( un32 seed ) {
 }
 RandomXORSHIFT RandomXORSHIFT::Random = RandomXORSHIFT();
 
-
-/*
-==============================================================
-	Xorshift
-==============================================================
-*/
-
-/*
-============
-stRandomXORSHIFT::GetRandUInt
-Xorshift.
-============
-*/
 un32 RandomXORSHIFT::GetRandUInt() {
     static un32 X = 123456789;
     static un32 Y = 362436069;

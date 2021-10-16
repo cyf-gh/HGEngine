@@ -7,8 +7,8 @@
 #include <Log.h>
 #include "Window.h"
 
-using namespace __HGImpl;
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine;
+using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace HG;
 

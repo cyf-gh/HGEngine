@@ -11,7 +11,7 @@
 #include <Memory.h>
 #include <Error.h>
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 /// \brief wrapped SDL_Thread
 /// \note await thread should not be used in main thread to avoid UI blocking.

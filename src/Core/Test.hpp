@@ -24,7 +24,7 @@ private:
 }
 
 #define HG_TEST_START( TEST_NAME ) \
-	static __HGImpl::Test::HGTest tTest( TEST_NAME )
+	static HGEngine::Test::HGTest tTest( TEST_NAME )
 
 #define HG_TEST_ASSERT_TRUE( EXPRESSION, INFO ) \
 	tTest.Assert( ( EXPRESSION ), INFO );

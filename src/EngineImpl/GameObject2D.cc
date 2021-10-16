@@ -12,11 +12,10 @@
 #include "Scene.h"
 #include "Transform.hpp"
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 
-HGSize<int> GameObject2D::GetTextureSize()
-{
+HGSize<int> GameObject2D::GetTextureSize() {
 	HGSize<int> size;
 	SDL_QueryTexture( m_pTexture, NULL, NULL, &size.W, &size.H );
 	return size;
@@ -70,16 +69,16 @@ void GameObject2D::Render( void* pRenderer ) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
-void __HGImpl::V1SDL::GameObjectText::Update( void* pEvent ) {
+void HGEngine::V1SDL::GameObjectText::Update( void* pEvent ) {
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 
-void __HGImpl::V1SDL::GameObjectText::Render( void* pRenderer ) { 
+void HGEngine::V1SDL::GameObjectText::Render( void* pRenderer ) {
 	SDL_FreeSurface( m_pText );
-	if (m_pTexture != nullptr) {
-		SDL_DestroyTexture(m_pTexture);
+	if( m_pTexture != nullptr ) {
+		SDL_DestroyTexture( m_pTexture );
 	}
-	m_pText = TTF_RenderText_Solid( m_pFont->pHandle, Text.c_str(), tColor );
+	m_pText = TTF_RenderText_Solid( ( TTF_Font* ) m_pFont->GetHandle(), Text.c_str(), tColor );
 	if( !m_pText ) {
 		HG_LOG_FAILED( "Failed to render text: " );
 		HG_LOG_FAILED( TTF_GetError() );
@@ -93,10 +92,10 @@ void __HGImpl::V1SDL::GameObjectText::Render( void* pRenderer ) {
 	}
 }
 
-__HGImpl::V1SDL::GameObjectText::GameObjectText( const char* strObjectName, Font* pFont, const char* text )
+HGEngine::V1SDL::GameObjectText::GameObjectText( const char* strObjectName, FontImpl* pFont, const char* text )
 	: GameObject2D( strObjectName, "" ), tColor( { 0, 0, 0 } ), Text( text ), m_pFont( pFont ), m_pText( nullptr ) { }
 
-__HGImpl::V1SDL::GameObjectText::~GameObjectText() { 
+HGEngine::V1SDL::GameObjectText::~GameObjectText() {
 	if( m_pTexture != nullptr ) {
 		SDL_DestroyTexture( m_pTexture );
 	}

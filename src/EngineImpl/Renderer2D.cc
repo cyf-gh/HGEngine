@@ -8,7 +8,7 @@
 #include <Log.h>
 #include "Renderer2D.h"
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 
 SDL_Texture* Renderer2D::CreateTextureFromFile( const char* pStrFileName ) {
@@ -43,7 +43,7 @@ void Renderer2D::Copy( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect
 	SDL_RenderCopy( pHandle, pGameObject->GetTexture(), pSrcRect,  pDstRect );
 }
 
-void __HGImpl::V1SDL::Renderer2D::CopyEx( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect, const SDL_Rect* pDstRect, const double f64Angle, const SDL_Point* pCenter, const SDL_RendererFlip& tFlip ) { 
+void HGEngine::V1SDL::Renderer2D::CopyEx( const GameObject2D* pGameObject, const SDL_Rect* pSrcRect, const SDL_Rect* pDstRect, const double f64Angle, const SDL_Point* pCenter, const SDL_RendererFlip& tFlip ) { 
 	if( !pGameObject ) {
 		return;
 	}

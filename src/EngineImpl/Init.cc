@@ -7,7 +7,7 @@
 #include <Log.h>
 #include "Init.h"
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG;
 
 Init* Init::SDL() {

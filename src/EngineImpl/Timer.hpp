@@ -3,7 +3,7 @@
 #include "../Engine/HGEvent.h"
 #include "../Engine/HGComponent.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 /// \brief 计时器组件
 class Timer : public HG::HGComponent {

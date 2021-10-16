@@ -7,8 +7,8 @@ namespace HG {
 /// \brief 
 /// 行为组件，GameObject默认创建该组件，生命周期主要由Scene控制<br>
 /// behavior component, which is created by game object by default. events' life cycles are controlled by Scene
-/// \see __HGImpl::V1SDL::GameObject
-/// \sa __HGImpl::V1SDL::Scene
+/// \see HGEngine::V1SDL::GameObject
+/// \sa HGEngine::V1SDL::Scene
 class HGBehaviour : public HGComponent {
 public:	
 	/// \brief 
@@ -28,39 +28,39 @@ public:
 	/// GameObject will invoke this event before OnRender
 	/// * Scene将于调用OnRender之前调用该方法<br>
 	/// Scene will invoke this event before OnRender
-	/// \see __HGImpl::V1SDL::Scene::Render
+	/// \see HGEngine::V1SDL::Scene::Render
 	pEvent OnUpdate;
 	/// \brief 
 	///	渲染事件<br>
 	/// render event
 	/// \note 
-	/// * pData 为 __HGImpl::V1SDL::Render2D
-	/// \see __HGImpl::V1SDL::Scene::Render
+	/// * pData 为 HGEngine::V1SDL::Render2D
+	/// \see HGEngine::V1SDL::Scene::Render
 	pEvent OnRender;
 	/// \brief 
 	///	渲染后被调用事件<br>
 	/// post render event
 	/// \note 
-	/// * pData 为 __HGImpl::V1SDL::Render2D
-	/// \see __HGImpl::V1SDL::Scene::Render
+	/// * pData 为 HGEngine::V1SDL::Render2D
+	/// \see HGEngine::V1SDL::Scene::Render
 	pEvent OnPostRender;
 	/// \brief 
 	///	当附加于新的 Scene 前时调用<br>
 	/// \note 
 	/// * pData 为 Scene
-	/// \see __HGImpl::V1SDL::Scene::AttachGameObject
+	/// \see HGEngine::V1SDL::Scene::AttachGameObject
 	pEvent OnAttachToScene;
 	/// \brief 
 	///	被激活时调用<br>
 	/// \note 
 	/// * pData 为 nullptr
-	/// \see __HGImpl::V1SDL::GameObject::Enable
+	/// \see HGEngine::V1SDL::GameObject::Enable
 	pEvent OnEnable;
 	/// \brief 
 	///	被关闭激活时调用<br>
 	/// \note 
 	/// * pData 为 nullptr
-	/// \see __HGImpl::V1SDL::GameObject::Disable
+	/// \see HGEngine::V1SDL::GameObject::Disable
 	pEvent OnDisable;
 	/// \brief 于对象被构造前被调用<br>
 	/// \note
@@ -72,37 +72,37 @@ public:
 	/// invoked at first frame in Update
 	/// \note
 	/// * pData 为 SDL_Event
-	/// \see __HGImpl::V1SDL::Scene::Update
+	/// \see HGEngine::V1SDL::Scene::Update
 	pEvent Start;
 	/// \brief 
 	/// 当附加于新的 Layer 前时调用
 	/// \note 
 	/// * pData 传入的值为 LayerIndex
-	/// \see __HGImpl::V1SDL::Layer::AttachGameObject
+	/// \see HGEngine::V1SDL::Layer::AttachGameObject
 	pEvent OnAttachToLayer;
 	/// \brief 
 	/// 当从原本的 Layer 解除前调用
 	/// \note 
 	/// * pData 传入的值为 LayerIndex
-	/// \see __HGImpl::V1SDL::Layer::DetachGameObject
+	/// \see HGEngine::V1SDL::Layer::DetachGameObject
 	pEvent OnDetachFromLayer;
 	/// \brief 
 	/// 当与另一个 GameObject 第一次接触时调用
 	/// \note 
 	/// * pData 为 另一个GameObject
-	/// \see __HGImpl::V1SDL::Collision::procCollided
+	/// \see HGEngine::V1SDL::Collision::procCollided
 	pEvent OnCollisionEnter;
 	/// \brief 
 	/// 当与另一个 GameObject 持续接触时调用
 	/// \note 
 	/// * pData 为 另一个GameObject
-	/// \see __HGImpl::V1SDL::Collision::procCollided
+	/// \see HGEngine::V1SDL::Collision::procCollided
 	pEvent OnCollisionStay;
 	/// \brief 
 	/// 当与另一个 GameObject 原本接触但离开时
 	/// \note 
 	/// * pData 为 另一个GameObject
-	/// \see __HGImpl::V1SDL::Collision::procCollided
+	/// \see HGEngine::V1SDL::Collision::procCollided
 	pEvent OnCollisionExit;
 
 public:
@@ -121,4 +121,4 @@ public:
 
 #define HG_EVENT_ONRENDER() []( void *pData, void *pThis ) -> int
 
-#define HG_EVENT_ONRENDER_RENDERER ( static_cast< __HGImpl::V1SDL::Renderer2D* >( pData ) )
+#define HG_EVENT_ONRENDER_RENDERER ( static_cast< HGEngine::V1SDL::Renderer2D* >( pData ) )

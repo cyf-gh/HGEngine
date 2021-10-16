@@ -14,17 +14,11 @@
 
 namespace HG {
 
-struct IVoid {};
-
-template<class T> struct IObject {
-public:
-	virtual const char* GetName() = 0;
-	virtual const un32	UID() = 0;
-};
-
-template<class T, class _Impl=IVoid> class HGObject : _Impl {
+template<class T> 
+class HGObject {
 protected:
 	std::string mStrName;
+	const un32 UID;
 
 public:
 	/// \brief all instances of this object
@@ -35,7 +29,7 @@ public:
 	static T* FindById( const un32 unId ) { return umTheseOnesById.count( unId ) == 0 ? nullptr : umTheseOnesById[unId]; }
 
 public:
-	const un32 UID;
+	const un32 UID() const { return UID; }
 	const char* GetName() const { return mStrName.c_str(); }
 
 	explicit HGObject( const char* strName ) : mStrName( strName ), UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
@@ -49,8 +43,8 @@ public:
 		umTheseOnes[GetName()] = nullptr;
 	}
 };
-template<class T, class _Impl> std::unordered_map<std::string, T*>  HGObject<T, _Impl>::umTheseOnes = std::unordered_map<std::string, T*>();
-template<class T, class _Impl> std::unordered_map<un32, T*>  HGObject<T, _Impl>::umTheseOnesById = std::unordered_map<un32, T*>();
+template<class T> std::unordered_map<std::string, T*>  HGObject<T>::umTheseOnes = std::unordered_map<std::string, T*>();
+template<class T> std::unordered_map<un32, T*>  HGObject<T>::umTheseOnesById = std::unordered_map<un32, T*>();
 }
 
 #endif //HONEYGAME_OBJECT_H

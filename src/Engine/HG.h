@@ -6,7 +6,7 @@
 #define HONEYGAME_HG_H
 
 namespace HG { 
-    class HGEngine {
+    class IEngine {
     public:
         /// \brief 游戏主线程，该线程对数据可读可写 <br>this is main thread of game; this is a Read-Write thread
         /// \note 

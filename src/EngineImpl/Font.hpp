@@ -3,19 +3,22 @@
 #include <Log.h>
 #include "../Engine/HGObject.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
-class Font : public HG::HGObject<Font> {
-public: 
+class FontImpl : public HG::HGObject<FontImpl> {
+protected:
 	TTF_Font* pHandle;
-	Font( const char* strName, const char *file, int ptsize ) : HG::HGObject<Font>( strName ), pHandle( nullptr ) {
+
+public: 
+	void* GetHandle() const { return pHandle; }
+	FontImpl( const char* strName, const char *file, int ptsize ) : HG::HGObject<FontImpl, HGEngine::IFont>( strName ), pHandle( nullptr ) {
 		pHandle = TTF_OpenFont( file, ptsize );
 		if ( !pHandle ) {
 			HG_LOG_FAILED( "Failed to load font: " );
 			HG_LOG_FAILED( TTF_GetError() );
 		}
 	}
-	~Font() {
+	~FontImpl() {
 		TTF_CloseFont( pHandle );
 	}
 };

@@ -5,7 +5,7 @@
 #include "RigidBody.h"
 #include "Transform.hpp"
 
-char __HGImpl::V1SDL::BoxCollision::checkWhichSideCol( GameObject* pRectColObj ) {
+char HGEngine::V1SDL::BoxCollision::checkWhichSideCol( GameObject* pRectColObj ) {
 	auto tr2 = pRectColObj->GetComponent<BoxCollision>();
 
 	if( Rect.Bottom() >= tr2->Rect.Top() ) { return HG_BC_BOTTOM; }
@@ -15,7 +15,7 @@ char __HGImpl::V1SDL::BoxCollision::checkWhichSideCol( GameObject* pRectColObj )
 	return HG_BC_NONE;
 }
 
-bool __HGImpl::V1SDL::BoxCollision::CanLeave( GameObject* pRectColObj ) {
+bool HGEngine::V1SDL::BoxCollision::CanLeave( GameObject* pRectColObj ) {
 	auto rb1 = pRectColObj->GetComponent<RigidBody>();
 	auto rbThis = m_pGameObject->GetComponent<RigidBody>();
 	if( rb1 == nullptr || rbThis == nullptr ) {
@@ -38,7 +38,7 @@ bool __HGImpl::V1SDL::BoxCollision::CanLeave( GameObject* pRectColObj ) {
 	return false;
 }
 
-bool __HGImpl::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
+bool HGEngine::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
 	auto pC = pObj->GetComponent<Collision>( "Collision" );
 	this->SetCollisionBoundingByTransform();
 	if( pC == nullptr ) {
@@ -61,7 +61,7 @@ bool __HGImpl::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
 
 
 
-void __HGImpl::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
+void HGEngine::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
 	auto pC = m_pGameObject->GetComponent<Transform>();
 	this->Rect = HG::Math::HGRect {
 		.X = ( int ) pC->tPosition.X,
@@ -71,7 +71,7 @@ void __HGImpl::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
 	};
 }
 
-bool __HGImpl::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
+bool HGEngine::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
 	auto pC = pObj->GetComponent<Collision>();
 	bool collided = false;
 	if( pC == nullptr ) {
@@ -87,7 +87,7 @@ bool __HGImpl::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
 	return collided;
 }
 
-void __HGImpl::V1SDL::Collision::procCollided( bool collided, GameObject* pObj ) {
+void HGEngine::V1SDL::Collision::procCollided( bool collided, GameObject* pObj ) {
 	if( std::find( m_lColList.begin(), m_lColList.end(), pObj ) != m_lColList.end() ) {
 		if( collided ) {
 			// 之前已经碰撞过且继续碰撞

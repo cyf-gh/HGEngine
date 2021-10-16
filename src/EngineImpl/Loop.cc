@@ -7,7 +7,7 @@
 
 #include "Loop.h"
 
-using namespace __HGImpl;
+using namespace HGEngine;
 using namespace HG;
 
 void Loop::Run() {

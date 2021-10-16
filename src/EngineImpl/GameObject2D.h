@@ -10,7 +10,7 @@
 #include "Font.hpp"
 #include "../Engine/HGComponent.h"
 
-namespace __HGImpl {
+namespace HGEngine {
 namespace V1SDL {
 
 class Renderer2D;
@@ -40,14 +40,14 @@ public:
 class GameObjectText : public GameObject2D {
 private:
 	SDL_Surface* m_pText;
-	Font* m_pFont;
+	FontImpl* m_pFont;
 public:
 	std::string Text;
 	SDL_Color tColor;
 
 	void Update( void* pEvent ) override;
 	void Render( void* pRenderer ) override;
-	explicit GameObjectText( const char* strObjectName, Font* pFont, const char* text = "" );
+	explicit GameObjectText( const char* strObjectName, FontImpl* pFont, const char* text = "" );
 	virtual ~GameObjectText();
 };
 }

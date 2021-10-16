@@ -8,12 +8,12 @@
 #include "EngineImpl.h"
 #include "Scene.h"
 
-using namespace __HGImpl;
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine;
+using namespace HGEngine::V1SDL;
 using namespace HG;
 using namespace HG::Math;
 
-bool __HGImpl::V1SDL::GameObject::IsInCameraView() {
+bool HGEngine::V1SDL::GameObject::IsInCameraView() {
     auto pScene = EngineImpl::GetEngine()->GetCurrentScene();
     if ( nullptr == pScene ) { return false; }
     auto pCam =  pScene->GetMainCamera();

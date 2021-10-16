@@ -7,6 +7,7 @@
 
 namespace HG {
     typedef int HGResult;
+    struct IVoid {};
 }
 
 typedef char			ch8;
@@ -39,3 +40,5 @@ typedef double			f64;
 #endif  /* !__GNUC__ */
 
 #define HG_ASSERT( EXP ) assert( EXP )
+
+

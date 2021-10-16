@@ -6,7 +6,7 @@
 #include <Log.h>
 #include "Renderer.h"
 
-using namespace __HGImpl::V1SDL;
+using namespace HGEngine::V1SDL;
 using namespace HG;
 
 Renderer::Renderer( SDL_Window * window, int index, Uint32 flags ) {
