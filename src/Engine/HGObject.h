@@ -7,11 +7,10 @@
 
 #include <string>
 #include <unordered_map>
-#include "../Core/Type.h"
-#include "../Core/Error.h"
-#include "../Core/Renderer.h"
-#include "../Core/Math.h"
-#include "../Core/Random.h"
+#include <Type.h>
+#include <Error.h>
+#include <Math.hpp>
+#include <Random.h>
 
 namespace HG {
 template<class T> class HGObject {

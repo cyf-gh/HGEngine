@@ -1,5 +1,5 @@
 ﻿#include "EngineImpl/EngineImpl.h"
-#include "Core/Math.h"
+#include <Math.hpp>
 #include "Core/Test.hpp"
 #include "EngineImpl/Scene.h"
 #include <string>

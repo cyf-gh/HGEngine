@@ -2,7 +2,7 @@
 // Created by cyf-m on 2020/12/8.
 //
 
-#include "../Core/Log.h"
+#include <Log.h>
 #include "../Engine/HGBehaviour.h"
 #include "GameObject.h"
 #include "EngineImpl.h"

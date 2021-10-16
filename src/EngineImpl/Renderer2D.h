@@ -5,9 +5,9 @@
 #ifndef HONEYGAME_RENDERER2D_H
 #define HONEYGAME_RENDERER2D_H
 
-#include "../Core/Renderer.h"
-#include "GameObject2D.h"
 #include <unordered_map>
+#include "Renderer.h"
+#include "GameObject2D.h"
 
 namespace __HGImpl {
 namespace V1SDL {

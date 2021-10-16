@@ -8,8 +8,8 @@
 #include <unordered_map>
 #include <SDL_thread.h>
 
-#include "Memory.h"
-#include "Error.h"
+#include <Memory.h>
+#include <Error.h>
 
 namespace __HGImpl {
 namespace V1SDL {

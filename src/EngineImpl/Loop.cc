@@ -3,8 +3,10 @@
 //
 
 #include <cmath>
+#include <Log.h>
+
 #include "Loop.h"
-#include "Log.h"
+
 using namespace __HGImpl;
 using namespace HG;
 

@@ -1,8 +1,8 @@
 #include <string>
 #include <filesystem>
+#include <Math.hpp>
 #include "../src/Engine/HGEvent.h"
 #include "../src/EngineImpl/EngineImpl.h"
-#include "../src/Core/Math.h"
 #include "../src/Core/Test.hpp"
 #include "../src/EngineImpl/Scene.h"
 #include "../src/EngineImpl/Collision.h"

@@ -2,10 +2,10 @@
 // Created by cyf-m on 2020/11/25.
 //
 
+#include <Error.h>
+#include <Math.hpp>
+#include <Log.h>
 #include "Window.h"
-#include "Error.h"
-#include "Math.h"
-#include "Log.h"
 
 using namespace __HGImpl;
 using namespace __HGImpl::V1SDL;

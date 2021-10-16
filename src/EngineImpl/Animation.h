@@ -1,7 +1,7 @@
 #pragma once
+#include <Math.hpp>
 #include <vector>
 #include "../Engine/HGComponent.h"
-#include "../Core/Math.h"
 
 namespace __HGImpl {
 namespace V1SDL {

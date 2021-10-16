@@ -6,7 +6,7 @@
 #define HONEYGAME_RENDERER_H
 
 #include <SDL_render.h>
-#include "Memory.h"
+#include <Memory.h>
 
 namespace __HGImpl {
 namespace V1SDL {

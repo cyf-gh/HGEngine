@@ -1,8 +1,8 @@
 #pragma once
 
+#include <Math.hpp>
 #include "../Engine/HGEvent.h"
 #include "../Engine/HGComponent.h"
-#include "../Core/Math.h"
 #include "GameObject.h"
 #include "Layer.h"
 

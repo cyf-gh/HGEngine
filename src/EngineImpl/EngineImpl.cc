@@ -9,9 +9,9 @@
 #include "../Core/Log.h"
 #include "EngineImpl.h"
 #include "../Core/Error.h"
-#include "../Core/Window.h"
-#include "../Core/Init.h"
-#include "../Core/Thread.h"
+#include "Window.h"
+#include "Init.h"
+#include "Thread.h"
 #include "Scene.h"
 #include "GameObject.h"
 

@@ -1,6 +1,7 @@
 #pragma once 
 
-#include<vector>
+#include <vector>
+#include <Memory.h>
 #include "GameObject.h"
 
 namespace __HGImpl {

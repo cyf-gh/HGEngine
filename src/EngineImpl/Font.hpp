@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL_ttf.h>
-#include "../Core/Log.h"
+#include <Log.h>
 #include "../Engine/HGObject.h"
 
 namespace __HGImpl {

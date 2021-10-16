@@ -4,8 +4,8 @@
 
 #ifndef HONEYGAME_SCREEN_H
 #define HONEYGAME_SCREEN_H
-#include "Error.h"
-#include "Math.h"
+#include <Error.h>
+#include <Math.hpp>
 
 namespace __HGImpl {
 namespace V1SDL {

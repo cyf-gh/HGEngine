@@ -5,9 +5,9 @@
 #ifndef HONEYGAME_WINDOW_H
 #define HONEYGAME_WINDOW_H
 #include <SDL.h>
-#include "Error.h"
+#include <Error.h>
+#include <Memory.h>
 #include "Screen.h"
-#include "Memory.h"
 
 namespace __HGImpl {
 namespace V1SDL {

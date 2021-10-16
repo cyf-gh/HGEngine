@@ -1,6 +1,5 @@
 #pragma once
 
-#include <SDL.h>
 #include <string>
 #include <fstream>
 #include <ctime>
@@ -12,10 +11,10 @@
 namespace HG {
     class HGLog {
     private:
-        const std::string getErrorDesc( const char * strFuncName ) {
+        const std::string getErrorDesc( const char * strFuncName, const char* strMsg = "" ) {
             std::string desc( strFuncName );
             desc += " failed: %s";
-            desc += SDL_GetError();
+            desc += strMsg;
             return desc;
         }
         inline const char *getDateStr() {

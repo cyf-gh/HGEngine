@@ -2,7 +2,7 @@
 // Created by cyf-m on 2020/11/28.
 //
 
-#include "../Core/Log.h"
+#include <Log.h>
 #include "Scene.h"
 #include "Animation.h"
 #include "GameObject.h"

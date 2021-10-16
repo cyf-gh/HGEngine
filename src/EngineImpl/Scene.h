@@ -5,10 +5,10 @@
 #ifndef HONEYGAME_SCENE_H
 #define HONEYGAME_SCENE_H
 
+#include <unordered_map>
 #include "../Engine/HGObject.h"
 #include "../Engine/HGBehaviour.h"
 #include "GameObject.h"
-#include <unordered_map>
 #include "Layer.h"
 
 namespace __HGImpl {

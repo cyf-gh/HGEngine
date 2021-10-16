@@ -5,7 +5,7 @@
 #ifndef HONEYGAME_GAMEOBJECT2D_H
 #define HONEYGAME_GAMEOBJECT2D_H
 
-#include "../Core/Math.h"
+#include <Math.hpp>
 #include "GameObject.h"
 #include "Font.hpp"
 #include "../Engine/HGComponent.h"

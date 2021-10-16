@@ -5,8 +5,8 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <nameof.hpp>
-#include "Type.h"
-#include "Math.h"
+#include <Type.h>
+#include <Math.hpp>
 using boost::property_tree::ptree;
 
 #define HG_BOOST_PTREEOUT( PROP ) out.put( std::string( NAMEOF( PROP ) ), PROP )
@@ -56,11 +56,6 @@ HG_UNMARSHAL_FULL_SPEC( Math::HGVec2<float> ) {
 	return t;
 }
 
-HG_MARSHAL_FULL_SPEC( Math::HGVec2<float> ) {
-	HG_BOOST_PTREEOUT( t.X );
-	HG_BOOST_PTREEOUT( t.Y );
-	return out;
-}
 
 HG_MARSHAL_FULL_SPEC( Math::HGSize<un32> ) {
 	HG_BOOST_PTREEOUT( t.W );

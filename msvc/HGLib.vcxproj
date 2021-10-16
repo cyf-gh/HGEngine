@@ -21,14 +21,13 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{83ed42b0-6cd2-4e89-9c6e-f4f1315d985b}</ProjectGuid>
-    <RootNamespace>HoneyGame</RootNamespace>
+    <ProjectGuid>{89cc22e6-320e-4a87-a537-d18ab9eab640}</ProjectGuid>
+    <RootNamespace>HGLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>HGEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -73,18 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core</IncludePath>
-    <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;..\msvc\Debug\Libs;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)_x86d</TargetName>
+    <OutDir>$(SolutionDir)$(Configuration)\..\Libs\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
-    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -101,7 +96,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;HGLib_x86d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,8 +120,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,71 +143,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="..\src\CMakeLists.txt" />
-    <Text Include="..\src\Core\CMakeLists.txt" />
-    <Text Include="..\src\EngineImpl\CMakeLists.txt" />
+    <ClCompile Include="..\src\Core\Random.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Core\Screen.cc" />
-    <ClCompile Include="..\src\EngineImpl\Animation.cpp" />
-    <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
-    <ClCompile Include="..\src\EngineImpl\Collision.cpp" />
-    <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
-    <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
-    <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
-    <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
-    <ClCompile Include="..\src\EngineImpl\Loop.cc" />
-    <ClCompile Include="..\src\EngineImpl\Renderer.cc" />
-    <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
-    <ClCompile Include="..\src\EngineImpl\RigidBody.cpp" />
-    <ClCompile Include="..\src\EngineImpl\Scene.cc" />
-    <ClCompile Include="..\src\EngineImpl\Thread.cc" />
-    <ClCompile Include="..\src\EngineImpl\Window.cc" />
-    <ClCompile Include="..\src\Engine\HGEvent.cpp" />
-    <ClCompile Include="..\src\Main.cc" />
-    <ClCompile Include="..\test\Script1.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\Core\Screen.h" />
+    <ClInclude Include="..\src\Core\Directory.hpp" />
+    <ClInclude Include="..\src\Core\Error.h" />
+    <ClInclude Include="..\src\Core\Log.h" />
+    <ClInclude Include="..\src\Core\Math.hpp" />
+    <ClInclude Include="..\src\Core\Memory.h" />
+    <ClInclude Include="..\src\Core\Random.h" />
     <ClInclude Include="..\src\Core\Serialization.h" />
     <ClInclude Include="..\src\Core\Test.hpp" />
-    <ClInclude Include="..\src\EngineImpl\Animation.h" />
-    <ClInclude Include="..\src\EngineImpl\Camera.h" />
-    <ClInclude Include="..\src\EngineImpl\Collision.h" />
-    <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
-    <ClInclude Include="..\src\EngineImpl\EngineObjectSerilization.hpp" />
-    <ClInclude Include="..\src\EngineImpl\Font.hpp" />
-    <ClInclude Include="..\src\EngineImpl\GameObject.h" />
-    <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
-    <ClInclude Include="..\src\EngineImpl\Layer.h" />
-    <ClInclude Include="..\src\EngineImpl\Loop.h" />
-    <ClInclude Include="..\src\EngineImpl\Renderer.h" />
-    <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
-    <ClInclude Include="..\src\EngineImpl\RigidBody.h" />
-    <ClInclude Include="..\src\EngineImpl\Scene.h" />
-    <ClInclude Include="..\src\EngineImpl\Thread.h" />
-    <ClInclude Include="..\src\EngineImpl\Timer.hpp" />
-    <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
-    <ClInclude Include="..\src\EngineImpl\Window.h" />
-    <ClInclude Include="..\src\Engine\HG.h" />
-    <ClInclude Include="..\src\Engine\HGBehaviour.h" />
-    <ClInclude Include="..\src\Engine\HGComponent.h" />
-    <ClInclude Include="..\src\Engine\HGEvent.h" />
-    <ClInclude Include="..\src\Engine\HGObject.h" />
-    <ClInclude Include="..\src\Engine\HGRenderer.h" />
+    <ClInclude Include="..\src\Core\Type.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\Core\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\boost.1.77.0.0\build\boost.targets" Condition="Exists('packages\boost.1.77.0.0\build\boost.targets')" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\boost.1.77.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.77.0.0\build\boost.targets'))" />
-  </Target>
 </Project>

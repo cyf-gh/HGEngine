@@ -3,9 +3,9 @@
 /// \details recover from https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/utils/Maths.h
 #pragma once
 
-#include "Type.h"
 #include <cmath>
 #include <vector> 
+#include "Type.h"
 
 namespace HG {
 namespace Math {
@@ -21,7 +21,7 @@ static HG_INLINE f64 Min( f64 num1, f64 num2 ) {
 }
 
 static HG_INLINE bool IsEqualF( f64 num1, f64 num2 ) {
-	return fabs( num1 - num2 ) < 0.000001;
+	return fabs( static_cast<long double>( num1 - num2 ) ) < 0.000001;
 }
 
 static HG_INLINE bool IsIn( f64 numMin, f64 numMax, f64 numCmp ) {

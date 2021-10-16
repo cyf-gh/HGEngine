@@ -2,8 +2,8 @@
 // Created by cyf-m on 2020/11/25.
 //
 #include <SDL.h>
+#include <Log.h>
 #include "Screen.h"
-#include "Log.h"
 
 using namespace __HGImpl;
 using namespace __HGImpl::V1SDL;

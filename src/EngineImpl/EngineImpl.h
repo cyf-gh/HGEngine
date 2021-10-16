@@ -5,9 +5,9 @@
 #define HONEYGAME_ENGINEIMPL_H
 
 #include "../Engine/HG.h"
-#include "../Core/Loop.h"
-#include "../Core/Window.h"
-#include "../Core/Thread.h"
+#include "Loop.h"
+#include "Window.h"
+#include "Thread.h"
 #include "Camera.h"
 #include "Renderer2D.h"
 

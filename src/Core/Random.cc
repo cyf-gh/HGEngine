@@ -4,7 +4,6 @@
 // \ref https://github.com/cyf-gh/stLib/blob/alpha-develop/src/Random.cpp
 //
 
-#include <SDL.h>
 #include "Random.h"
 
 using namespace HG::Random;
@@ -48,7 +47,7 @@ stRandomWELL512::stRandomWELL512
 ============
 */
 RandomWELL512::RandomWELL512() {
-    SetSeed( SDL_GetTicks() );
+    SetSeed( 123 );
 }
 
 RandomWELL512::RandomWELL512( un32 seed ) {

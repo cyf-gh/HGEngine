@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Core/Math.h"
+#include <Math.hpp>
+#include <SDL.h>
 #include "../Engine/HGComponent.h"
 
 namespace __HGImpl {

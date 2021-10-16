@@ -2,9 +2,10 @@
 // Created by cyf-m on 2020/11/28.
 //
 
+#include <SDL_log.h>
 #include <string>
+#include <Log.h>
 #include "Thread.h"
-#include "Log.h"
 
 using namespace std;
 using namespace __HGImpl::V1SDL;

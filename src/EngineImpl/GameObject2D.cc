@@ -4,8 +4,8 @@
 
 #include <SDL_image.h>
 #include <SDL.h>
-#include "../Core/Log.h"
-#include "../Core/Math.h"
+#include <Log.h>
+#include <Math.hpp>
 #include "GameObject2D.h"
 #include "Renderer2D.h"
 #include "EngineImpl.h"

@@ -2,10 +2,10 @@
 // Created by cyf-m on 2020/12/10.
 //
 
-#include <SDL_image.h>
 #include <string>
-#include "../Core/Math.h"
-#include "../Core/Log.h"
+#include <SDL_image.h>
+#include <Math.hpp>
+#include <Log.h>
 #include "Renderer2D.h"
 
 using namespace __HGImpl::V1SDL;
