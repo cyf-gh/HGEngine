@@ -31,8 +31,6 @@ SDL_Texture* Renderer2D::CreateTextureFromFile( const char* pStrFileName ) {
 	SDL_FreeSurface( pImg );
 	pImg = nullptr;
 
-	m_umTextures[pStrFileName] = pTex;
-
 	return pTex;
 }
 

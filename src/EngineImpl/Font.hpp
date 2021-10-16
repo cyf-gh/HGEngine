@@ -5,20 +5,21 @@
 
 namespace HGEngine {
 namespace V1SDL {
-class FontImpl : public HG::HGObject<FontImpl> {
+class Font : public HG::HGObject<Font> {
 protected:
 	TTF_Font* pHandle;
+	std::string m_strFileName;
 
 public: 
 	void* GetHandle() const { return pHandle; }
-	FontImpl( const char* strName, const char *file, int ptsize ) : HG::HGObject<FontImpl, HGEngine::IFont>( strName ), pHandle( nullptr ) {
+	Font( const char* strName, const char *file, int ptsize ) : HG::HGObject<Font>( strName ), pHandle( nullptr ), m_strFileName( file ) {
 		pHandle = TTF_OpenFont( file, ptsize );
 		if ( !pHandle ) {
 			HG_LOG_FAILED( "Failed to load font: " );
 			HG_LOG_FAILED( TTF_GetError() );
 		}
 	}
-	~FontImpl() {
+	~Font() {
 		TTF_CloseFont( pHandle );
 	}
 };

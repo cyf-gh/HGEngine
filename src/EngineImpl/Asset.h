@@ -1,9 +1,12 @@
 #pragma once
 
-#include "Font.hpp"
+#include "../Engine/HGObject.h"
 
 namespace HGEngine {
 namespace V1SDL {
+
+class Font;
+class Texture;
 
 class Asset final {
 
@@ -14,13 +17,21 @@ public:
 	/// @param unPtSize 字号
 	/// @return 字体句柄
 	Font* CreateFont( const char *strFontName, const char *strFontFilePath, const un32 unPtSize );
-
+	/// @brief 创建材质资源
+	/// @param strTextureName 
+	/// @param strTextureFilePath 
+	/// @return 材质句柄
+	Texture* CreateTexture( const char* strTextureName, const char* strTextureFilePath );
 	/// @brief 获取资源
 	template<typename T> 
-	HG_INLINE HGObject<T> *GetAsset( const char *strAssetName ) {
-		return HGObject<T>::Find( strAssetName );
+	HG_INLINE T *GetAsset( const char *strAssetName ) {
+		return static_cast<T*>( HG::HGObject<T>::Find( strAssetName ) );
 	}
-
+	/// @brief 释放资源
+	template<typename T>
+	HG_INLINE T* ReleaseAsset( const char* strAssetName ) {
+		HG_SAFE_DEL( HG::HGObject<T>::Find( strAssetName ) );
+	}
 	Asset()	 = default;
 	~Asset() = default;
 };

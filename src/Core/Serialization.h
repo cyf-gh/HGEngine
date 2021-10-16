@@ -68,11 +68,11 @@ template<typename T>
 HG_INLINE T& Unmarshal( std::vector<T>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
 	HG_UNMARSHAL_OBJECT_START;
 	HG_ASSERT( in.IsArray() );
-	for( auto &it : in.GetObject() ) {
-		T _t();
-		Unmarshal( _t, strName, in, rd );
-		t.push_back( _t );
-	}
+	//for( auto &it : in.GetObject() ) {
+	//	T _t();
+	//	Unmarshal( _t, strName, in, rd );
+	//	t.push_back( _t );
+	//}
 	return t;
 }
 

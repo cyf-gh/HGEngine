@@ -14,6 +14,7 @@
 #include "Thread.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include "Asset.h"
 
 using namespace HGEngine::V1SDL;
 using namespace HGEngine;
@@ -54,7 +55,7 @@ void InitSDLTtf() {
 }
 
 EngineImpl::EngineImpl( int argc, char** argv )
-	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ) {
+	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ) {
 	SetEngine( this );
 
 	Init init;
@@ -79,6 +80,8 @@ EngineImpl::EngineImpl( int argc, char** argv )
 	tLoopMain.unRunInterval = 2; // for high quality input
 
 	pCurrentScene = static_cast<Scene*>( Scene::umTheseOnes.begin()->second );
+
+	pAsset = new Asset();
 }
 
 EngineImpl::~EngineImpl() {

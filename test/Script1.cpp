@@ -11,6 +11,7 @@
 #include "../src/EngineImpl/RigidBody.h"
 #include "../src/EngineImpl/Animation.h"
 #include "../src/EngineImpl/EngineObjectSerilization.hpp"
+#include "../src/EngineImpl/Asset.h"
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -23,9 +24,14 @@ Camera* pCamera = new Camera( "camera" );
 pCamera->Enable();
 pCamera->SetCameraSizeToRendererSize();
 EngineImpl::GetEngine()->GetCurrentScene()->SetMainCamera( pCamera );
-GameObject2D* pImgTest = new GameObject2D( "test_full_screen", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
-GameObject2D* pImgTestColMain = new GameObject2D( "test_main", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
-GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
+
+EngineImpl::GetEngine()->GetAssetManager()->CreateTexture( "test", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
+EngineImpl::GetEngine()->GetAssetManager()->CreateFont( "f", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 );
+auto ptest = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>("test");
+
+GameObject2D* pImgTest = new GameObject2D( "test_full_screen", ptest );
+GameObject2D* pImgTestColMain = new GameObject2D( "test_main", ptest );
+GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", ptest );
 
 auto bcMain = static_cast< BoxCollision* >( pImgTestColMain->AddComponent( new BoxCollision( "Collision" ) ) );
 auto rb = static_cast< RigidBody* >( pImgTestColMain->AddComponent( new RigidBody( "RigidBody" ) ) );
@@ -93,8 +99,9 @@ cout << data << endl;
 
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
-GameObjectText* pText = new GameObjectText( "test_fps", new FontImpl( "font1", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
-GameObjectText* pText2 = new GameObjectText( "test_texts", new FontImpl( "font2", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 ), "0" );
+auto ptext = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Font>( "f" );
+GameObjectText* pText = new GameObjectText( "test_fps", ptext, "0" );
+GameObjectText* pText2 = new GameObjectText( "test_texts", ptext, "0" );
 
 auto df = pText->GetComponent<Transform>();
 

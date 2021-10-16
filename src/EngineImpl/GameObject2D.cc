@@ -11,32 +11,25 @@
 #include "EngineImpl.h"
 #include "Scene.h"
 #include "Transform.hpp"
+#include "Texture.h"
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 
+SDL_Texture* HGEngine::V1SDL::GameObject2D::GetTexture() const {
+	return m_pTexture->GetHandle();
+}
+
 HGSize<int> GameObject2D::GetTextureSize() {
 	HGSize<int> size;
-	SDL_QueryTexture( m_pTexture, NULL, NULL, &size.W, &size.H );
+	SDL_QueryTexture( m_pTexture->GetHandle(), NULL, NULL, &size.W, &size.H );
 	return size;
 }
 
-GameObject2D::GameObject2D( const char* strObjectName, const char* strFileName )
-	: GameObject( strObjectName ), m_pTexture( nullptr ), strFileName( strFileName ) {
-	if( strlen( strFileName ) != 0 ) {
-		m_pTexture = EngineImpl::GetEngine()->GetRenderer2D()->CreateTextureFromFile( strFileName );
-	}
-}
+HGEngine::V1SDL::GameObject2D::GameObject2D( const char* strObjectName, Texture* pTexture )
+	: GameObject( strObjectName ), m_pTexture( pTexture ) { }
 
-GameObject2D::~GameObject2D() {
-	if( m_pTexture != nullptr ) {
-		auto* pEngine = EngineImpl::GetEngine();
-		if( pEngine != nullptr ) {
-			pEngine->GetRenderer2D()->m_umTextures[strFileName] = nullptr;
-		}
-		SDL_DestroyTexture( m_pTexture );
-	}
-}
+GameObject2D::~GameObject2D() { }
 
 void GameObject2D::renderCameraView( Renderer2D* pRenderer ) {
 	auto pTransform = GetComponent<Transform>();
@@ -92,8 +85,8 @@ void HGEngine::V1SDL::GameObjectText::Render( void* pRenderer ) {
 	}
 }
 
-HGEngine::V1SDL::GameObjectText::GameObjectText( const char* strObjectName, FontImpl* pFont, const char* text )
-	: GameObject2D( strObjectName, "" ), tColor( { 0, 0, 0 } ), Text( text ), m_pFont( pFont ), m_pText( nullptr ) { }
+HGEngine::V1SDL::GameObjectText::GameObjectText( const char* strObjectName, Font* pFont, const char* text )
+	: GameObject2D( strObjectName, nullptr ), tColor( { 0, 0, 0 } ), Text( text ), m_pFont( pFont ), m_pText( nullptr ) { }
 
 HGEngine::V1SDL::GameObjectText::~GameObjectText() {
 	if( m_pTexture != nullptr ) {

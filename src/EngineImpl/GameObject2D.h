@@ -14,11 +14,11 @@ namespace HGEngine {
 namespace V1SDL {
 
 class Renderer2D;
+class Texture;
 
 class GameObject2D : public GameObject {
-protected:
-	SDL_Texture* m_pTexture;
-	const std::string strFileName;
+private:
+	Texture* m_pTexture;
 
 protected:
 	void renderCameraView( Renderer2D* pRenderer );
@@ -29,25 +29,28 @@ public:
 	/// \brief 克隆2D游戏对象
 	/// \note 
 	///	* 克隆后的2D游戏对象公用同一 Texture
-	GameObject* Clone() override { return new GameObject2D(*this); }
-	SDL_Texture* GetTexture() const { return m_pTexture; }
-	HG::Math::HGSize<int> GetTextureSize();
-	void SetTexture( SDL_Texture* pT ) { m_pTexture = pT; }
-	explicit GameObject2D( const char* strObjectName = "", const char* strFileName = "" );
+	GameObject* Clone() override { return new GameObject2D( *this ); }
+	virtual SDL_Texture* GetTexture() const;
+	HG::Math::HGSize<int>	GetTextureSize();
+	void SetTexture( Texture* pT ) { m_pTexture = pT; }
+	explicit GameObject2D( const char* strObjectName = "", Texture* pTexture = nullptr );
 	virtual ~GameObject2D();
 };
 
 class GameObjectText : public GameObject2D {
 private:
 	SDL_Surface* m_pText;
-	FontImpl* m_pFont;
+	SDL_Texture* m_pTexture;
+
+	Font* m_pFont;
 public:
 	std::string Text;
 	SDL_Color tColor;
 
+	SDL_Texture* GetTexture() const override { return m_pTexture; }
 	void Update( void* pEvent ) override;
 	void Render( void* pRenderer ) override;
-	explicit GameObjectText( const char* strObjectName, FontImpl* pFont, const char* text = "" );
+	explicit GameObjectText( const char* strObjectName, Font* pFont, const char* text = "" );
 	virtual ~GameObjectText();
 };
 }

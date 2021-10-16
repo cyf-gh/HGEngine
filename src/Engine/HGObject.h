@@ -14,11 +14,9 @@
 
 namespace HG {
 
-template<class T> 
-class HGObject {
+template<class T> class HGObject {
 protected:
 	std::string mStrName;
-	const un32 UID;
 
 public:
 	/// \brief all instances of this object
@@ -29,18 +27,21 @@ public:
 	static T* FindById( const un32 unId ) { return umTheseOnesById.count( unId ) == 0 ? nullptr : umTheseOnesById[unId]; }
 
 public:
-	const un32 UID() const { return UID; }
+	const un32 UID;
 	const char* GetName() const { return mStrName.c_str(); }
 
 	explicit HGObject( const char* strName ) : mStrName( strName ), UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
-		umTheseOnes[strName] = static_cast< T* >( this );
+		HGObject<T>::umTheseOnes[strName] = static_cast< T* >( this );
+		HGObject<T>::umTheseOnesById[UID] = static_cast< T* >( this );
 	}
 	explicit HGObject() : UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
 		mStrName = std::to_string( UID );
 		umTheseOnes[mStrName.c_str()] = static_cast< T* >( this );
+		umTheseOnesById[UID]		  = static_cast< T* >( this );
 	}
 	virtual ~HGObject() {
 		umTheseOnes[GetName()] = nullptr;
+		umTheseOnesById[UID] = nullptr;
 	}
 };
 template<class T> std::unordered_map<std::string, T*>  HGObject<T>::umTheseOnes = std::unordered_map<std::string, T*>();
