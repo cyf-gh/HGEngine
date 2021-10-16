@@ -131,6 +131,10 @@ HG::Log->Info( SDL_LOG_CATEGORY_SYSTEM, info )
 #define HG_LOG_FAILED( info ) \
 HG::Log->Failed( SDL_LOG_CATEGORY_SYSTEM, info )
 
+/// \brief log failed info
+#define HG_LOG_WARNNING( info ) \
+HG::Log->Warning( 100, info )
+
 #define HG_LOG_SUCCESS( info ) \
 HG::Log->Success( SDL_LOG_CATEGORY_SYSTEM, info )
 

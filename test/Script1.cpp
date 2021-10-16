@@ -1,5 +1,7 @@
 #include <string>
 #include <filesystem>
+#include <rapidjson/writer.h>
+#include <rapidjson/prettywriter.h>
 #include <Math.hpp>
 #include "../src/Engine/HGEvent.h"
 #include "../src/EngineImpl/EngineImpl.h"
@@ -9,8 +11,10 @@
 #include "../src/EngineImpl/RigidBody.h"
 #include "../src/EngineImpl/Animation.h"
 #include "../src/EngineImpl/EngineObjectSerilization.hpp"
+
 using namespace __HGImpl::V1SDL;
 using namespace HG::Math;
+using namespace std;
 
 HG_SCRIPT_START( SCRIPT1 )
 
@@ -50,10 +54,42 @@ dfMain->tPosition.Y = 500;
 dfMain->tRect.W = 1000;
 dfMain->tRect.H = 300;
 
-boost::property_tree::ptree items;
 
-HG::Serialization::Marshal( *dfMain, items );
-boost::property_tree::write_json( std::string( "C:/Repos/HoneyGame/msvc/Debug/1.json" ),items);
+rapidjson::StringBuffer strBuf;
+rapidjson::Writer<rapidjson::StringBuffer> writer(strBuf);
+
+////////////////////////////////////////////////////////////////////////////
+
+writer.StartObject();
+HG::Serialization::Marshal( *dfMain, "123", writer );
+writer.EndObject();
+
+string data = strBuf.GetString();
+cout << data << endl;
+
+rapidjson::Document doc;
+doc.Parse( data.c_str() );
+if (doc.HasParseError())
+{
+	printf("parseÊ§°Ü:%d\n", doc.GetParseError());
+}
+Transform ttt;
+HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
+
+////////////////////////////////////////////////////////////////////////////
+
+vector<string> a = vector<string>();
+a.push_back("123");a.push_back("123");a.push_back("123");a.push_back("123");a.push_back("123");
+rapidjson::StringBuffer strBuf2;
+
+rapidjson::Writer<rapidjson::StringBuffer> writer2(strBuf2);
+writer2.StartObject();
+HG::Serialization::Marshal( a, "123", writer2 );
+writer2.EndObject();
+
+data = strBuf2.GetString();
+cout << data << endl;
+
 
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();

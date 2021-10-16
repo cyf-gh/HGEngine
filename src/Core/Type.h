@@ -37,3 +37,5 @@ typedef double			f64;
 #elif defined( __GNUC__ )
 #   define HG_INLINE inline
 #endif  /* !__GNUC__ */
+
+#define HG_ASSERT( EXP ) assert( EXP )

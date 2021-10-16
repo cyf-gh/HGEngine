@@ -60,6 +60,9 @@
     <ClCompile Include="..\src\EngineImpl\Renderer.cc">
       <Filter>Impl</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\Init.cc">
+      <Filter>Impl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\RigidBody.h">
@@ -128,9 +131,6 @@
     <ClInclude Include="..\src\Core\Screen.h">
       <Filter>Impl</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Core\Serialization.h">
-      <Filter>Impl</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Core\Test.hpp">
       <Filter>Impl</Filter>
     </ClInclude>
@@ -141,6 +141,9 @@
       <Filter>Impl</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\Renderer.h">
+      <Filter>Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Init.h">
       <Filter>Impl</Filter>
     </ClInclude>
   </ItemGroup>

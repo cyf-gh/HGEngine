@@ -4,8 +4,8 @@
 
 #include <SDL.h>
 #include <iostream>
+#include <Log.h>
 #include "Init.h"
-#include "Log.h"
 
 using namespace __HGImpl::V1SDL;
 using namespace HG;

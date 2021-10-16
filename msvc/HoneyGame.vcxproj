@@ -73,9 +73,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core</IncludePath>
+    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core;..\.ref\rapidjson\include</IncludePath>
     <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;..\msvc\Debug\Libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -163,6 +163,7 @@
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\Init.cc" />
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
     <ClCompile Include="..\src\EngineImpl\Loop.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer.cc" />
@@ -177,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Screen.h" />
-    <ClInclude Include="..\src\Core\Serialization.h" />
     <ClInclude Include="..\src\Core\Test.hpp" />
     <ClInclude Include="..\src\EngineImpl\Animation.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
@@ -187,6 +187,7 @@
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
+    <ClInclude Include="..\src\EngineImpl\Init.h" />
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
     <ClInclude Include="..\src\EngineImpl\Loop.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer.h" />

@@ -74,6 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)_x86d</TargetName>
     <OutDir>$(SolutionDir)$(Configuration)\..\Libs\</OutDir>
+    <IncludePath>..\.ref\rapidjson\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

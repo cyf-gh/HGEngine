@@ -1,72 +1,195 @@
 #pragma once
 
 // https://charon-cheung.github.io/2019/06/18/C++/Boost/Boost%E6%95%99%E7%A8%8B%EF%BC%88%E5%9B%9B%EF%BC%89%E8%AF%BB%E5%86%99JSON/#%E4%BF%AE%E6%94%B9%E6%9F%90%E4%B8%AAJSON%E5%80%BC
+// 各种类型 https://www.cnblogs.com/fnlingnzb-learner/p/10334988.html
 
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
+#include <string>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/document.h>
 #include <nameof.hpp>
-#include <Type.h>
-#include <Math.hpp>
-using boost::property_tree::ptree;
+#include "Log.h"
+#include "Type.h"
+#include "Math.hpp"
 
-#define HG_BOOST_PTREEOUT( PROP ) out.put( std::string( NAMEOF( PROP ) ), PROP )
-#define HG_BOOST_PTREEOUT_CLASS( PROP ) out.put_child( std::string( NAMEOF( PROP ) ), HG::Serialization::Marshal( PROP, tmp ) ); tmp = boost::property_tree::ptree()
-#define HG_BOOST_PTREEOUT_START boost::property_tree::ptree tmp
+#define HG_MARSHAL_START						out.StartObject();
+#define HG_MARSHAL_END							out.EndObject();
 
-#define HG_BOOST_PTREEREADC( PROP, T ) PROP = in.get<T>( std::string( NAMEOF( PROP ) ) )
+/// \brief 设置键名
+/// \note 
+/// * 当strName为空字符串时，不会设置键名
+#define HG_MARSHAL_SETKEY						if ( strcmp( strName, "" ) != 0 ) { out.Key( strName ); }
 
-#define HG_MARSHAL_FULL_SPEC( T )	template<> HG_INLINE boost::property_tree::ptree Marshal<T>( const T& t, boost::property_tree::ptree& out )
-#define HG_UNMARSHAL_FULL_SPEC( T ) template<> HG_INLINE T* Unmarshal( T* t, const boost::property_tree::ptree& in )
+/// \brief 宣告开始构建对象序列化
+/// \note 
+/// * 当构建对象序列化时，该对象会以 "ObjName" : { ... } 的形式被附加于 out 中
+/// * 存在将亡 JSON 字符串储存器 buffer 与 Writer writer
+#define HG_MARSHAL_OBJECT_START					rapidjson::StringBuffer buffer; rapidjson::Writer<rapidjson::StringBuffer> writer(buffer); writer.StartObject()
+#define HG_MARSHAL_OBJECT_SETPROP( PROP )		HG::Serialization::Marshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), writer )
+#define HG_MARSHAL_OBJECT_END					writer.EndObject(); HG_MARSHAL_SETKEY; out.RawValue( buffer.GetString(), strlen( buffer.GetString() ), rapidjson::kObjectType ); return out;
+#define HG_MARSHAL_SETOBJ( PROP )				HG::Serialization::Marshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), out )
+
+#define HG_UNMARSHAL_OBJECT_START				rapidjson::Document d; d.CopyFrom( in, rd.GetAllocator() )
+#define HG_UNMARSHAL_OBJECT_END					return t
+#define HG_UNMARSHAL_GETOBJ( PROP )				Unmarshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), d[std::string( NAMEOF( PROP ) ).c_str()], rd )
+
+#define HG_DEBUG_UNMARSHAL_OBJECT				for( auto& m : d.GetObject() ) { HG_LOG_INFO( m.name.GetString() ); }
+
+#define HG_MARSHAL_FULLSPEC( T )				template<> HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal<T>( const T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out )
+#define HG_UNMARSHAL_FULLSPEC( T )				template<> HG_INLINE T& Unmarshal( T& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd )
 
 namespace HG {
+/// \brief 对象序列化
+/// \note 
+/// * 当对象的属性被暴露时，应当重写该对象类型的 Marshal Unmarshal 全特化模板函数
 namespace Serialization {
 
 template<typename T>
-HG_INLINE ptree Marshal( const T& t, ptree& out ) {
-	HG_BOOST_PTREEOUT( t );
+HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
+	HG_LOG_WARNNING( std::format( "In default Marshal. Node[{}] escaped", strName ).c_str() );
 	return out;
 }
 
 template<typename T>
-HG_INLINE T* Unmarshal( T* t, const ptree& in ) {
-	return t;
-}
-
-template<typename T>
-HG_INLINE ptree Marshal( const std::vector<T>& t, ptree& out ) {
-	ptree c;
-	for( auto& it : t ) {
-		c.put( "", *it );
-		out.push_back( std::make_pair( "", c ) );
+HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const std::vector<T>& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
+	HG_MARSHAL_SETKEY;
+	out.StartArray();
+	for( auto& i : t ) {
+		Marshal( i, "", out );
 	}
+	out.EndArray();
 	return out;
 }
 
-// TODO: 完成类的marshal全特化
+template<typename T>
+HG_INLINE T& Unmarshal( T& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+	HG_LOG_WARNNING( std::format( "In default Unmarshal. Node[{}] escaped", strName ).c_str() );
+	return t;
+}
 
-HG_MARSHAL_FULL_SPEC( Math::HGVec2<float> ) {
-	HG_BOOST_PTREEOUT( t.X );
-	HG_BOOST_PTREEOUT( t.Y );
+template<typename T>
+HG_INLINE T& Unmarshal( std::vector<T>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_ASSERT( in.IsArray() );
+	for( auto &it : in.GetObject() ) {
+		T _t();
+		Unmarshal( _t, strName, in, rd );
+		t.push_back( _t );
+	}
+	return t;
+}
+
+HG_MARSHAL_FULLSPEC( un32 ) {
+	HG_MARSHAL_SETKEY;
+	out.Int( static_cast< int >( t ) );
 	return out;
 }
 
-HG_UNMARSHAL_FULL_SPEC( Math::HGVec2<float> ) {
-	HG_BOOST_PTREEREADC( t->X, float );
-	HG_BOOST_PTREEREADC( t->Y, float );
+HG_UNMARSHAL_FULLSPEC( un32 ) {
+	t = static_cast< un32 >( in.GetInt() );
+	return t;
+}
+
+HG_MARSHAL_FULLSPEC( n32 ) {
+	HG_MARSHAL_SETKEY;
+	out.Int( static_cast< int >( t ) );
+	return out;
+}
+
+HG_UNMARSHAL_FULLSPEC( n32 ) {
+	t = static_cast< n32 >( in.GetInt() );
+	return t;
+}
+
+HG_MARSHAL_FULLSPEC( float ) {
+	HG_MARSHAL_SETKEY;
+	out.Double( static_cast< double >( t ) );
+	return out;
+}
+
+HG_UNMARSHAL_FULLSPEC( float ) {
+	t = static_cast< float >( in.GetDouble() );
+	return t;
+}
+
+HG_MARSHAL_FULLSPEC( bool ) {
+	HG_MARSHAL_SETKEY;
+	out.Bool( t );
+	return out;
+}
+
+HG_UNMARSHAL_FULLSPEC( bool ) {
+	t = ( in.GetBool() );
+	return t;
+}
+
+HG_MARSHAL_FULLSPEC( double ) {
+	HG_MARSHAL_SETKEY;
+	out.Double( t );
+	return out;
+}
+
+HG_UNMARSHAL_FULLSPEC( double ) {
+	t = in.GetDouble();
+	return t;
+}
+
+HG_MARSHAL_FULLSPEC( std::string ) {
+	HG_MARSHAL_SETKEY;
+	out.String( t.c_str() );
+	return out;
+}
+
+HG_UNMARSHAL_FULLSPEC( std::string ) {
+	t = in.GetString();
 	return t;
 }
 
 
-HG_MARSHAL_FULL_SPEC( Math::HGSize<un32> ) {
-	HG_BOOST_PTREEOUT( t.W );
-	HG_BOOST_PTREEOUT( t.H );
-	return out;
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+HG_MARSHAL_FULLSPEC( Math::HGVec2<float> ) {
+	HG_MARSHAL_OBJECT_START;
+	HG_MARSHAL_OBJECT_SETPROP( t.X );
+	HG_MARSHAL_OBJECT_SETPROP( t.Y );
+	HG_MARSHAL_OBJECT_END;
 }
 
-HG_MARSHAL_FULL_SPEC( Math::HGPos ) {
-	HG_BOOST_PTREEOUT( t.X );
-	HG_BOOST_PTREEOUT( t.Y );
-	return out;
+HG_UNMARSHAL_FULLSPEC( Math::HGVec2<float> ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_GETOBJ( t.X );
+	HG_UNMARSHAL_GETOBJ( t.Y );
+	HG_UNMARSHAL_OBJECT_END;
 }
+
+HG_MARSHAL_FULLSPEC( Math::HGSize<un32> ) {
+	HG_MARSHAL_OBJECT_START;
+	HG_MARSHAL_OBJECT_SETPROP( t.W );
+	HG_MARSHAL_OBJECT_SETPROP( t.H );
+	HG_MARSHAL_OBJECT_END;
 }
+
+HG_UNMARSHAL_FULLSPEC( Math::HGSize<un32> ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_GETOBJ( t.W );
+	HG_UNMARSHAL_GETOBJ( t.H );
+	HG_UNMARSHAL_OBJECT_END;
+}
+
+HG_MARSHAL_FULLSPEC( Math::HGPos ) {
+	HG_MARSHAL_OBJECT_START;
+	HG_MARSHAL_OBJECT_SETPROP( t.X );
+	HG_MARSHAL_OBJECT_SETPROP( t.Y );
+	HG_MARSHAL_OBJECT_END;
+}
+
+HG_UNMARSHAL_FULLSPEC( Math::HGPos ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_GETOBJ( t.X );
+	HG_UNMARSHAL_GETOBJ( t.Y );
+	HG_UNMARSHAL_OBJECT_END;
+}
+
+}
+
 }

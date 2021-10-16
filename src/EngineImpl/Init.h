@@ -5,7 +5,7 @@
 #ifndef HONEYGAME_INIT_H
 #define HONEYGAME_INIT_H
 
-#include "Memory.h"
+#include <Memory.h>
 
 namespace __HGImpl {
 namespace V1SDL {
