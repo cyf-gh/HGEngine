@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Core\Screen.cc" />
     <ClCompile Include="..\src\EngineImpl\Animation.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Asset.cc" />
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\src\EngineImpl\Collision.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
@@ -180,6 +181,7 @@
     <ClInclude Include="..\src\Core\Screen.h" />
     <ClInclude Include="..\src\Core\Test.hpp" />
     <ClInclude Include="..\src\EngineImpl\Animation.h" />
+    <ClInclude Include="..\src\EngineImpl\Asset.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\Collision.h" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />

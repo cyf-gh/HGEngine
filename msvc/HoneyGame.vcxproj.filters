@@ -63,6 +63,9 @@
     <ClCompile Include="..\src\EngineImpl\Init.cc">
       <Filter>Impl</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\Asset.cc">
+      <Filter>Impl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\RigidBody.h">
@@ -144,6 +147,9 @@
       <Filter>Impl</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\Init.h">
+      <Filter>Impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Asset.h">
       <Filter>Impl</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,7 +13,16 @@
 #include <Random.h>
 
 namespace HG {
-template<class T> class HGObject {
+
+struct IVoid {};
+
+template<class T> struct IObject {
+public:
+	virtual const char* GetName() = 0;
+	virtual const un32	UID() = 0;
+};
+
+template<class T, class _Impl=IVoid> class HGObject : _Impl {
 protected:
 	std::string mStrName;
 
@@ -40,8 +49,8 @@ public:
 		umTheseOnes[GetName()] = nullptr;
 	}
 };
-template<class T> std::unordered_map<std::string, T*>  HGObject<T>::umTheseOnes = std::unordered_map<std::string, T*>();
-template<class T> std::unordered_map<un32, T*>  HGObject<T>::umTheseOnesById = std::unordered_map<un32, T*>();
+template<class T, class _Impl> std::unordered_map<std::string, T*>  HGObject<T, _Impl>::umTheseOnes = std::unordered_map<std::string, T*>();
+template<class T, class _Impl> std::unordered_map<un32, T*>  HGObject<T, _Impl>::umTheseOnesById = std::unordered_map<un32, T*>();
 }
 
 #endif //HONEYGAME_OBJECT_H

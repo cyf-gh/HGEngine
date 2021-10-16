@@ -1,8 +1,5 @@
 #pragma once
 
-// https://charon-cheung.github.io/2019/06/18/C++/Boost/Boost%E6%95%99%E7%A8%8B%EF%BC%88%E5%9B%9B%EF%BC%89%E8%AF%BB%E5%86%99JSON/#%E4%BF%AE%E6%94%B9%E6%9F%90%E4%B8%AAJSON%E5%80%BC
-// 各种类型 https://www.cnblogs.com/fnlingnzb-learner/p/10334988.html
-
 #include <string>
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
