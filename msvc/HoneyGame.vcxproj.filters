@@ -69,6 +69,9 @@
     <ClCompile Include="..\src\EngineImpl\Texture.cc">
       <Filter>Impl</Filter>
     </ClCompile>
+    <ClCompile Include="..\test\Test_Math.cc">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\EngineImpl\RigidBody.h">
@@ -172,6 +175,9 @@
     </Filter>
     <Filter Include="Impl">
       <UniqueIdentifier>{8a260598-a57e-44c9-be59-6edd35b8c4ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{b39df2eb-1514-44df-be10-b89bc43b668b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -20,9 +20,35 @@ static HG_INLINE f64 Min( f64 num1, f64 num2 ) {
 	return num1 > num2 ? num2 : num1;
 }
 
-static HG_INLINE bool IsEqualF( f64 num1, f64 num2 ) {
-	return fabs( static_cast<long double>( num1 - num2 ) ) < 0.000001;
+template<typename _d>
+static HG_INLINE f64 Abs( const _d d1 ) {
+	return d1 <= 0 ? -d1 : d1;
 }
+
+static HG_INLINE bool IsEqualF_e5( f64 num1, f64 num2 ) {
+	return Abs( num1 - num2 ) < 0.00001;
+}
+
+static HG_INLINE bool IsEqualF_e7( f64 num1, f64 num2 ) {
+	return Abs( num1 - num2 ) < 0.000001;
+}
+
+template<typename _d>
+static HG_INLINE bool IsEqual( const _d d1, const _d d2 ) {
+	return d1 == d2;
+}
+
+template<>
+static HG_INLINE bool IsEqual( const f64 d1, const f64 d2 ) {
+	return IsEqualF_e5( d1, d2 );
+}
+
+template<>
+static HG_INLINE bool IsEqual( const f32 d1, const f32 d2 ) {
+	return IsEqualF_e5( d1, d2 );
+}
+
+#define IsEqualF IsEqualF_e5
 
 static HG_INLINE bool IsIn( f64 numMin, f64 numMax, f64 numCmp ) {
 	return ( ( numCmp >= numMin ) && ( numMax <= numCmp ) );
@@ -34,10 +60,6 @@ static HG_INLINE bool IsPositive( f64 dNum ) {
 
 static HG_INLINE f64 Avg( f64 num1, f64 num2 ) {
 	return ( num1 + num2 ) / 2;
-}
-
-static HG_INLINE f64 Abs( f64 dNum ) {
-	return dNum > 0 ? dNum : -dNum;
 }
 
 static HG_INLINE n32 Avg( n32 nNum1, n32 nNum2 ) {
@@ -75,6 +97,9 @@ static HG_INLINE f32 inv_sqrt( f32 X ) {
 template<typename digit_type>
 class HGVec2 {
 
+public: 
+static HGVec2<digit_type> kZeroVec;
+
 public:
 	digit_type X;
 	digit_type Y;
@@ -93,7 +118,10 @@ public:
 		return ( !IsEqualF( base, 0 ) ) ?
 			( 1 / base ) : 0;
 	}
-
+	
+	const bool IsEqual( const HGVec2& v ) const {
+		return IsEqualF( X, v.X ) && IsEqualF( Y, v.Y );
+	}
 	bool IsZero() const { return ( IsEqual( X, 0 ) && IsEqual( Y, 0 ) ); }
 
 	HGVec2& Take( digit_type lmd ) {
@@ -149,7 +177,13 @@ public:
 	HGVec2()
 		: X( 0 ), Y( 0 ) { }
 	virtual	~HGVec2() { }
+
+	HG_INLINE bool operator==( const HGVec2<digit_type> &v ) {
+		return this->IsEqual( v );
+	}
 };
+
+template<class digit_type> HGVec2<digit_type> HGVec2<digit_type>::kZeroVec;
 
 struct HGPos {
 	HGPos() : X( 0 ), Y( 0 ) { }
@@ -253,6 +287,12 @@ public:
 		return *p;
 	}
 	HGShape() : vecPoints() { }
+	/// @brief	通过[]操作符获得点坐标
+	/// @param	i 点索引
+	/// @return 下表索引的点
+	HG_INLINE HGVec2<digit_type> operator[]( const int i ) {
+		return vecPoints[i];
+	}
 };
 
 struct HGRect {

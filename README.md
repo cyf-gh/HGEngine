@@ -28,6 +28,7 @@ Optimization
 * https://github.com/Neargye/nameof
 * ~~https://www.boost.org/~~
 * https://rapidjson.org/index.html
+* https://github.com/sheredom/utest.h
 
 ### Dev Essential
 
