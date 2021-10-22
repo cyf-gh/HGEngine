@@ -19,14 +19,14 @@ Scene::Scene( const char* strName )
 	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
 		m_vecLayers.push_back( new Layer( ( string( "Layer" ) + to_string( i ) ).c_str(), i ) );
 	}
-	HG_LOG_INFO( std::format( "Scene[{}] ! Constructed", GetName() ).c_str() );
+	HG_LOG_INFO( std::format( "Scene[{}] !Constructed", GetName() ).c_str() );
 }
 
 Scene::~Scene() {
 	for( auto& it : umGameObjectsByName ) {
 		HG_SAFE_DEL( it.second );
 	}
-	HG_LOG_INFO( std::format( "Scene[{}] ! Destructed", GetName() ).c_str() );
+	HG_LOG_INFO( std::format( "Scene[{}] ~Destructed", GetName() ).c_str() );
 }
 
 void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
@@ -40,7 +40,10 @@ void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
 				std::format( "GameObject[{}] trying to attach to a layer which does not exsit", pGameObject->GetName() ).c_str() );
 		}
 		HG_EVENT_CALL( OnAttachToScene, this, pGameObject );
-		HG_LOG_INFO( std::format( "Scene[{}]->GameObject[{}] ! Attached", GetName(), pGameObject->GetName() ).c_str() );
+		HG_LOG_INFO( std::format( "GameObject[{}]<-Scene[{}] +Attached", 
+			pGameObject->GetName(),
+			GetName()
+			).c_str() );
 	} else {
 		Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::string( "trying to attach a same name game object, which will do not recover the original one. Name: " ).append( pGameObject->GetName() ).c_str() );
 	}

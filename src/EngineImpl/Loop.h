@@ -14,6 +14,7 @@ namespace HGEngine {
     private:
         bool m_IsExit;
     public:
+        virtual const char* GetName() { return "LOOP"; }
         Uint32 unPaddingInterval;
         Uint32 unRunInterval;
         Uint64 unCurrentElapsedTimeMS;

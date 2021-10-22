@@ -35,7 +35,11 @@ void HGEngine::V1SDL::Layer::AttachGameObject( GameObject* pGameObject ) {
 	HG_EVENT_CALL( OnAttachToLayer, &LayerIndex, pGameObject );
 	pGameObject->SetLayer( this );
 	m_vecObjs.push_back( pGameObject );
-	HG_LOG_INFO( std::format( "Scene[{}]->Layer[{}]->GameObject[{}] ! Attached", pGameObject->GetScene()->GetName(), std::to_string( LayerIndex ), pGameObject->GetName() ).c_str() );
+	HG_LOG_INFO( std::format( "GameObject[{}]<-Layer[{}]<-Scene[{}] +Attached", 
+		pGameObject->GetName(),
+		std::to_string( LayerIndex ),
+		pGameObject->GetScene()->GetName()
+		).c_str() );
 	SortXY( pGameObject );
 }
 

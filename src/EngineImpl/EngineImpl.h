@@ -22,6 +22,7 @@ class Asset;
 class HGMainLoop : public Loop {
 public:
 	static SDL_Event tEvent;
+	const char* GetName() override { return "HGMainLoop"; } 
 	void _RunTask() override;
 	void _PaddingTask() override;
 	void _StopTask() override;
@@ -30,6 +31,7 @@ public:
 /// \sa EngineImpl::GetUpdateLoop()
 class HGUpdateLoop : public Loop {
 public:
+	const char* GetName() override { return "HGUpdateLoop"; }
 	void _RunTask() override;
 	void _PaddingTask() override;
 	void _StopTask() override;
@@ -38,6 +40,7 @@ public:
 /// \sa EngineImpl::GetRenderLoop()
 class HGRenderLoop : public Loop {
 public:
+	const char* GetName() override { return "HGRenderLoop"; }
 	void _RunTask() override;
 	void _PaddingTask() override;
 	void _StopTask() override;

@@ -18,9 +18,7 @@ Thread::Thread( SDL_ThreadFunction pf, const char* strThreadName, void* pData, b
 	pHandle = SDL_CreateThread( pf, strThreadName, pData );
 	HG_LOG_CHECK_SDL_HANDLE_IS_NULL( pHandle, SDL_LOG_CATEGORY_SYSTEM, "Thread::Thread" );
 
-	string strLogInfo;
-	strLogInfo.append( strThreadName ).append( " start running with mode: " ).append( isAwait ? "AWAIT" : "ASYNC" );
-	Log->Info( SDL_LOG_CATEGORY_SYSTEM, strLogInfo.c_str() );
+	Log->Info( SDL_LOG_CATEGORY_SYSTEM, std::format( "Thread({}) =>> {}", strThreadName, isAwait ? "AWAIT" : "ASYNC" ).c_str() );
 
 	if( isAwait ) {
 		int status = 0;
@@ -36,7 +34,7 @@ Thread::Thread( SDL_ThreadFunction pf, const char* strThreadName, void* pData, b
 
 Thread::~Thread() {
 	Threads[GetName()] = nullptr;
-	HG_LOG_INFO( std::string( GetName() ).append( " <- thread destructed" ).c_str() );
+	HG_LOG_INFO( std::format( "Thread({}) ~Destructed", GetName() ).c_str() );
 }
 
 HGResult Thread::SetPriority( SDL_ThreadPriority priority ) {

@@ -46,15 +46,15 @@ GameObject::GameObject( const char* strName, Scene* pScene )
         m_pScene = EngineImpl::GetEngine()->GetCurrentScene();
     }
     if ( m_pScene != nullptr ) {
-        HG_LOG_INFO( std::format("GameObject[{}] Constructed", GetName() ).c_str() );
+        HG_LOG_INFO( std::format("GameObject[{}] !Constructed", GetName() ).c_str() );
         m_pScene->AttachGameObject( this );
     }
 }
 
 GameObject::~GameObject() {
     for( auto& c : m_vecComponents ) {
-        HG_LOG_INFO( (std::string("game object [").append(GetName()) + "] component [" + c->GetName() + "] destructed").c_str() );
+        HG_LOG_INFO( std::format( "GameObject[{}]=>Component[{}] ~Destructed", GetName(), c->GetName() ).c_str() );
         HG_SAFE_DEL( c );
     }
-    HG_LOG_INFO( std::string("game object [").append(GetName()).append("] destructed").c_str() );
+    HG_LOG_INFO( std::format( "GameObject[{}] ~Destructed", GetName() ).c_str() );
 }

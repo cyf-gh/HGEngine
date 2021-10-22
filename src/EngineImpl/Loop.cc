@@ -39,19 +39,19 @@ void Loop::Run() {
     }
     THREAD_EXIT:
     m_IsExit = true;
-    Log->Info(SDL_LOG_CATEGORY_SYSTEM, "loop exit");
+    Log->Info(SDL_LOG_CATEGORY_SYSTEM, std::format(  "{}::Run() -Exit", GetName() ).c_str() );
 }
 
 void Loop::_RunTask() {
-    Log->Warning(SDL_LOG_CATEGORY_SYSTEM, "In Loop::_RunTask; nothing to do. Thread will be stopped.");
+    Log->Warning(SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_RunTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
     eStatus = STOP;
 }
 
 void Loop::_PaddingTask() {
-    Log->Warning(SDL_LOG_CATEGORY_SYSTEM, "In Loop::_PaddingTask; nothing to do. Thread will be stopped.");
+    Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_PaddingTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
     eStatus = STOP;
 }
 
 void Loop::_StopTask() {
-    Log->Warning(SDL_LOG_CATEGORY_SYSTEM, "In Loop::_StopTask; nothing to do. Thread will be stopped.");
+    Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_StopTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
 }

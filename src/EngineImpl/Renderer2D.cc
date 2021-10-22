@@ -14,18 +14,16 @@ using namespace HG::Math;
 SDL_Texture* Renderer2D::CreateTextureFromFile( const char* pStrFileName ) {
 	auto pImg = IMG_Load( pStrFileName );
 	if( !pImg ) {
-		HG_LOG_FAILED( std::string( pStrFileName ).append( " -> create texture failed; details:" ).append( IMG_GetError() ).c_str() );
+		HG_LOG_FAILED( std::format( "Texture|{}| ?Failed Creation \n[{}]",  IMG_GetError()).c_str() );
 		return nullptr;
 	} else {
-		HG_LOG_SUCCESS( std::string( pStrFileName ).append( " -> create texture " ).c_str() );
+		HG_LOG_SUCCESS( std::format( "Texture|{}| !Created", pStrFileName ).c_str() );
 	}
 
 	auto pTex = SDL_CreateTextureFromSurface( pHandle, pImg );
 	if( pTex == nullptr ) {
 		HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY_RENDER, "SDL_CreateTextureFromSurface in Renderer2D::CreateTextureFromFile" );
 		return nullptr;
-	} else {
-		HG_LOG_SUCCESS( "SDL_CreateTextureFromSurface in Renderer2D::CreateTextureFromFile" );
 	}
 
 	SDL_FreeSurface( pImg );

@@ -11,6 +11,9 @@
 namespace HG {
     class HGLog {
     private:
+        HG_INLINE const char* timeSprintf( const int t ) {
+            return t < 10 ? "0%d" : "%d";
+        }
         const std::string getErrorDesc( const char * strFuncName, const char* strMsg = "" ) {
             std::string desc( strFuncName );
             desc += " failed: %s";
@@ -21,21 +24,32 @@ namespace HG {
             time_t now = time(nullptr );
 
             ptm = localtime(&now);
-            sprintf_s( strDate, 11, "%d-%d-%d", 1900 + ptm->tm_year, 1 + ptm->tm_mon, ptm->tm_mday );
+            std::string t = "%d-";
+            t += timeSprintf( ptm->tm_mon );
+            t += "-";
+            t += timeSprintf( ptm->tm_mday );
+            sprintf_s( strDate, 20, t.c_str(), 1900 + ptm->tm_year, 1 + ptm->tm_mon, ptm->tm_mday );
             return strDate;
         }
         inline const char *getTimeStr() {
-            time_t now = time(nullptr );
+            time_t now = time( nullptr );
 
             ptm = localtime(&now);
-            sprintf_s( strTime, 9, "%d:%d:%d", ptm->tm_hour, ptm->tm_min, ptm->tm_sec );
+            std::string t;
+            t += timeSprintf( ptm->tm_hour );
+            t += ":";
+            t += timeSprintf( ptm->tm_min );
+            t += ":";
+            t += timeSprintf( ptm->tm_sec );
+            sprintf_s( strTime, 10, t.c_str(), ptm->tm_hour, ptm->tm_min, ptm->tm_sec );
             return strTime;
         }
+
     public:
         /// \param strLogFilePath log file path, like "./Log/"
         /// \note rather ./Log/ than ./Log
         explicit HGLog( const char* strLogFilePath = "./Log/")
-            :ptm( nullptr ), strTime( new char[9] ), strDate( new char[11] ) {
+            :ptm( nullptr ), strTime( new char[10] ), strDate( new char[20] ) {
             HGDirectory::CreateDirectoryIfDoesNotExsit( strLogFilePath );
             
             std::string strLogFile( strLogFilePath );
