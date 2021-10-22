@@ -122,3 +122,5 @@ public:
 #define HG_EVENT_ONRENDER() []( void *pData, void *pThis ) -> int
 
 #define HG_EVENT_ONRENDER_RENDERER ( static_cast< HGEngine::V1SDL::Renderer2D* >( pData ) )
+
+#define HG_EVENT_IMPL []( void *pData, void *pThis ) -> int

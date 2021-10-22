@@ -7,6 +7,7 @@
 #include "Animation.h"
 #include "GameObject.h"
 #include "EngineImpl.h"
+#include "Timer.hpp"
 
 using namespace HGEngine::V1SDL;
 using namespace HGEngine;
@@ -63,6 +64,10 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {
 			it.second->Update( pEvent );
+			auto timers = it.second->GetComponents<Timer>();
+			for( auto &t : timers ) {
+				t->TikTok( HG_ENGINE_TIMEDELTA );
+			}
 		}
 	}
 	for( auto& it : m_vecLayers ) {

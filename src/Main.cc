@@ -1,8 +1,7 @@
-﻿#define __HG_TEST__
-#include <utest.h>
+﻿// #define __HG_TEST__
 
 #ifdef __HG_TEST__
-#undef main
+#include <utest.h>
 
 UTEST_MAIN()
 
@@ -13,9 +12,9 @@ UTEST_MAIN()
 using namespace std;
 using namespace HGEngine::V1SDL;
 
+#undef main
 
 HGMain( int argc, char** argv ) {
-	return utest_main( argc, argv );
 	// scenes -> engine -> game objects
 	auto* pScene = new Scene( "SceneMainGame" );
 	auto* tEngine = new EngineImpl( argc, argv );

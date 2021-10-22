@@ -29,7 +29,7 @@ public:
 #define HG_EVENT_CALL_NO_DATA( EVENT, PTHIS ) \
 	if ( PTHIS->GetComponent<HG::HGBehaviour>()->EVENT != nullptr ) { PTHIS->GetComponent<HG::HGBehaviour>()->EVENT( nullptr, PTHIS ); }
 
-#define HG_EVENT_CALL_SCENE_NO_DATA( EVENT, PTHIS ) \
+#define HG_EVENT_CALLRAW_NO_DATA( EVENT, PTHIS ) \
 	if ( EVENT != nullptr ) { EVENT( nullptr, PTHIS ); }
 
 #define HG_EVENT_CALL( EVENT, PDATA, PTHIS ) \

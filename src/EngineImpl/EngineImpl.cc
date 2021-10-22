@@ -109,7 +109,7 @@ void EngineImpl::Exit() {
 void EngineImpl::NavigateScene( const char* strSceneName ) {
 	pCurrentScene = static_cast<Scene*>( Scene::Find( strSceneName ) );
 	if( pCurrentScene != nullptr ) {
-		HG_EVENT_CALL_SCENE_NO_DATA( pCurrentScene->OnAttach, pCurrentScene );
+		HG_EVENT_CALLRAW_NO_DATA( pCurrentScene->OnAttach, pCurrentScene );
 	} else {
 		HG_LOG_FAILED( std::string( "no such scene named:" ).append( strSceneName ).c_str() );
 	}

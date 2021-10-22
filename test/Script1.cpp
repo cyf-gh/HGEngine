@@ -12,6 +12,7 @@
 #include "../src/EngineImpl/Animation.h"
 #include "../src/EngineImpl/EngineObjectSerilization.hpp"
 #include "../src/EngineImpl/Asset.h"
+#include "../src/EngineImpl/Timer.hpp"
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -32,6 +33,17 @@ auto ptest = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>("test
 GameObject2D* pImgTest = new GameObject2D( "test_full_screen", ptest );
 GameObject2D* pImgTestColMain = new GameObject2D( "test_main", ptest );
 GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", ptest );
+
+auto t = static_cast< Timer* >( pImgTest->AddComponent( new Timer() ) );
+
+t->DelayStart( 2, 1, 10, 
+	HG_EVENT_IMPL {
+		HG_LOG_SUCCESS( "Timer Interval!!!!" ); return 0;
+	}, HG_EVENT_IMPL {
+		HG_LOG_SUCCESS( "Timer Complete!!!!" ); return 0;
+	}, HG_EVENT_IMPL {
+		HG_LOG_SUCCESS( "Timer Start!!!!" ); return 0;
+	} );
 
 auto bcMain = static_cast< BoxCollision* >( pImgTestColMain->AddComponent( new BoxCollision( "Collision" ) ) );
 auto rb = static_cast< RigidBody* >( pImgTestColMain->AddComponent( new RigidBody( "RigidBody" ) ) );

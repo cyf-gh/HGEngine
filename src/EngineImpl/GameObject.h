@@ -52,7 +52,7 @@ public:
 		std::vector<T*> m_vecComps;
 		for( auto& c : m_vecComponents ) {
 			if( typeid(T) == typeid(*c) ) {
-				m_vecComps.push_back( c );
+				m_vecComps.push_back( (T*)c );
 			}
 		}
 		return m_vecComps;
