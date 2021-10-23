@@ -1,18 +1,12 @@
-﻿// #define __HG_TEST__
-
-#ifdef __HG_TEST__
-#include <utest.h>
-
-UTEST_MAIN()
-
-#else
-#include <string>
-#include "EngineImpl/EngineImpl.h"
-#include "EngineImpl/Scene.h"
+﻿#include <string>
+#include <engineImpl/EngineImpl.h>
+#include <engineImpl/Scene.h>
 using namespace std;
 using namespace HGEngine::V1SDL;
 
 #undef main
+
+HG_SCRIPT_INIT
 
 HGMain( int argc, char** argv ) {
 	// scenes -> engine -> game objects
@@ -28,5 +22,4 @@ HGMain( int argc, char** argv ) {
 	HG_SAFE_DEL( tEngine );
 	return 0;
 }
-#endif
 

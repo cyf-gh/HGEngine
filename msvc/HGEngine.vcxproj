@@ -28,7 +28,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -76,6 +76,8 @@
     <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core;..\.ref\rapidjson\include;..\.ref\utest.h</IncludePath>
     <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)$(Configuration)\..\Libs</OutDir>
+    <TargetName>$(ProjectName)_x86d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -174,9 +176,6 @@
     <ClCompile Include="..\src\EngineImpl\Texture.cc" />
     <ClCompile Include="..\src\EngineImpl\Thread.cc" />
     <ClCompile Include="..\src\EngineImpl\Window.cc" />
-    <ClCompile Include="..\src\Engine\HGEvent.cpp" />
-    <ClCompile Include="..\src\Main.cc" />
-    <ClCompile Include="..\test\Script1.cpp" />
     <ClCompile Include="..\test\Test_Math.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -206,7 +205,7 @@
     <ClInclude Include="..\src\Engine\HG.h" />
     <ClInclude Include="..\src\Engine\HGBehaviour.h" />
     <ClInclude Include="..\src\Engine\HGComponent.h" />
-    <ClInclude Include="..\src\Engine\HGEvent.h" />
+    <ClInclude Include="..\src\engine\HGEvent.hpp" />
     <ClInclude Include="..\src\Engine\HGObject.h" />
     <ClInclude Include="..\src\Engine\HGRenderer.h" />
   </ItemGroup>

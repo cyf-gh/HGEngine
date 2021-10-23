@@ -3,16 +3,16 @@
 #include <rapidjson/writer.h>
 #include <rapidjson/prettywriter.h>
 #include <Math.hpp>
-#include "../src/Engine/HGEvent.h"
-#include "../src/EngineImpl/EngineImpl.h"
-#include "../src/Core/Test.hpp"
-#include "../src/EngineImpl/Scene.h"
-#include "../src/EngineImpl/Collision.h"
-#include "../src/EngineImpl/RigidBody.h"
-#include "../src/EngineImpl/Animation.h"
-#include "../src/EngineImpl/EngineObjectSerilization.hpp"
-#include "../src/EngineImpl/Asset.h"
-#include "../src/EngineImpl/Timer.hpp"
+#include <core/Test.hpp>
+#include <engine/HGEvent.hpp>
+#include <engineImpl/EngineImpl.h>
+#include <engineImpl/Scene.h>
+#include <engineImpl/Collision.h>
+#include <engineImpl/RigidBody.h>
+#include <engineImpl/Animation.h>
+#include <engineImpl/EngineObjectSerilization.hpp>
+#include <engineImpl/Asset.h>
+#include <engineImpl/Timer.hpp>
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;

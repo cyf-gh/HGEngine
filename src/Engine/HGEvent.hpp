@@ -3,6 +3,8 @@
 #ifndef HONEYGAME_EVENT_H
 #define HONEYGAME_EVENT_H
 
+#include <vector>
+
 namespace HG {
 typedef int ( *pEvent )( void* pData, void* pThis );
 typedef int ( *pEventNoArg )();
@@ -14,11 +16,22 @@ public:
 
 class InitBindingEventsImpl : HGInitBindingEvents {
 public:
-	InitBindingEventsImpl( pEventNoArg pE );
-	InitBindingEventsImpl();
-	void InvokeAll() override;
+	static std::vector<pEventNoArg> m_vecEvents;
+	InitBindingEventsImpl( pEventNoArg pE ) {
+		m_vecEvents.push_back( pE );
+	}
+	InitBindingEventsImpl() = default;
+	void InvokeAll() override {
+		for( pEventNoArg& e : m_vecEvents ) {
+			if( e != nullptr ) {
+				e();
+			}
+		}
+	}
 };
 }
+
+#define HG_SCRIPT_INIT std::vector<HG::pEventNoArg> HG::InitBindingEventsImpl::m_vecEvents = std::vector<HG::pEventNoArg>();
 
 #define HG_SCRIPT_START(SCRIPTNAME) static HG::InitBindingEventsImpl SCRIPTNAME( []() -> int {
 

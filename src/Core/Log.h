@@ -136,26 +136,25 @@ if ( P == nullptr){ \
 #define HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ) \
 HG::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
 
-
 /// \brief log info
 #define HG_LOG_INFO( info ) \
-HG::Log->Info( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->Info( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_FAILED( info ) \
-HG::Log->Failed( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->Failed( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_WARNNING( info ) \
 HG::Log->Warning( 100, info )
 
 #define HG_LOG_SUCCESS( info ) \
-HG::Log->Success( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->Success( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_SUCCESS( info ) \
-HG::Log->AssertSuccess( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->AssertSuccess( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_FAILED( info ) \
-HG::Log->AssertFailed( SDL_LOG_CATEGORY_SYSTEM, info )
+HG::Log->AssertFailed( 3, info )

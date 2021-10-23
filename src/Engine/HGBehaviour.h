@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HGEvent.h"
+#include "HGEvent.hpp"
 #include "HGComponent.h"
 
 namespace HG {
