@@ -18,6 +18,26 @@ using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace std;
 
+template<class T>
+void CheckMarshal(T* t, const char* str = "def") {
+	rapidjson::StringBuffer strBuf;
+	rapidjson::Writer<rapidjson::StringBuffer> writer( strBuf );
+	writer.StartObject();
+	HG::Serialization::Marshal( *t, str, writer );
+	writer.EndObject();
+
+	string data = strBuf.GetString();
+	cout << data << endl;
+
+	//rapidjson::Document doc;
+	//doc.Parse( data.c_str() );
+	//if( doc.HasParseError() ) {
+	//	printf( "parseÊ§°Ü:%d\n", doc.GetParseError() );
+	//}
+	//T ttt;
+	//HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
+}
+
 HG_SCRIPT_START( SCRIPT1 )
 
 HG_LOG_INFO( EngineImpl::GetEngine()->GetCurrentScene()->GetName() );
@@ -53,6 +73,9 @@ HGSize<un32> s;
 s.W = 48;
 s.H = 48;
 auto an = static_cast<Animator2D*>(pImgTestColMain->AddComponent(new Animator2D("Animator", s, 3, 4, 1, 0.4f, true)));
+
+
+CheckMarshal( an );
 
 rb->LinearDrag = 50.0f;
 rb->Velocity.X = 0.f;
@@ -132,6 +155,9 @@ pText2->Text = "hello";
 auto df3 = pCamera->GetComponent<Transform>();
 df3->tRect.H = 600;
 df3->tRect.W = 800;
+
+CheckMarshal<GameObjectText>( pText );
+CheckMarshal<GameObject>( pImgTestColMain, "Components" );
 
 HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;

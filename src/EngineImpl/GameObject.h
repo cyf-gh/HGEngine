@@ -26,9 +26,9 @@ protected:
 	Scene* m_pScene;
 	Layer* m_pLayer;
 	bool mIsEnable = false;
-	std::vector<HG::HGComponent*> m_vecComponents;
 
 public:
+	std::vector<HG::HGComponent*> m_vecComponents;
 
 	virtual void Update( void* pEvent ) = 0;
 	virtual void Render( void* pRenderer ) = 0;
@@ -48,7 +48,7 @@ public:
 		static_cast< HG::HGComponent* >( pComp )->SetGameObject( this );
 		return pComp;
 	}
-	template<typename T> std::vector<T*> GetComponents() { 
+	template<typename T> std::vector<T*> GetComponents() const { 
 		std::vector<T*> m_vecComps;
 		for( auto& c : m_vecComponents ) {
 			if( typeid(T) == typeid(*c) ) {
@@ -58,7 +58,7 @@ public:
 		return m_vecComps;
 	}
 
-	template<typename T> T* GetComponent() {
+	template<typename T> T* GetComponent() const {
 		for( auto& c : m_vecComponents ) {
 			if( typeid(T) == typeid(*c) ) {
 				return static_cast< T* >( c );
@@ -66,7 +66,7 @@ public:
 		}
 		return nullptr;
 	}
-	template<typename T> T* GetComponent( const char* strName ) {
+	template<typename T> T* GetComponent( const char* strName ) const {
 		for( auto& c : m_vecComponents ) {
 			if( ( strcmp( c->GetName(), strName ) == 0 ) ) {
 				return static_cast< T* >( c );

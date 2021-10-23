@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\Core\Screen.cc" />
+    <ClCompile Include="..\src\EngineImpl\Asset.cc" />
+    <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
+    <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
+    <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
+    <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\Init.cc" />
+    <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Loop.cc" />
+    <ClCompile Include="..\src\EngineImpl\Renderer.cc" />
+    <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
+    <ClCompile Include="..\src\EngineImpl\Scene.cc" />
+    <ClCompile Include="..\src\EngineImpl\Texture.cc" />
+    <ClCompile Include="..\src\EngineImpl\Thread.cc" />
+    <ClCompile Include="..\src\EngineImpl\Window.cc" />
+    <ClCompile Include="..\src\EngineImpl\Animation.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\Collision.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\RigidBody.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Core\Screen.h" />
+    <ClInclude Include="..\src\EngineImpl\Asset.h" />
+    <ClInclude Include="..\src\EngineImpl\Camera.h" />
+    <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
+    <ClInclude Include="..\src\EngineImpl\EngineObjectSerilization.hpp" />
+    <ClInclude Include="..\src\EngineImpl\Font.hpp" />
+    <ClInclude Include="..\src\EngineImpl\GameObject.h" />
+    <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
+    <ClInclude Include="..\src\EngineImpl\Init.h" />
+    <ClInclude Include="..\src\EngineImpl\Layer.h" />
+    <ClInclude Include="..\src\EngineImpl\Loop.h" />
+    <ClInclude Include="..\src\EngineImpl\Renderer.h" />
+    <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
+    <ClInclude Include="..\src\EngineImpl\Scene.h" />
+    <ClInclude Include="..\src\EngineImpl\Texture.h" />
+    <ClInclude Include="..\src\EngineImpl\Thread.h" />
+    <ClInclude Include="..\src\EngineImpl\Window.h" />
+    <ClInclude Include="..\src\Engine\HG.h" />
+    <ClInclude Include="..\src\Engine\HGBehaviour.h" />
+    <ClInclude Include="..\src\Engine\HGComponent.h" />
+    <ClInclude Include="..\src\engine\HGEvent.hpp" />
+    <ClInclude Include="..\src\Engine\HGObject.h" />
+    <ClInclude Include="..\src\Engine\HGRenderer.h" />
+    <ClInclude Include="..\src\EngineImpl\Animation.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Collision.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Transform.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Timer.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\RigidBody.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\Core\README.md" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\CMakeLists.txt" />
+    <Text Include="..\src\Core\CMakeLists.txt" />
+    <Text Include="..\src\EngineImpl\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{70dff10e-b98f-47b9-a662-1e595f3c40da}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

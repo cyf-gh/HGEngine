@@ -1,5 +1,6 @@
 #pragma once
 
+#undef GetObject
 #include <string>
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
@@ -59,20 +60,43 @@ HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const std::vector
 }
 
 template<typename T>
+HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const std::vector<T*>& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
+	HG_MARSHAL_SETKEY;
+	out.StartArray();
+	for( auto& i : t ) {
+		Marshal( *i, "", out );
+	}
+	out.EndArray();
+	return out;
+}
+
+template<typename T>
 HG_INLINE T& Unmarshal( T& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
 	HG_LOG_WARNNING( std::format( "In default Unmarshal. Node[{}] escaped", strName ).c_str() );
 	return t;
 }
 
 template<typename T>
-HG_INLINE T& Unmarshal( std::vector<T>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+HG_INLINE std::vector<std::vector<T>>& Unmarshal( std::vector<std::vector<T>>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
 	HG_UNMARSHAL_OBJECT_START;
 	HG_ASSERT( in.IsArray() );
-	//for( auto &it : in.GetObject() ) {
-	//	T _t();
-	//	Unmarshal( _t, strName, in, rd );
-	//	t.push_back( _t );
-	//}
+	for( auto& it : in.GetObject() ) {
+		std::vector<T> _t = std::vector<T>();
+		Unmarshal( _t, strName, in, rd );
+		t.push_back( static_cast<const std::vector<T> &>( _t ) );
+	}
+	return t;
+}
+
+template<typename T>
+HG_INLINE std::vector<T>& Unmarshal( std::vector<T>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_ASSERT( in.IsArray() );
+	for( auto &it : in.GetObject() ) {
+		T _t = T();
+		Unmarshal( _t, strName, in, rd );
+		t.push_back( _t );
+	}
 	return t;
 }
 
