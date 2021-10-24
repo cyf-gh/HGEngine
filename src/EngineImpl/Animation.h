@@ -38,6 +38,7 @@ public:
 	un32 Col;
 	bool CheckFramesValid();
 	Animator2D( const char* strName );
+	Animator2D();
 	Animator2D( 
 		const char* strName, 
 		const HG::Math::HGSize<un32>&tSingleFrameRect, 

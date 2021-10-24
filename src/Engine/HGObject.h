@@ -29,7 +29,7 @@ public:
 public:
 	const un32 UID;
 	const char* GetName() const { return mStrName.c_str(); }
-
+	const void SetName( const char* strName ) { mStrName = strName; }
 	explicit HGObject( const char* strName ) : mStrName( strName ), UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
 		HGObject<T>::umTheseOnes[strName] = static_cast< T* >( this );
 		HGObject<T>::umTheseOnesById[UID] = static_cast< T* >( this );

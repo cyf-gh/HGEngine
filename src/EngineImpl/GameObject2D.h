@@ -33,7 +33,8 @@ public:
 	virtual SDL_Texture* GetTexture() const;
 	HG::Math::HGSize<int>	GetTextureSize();
 	void SetTexture( Texture* pT ) { m_pTexture = pT; }
-	explicit GameObject2D( const char* strObjectName = "", Texture* pTexture = nullptr );
+	explicit GameObject2D( const char* strObjectName, Texture* pTexture = nullptr );
+	explicit GameObject2D() : GameObject() {}
 	virtual ~GameObject2D();
 };
 

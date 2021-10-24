@@ -42,13 +42,18 @@ GameObject::GameObject( const char* strName, Scene* pScene )
     AddComponent( new HGBehaviour( "Behaviour" ) );
 	AddComponent( new Transform( "Transform" ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
+    HG_LOG_INFO( std::format("GameObject[{}] !Constructed", GetName() ).c_str() );
     if ( m_pScene == nullptr ) {
         m_pScene = EngineImpl::GetEngine()->GetCurrentScene();
+        if ( m_pScene != nullptr ) {
+            m_pScene->AttachGameObject( this );
+        }
     }
-    if ( m_pScene != nullptr ) {
-        HG_LOG_INFO( std::format("GameObject[{}] !Constructed", GetName() ).c_str() );
-        m_pScene->AttachGameObject( this );
-    }
+}
+
+HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nullptr ), m_vecComponents(), m_pLayer( nullptr ) {
+    AddComponent( new HGBehaviour( "Behaviour" ) );
+    HG_LOG_INFO( std::format( "GameObject[{}] !Constructed Default", UID ).c_str() );
 }
 
 GameObject::~GameObject() {

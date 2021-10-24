@@ -24,16 +24,16 @@
 /// * ´æÔÚ½«Íö JSON ×Ö·û´®´¢´æÆ÷ buffer Óë Writer writer
 #define HG_MARSHAL_OBJECT_START					rapidjson::StringBuffer buffer; rapidjson::Writer<rapidjson::StringBuffer> writer(buffer); writer.StartObject()
 #define HG_MARSHAL_OBJECT_SETPROP( PROP )		HG::Serialization::Marshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), writer )
-#define HG_MARSHAL_OBJECT_END					writer.EndObject(); HG_MARSHAL_SETKEY; out.RawValue( buffer.GetString(), strlen( buffer.GetString() ), rapidjson::kObjectType ); return out;
+#define HG_MARSHAL_OBJECT_END					 writer.EndObject(); HG_MARSHAL_SETKEY; out.RawValue( buffer.GetString(), strlen( buffer.GetString() ), rapidjson::kObjectType ); return out;
 #define HG_MARSHAL_SETOBJ( PROP )				HG::Serialization::Marshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), out )
 
 #define HG_UNMARSHAL_OBJECT_START				rapidjson::Document d; d.CopyFrom( in, rd.GetAllocator() )
-#define HG_UNMARSHAL_OBJECT_END					return t
+#define HG_UNMARSHAL_OBJECT_END					END: return t
 #define HG_UNMARSHAL_GETOBJ( PROP )				Unmarshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), d[std::string( NAMEOF( PROP ) ).c_str()], rd )
 
 #define HG_DEBUG_UNMARSHAL_OBJECT				for( auto& m : d.GetObject() ) { HG_LOG_INFO( m.name.GetString() ); }
 
-#define HG_MARSHAL_FULLSPEC( T )				template<> HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal<T>( const T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out )
+#define HG_MARSHAL_FULLSPEC( T )				template<> HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal<T>( T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out )
 #define HG_UNMARSHAL_FULLSPEC( T )				template<> HG_INLINE T& Unmarshal( T& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd )
 
 namespace HG {
@@ -43,28 +43,17 @@ namespace HG {
 namespace Serialization {
 
 template<typename T>
-HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
+HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
 	HG_LOG_WARNNING( std::format( "In default Marshal. Node[{}] escaped", strName ).c_str() );
 	return out;
 }
 
 template<typename T>
-HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const std::vector<T>& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
+HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( std::vector<T>& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
 	HG_MARSHAL_SETKEY;
 	out.StartArray();
 	for( auto& i : t ) {
 		Marshal( i, "", out );
-	}
-	out.EndArray();
-	return out;
-}
-
-template<typename T>
-HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( const std::vector<T*>& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
-	HG_MARSHAL_SETKEY;
-	out.StartArray();
-	for( auto& i : t ) {
-		Marshal( *i, "", out );
 	}
 	out.EndArray();
 	return out;
@@ -76,26 +65,43 @@ HG_INLINE T& Unmarshal( T& t, const char* strName, const rapidjson::Value& in, r
 	return t;
 }
 
-template<typename T>
-HG_INLINE std::vector<std::vector<T>>& Unmarshal( std::vector<std::vector<T>>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+template<typename T, typename A>
+HG_INLINE std::vector<T*, A>& Unmarshal( std::vector<T*, A>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
 	HG_UNMARSHAL_OBJECT_START;
 	HG_ASSERT( in.IsArray() );
-	for( auto& it : in.GetObject() ) {
-		std::vector<T> _t = std::vector<T>();
-		Unmarshal( _t, strName, in, rd );
-		t.push_back( static_cast<const std::vector<T> &>( _t ) );
+	for( auto& it : in.GetArray() ) {
+		T* _t = nullptr;
+		HG_ASSERT( it.IsObject() );
+		_t = Unmarshal( ( _t ), strName, it.GetObject(), rd );
+		if( _t != nullptr ) {
+			t.push_back( _t );
+		}
 	}
 	return t;
 }
 
-template<typename T>
-HG_INLINE std::vector<T>& Unmarshal( std::vector<T>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+template<typename T, typename A>
+HG_INLINE std::vector<T, A>& Unmarshal( std::vector<T, A>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
 	HG_UNMARSHAL_OBJECT_START;
 	HG_ASSERT( in.IsArray() );
-	for( auto &it : in.GetObject() ) {
-		T _t = T();
-		Unmarshal( _t, strName, in, rd );
+	for( auto& it : in.GetArray() ) {
+		T _t;
+		HG_ASSERT( it.IsObject() );
+		Unmarshal( ( _t ), strName, it.GetObject(), rd );
 		t.push_back( _t );
+	}
+	return t;
+}
+
+template<typename T, typename A>
+HG_INLINE std::vector<std::vector<T, A>>& Unmarshal( std::vector<std::vector<T, A>>& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_ASSERT( in.IsArray() );
+	for( auto& it : in.GetArray() ) {
+		std::vector<T, A> _t;
+		HG_ASSERT( it.IsArray() );
+		Unmarshal( ( _t ), strName, it, rd );
+		t.push_back( ( _t ) );
 	}
 	return t;
 }
@@ -210,6 +216,25 @@ HG_UNMARSHAL_FULLSPEC( Math::HGPos ) {
 	HG_UNMARSHAL_GETOBJ( t.Y );
 	HG_UNMARSHAL_OBJECT_END;
 }
+
+HG_MARSHAL_FULLSPEC( Math::HGRect ) {
+	HG_MARSHAL_OBJECT_START;
+	HG_MARSHAL_OBJECT_SETPROP( t.X );
+	HG_MARSHAL_OBJECT_SETPROP( t.Y );
+	HG_MARSHAL_OBJECT_SETPROP( t.W );
+	HG_MARSHAL_OBJECT_SETPROP( t.H );
+	HG_MARSHAL_OBJECT_END;
+}
+
+HG_UNMARSHAL_FULLSPEC( Math::HGRect ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_GETOBJ( t.X );
+	HG_UNMARSHAL_GETOBJ( t.Y );
+	HG_UNMARSHAL_GETOBJ( t.W );
+	HG_UNMARSHAL_GETOBJ( t.H );
+	HG_UNMARSHAL_OBJECT_END;
+}
+
 
 }
 

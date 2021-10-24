@@ -19,7 +19,7 @@ using namespace HG::Math;
 using namespace std;
 
 template<class T>
-void CheckMarshal(T* t, const char* str = "def") {
+string CheckMarshal(T* t, const char* str = "def") {
 	rapidjson::StringBuffer strBuf;
 	rapidjson::Writer<rapidjson::StringBuffer> writer( strBuf );
 	writer.StartObject();
@@ -28,7 +28,7 @@ void CheckMarshal(T* t, const char* str = "def") {
 
 	string data = strBuf.GetString();
 	cout << data << endl;
-
+	return data;
 	//rapidjson::Document doc;
 	//doc.Parse( data.c_str() );
 	//if( doc.HasParseError() ) {
@@ -157,7 +157,17 @@ df3->tRect.H = 600;
 df3->tRect.W = 800;
 
 CheckMarshal<GameObjectText>( pText );
-CheckMarshal<GameObject>( pImgTestColMain, "Components" );
+rapidjson::Document doc2;
+doc2.Parse( CheckMarshal<GameObject>( pImgTestColMain, "Obj" ).c_str() );
+if( doc2.HasParseError() ) {
+	printf( "parseÊ§°Ü:%d\n", doc2.GetParseError() );
+}
+GameObject2D *g = new GameObject2D();
+HG::Serialization::Unmarshal( (GameObject&)*g, "Obj", doc2["Obj"], doc );
+auto ps = HGEngine::V1SDL::EngineImpl::GetEngine()->GetCurrentScene();
+if( ps != nullptr ) {
+	ps->AttachGameObject( g );
+}
 
 HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;

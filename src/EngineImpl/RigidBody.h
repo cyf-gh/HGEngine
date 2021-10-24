@@ -24,6 +24,7 @@ public:
 	RigidBody( const char* strName ) : HGComponent( strName ), IsFrozen( false ) {
 
 	}
+	RigidBody() :HGComponent() {}
 };
 }
 }

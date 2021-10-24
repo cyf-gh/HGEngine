@@ -1,5 +1,7 @@
 #pragma once 
 #include <Serialization.h>
+#include "EngineImpl.h"
+#include "Scene.h"
 #include "GameObject2D.h"
 #include "Transform.hpp"
 #include "Animation.h"
@@ -45,7 +47,6 @@ HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::Animator2D::Frame ) {
 	HG_UNMARSHAL_GETOBJ( t.tRect );
 	HG_UNMARSHAL_OBJECT_END;
 }
-
 
 HG_MARSHAL_FULLSPEC( HGEngine::V1SDL::Animator2D ) {
 	HG_MARSHAL_OBJECT_START;
@@ -113,42 +114,92 @@ HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::RigidBody ) {
 	HG_UNMARSHAL_OBJECT_END;
 }
 
-HG_MARSHAL_FULLSPEC( HGEngine::V1SDL::Collision ) {
+HG_MARSHAL_FULLSPEC( HGEngine::V1SDL::BoxCollision ) {
 	HG_MARSHAL_OBJECT_START;
+	HG_MARSHAL_OBJECT_SETPROP( t.Rect );
 	HG_MARSHAL_OBJECT_END;
 }
 
-HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::Collision ) {
+HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::BoxCollision ) {
 	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_GETOBJ( t.Rect );
 	HG_UNMARSHAL_OBJECT_END;
 }
 
-#define HG_MARSHAL_GAMEOBJECTSTART HG::HGComponent *c = nullptr
-#define HG_MARSHAL_GAMEOBJECTSETPROP( COMP_TYPE, NODE_NAME ) \
-c = t.GetComponent<COMP_TYPE>(); if ( c != nullptr ) { Marshal( *static_cast<COMP_TYPE*>(c), NODE_NAME, writer ); }
 
 HG_MARSHAL_FULLSPEC( HGEngine::V1SDL::GameObject ) {
 	HG_MARSHAL_OBJECT_START;
-	HG_MARSHAL_GAMEOBJECTSTART;
+	auto n = std::string( t.GetName() );
+	Marshal( n, "Name", writer );
+	Marshal( t.m_vecComponents, "Components", writer );
+	HG_MARSHAL_OBJECT_END;
+}
+
+HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::GameObject ) {
+	HG_UNMARSHAL_OBJECT_START;
+	std::string Name;
+	HG_UNMARSHAL_GETOBJ( Name );
+	t.SetName( Name.c_str() );
+	Unmarshal( t.m_vecComponents, "Components", d["Components"], rd );
+	for( auto& c : t.m_vecComponents ) {
+		c->SetGameObject( &t );
+	}
+	HG_UNMARSHAL_OBJECT_END;
+}
+
+#define HG_UNMARSHAL_COMPONENT( COMP_TYPE, NODE_NAME )	\
+	if( d.HasMember( NODE_NAME ) ) {					\
+		t = new COMP_TYPE();							\
+		Unmarshal( *static_cast< COMP_TYPE* >( t ), NODE_NAME, d[NODE_NAME], rd );	\
+		goto END;										\
+	}
+
+#define HG_MARSHAL_GAMEOBJECTSETPROP( COMP_TYPE, NODE_NAME ) \
+		if( typeid( COMP_TYPE ).hash_code() == typeid( *t ).hash_code() ) { \
+Marshal( *static_cast< COMP_TYPE* >( t ), NODE_NAME, writer ); \
+		}
+
+HG_MARSHAL_FULLSPEC( HG::HGComponent* ) {
+	HG_MARSHAL_OBJECT_START;
 	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Transform, "Transform" );
 	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Animator2D, "Animator2D" );
 	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::RigidBody, "RigidBody" );
-	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Collision, "Collision" );
-	Marshal<HGEngine::V1SDL::Timer>( t.GetComponents<HGEngine::V1SDL::Timer>(), "Timers", writer );
+	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::BoxCollision, "BoxCollision" );
+	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Timer, "Timer" );
 	HG_MARSHAL_OBJECT_END;
+}
+
+HG_UNMARSHAL_FULLSPEC( HG::HGComponent* ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_COMPONENT( HGEngine::V1SDL::Transform, "Transform" );
+	HG_UNMARSHAL_COMPONENT( HGEngine::V1SDL::Animator2D, "Animator2D" );
+	HG_UNMARSHAL_COMPONENT( HGEngine::V1SDL::RigidBody, "RigidBody" );
+	HG_UNMARSHAL_COMPONENT( HGEngine::V1SDL::BoxCollision, "BoxCollision" );
+	HG_UNMARSHAL_OBJECT_END;
+}
+
+HG_MARSHAL_FULLSPEC( SDL_Color ) {
+	HG_MARSHAL_OBJECT_START;
+	HG_MARSHAL_SETOBJ( t.a );
+	HG_MARSHAL_SETOBJ( t.r );
+	HG_MARSHAL_SETOBJ( t.g );
+	HG_MARSHAL_SETOBJ( t.b );
+	HG_MARSHAL_OBJECT_END;
+}
+
+HG_UNMARSHAL_FULLSPEC( SDL_Color ) {
+	HG_UNMARSHAL_OBJECT_START;
+	HG_UNMARSHAL_GETOBJ( t.a );
+	HG_UNMARSHAL_GETOBJ( t.r );
+	HG_UNMARSHAL_GETOBJ( t.g );
+	HG_UNMARSHAL_GETOBJ( t.b );
+	HG_UNMARSHAL_OBJECT_END;
 }
 
 HG_MARSHAL_FULLSPEC( HGEngine::V1SDL::GameObjectText ) {
 	HG_MARSHAL_OBJECT_START;
 	HG_MARSHAL_OBJECT_SETPROP( t.tColor );
 	HG_MARSHAL_OBJECT_SETPROP( t.Text );
-	
-	HG_MARSHAL_GAMEOBJECTSTART;
-	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Transform, "Transform" );
-	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Animator2D, "Animator2D" );
-	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::RigidBody, "RigidBody" );
-	HG_MARSHAL_GAMEOBJECTSETPROP( HGEngine::V1SDL::Collision, "Collision" );
-	Marshal<HGEngine::V1SDL::Timer>( t.GetComponents<HGEngine::V1SDL::Timer>(), "Timers", writer );
 	HG_MARSHAL_OBJECT_END;
 }
 

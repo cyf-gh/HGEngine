@@ -18,6 +18,8 @@ bool HGEngine::V1SDL::Animator2D::CheckFramesValid() {
 
 Animator2D::Animator2D( const char* strName ) : HGComponent( strName ), m_vecFrames() { }
 
+HGEngine::V1SDL::Animator2D::Animator2D() : HGComponent() { }
+
 HGEngine::V1SDL::Animator2D::Animator2D( const char* strName, const HG::Math::HGSize<un32>& tSingleFrameRect, const un32 countCol, const un32 countRow, const un32 idleIndex, const float f32Interval, const bool isIdle )
 	: HGComponent( strName ), m_vecFrames(), m_unIdleFrameIndex( idleIndex ), m_f32Delta( 0.f ), f32Interval( f32Interval ), IsIdle( isIdle ), isPosPlay( true ) {
 	for( size_t i = 0; i < countRow; i++ ) {

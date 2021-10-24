@@ -6,8 +6,8 @@
 #include <cstdint>
 
 namespace HG {
-    typedef int HGResult;
-    struct IVoid {};
+typedef int HGResult;
+struct IVoid { };
 }
 
 typedef char			ch8;
@@ -34,11 +34,18 @@ typedef double			f64;
 #   pragma warning( disable : 4114)
 #   pragma warning( disable : 4180)
 #   define HG_INLINE  __forceinline
-        /* !_MSC_VER */
+		/* !_MSC_VER */
 #elif defined( __GNUC__ )
 #   define HG_INLINE inline
 #endif  /* !__GNUC__ */
 
-#define HG_ASSERT( EXP ) assert( EXP )
+#ifdef ___HG_RELEASE___
+#	define HG_ASSERT( EXP ) 
+#else
+#	define HG_ASSERT( EXP ) assert( EXP )
+#endif
+
+
+
 
 

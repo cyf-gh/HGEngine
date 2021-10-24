@@ -28,6 +28,7 @@ public:
 	virtual void SetCollisionBoundingByTransform() = 0;
 	virtual bool DoCheck( GameObject* pTarget ) = 0;
 	explicit Collision( const char* strName ) : HGComponent( strName ), m_lColList() { }
+	explicit Collision() : HGComponent() {};
 	virtual ~Collision() {}
 };
 class BoxCollision : public Collision {
@@ -47,6 +48,7 @@ public:
 	bool DoCheck( GameObject* pTarget ) override;
 	void SetCollisionBoundingByTransform() override;
 	explicit BoxCollision( const char* strName ) : Collision( strName ), Rect() {}
+	explicit BoxCollision() : Collision() {};
 	virtual ~BoxCollision(){}
 };
 

@@ -48,10 +48,11 @@ public:
 		static_cast< HG::HGComponent* >( pComp )->SetGameObject( this );
 		return pComp;
 	}
+
 	template<typename T> std::vector<T*> GetComponents() const { 
 		std::vector<T*> m_vecComps;
 		for( auto& c : m_vecComponents ) {
-			if( typeid(T) == typeid(*c) ) {
+			if( typeid(T).hash_code() == typeid(*c).hash_code() ) {
 				m_vecComps.push_back( (T*)c );
 			}
 		}
@@ -60,7 +61,7 @@ public:
 
 	template<typename T> T* GetComponent() const {
 		for( auto& c : m_vecComponents ) {
-			if( typeid(T) == typeid(*c) ) {
+			if( typeid(T).hash_code() == typeid(*c).hash_code() ) {
 				return static_cast< T* >( c );
 			}
 		}
@@ -74,13 +75,30 @@ public:
 		}
 		return nullptr;
 	}
+	template<typename T> bool RemoveComponent() {
+		int i = 0;
+		for( auto& c : m_vecComponents ) {
+			if( typeid( T ).hash_code() == typeid( *c ).hash_code() ) {
+				m_vecComponents.erase( m_vecComponents.begin() + i );
+				return true;
+			}
+			++i;
+		}
+		return false;
+	}
 	Scene* GetScene() const { return m_pScene; }
 	void SetScene( Scene* pS ) { m_pScene = pS; }
 	Layer* GetLayer() const { return m_pLayer; }
 	void SetLayer( Layer* pL ) { m_pLayer = pL; }
 
-	/// \brief default's, the game object will be attached to the current scene
+	/// @brief 创建一个自带Transform Behavior Components，并附加至当前Scene的GameObject
+	/// @note 
+	///	* 当直接在C++代码中创建GameObject时，请调用该构造函数
+	/// @param strName 
+	/// @param pScene 
 	explicit GameObject( const char* strName, Scene* pScene = nullptr );
+	/// @brief 创建一个仅携带Behavior的GameObject
+	explicit GameObject();
 	virtual ~GameObject();
 };
 }
