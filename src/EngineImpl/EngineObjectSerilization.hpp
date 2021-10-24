@@ -1,5 +1,6 @@
 #pragma once 
 #include <Serialization.h>
+#include <Memory.h>
 #include "EngineImpl.h"
 #include "Scene.h"
 #include "GameObject2D.h"
@@ -9,6 +10,37 @@
 #include "Timer.hpp"
 #include "RigidBody.h"
 
+namespace HGEngine {
+namespace V1SDL {
+class GameObjectFactory : HG::Memory::NonCopyable {
+public:
+	template<typename _T>
+	HG_INLINE static _T* CreateByJson( std::string& strJson, const bool isEnable, const char* strObjNewName = "", const char* strObjKey = "Obj" ) {
+		rapidjson::Document d;
+		d.Parse( strJson.c_str() );
+		if( d.HasParseError() ) {
+			HG_LOG_FAILED( std::format( "Parse Error: {}", std::to_string( d.GetParseError() ) ).c_str() );
+			return nullptr;
+		}
+		_T* g = new _T();
+		HG::Serialization::Unmarshal( ( GameObject& ) *g, strObjKey, d[strObjKey], d );
+		if( strcmp( strObjNewName, "" ) != 0 ) {
+			g->SetName( strObjNewName );
+		}
+		auto ps = HGEngine::V1SDL::EngineImpl::GetEngine()->GetCurrentScene();
+		if( ps != nullptr ) {
+			ps->AttachGameObject( g );
+		}
+		if( isEnable ) {
+			g->Enable();
+		}
+		return g;
+	}
+	
+};
+
+}
+}
 namespace HG {
 namespace Serialization {
 
@@ -149,7 +181,7 @@ HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::GameObject ) {
 
 #define HG_UNMARSHAL_COMPONENT( COMP_TYPE, NODE_NAME )	\
 	if( d.HasMember( NODE_NAME ) ) {					\
-		t = new COMP_TYPE();							\
+		t = new COMP_TYPE(NODE_NAME);					\
 		Unmarshal( *static_cast< COMP_TYPE* >( t ), NODE_NAME, d[NODE_NAME], rd );	\
 		goto END;										\
 	}

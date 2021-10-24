@@ -32,6 +32,7 @@ Scene::~Scene() {
 void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
 	if( umGameObjectsByName.count( pGameObject->GetName() ) == 0 ) {
 		umGameObjectsByName[pGameObject->GetName()] = pGameObject;
+		pGameObject->SetScene( this );
 		if( LayerIndex >= HG_LAYER_0 && LayerIndex < HG_LAYER_LENGTH ) {
 			m_vecLayers[LayerIndex]->AttachGameObject( pGameObject );
 		} else {

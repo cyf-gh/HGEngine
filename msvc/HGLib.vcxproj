@@ -147,6 +147,7 @@
     <ClCompile Include="..\src\Core\Random.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\core\Any.hpp" />
     <ClInclude Include="..\src\Core\Directory.hpp" />
     <ClInclude Include="..\src\Core\Error.h" />
     <ClInclude Include="..\src\Core\Log.h" />

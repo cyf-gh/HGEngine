@@ -158,16 +158,8 @@ df3->tRect.W = 800;
 
 CheckMarshal<GameObjectText>( pText );
 rapidjson::Document doc2;
-doc2.Parse( CheckMarshal<GameObject>( pImgTestColMain, "Obj" ).c_str() );
-if( doc2.HasParseError() ) {
-	printf( "parseÊ§°Ü:%d\n", doc2.GetParseError() );
-}
-GameObject2D *g = new GameObject2D();
-HG::Serialization::Unmarshal( (GameObject&)*g, "Obj", doc2["Obj"], doc );
-auto ps = HGEngine::V1SDL::EngineImpl::GetEngine()->GetCurrentScene();
-if( ps != nullptr ) {
-	ps->AttachGameObject( g );
-}
+auto j = CheckMarshal<GameObject>( pImgTestColMain, "Obj" );
+auto pg = GameObjectFactory::CreateByJson<GameObject2D>( j, false, "test_json_main" );
 
 HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;

@@ -1,7 +1,10 @@
-#include <Math.hpp>
+#include <string>
 #include <utest.h>
+#include <Math.hpp>
+#include <Any.hpp>
 
 using namespace HG::Math;
+using namespace HG;
 
 UTEST( Math, HGRect ) {
 	HG::Math::HGRect r {
@@ -36,4 +39,11 @@ UTEST( Math, HGShape ) {
 UTEST( Math, HGVec2 ) {
 	HGVec2<float> a;
 	ASSERT_TRUE( a == HGVec2<float>::kZeroVec );
+}
+
+UTEST( Any, Any ) {
+	Any a(1);
+	Any b( std::string("123123") );
+	Any c = b;
+	Any d = "123123";
 }

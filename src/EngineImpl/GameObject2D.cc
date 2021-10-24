@@ -78,7 +78,7 @@ void HGEngine::V1SDL::GameObjectText::Render( void* pRenderer ) {
 	}
 	if( m_pText != nullptr ) {
 		auto pRd2D = static_cast< Renderer2D* >( pRenderer );
-		m_pTexture = SDL_CreateTextureFromSurface( pRd2D->pHandle, m_pText );
+		m_pTexture = SDL_CreateTextureFromSurface( pRd2D->pH, m_pText );
 
 		HG_EVENT_CALL( OnRender, pRd2D, this );
 		renderCameraView( pRd2D );
