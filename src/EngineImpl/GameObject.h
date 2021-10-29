@@ -17,7 +17,7 @@ namespace HGEngine {
 namespace V1SDL {
 class Scene;
 class Layer;
-
+class Renderer2D;
 /// \brief game object of HG
 /// \note game object should be constructed after scenes;
 /// if you don't want to attach to the current scene, you may construct the game objects before Engine
@@ -26,14 +26,15 @@ protected:
 	Scene* m_pScene;
 	Layer* m_pLayer;
 	bool mIsEnable = false;
+	void renderCameraView( Renderer2D* pRenderer );
 
 public:
 	std::vector<HG::HGComponent*> m_vecComponents;
 
-	virtual void Update( void* pEvent ) = 0;
-	virtual void Render( void* pRenderer ) = 0;
+	virtual GameObject* Clone() { return new GameObject( *this ); };
+	virtual void Update( void* pEvent );
+	virtual void Render( void* pRenderer );
 
-	virtual GameObject* Clone() = 0;
 	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
 	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return mIsEnable; }

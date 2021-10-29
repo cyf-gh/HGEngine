@@ -13,6 +13,8 @@
 #include <engineImpl/EngineObjectSerilization.hpp>
 #include <engineImpl/Asset.h>
 #include <engineImpl/Timer.hpp>
+#include <engineImpl/Label.hpp>
+#include <engineImpl/Spirte.hpp>
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -50,9 +52,15 @@ EngineImpl::GetEngine()->GetAssetManager()->CreateTexture( "test", R"(C:\Users\c
 EngineImpl::GetEngine()->GetAssetManager()->CreateFont( "f", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 );
 auto ptest = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>("test");
 
-GameObject2D* pImgTest = new GameObject2D( "test_full_screen", ptest );
-GameObject2D* pImgTestColMain = new GameObject2D( "test_main", ptest );
-GameObject2D* pImgTestCol2 = new GameObject2D( "test_main_2", ptest );
+GameObject* pImgTest = new GameObject( "test_full_screen" );
+GameObject* pImgTestColMain = new GameObject( "test_main" );
+GameObject* pImgTestCol2 = new GameObject( "test_main_2" );
+
+auto ppps = new Spirte( "Sprite", "test" );
+
+pImgTest->AddComponent( ppps );
+pImgTestColMain->AddComponent( ppps );
+pImgTestCol2->AddComponent( ppps );
 
 auto t = static_cast< Timer* >( pImgTest->AddComponent( new Timer() ) );
 
@@ -135,8 +143,10 @@ cout << data << endl;
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
 auto ptext = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Font>( "f" );
-GameObjectText* pText = new GameObjectText( "test_fps", ptext, "0" );
-GameObjectText* pText2 = new GameObjectText( "test_texts", ptext, "0" );
+auto pText = new GameObject( "test_fps" );
+auto pText2 = new GameObject( "test_texts" );
+pText->AddComponent( new Label( "Label", "0", "f" ) );
+pText2->AddComponent( new Label( "Label", "0", "f" ) );
 
 auto df = pText->GetComponent<Transform>();
 
@@ -150,16 +160,16 @@ df->tPosition.X = 5;
 df->tPosition.Y = 300;
 df->tRect.H = 30;
 df->tRect.W = 200;
-pText2->Text = "hello";
+
 
 auto df3 = pCamera->GetComponent<Transform>();
 df3->tRect.H = 600;
 df3->tRect.W = 800;
 
-CheckMarshal<GameObjectText>( pText );
+CheckMarshal<GameObject>( pText );
 rapidjson::Document doc2;
 auto j = CheckMarshal<GameObject>( pImgTestColMain, "Obj" );
-auto pg = GameObjectFactory::CreateByJson<GameObject2D>( j, false, "test_json_main" );
+auto pg = GameObjectFactory::CreateByJson<GameObject>( j, false, "test_json_main" );
 
 HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
@@ -272,13 +282,14 @@ HG_EVENT_BIND( pImgTestColMain, OnFixedUpdate ) {
 };
 HG_EVENT_BIND( pText, OnRender ) {
 	static int i = 0;
-	GameObjectText* tFpsText = static_cast< GameObjectText* >( GameObject::Find( "test_fps" ) );
+	auto tFpsText = GameObject::Find( "test_fps" );
 	if( tFpsText != nullptr ) {
+		auto lb = tFpsText->GetComponent<Label>();
 		auto str = std::to_string( EngineImpl::GetEngine()->GetRenderLoop().GetCurrentFps() );
 		str.resize( 3 );
 		str += +" | " + std::to_string( i );
 		i++;
-		tFpsText->Text = str;
+		lb->Text = str;
 	}
 	return 0;
 };
@@ -286,14 +297,14 @@ HG_EVENT_BIND( pText, OnRender ) {
 static int coll = 0;
 
 HG_EVENT_BIND( pImgTestColMain, OnCollisionStay ) {
-	auto t = static_cast< GameObjectText* >( HG_ENGINE_FIND_GAMEOBJECT( "test_texts" ) );
+	auto t = HG_ENGINE_FIND_GAMEOBJECT( "test_texts" )->GetComponent<Label>();
 	coll++;
 	t->Text = "OnCollisionStay | " + std::to_string(coll);
 	return 0;
 };
 HG_EVENT_BIND( pImgTestColMain, OnCollisionExit ) {
 	coll= 0;
-	auto t = static_cast< GameObjectText* >( HG_ENGINE_FIND_GAMEOBJECT( "test_texts" ) );
+	auto t = ( HG_ENGINE_FIND_GAMEOBJECT( "test_texts" )->GetComponent<Label>() );
 	t->Text = "OnCollisionExit | " + std::to_string(coll);
 	return 0;
 };

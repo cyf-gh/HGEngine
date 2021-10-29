@@ -3,7 +3,6 @@
 #include <Memory.h>
 #include "EngineImpl.h"
 #include "Scene.h"
-#include "GameObject2D.h"
 #include "Transform.hpp"
 #include "Animation.h"
 #include "Collision.h"
@@ -225,21 +224,6 @@ HG_UNMARSHAL_FULLSPEC( SDL_Color ) {
 	HG_UNMARSHAL_GETOBJ( t.r );
 	HG_UNMARSHAL_GETOBJ( t.g );
 	HG_UNMARSHAL_GETOBJ( t.b );
-	HG_UNMARSHAL_OBJECT_END;
-}
-
-HG_MARSHAL_FULLSPEC( HGEngine::V1SDL::GameObjectText ) {
-	HG_MARSHAL_OBJECT_START;
-	HG_MARSHAL_OBJECT_SETPROP( t.tColor );
-	HG_MARSHAL_OBJECT_SETPROP( t.Text );
-	HG_MARSHAL_OBJECT_END;
-}
-
-HG_UNMARSHAL_FULLSPEC( HGEngine::V1SDL::GameObjectText ) {
-	HG_UNMARSHAL_OBJECT_START;
-	HG_UNMARSHAL_GETOBJ( t.tColor );
-	HG_UNMARSHAL_GETOBJ( t.Text );
-	HG_UNMARSHAL_GETOBJ( t.m_vecComponents );
 	HG_UNMARSHAL_OBJECT_END;
 }
 

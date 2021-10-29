@@ -6,12 +6,42 @@
 #include "../Engine/HGBehaviour.h"
 #include "GameObject.h"
 #include "EngineImpl.h"
+#include "Renderer2D.h"
 #include "Scene.h"
 
 using namespace HGEngine;
 using namespace HGEngine::V1SDL;
 using namespace HG;
 using namespace HG::Math;
+
+void GameObject::renderCameraView( Renderer2D* pRenderer ) {
+    auto pTransform = GetComponent<Transform>();
+    auto tSrcRect = pTransform->ToSDLRectLocal();
+    auto tDestRect = pTransform->ToSDLRectGlobal();
+    auto tCenterPt = pTransform->ToSDLPoint();
+    if( m_pScene != nullptr ) {
+        auto pCam = m_pScene->GetMainCamera();
+        if( pCam != nullptr ) {
+            auto pCamTransform = pCam->GetComponent<Transform>();
+            if( pCam->RenderInViewOnly && !this->IsInCameraView() ) {
+                return;
+            }
+            tDestRect.x -= pCamTransform->tPosition.X;
+            tDestRect.y -= pCamTransform->tPosition.Y;
+        }
+    }
+    pRenderer->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
+}
+
+void HGEngine::V1SDL::GameObject::Update( void* pEvent ) { 
+    HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
+}
+
+void HGEngine::V1SDL::GameObject::Render( void* pRenderer ) { 
+    auto pRd2D = static_cast< Renderer2D* >( pRenderer );
+    HG_EVENT_CALL( OnRender, pRd2D, this );
+    renderCameraView( pRd2D );
+}
 
 bool HGEngine::V1SDL::GameObject::IsInCameraView() {
     auto pScene = EngineImpl::GetEngine()->GetCurrentScene();

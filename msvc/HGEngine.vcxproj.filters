@@ -6,7 +6,6 @@
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
-    <ClCompile Include="..\src\EngineImpl\GameObject2D.cc" />
     <ClCompile Include="..\src\EngineImpl\Init.cc" />
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
     <ClCompile Include="..\src\EngineImpl\Loop.cc" />
@@ -34,7 +33,6 @@
     <ClInclude Include="..\src\EngineImpl\EngineObjectSerilization.hpp" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
-    <ClInclude Include="..\src\EngineImpl\GameObject2D.h" />
     <ClInclude Include="..\src\EngineImpl\Init.h" />
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
     <ClInclude Include="..\src\EngineImpl\Loop.h" />
@@ -63,6 +61,12 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\RigidBody.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engineImpl\Spirte.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engineImpl\Label.hpp">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

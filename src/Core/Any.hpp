@@ -13,7 +13,7 @@ public:
 	Any( const _T& tt ) : pH( new _T( tt ) ), m_tTypeInfo( typeid( _T ) ) { 
 		
 	}
-	Any( const Any& tt ) : pH( new Any( tt ) ), m_tTypeInfo( tt.m_tTypeInfo ) ) { }
+	Any( const Any& tt ) : pH( new Any( tt ) ), m_tTypeInfo( tt.m_tTypeInfo ) { }
 
 	template<typename _T>
 	Any& operator=( const _T& tt ) {

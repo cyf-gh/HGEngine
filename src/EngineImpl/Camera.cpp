@@ -1,3 +1,4 @@
+#include <Log.h>
 #include "Camera.h"
 #include "EngineImpl.h"
 #include "../Engine/HGBehaviour.h"
@@ -15,7 +16,7 @@ void Camera::SetCameraSizeToRendererSize() {
 	auto pRenderer = EngineImpl::GetEngine()->GetRenderer2D();
 	auto pT = GetComponent<Transform>();
 	int w, h;
-	if( 0 != SDL_GetRendererOutputSize( pRenderer->pH, &w, &h ) ) {
+	if( 0 != SDL_GetRendererOutputSize( pRenderer->pHandle, &w, &h ) ) {
 		HG_LOG_FAILED( "Failed SetCameraSizeToRendererSize -> SDL_GetRendererOutputSize" );
 		HG_LOG_FAILED( SDL_GetError() );
 		return;

@@ -140,9 +140,16 @@ HG::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
 #define HG_LOG_INFO( info ) \
 HG::Log->Info( 3, info )
 
+#define HG_LOG_INFOF( FMT, ARGS ) \
+HG::Log->Info( 3, std::format( FMT, ARGS ).c_str() )
+
 /// \brief log failed info
 #define HG_LOG_FAILED( info ) \
 HG::Log->Failed( 3, info )
+
+/// \brief log failed info
+#define HG_LOG_FAILEDF( FMT, ARGS ) \
+HG::Log->Failed( 3, std::format( FMT, ARGS ).c_str() )
 
 /// \brief log failed info
 #define HG_LOG_WARNNING( info ) \

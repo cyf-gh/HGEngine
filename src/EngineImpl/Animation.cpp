@@ -1,13 +1,13 @@
 #include "Animation.h"
-#include "GameObject2D.h"
 #include "Transform.hpp"
+#include "GameObject.h"
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 
 
 bool HGEngine::V1SDL::Animator2D::CheckFramesValid() {
-	auto size = static_cast< GameObject2D* >( m_pGameObject )->GetTextureSize();
+	// auto size = static_cast< GameObject2D* >( m_pGameObject )->GetTextureSize();
 	// if ( Col * tSingleFrameRect.W > size.W || countRow * tSingleFrameRect.H > size.H)
 	//{
 	//	HG_LOG_FAILED(std::format("GameObject [{}] => animation component frame size is out of range", m_pGameObject->GetName()).c_str());

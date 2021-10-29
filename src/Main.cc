@@ -1,4 +1,5 @@
 ﻿#include <string>
+#include <Log.h>
 #include <engineImpl/EngineImpl.h>
 #include <engineImpl/Scene.h>
 using namespace std;
