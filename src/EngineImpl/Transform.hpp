@@ -15,13 +15,16 @@ namespace V1SDL {
 /// 形体变换，包含位置与大小信息<br>
 /// figure, which contains position and size infomation
 class Transform : public HG::HGComponent {
+protected:
+	HG::Math::HGRect RectLocal;
+	HG::Math::HGRect RectGlobal;
 public:
 	/// @brief 判断鼠标是否落在该Transform中
 	/// @return 是否落在其中 
 	bool IsMouseIn() {
 		auto pc = HG_ENGINE_CURRENT_SCENE()->GetMainCamera();
 		HG::Math::HGVec2<float>& gpos = pc->GetComponent<Transform>()->tPosition;
-		return ( HG_ENGINE_INPUT()->GetGlobalMousePos( gpos.X, gpos.Y ) ).IsIn( ToHGRectGlobal() );
+		return ( ToHGRectGlobal().IsIn( HG_ENGINE_INPUT()->GetGlobalMousePos( gpos.X, gpos.Y ) ) );
 	}
 	/// \brief 
 	/// 局部坐标系中的位置，也可理解为对原物体的裁剪位置<br>
@@ -43,7 +46,7 @@ public:
 	double f64Angle;
 	HG::Math::HGPos tRotateCenter;
 
-	void SetGlobalRect( const HG::Math::HGRect &rect ) {
+	void SetGlobalRect( const HG::Math::HGRect& rect ) {
 		tRect.H = rect.H;
 		tRect.W = rect.W;
 		tPosition.X = rect.X;
@@ -58,9 +61,9 @@ public:
 
 	bool IsSameGlobalRect( const HG::Math::HGRect& rect ) const {
 		return tRect.H == rect.H &&
-			   tRect.W == rect.W &&
-			   tPosition.X == rect.X &&
-			   tPosition.Y == rect.Y;
+			tRect.W == rect.W &&
+			tPosition.X == rect.X &&
+			tPosition.Y == rect.Y;
 	}
 public:
 	/// \brief
@@ -108,21 +111,20 @@ public:
 		};
 	}
 
-	HG_INLINE HG::Math::HGRect ToHGRectLocal() {
-		return HG::Math::HGRect {
-			.X = static_cast< n32 >( tLocalPos.X ),
-			.Y = static_cast< n32 >( tLocalPos.Y ),
-			.H = static_cast< un32 >( tLocalRect.H ),
-			.W = static_cast< un32 >( tLocalRect.W ),
-		};
+
+	HG_INLINE HG::Math::HGRect& ToHGRectLocal() {
+		RectLocal.X = static_cast< n32 >( tLocalPos.X );
+		RectLocal.Y = static_cast< n32 >( tLocalPos.Y );
+		RectLocal.H = static_cast< un32 >( tLocalRect.H );
+		RectLocal.W = static_cast< un32 >( tLocalRect.W );
+		return RectLocal;
 	}
-	HG_INLINE HG::Math::HGRect ToHGRectGlobal() {
-		return HG::Math::HGRect {
-			.X = static_cast< n32 >( tPosition.X ),
-			.Y = static_cast< n32 >( tPosition.Y ),
-			.H = static_cast< un32 >( tRect.H ),
-			.W = static_cast< un32 >( tRect.W ),
-		};
+	HG_INLINE HG::Math::HGRect& ToHGRectGlobal() {
+		RectGlobal.X = static_cast< n32 >( tPosition.X );
+		RectGlobal.Y = static_cast< n32 >( tPosition.Y );
+		RectGlobal.H = static_cast< un32 >( tRect.H );
+		RectGlobal.W = static_cast< un32 >( tRect.W );
+		return RectGlobal;
 	}
 	/// \brief 
 	/// * 将物体于世界的坐标与大小归零

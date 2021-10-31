@@ -72,11 +72,13 @@
     <ClInclude Include="..\src\engineImpl\GUI\Controller.hpp">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\engineImpl\GUI.hpp" />
     <ClInclude Include="..\src\engineImpl\Geometry.hpp">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\engine\HGInput.hpp" />
+    <ClInclude Include="..\src\engineImpl\GUI.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

@@ -14,6 +14,7 @@
 namespace HGEngine {
 namespace V1SDL {
 class Camera;
+class GUI;
 /// \brief 游戏场景 <br>Scene
 /// \note 
 /// * Scene::OnAttach于EngineImpl::NavigateScene被调用 <br>Scene::OnAttach will be invoked in EngineImpl::NavigateScene
@@ -23,7 +24,7 @@ protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	std::vector<Layer*> m_vecLayers;
 	Camera *m_pMainCamera;
-	
+	GUI* m_pGUI;
 public:
 	Camera *GetMainCamera() const { return m_pMainCamera; }
 	void SetMainCamera( Camera * pCamera ) { m_pMainCamera = pCamera; }

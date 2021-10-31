@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "EngineImpl.h"
 #include "Timer.hpp"
+#include "GUI.hpp"
 
 using namespace HGEngine::V1SDL;
 using namespace HGEngine;
@@ -15,7 +16,7 @@ using namespace HG;
 using namespace std;
 
 Scene::Scene( const char* strName )
-	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ) {
+	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ), OnGUI( nullptr ), m_pGUI( new GUI( this ) ) {
 	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
 		m_vecLayers.push_back( new Layer( ( string( "Layer" ) + to_string( i ) ).c_str(), i ) );
 	}
@@ -77,6 +78,8 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 	for( auto& it : m_vecLayers ) {
 		it->DoCheck();
 	}
+	m_pGUI->unUIIndex = 0;
+	HG_EVENT_CALLRAW_NO_DATA( OnGUI, m_pGUI );
 }
 
 void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {

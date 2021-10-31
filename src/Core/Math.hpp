@@ -298,7 +298,9 @@ public:
 struct HGRect {
 	n32 X, Y;
 	un32 H, W;
-
+	
+	HGRect( n32 x, n32 y, un32 h, un32 w ): X(x), Y(y), H(h), W(w) {};
+	HGRect() {} ;
 	HG_INLINE n32 Left() const { return X; }
 	HG_INLINE n32 Right() const { return X + W; }
 	HG_INLINE n32 Top() const { return Y; }

@@ -15,6 +15,7 @@
 #include <engineImpl/Timer.hpp>
 #include <engineImpl/Label.hpp>
 #include <engineImpl/Spirte.hpp>
+#include <engineImpl/GUI.hpp>
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -43,6 +44,17 @@ string CheckMarshal(T* t, const char* str = "def") {
 HG_SCRIPT_START( SCRIPT1 )
 
 HG_LOG_INFO( EngineImpl::GetEngine()->GetCurrentScene()->GetName() );
+
+EngineImpl::GetEngine()->GetCurrentScene()->OnGUI = HG_EVENT_IMPL {
+	auto gui = static_cast<GUI*>( pThis );
+	gui->strFontName = "f";
+
+	if ( gui->Button( "Button", HGRect( 300, 300, 100, 50 ) ) ) {
+		HG_LOG_INFO( "Button Clicked" );
+	}
+	return 0;
+};
+
 Camera* pCamera = new Camera( "camera" );
 pCamera->Enable();
 pCamera->SetCameraSizeToRendererSize();
@@ -329,4 +341,6 @@ HG_EVENT_BIND( pImgTest, OnFixedUpdate ) {
 pImgTest->Enable();
 pText->Enable();
 pText2->Enable();
+
+
 HG_SCRIPT_END

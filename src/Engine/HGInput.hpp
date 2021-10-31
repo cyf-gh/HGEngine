@@ -7,18 +7,23 @@
 namespace HG {
 
 class HGInput : HG::Memory::NonCopyable {
-
+private:
+	int x, y;
 public:
 	std::list<SDL_Keycode> m_lKeyCodes;
-	SDL_MouseButtonEvent* m_lMouse;
+	un32 m_unButtons;
 	HG::Math::HGRect tGlobalMousePos;
 	HG_INLINE HG::Math::HGRect& GetGlobalMousePos( const n32 cx, const n32 cy ) {
-		tGlobalMousePos.X = m_lMouse->x + cx;
-		tGlobalMousePos.Y = m_lMouse->y + cy;
+		m_unButtons = SDL_GetMouseState( &x, &y );
+		tGlobalMousePos.X = x + cx;
+		tGlobalMousePos.Y = y + cy;
 		return tGlobalMousePos;
 	}
+	bool IsLeftMousePressed() {
+		m_unButtons = SDL_GetMouseState( &x, &y );
+		return ( m_unButtons & SDL_BUTTON_LMASK ) != 0;
+	}
 	void Proc( SDL_Event* pe ) {
-		m_lMouse = &pe->button;
 		switch( pe->type ) {
 		case SDL_KEYDOWN:
 			m_lKeyCodes.push_back( pe->key.keysym.sym );
