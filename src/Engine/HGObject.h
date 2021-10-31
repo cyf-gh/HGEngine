@@ -19,6 +19,8 @@ protected:
 	std::string mStrName;
 
 public:
+	typedef T obj_type;
+
 	/// \brief all instances of this object
 	static std::unordered_map<std::string, T*> umTheseOnes;
 	static std::unordered_map<un32, T*> umTheseOnesById;

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cstdint>
+#include <assert.h>
 
 namespace HG {
 typedef int HGResult;

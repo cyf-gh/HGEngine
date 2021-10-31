@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "EngineImpl.h"
 #include "Renderer2D.h"
+#include "Transform.hpp"
+#include "Camera.h"
 #include "Scene.h"
 
 using namespace HGEngine;
@@ -50,7 +52,7 @@ bool HGEngine::V1SDL::GameObject::IsInCameraView() {
     if( pCam == nullptr ) {
         return false;
     }
-    auto pCamTransform =pCam->GetComponent<Transform>();
+    auto pCamTransform = pCam->GetComponent<Transform>();
     auto pT = this->GetComponent<Transform>();
     auto rect1 = pT->ToHGRectGlobal();
     auto rect2 = pCamTransform->ToHGRectGlobal();

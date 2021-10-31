@@ -23,7 +23,7 @@ protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	std::vector<Layer*> m_vecLayers;
 	Camera *m_pMainCamera;
-
+	
 public:
 	Camera *GetMainCamera() const { return m_pMainCamera; }
 	void SetMainCamera( Camera * pCamera ) { m_pMainCamera = pCamera; }
@@ -41,6 +41,7 @@ public:
 	void Render( void* pRenderer );
 
 	HG::pEvent OnAttach;
+	HG::pEvent OnGUI;
 
 	explicit Scene( const char* strName );
 	virtual ~Scene();

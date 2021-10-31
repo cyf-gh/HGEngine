@@ -15,6 +15,9 @@ class Spirte : public HG::HGComponent {
 private:	
 	Texture* m_pTx;
 public:
+	HG_COMPONENT_RENDERABLE
+	void* GetRenderTarget( Renderer2D* pRd ) override { return m_pTx->GetHandle(); }
+
 	Texture* GetTexture() const { return m_pTx; }
 	void SetTexture( Texture* t ) { m_pTx = t; }
 	void SetTexture( const char* strTextureName ) {
@@ -25,8 +28,11 @@ public:
 		}
 		SetTexture( pT );
 	}
-	explicit Spirte( const char* strName, Texture* pT = nullptr ) : HGComponent( strName ), m_pTx( pT ) { }
+	explicit Spirte( const char* strName, Texture* pT = nullptr ) : HGComponent( strName ), m_pTx( pT ) { 
+		nRenderIndex = HG::HGRenderableComponentSeq::SPRITE;
+	}
 	explicit Spirte( const char* strName, const char* strTextureName ) : HGComponent( strName ), m_pTx( nullptr ) { 
+		nRenderIndex = HG::HGRenderableComponentSeq::SPRITE;
 		SetTexture( strTextureName );
 	}
 	explicit Spirte() : HGComponent(), m_pTx( nullptr ) { };

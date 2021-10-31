@@ -20,6 +20,11 @@ private:
 	Font* m_pFont;
 
 public:
+	HG_COMPONENT_RENDERABLE
+	void* GetRenderTarget( Renderer2D* pRd ) override {
+		RenderText2Texture( pRd );
+		return m_pTx; 
+	}
 	std::string Text;
 	SDL_Color tColor;
 	Font* GetFont() const { return m_pFont; }
@@ -59,8 +64,11 @@ public:
 		}
 		return false;
 	}
-	explicit Label( const char* strName, const char* str, Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ) { }
+	explicit Label( const char* strName, const char* str, Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ) { 
+		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
+	}
 	explicit Label( const char* strName, const char* str, const char* strFontName ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), Text( str ) { 
+		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
 		SetFont( strFontName );
 	}
 	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ) { };

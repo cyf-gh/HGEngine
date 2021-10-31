@@ -27,6 +27,10 @@ public:
 	HG_INLINE T *GetAsset( const char *strAssetName ) {
 		return static_cast<T*>( HG::HGObject<T>::Find( strAssetName ) );
 	}
+	template<typename T>
+	HG_INLINE T *GetDefaultAsset() {
+		return static_cast< T* >( HG::HGObject<T>::Find( "default" ) );
+	}
 	/// @brief สอทลืสิด
 	template<typename T>
 	HG_INLINE T* ReleaseAsset( const char* strAssetName ) {

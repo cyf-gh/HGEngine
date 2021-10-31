@@ -6,7 +6,6 @@
 #define HONEYGAME_CAMERA_H
 
 #include "GameObject.h"
-#include "Transform.hpp"
 
 namespace HGEngine {
 namespace V1SDL {
@@ -17,9 +16,7 @@ public:
 	/// \brief 是否仅渲染Camera视野中的GameObjects <br>whether render GameObjects in view only
 	bool RenderInViewOnly;
 
-	explicit Camera( const char* strName, Scene* pScene = nullptr ) : GameObject( strName ), RenderInViewOnly( true ), pTarget( nullptr ) {
-		AddComponent( new Transform( "Transform" ) );
-	}
+	explicit Camera( const char* strName, Scene* pScene = nullptr );
 	void Update( void* pEvent ) override;
 	void Render( void* pRenderer ) override;
 	GameObject* Clone() override { return new Camera( *this ); };

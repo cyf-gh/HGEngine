@@ -8,8 +8,11 @@
 #include "Loop.h"
 #include "Window.h"
 #include "Thread.h"
-#include "Camera.h"
 #include "Renderer2D.h"
+
+namespace HG{
+class HGInput;
+}
 
 namespace HGEngine {
 namespace V1SDL {
@@ -57,7 +60,7 @@ private:
 	HGRenderLoop tLoopRender;
 	HGEngine::V1SDL::Thread* pUpdateThread {};
 	HGEngine::V1SDL::Thread* pRenderThread {};
-
+	HG::HGInput* pInput;
 	HGEngine::V1SDL::Window* pWindow;
 
 	Renderer2D* pRenderer;
@@ -72,7 +75,7 @@ public:
 	const HGMainLoop& GetMainLoop() { return tLoopMain; }
 	const HGUpdateLoop& GetUpdateLoop() { return tLoopUpdate; }
 	const HGRenderLoop& GetRenderLoop() { return tLoopRender; }
-
+	HG::HGInput* GetInput() { return pInput; }
 	Scene* GetCurrentScene() { return pCurrentScene; }
 	void NavigateScene( const char* strSceneName );
 	static EngineImpl* GetEngine() { return pEngine; }
@@ -95,5 +98,6 @@ public:
 }
 #define HG_ENGINE_TIMEDELTA EngineImpl::GetEngine()->GetFixedUpdateTimeDelta()
 #define HG_ENGINE_FIND_GAMEOBJECT( NAME ) EngineImpl::GetEngine()->GetCurrentScene()->FindGameObject(NAME)
-
+#define HG_ENGINE_INPUT() EngineImpl::GetEngine()->GetInput()
+#define HG_ENGINE_CURRENT_SCENE() EngineImpl::GetEngine()->GetCurrentScene()
 #endif //HONEYGAME_ENGINEIMPL_H

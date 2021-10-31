@@ -8,6 +8,7 @@
 #include <typeinfo>
 #include <string>
 #include <unordered_map>
+#include <algorithm>
 #include <vector>
 #include "../Engine/HGObject.h"
 #include "../Engine/HGComponent.h"
@@ -51,13 +52,25 @@ public:
 	}
 
 	template<typename T> std::vector<T*> GetComponents() const { 
-		std::vector<T*> m_vecComps;
+		std::vector<T*> vecComps;
 		for( auto& c : m_vecComponents ) {
 			if( typeid(T).hash_code() == typeid(*c).hash_code() ) {
-				m_vecComps.push_back( (T*)c );
+				vecComps.push_back( (T*)c );
 			}
 		}
-		return m_vecComps;
+		return vecComps;
+	}
+	std::vector<HG::HGComponent*> GetRenderableComponentsSorted() const {
+		std::vector<HG::HGComponent*> vecRC;
+		for( auto& c : m_vecComponents ) {
+			if( c->IsRenderable() ) {
+				vecRC.push_back( c );
+			}
+		}
+		std::sort( vecRC.begin(), vecRC.end(), []( HG::HGComponent* c1, HG::HGComponent* c2 ) {
+			return c1->nRenderIndex < c2->nRenderIndex;
+		} );
+		return vecRC;
 	}
 
 	template<typename T> T* GetComponent() const {
@@ -92,7 +105,9 @@ public:
 	Layer* GetLayer() const { return m_pLayer; }
 	void SetLayer( Layer* pL ) { m_pLayer = pL; }
 
-	/// @brief 创建一个自带Transform Behavior Components，并附加至当前Scene的GameObject
+	/// @brief 
+	/// * 创建一个自带Transform Behavior Components，并附加至当前Scene的GameObject
+	///	* will create Transform and Behavior defaultly
 	/// @note 
 	///	* 当直接在C++代码中创建GameObject时，请调用该构造函数
 	/// @param strName 

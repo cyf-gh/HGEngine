@@ -2,9 +2,16 @@
 #include "Camera.h"
 #include "EngineImpl.h"
 #include "../Engine/HGBehaviour.h"
+#include "Transform.hpp"
+
 using namespace HGEngine::V1SDL;
 using namespace HG;
-void HGEngine::V1SDL::Camera::Update( void* pEvent ) { 
+
+HGEngine::V1SDL::Camera::Camera( const char* strName, Scene* pScene ) : GameObject( strName ), RenderInViewOnly( true ), pTarget( nullptr ) {
+	AddComponent( new HGEngine::V1SDL::Transform( "Transform" ) );
+}
+
+void HGEngine::V1SDL::Camera::Update( void* pEvent ) {
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 

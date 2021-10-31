@@ -7,8 +7,10 @@
 #include <SDL_ttf.h>
 #include <string>
 #include "../Core/Log.h"
-#include "EngineImpl.h"
 #include "../Core/Error.h"
+#include "../engine/HGInput.hpp"
+#include "EngineImpl.h"
+#include "Camera.h"
 #include "Window.h"
 #include "Init.h"
 #include "Thread.h"
@@ -55,7 +57,7 @@ void InitSDLTtf() {
 }
 
 EngineImpl::EngineImpl( int argc, char** argv )
-	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ) {
+	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ), pInput( new HGInput ) {
 	SetEngine( this );
 
 	Init init;
@@ -93,7 +95,7 @@ EngineImpl::~EngineImpl() {
 	HG_SAFE_DEL( pRenderThread );
 	HG_SAFE_DEL( pRenderer );
 	HG_SAFE_DEL( pWindow );
-	
+	HG_SAFE_DEL( pInput );
 	EngineImpl::pEngine = nullptr;
 }
 
@@ -126,6 +128,7 @@ SDL_Event HGMainLoop::tEvent = SDL_Event();
 void HGMainLoop::_RunTask() {
 	( SDL_PollEvent( &HGMainLoop::tEvent ) != 0 ) ;
 	{
+		HG_ENGINE_INPUT()->Proc( &tEvent );
 		EngineImpl::GetEngine()->GetCurrentScene()->Update( ( void* ) &HGMainLoop::tEvent );
 	}
 }

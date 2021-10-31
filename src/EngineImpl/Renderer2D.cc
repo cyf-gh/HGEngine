@@ -10,6 +10,7 @@
 #include "Renderer2D.h"
 #include "Texture.h"
 #include "Label.hpp"
+#include "GameObject.h"
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -39,14 +40,11 @@ void Renderer2D::Copy( const GameObject* pGameObject, const SDL_Rect* pSrcRect, 
 	if( !pGameObject ) {
 		return;
 	}
-	auto pSp = pGameObject->GetComponent<Spirte>();
-	if( pSp != nullptr ) {
-		SDL_RenderCopy( pHandle, pSp->GetTexture()->GetHandle(), pSrcRect,  pDstRect );
-	}
-	auto pLb = pGameObject->GetComponent<Label>();
-	if( pLb != nullptr ) {
-		if ( pLb->RenderText2Texture( this ) ) {
-			SDL_RenderCopy( pHandle, pLb->GetTexture(), pSrcRect, pDstRect );
+	auto vecRC = pGameObject->GetRenderableComponentsSorted();
+	for( auto& rc : vecRC ) {
+		if( rc != nullptr ) {
+			// HG_ASSERT( rc->GetRenderTarget() != nullptr );
+			SDL_RenderCopy( pHandle, static_cast< SDL_Texture* >( rc->GetRenderTarget( this ) ), pSrcRect, pDstRect );
 		}
 	}
 }
@@ -55,14 +53,11 @@ void HGEngine::V1SDL::Renderer2D::CopyEx( const GameObject* pGameObject, const S
 	if( !pGameObject ) {
 		return;
 	}
-	auto pSp = pGameObject->GetComponent<Spirte>();
-	if( pSp != nullptr ) {
-		SDL_RenderCopyEx( pHandle, pSp->GetTexture()->GetHandle(), pSrcRect,  pDstRect, f64Angle, pCenter, tFlip );
-	}
-	auto pLb = pGameObject->GetComponent<Label>();
-	if( pLb != nullptr ) {
-		if( pLb->RenderText2Texture( this ) ) {
-			SDL_RenderCopy( pHandle, pLb->GetTexture(), pSrcRect, pDstRect );
+	auto vecRC = pGameObject->GetRenderableComponentsSorted();
+	for( auto& rc : vecRC ) {
+		if( rc != nullptr ) {
+			// HG_ASSERT( rc->GetRenderTarget() != nullptr );
+			SDL_RenderCopyEx( pHandle, static_cast<SDL_Texture*>( rc->GetRenderTarget( this ) ), pSrcRect, pDstRect, f64Angle, pCenter, tFlip );
 		}
 	}
 }

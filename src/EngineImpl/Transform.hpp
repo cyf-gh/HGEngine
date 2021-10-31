@@ -3,6 +3,10 @@
 #include <Math.hpp>
 #include <SDL.h>
 #include "../Engine/HGComponent.h"
+#include "../engine/HGInput.hpp"
+#include "EngineImpl.h"
+#include "Scene.h"
+#include "Camera.h"
 
 namespace HGEngine {
 namespace V1SDL {
@@ -12,6 +16,13 @@ namespace V1SDL {
 /// figure, which contains position and size infomation
 class Transform : public HG::HGComponent {
 public:
+	/// @brief 判断鼠标是否落在该Transform中
+	/// @return 是否落在其中 
+	bool IsMouseIn() {
+		auto pc = HG_ENGINE_CURRENT_SCENE()->GetMainCamera();
+		HG::Math::HGVec2<float>& gpos = pc->GetComponent<Transform>()->tPosition;
+		return ( HG_ENGINE_INPUT()->GetGlobalMousePos( gpos.X, gpos.Y ) ).IsIn( ToHGRectGlobal() );
+	}
 	/// \brief 
 	/// 局部坐标系中的位置，也可理解为对原物体的裁剪位置<br>
 	/// size in local area, also it's the clip start point of this object
@@ -32,6 +43,25 @@ public:
 	double f64Angle;
 	HG::Math::HGPos tRotateCenter;
 
+	void SetGlobalRect( const HG::Math::HGRect &rect ) {
+		tRect.H = rect.H;
+		tRect.W = rect.W;
+		tPosition.X = rect.X;
+		tPosition.Y = rect.Y;
+	}
+	void SetLocalRect( const HG::Math::HGRect& rect ) {
+		tLocalRect.H = rect.H;
+		tLocalRect.W = rect.W;
+		tLocalPos.X = rect.X;
+		tLocalPos.Y = rect.Y;
+	}
+
+	bool IsSameGlobalRect( const HG::Math::HGRect& rect ) const {
+		return tRect.H == rect.H &&
+			   tRect.W == rect.W &&
+			   tPosition.X == rect.X &&
+			   tPosition.Y == rect.Y;
+	}
 public:
 	/// \brief
 	/// * 重置旋转中心为Rect中心

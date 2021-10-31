@@ -69,6 +69,14 @@
     <ClInclude Include="..\src\engineImpl\Label.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\engineImpl\GUI\Controller.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engineImpl\GUI.hpp" />
+    <ClInclude Include="..\src\engineImpl\Geometry.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engine\HGInput.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
@@ -82,6 +90,9 @@
   <ItemGroup>
     <Filter Include="Components">
       <UniqueIdentifier>{70dff10e-b98f-47b9-a662-1e595f3c40da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{00cdb638-b003-484c-978e-4469613f90f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
