@@ -300,7 +300,7 @@ struct HGRect {
 	un32 H, W;
 	
 	HGRect( n32 x, n32 y, un32 h, un32 w ): X(x), Y(y), H(h), W(w) {};
-	HGRect() {} ;
+	HGRect() = default;
 	HG_INLINE n32 Left() const { return X; }
 	HG_INLINE n32 Right() const { return X + W; }
 	HG_INLINE n32 Top() const { return Y; }
@@ -355,11 +355,11 @@ struct HGRect {
 			vecClosest.Y = dstCircle.tCenter.Y;
 		}
 		auto centerDist = HGVec2<digit_type>::Sub( vecClosest, dstCircle.tCenter ).Norm();
-		return ( centerDist < dstCircle.Radius ) || IsOverlap( HGRect {
-			.X = ( n32 ) dstCircle.tCenter.X,
-			.Y = ( n32 ) dstCircle.tCenter.Y,
-			.H = ( un32 ) 1,
-			.W = ( un32 ) 1 } );
+		return ( centerDist < dstCircle.Radius ) || IsOverlap( HGRect(
+			( n32 ) dstCircle.tCenter.X,
+			( n32 ) dstCircle.tCenter.Y,
+			( un32 ) 1,
+			( un32 ) 1 ) );
 	}
 
 	HG_INLINE double GetDiagonal() {

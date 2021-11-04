@@ -24,8 +24,10 @@ protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	std::vector<Layer*> m_vecLayers;
 	Camera *m_pMainCamera;
-	GUI* m_pGUI;
+	std::unordered_map<std::string, GUI*> m_umGUIs;
 public:
+	GUI* CreateGUI( const std::string& name, bool isVisiable = false );
+	GUI* GetGUI( const std::string& name );
 	Camera *GetMainCamera() const { return m_pMainCamera; }
 	void SetMainCamera( Camera * pCamera ) { m_pMainCamera = pCamera; }
 	/// \brief 将一个GameObject加入场景<br>attach a new game object to scene
@@ -42,7 +44,6 @@ public:
 	void Render( void* pRenderer );
 
 	HG::pEvent OnAttach;
-	HG::pEvent OnGUI;
 
 	explicit Scene( const char* strName );
 	virtual ~Scene();

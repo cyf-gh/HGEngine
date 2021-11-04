@@ -4,6 +4,7 @@
 #include "Collision.h"
 #include "RigidBody.h"
 #include "Transform.hpp"
+#include "GUI.hpp"
 
 char HGEngine::V1SDL::BoxCollision::checkWhichSideCol( GameObject* pRectColObj ) {
 	auto tr2 = pRectColObj->GetComponent<BoxCollision>();
@@ -63,12 +64,12 @@ bool HGEngine::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
 
 void HGEngine::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
 	auto pC = m_pGameObject->GetComponent<Transform>();
-	this->Rect = HG::Math::HGRect {
-		.X = ( int ) pC->tPosition.X,
-		.Y = ( int ) pC->tPosition.Y,
-		.H = ( un32 ) pC->tRect.H,
-		.W = ( un32 ) pC->tRect.W,
-	};
+	this->Rect = HG::Math::HGRect ( 
+		( int ) pC->tPosition.X,
+		( int ) pC->tPosition.Y,
+		( un32 ) pC->tRect.H,
+		( un32 ) pC->tRect.W
+	);
 }
 
 bool HGEngine::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {

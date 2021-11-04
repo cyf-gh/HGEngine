@@ -1,3 +1,5 @@
+#include "Scene.h"
+#include "Scene.h"
 //
 // Created by cyf-m on 2020/11/28.
 //
@@ -16,7 +18,7 @@ using namespace HG;
 using namespace std;
 
 Scene::Scene( const char* strName )
-	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ), OnGUI( nullptr ), m_pGUI( new GUI( this ) ) {
+	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ) {
 	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
 		m_vecLayers.push_back( new Layer( ( string( "Layer" ) + to_string( i ) ).c_str(), i ) );
 	}
@@ -28,6 +30,15 @@ Scene::~Scene() {
 		HG_SAFE_DEL( it.second );
 	}
 	HG_LOG_INFO( std::format( "Scene[{}] ~Destructed", GetName() ).c_str() );
+}
+
+GUI* HGEngine::V1SDL::Scene::CreateGUI( const std::string& name, bool isVisiable ) {
+	m_umGUIs[name] = new GUI( this, isVisiable );
+	return m_umGUIs[name];
+}
+
+GUI* HGEngine::V1SDL::Scene::GetGUI( const std::string& name ) {
+	return m_umGUIs[name];
 }
 
 void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
@@ -42,10 +53,10 @@ void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
 				std::format( "GameObject[{}] trying to attach to a layer which does not exsit", pGameObject->GetName() ).c_str() );
 		}
 		HG_EVENT_CALL( OnAttachToScene, this, pGameObject );
-		HG_LOG_INFO( std::format( "GameObject[{}]<-Scene[{}] +Attached", 
-			pGameObject->GetName(),
-			GetName()
-			).c_str() );
+		HG_LOG_INFO( std::format( "GameObject[{}]<-Scene[{}] +Attached",
+					 pGameObject->GetName(),
+					 GetName()
+		).c_str() );
 	} else {
 		Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::string( "trying to attach a same name game object, which will do not recover the original one. Name: " ).append( pGameObject->GetName() ).c_str() );
 	}
@@ -70,7 +81,7 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 		if( it.second->IsEnable() ) {
 			it.second->Update( pEvent );
 			auto timers = it.second->GetComponents<Timer>();
-			for( auto &t : timers ) {
+			for( auto& t : timers ) {
 				t->TikTok( HG_ENGINE_TIMEDELTA );
 			}
 		}
@@ -78,8 +89,13 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 	for( auto& it : m_vecLayers ) {
 		it->DoCheck();
 	}
-	m_pGUI->unUIIndex = 0;
-	HG_EVENT_CALLRAW_NO_DATA( OnGUI, m_pGUI );
+	for( auto& gg : m_umGUIs ) {
+		auto& g = gg.second;
+		g->unUIIndex = 0;
+		if( g->IsVisiable ) {
+			HG_EVENT_CALLRAW_NO_DATA( g->OnGUI, g );
+		}
+	}
 }
 
 void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {

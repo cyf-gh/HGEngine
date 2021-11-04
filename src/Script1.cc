@@ -45,7 +45,9 @@ HG_SCRIPT_START( SCRIPT1 )
 
 HG_LOG_INFO( EngineImpl::GetEngine()->GetCurrentScene()->GetName() );
 
-EngineImpl::GetEngine()->GetCurrentScene()->OnGUI = HG_EVENT_IMPL {
+EngineImpl::GetEngine()->GetCurrentScene()->CreateGUI( "test_gui", true );
+
+EngineImpl::GetEngine()->GetCurrentScene()->GetGUI( "test_gui" )->OnGUI = HG_EVENT_IMPL {
 	auto gui = static_cast<GUI*>( pThis );
 	gui->strFontName = "f";
 

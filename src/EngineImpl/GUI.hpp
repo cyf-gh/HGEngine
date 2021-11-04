@@ -26,6 +26,8 @@ public:
 	std::string strFontName;
 	HG::Math::HGPos tGlobalMousePos;
 	un32 GetCurrentUIIndex() const { return unUIIndex; }
+	bool IsVisiable;
+	HG::pEvent OnGUI;
 
 	bool Button( const char* strText, const HG::Math::HGRect& tRect ) {
 		bool isClick = false;
@@ -60,7 +62,7 @@ public:
 		++unUIIndex;
 		return isClick;
 	}
-	GUI( Scene* pSc ) : unUIIndex( 0 ), m_pScene( pSc ), unCurrentHoverGUIUID( 0 ) { }
+	GUI( Scene* pSc, bool isVisiable = false ) : unUIIndex( 0 ), m_pScene( pSc ), unCurrentHoverGUIUID( 0 ), IsVisiable( isVisiable ), OnGUI( nullptr ) { }
 
 private:
 
