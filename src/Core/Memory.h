@@ -3,8 +3,8 @@
 /// \details recover from https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/core/Def.h
 #pragma once
 
-#define HG_SAFE_DEL( P ) delete P; P = nullptr
-#define HG_SAFE_DEL_ARR( ARRAY ) delete []ARRAY; ARRAY = nullptr
+#define HG_SAFE_DEL( P ) if ( P != nullptr ) { delete P; P = nullptr; }
+#define HG_SAFE_DEL_ARR( ARRAY ) if ( ARRAY != nullptr ) { delete []ARRAY; ARRAY = nullptr; }
 
 /// \brief zero memory
 /// \details len is character length, which len = 2 means 16 bits

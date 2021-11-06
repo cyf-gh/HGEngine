@@ -67,7 +67,7 @@ EngineImpl::EngineImpl( int argc, char** argv )
 
 	Log->Info( SDL_LOG_CATEGORY_SYSTEM, "Starting HoneyGame Engine ..." );
 
-	pWindow = new Window( "HG Engine", 0, 0, 800, 640 );
+	pWindow = new Window( "HG Engine", 0, 0, 800, 640, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN );
 	pWindow->SetCenterScreen();
 
 	pRenderer = new Renderer2D( pWindow->Handle() );

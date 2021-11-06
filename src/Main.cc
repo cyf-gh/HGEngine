@@ -15,9 +15,6 @@ HGMain( int argc, char** argv ) {
 	auto* tEngine = new EngineImpl( argc, argv );
 	HG_SCRIPT_BINDALL();
 
-	HG_LOG_INFO( pScene->FindGameObject( "test_full_screen" )->GetName() );
-	HG_LOG_INFO( pScene->FindGameObject( "test_fps" )->GetName() );
-
 	tEngine->Run();
 	HG_SAFE_DEL( pScene );
 	HG_SAFE_DEL( tEngine );

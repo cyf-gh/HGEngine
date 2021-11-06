@@ -11,7 +11,7 @@ using namespace HGEngine::V1SDL;
 using namespace HG;
 
 Init* Init::SDL() {
-    if ( SDL_Init(SDL_INIT_EVERYTHING ) == -1 ){
+    if ( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ){
         Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init");
     } else {
         Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );

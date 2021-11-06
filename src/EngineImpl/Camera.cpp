@@ -7,15 +7,13 @@
 using namespace HGEngine::V1SDL;
 using namespace HG;
 
-HGEngine::V1SDL::Camera::Camera( const char* strName, Scene* pScene ) : GameObject( strName ), RenderInViewOnly( true ), pTarget( nullptr ) {
-	AddComponent( new HGEngine::V1SDL::Transform( "Transform" ) );
-}
+HGEngine::V1SDL::Camera::Camera( const char* strName, Scene* pScene ) : GameObject( strName ), RenderInViewOnly( true ), pTarget( nullptr ) { }
 
 void HGEngine::V1SDL::Camera::Update( void* pEvent ) {
 	HG_EVENT_CALL( OnFixedUpdate, pEvent, this );
 }
 
-void HGEngine::V1SDL::Camera::Render( void* pRenderer ) { 
+void HGEngine::V1SDL::Camera::Render( void* pRenderer ) {
 	HG_EVENT_CALL( OnRender, pRenderer, this );
 }
 

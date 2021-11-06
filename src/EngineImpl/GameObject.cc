@@ -18,9 +18,9 @@ using namespace HG::Math;
 
 void GameObject::renderCameraView( Renderer2D* pRenderer ) {
     auto pTransform = GetComponent<Transform>();
-    auto tSrcRect = pTransform->ToSDLRectLocal();
-    auto tDestRect = pTransform->ToSDLRectGlobal();
-    auto tCenterPt = pTransform->ToSDLPoint();
+    auto& tSrcRect = pTransform->ToSDLRectLocal();
+    auto& tDestRect = pTransform->ToSDLRectGlobal();
+    auto& tCenterPt = pTransform->ToSDLPoint();
     if( m_pScene != nullptr ) {
         auto pCam = m_pScene->GetMainCamera();
         if( pCam != nullptr ) {
@@ -54,19 +54,19 @@ bool HGEngine::V1SDL::GameObject::IsInCameraView() {
     }
     auto pCamTransform = pCam->GetComponent<Transform>();
     auto pT = this->GetComponent<Transform>();
-    auto rect1 = pT->ToHGRectGlobal();
-    auto rect2 = pCamTransform->ToHGRectGlobal();
-    if( pT->f64Angle == 0 ) {
-        return !( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) );
-    } else {
+    auto& rect1 = pT->ToHGRectGlobal();
+    auto& rect2 = pCamTransform->ToHGRectGlobal();
+     if( IsEqual( pT->f64Angle, (double)0 ) ) {
+         return !( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) );
+     } else {
         HGShape<double> s;
-        rect1.ToShape( s );
         HGVec2<double> c;
+        rect1.ToShape( s );
         c.X = pT->tRotateCenter.X + pT->tPosition.X;
         c.Y = pT->tRotateCenter.Y + pT->tPosition.Y;
         s.Rotate( pT->f64Angle, c );
         return rect2.IsOverlap( s.GetCircumscribedCircle() );
-    }
+     }
 }
 
 GameObject::GameObject( const char* strName, Scene* pScene )

@@ -16,8 +16,11 @@ namespace V1SDL {
 /// figure, which contains position and size infomation
 class Transform : public HG::HGComponent {
 protected:
-	HG::Math::HGRect RectLocal;
-	HG::Math::HGRect RectGlobal;
+	HG::Math::HGRect m_tRectLocal;
+	HG::Math::HGRect m_tRectGlobal;
+	SDL_Rect m_tSRLocal;
+	SDL_Rect m_tSRGlobal;
+	SDL_Point m_tPt;
 public:
 	/// @brief 判断鼠标是否落在该Transform中
 	/// @return 是否落在其中 
@@ -87,44 +90,41 @@ public:
 		tRect.Rotate( f64Angle, tRotateCenter.ToVec2<float>() );
 	}
 
-	HG_INLINE SDL_Point ToSDLPoint() {
-		return SDL_Point {
-			.x = tRotateCenter.X,
-			.y = tRotateCenter.Y
-		};
+	HG_INLINE SDL_Point& ToSDLPoint() {
+		m_tPt.x = tRotateCenter.X;
+		m_tPt.y = tRotateCenter.Y;
+		return m_tPt;
 	}
 
-	HG_INLINE SDL_Rect ToSDLRectGlobal() {
-		return SDL_Rect {
-			.x = ( int ) tPosition.X,
-			.y = ( int ) tPosition.Y,
-			.w = static_cast< int >( tRect.W ),
-			.h = static_cast< int >( tRect.H ),
-		};
+	HG_INLINE SDL_Rect& ToSDLRectGlobal() {
+		m_tSRGlobal.x = ( int ) tPosition.X;
+		m_tSRGlobal.y = ( int ) tPosition.Y;
+		m_tSRGlobal.w = static_cast< int >( tRect.W );
+		m_tSRGlobal.h = static_cast< int >( tRect.H );
+		return m_tSRGlobal;
 	}
-	HG_INLINE SDL_Rect ToSDLRectLocal() {
-		return SDL_Rect {
-			.x = ( int ) tLocalPos.X,
-			.y = ( int ) tLocalPos.Y,
-			.w = static_cast< int >( tLocalRect.W ),
-			.h = static_cast< int >( tLocalRect.H ),
-		};
+	HG_INLINE SDL_Rect& ToSDLRectLocal() {
+		m_tSRLocal.x = ( int ) tLocalPos.X;
+		m_tSRLocal.y = ( int ) tLocalPos.Y;
+		m_tSRLocal.w = static_cast< int >( tLocalRect.W );
+		m_tSRLocal.h = static_cast< int >( tLocalRect.H );
+		return m_tSRLocal;
 	}
 
 
 	HG_INLINE HG::Math::HGRect& ToHGRectLocal() {
-		RectLocal.X = static_cast< n32 >( tLocalPos.X );
-		RectLocal.Y = static_cast< n32 >( tLocalPos.Y );
-		RectLocal.H = static_cast< un32 >( tLocalRect.H );
-		RectLocal.W = static_cast< un32 >( tLocalRect.W );
-		return RectLocal;
+		m_tRectLocal.X = static_cast< n32 >( tLocalPos.X );
+		m_tRectLocal.Y = static_cast< n32 >( tLocalPos.Y );
+		m_tRectLocal.H = static_cast< un32 >( tLocalRect.H );
+		m_tRectLocal.W = static_cast< un32 >( tLocalRect.W );
+		return m_tRectLocal;
 	}
 	HG_INLINE HG::Math::HGRect& ToHGRectGlobal() {
-		RectGlobal.X = static_cast< n32 >( tPosition.X );
-		RectGlobal.Y = static_cast< n32 >( tPosition.Y );
-		RectGlobal.H = static_cast< un32 >( tRect.H );
-		RectGlobal.W = static_cast< un32 >( tRect.W );
-		return RectGlobal;
+		m_tRectGlobal.X = static_cast< n32 >( tPosition.X );
+		m_tRectGlobal.Y = static_cast< n32 >( tPosition.Y );
+		m_tRectGlobal.H = static_cast< un32 >( tRect.H );
+		m_tRectGlobal.W = static_cast< un32 >( tRect.W );
+		return m_tRectGlobal;
 	}
 	/// \brief 
 	/// * 将物体于世界的坐标与大小归零

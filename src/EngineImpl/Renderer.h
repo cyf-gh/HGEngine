@@ -14,14 +14,14 @@ namespace V1SDL {
 class Renderer : HG::Memory::NonCopyable {
 private:
 public:
-    SDL_Renderer *pHandle = nullptr;
-    void Present();
-    void Clear( Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 a = 255);
-    Renderer(
-            SDL_Window* window,
-            int index = -1,
-            Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    virtual ~Renderer();
+	SDL_Renderer* pHandle = nullptr;
+	void Present();
+	void Clear( Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 a = 255 );
+	Renderer(
+		SDL_Window* window,
+		int index = -1,
+		Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	virtual ~Renderer();
 };
 }
 }

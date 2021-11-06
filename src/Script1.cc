@@ -51,7 +51,8 @@ EngineImpl::GetEngine()->GetCurrentScene()->GetGUI( "test_gui" )->OnGUI = HG_EVE
 	auto gui = static_cast<GUI*>( pThis );
 	gui->strFontName = "f";
 
-	if ( gui->Button( "Button", HGRect( 300, 300, 100, 50 ) ) ) {
+	if ( gui->Button( "Button", HGRect( 0, 0, 30, 100 ) ) ) {
+	HG_LOG_INFOF( "Y:{}", EngineImpl::GetEngine()->GetInput()->tGlobalMousePos.Y );
 		HG_LOG_INFO( "Button Clicked" );
 	}
 	return 0;
@@ -177,8 +178,8 @@ df->tRect.W = 200;
 
 
 auto df3 = pCamera->GetComponent<Transform>();
-df3->tRect.H = 600;
-df3->tRect.W = 800;
+df3->tPosition.X = 0;
+df3->tPosition.Y = 0;
 
 CheckMarshal<GameObject>( pText );
 rapidjson::Document doc2;
@@ -333,7 +334,7 @@ df2->ResetRotateCenter();
 HG_EVENT_BIND( pImgTest, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
 	auto df = _this->GetComponent<Transform>();
-	df->f64Angle += 40 * HG_ENGINE_TIMEDELTA;
+	// df->f64Angle += 40 * HG_ENGINE_TIMEDELTA;
 
 
 	HG::Math::HGShape<float> s;
