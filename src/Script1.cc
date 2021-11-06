@@ -16,6 +16,8 @@
 #include <engineImpl/Label.hpp>
 #include <engineImpl/Spirte.hpp>
 #include <engineImpl/GUI.hpp>
+#include <engineImpl/Geometry.hpp>
+
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -212,6 +214,24 @@ HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	}
 	return 0;
 };
+
+
+HG_EVENT_BIND( pImgTestColMain, OnRender ) {
+	static f32 r = 300.f;
+	r = r <= 0 ? 300.f : --r;
+	RdCircle<f32> cccc;
+	SDL_SetRenderDrawColor( HG_ENGINE_RENDERER2D->pHandle, 0,0,0,255);
+	cccc.Radius = r;
+	cccc.tCenter.X = 400;
+	cccc.tCenter.Y = 100;
+
+	for( size_t i = 0; i < 20; i++ ) {
+		cccc.tCenter.X -= 30;
+		cccc.Draw( HG_ENGINE_RENDERER2D );
+	}
+	return 0;
+};
+
 HG_EVENT_BIND( pText, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
 	auto df = _this->GetComponent<Transform>();

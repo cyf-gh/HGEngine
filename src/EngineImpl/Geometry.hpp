@@ -7,12 +7,12 @@
 namespace HGEngine {
 namespace V1SDL {
 
-struct RenderableGeo {
+struct DrawableGeo {
 	virtual int Draw( Renderer2D* pRd ) = 0;
 	virtual int Fill( Renderer2D* pRd ) = 0;
 };
 
-class RdRect : public HG::Math::HGRect, public RenderableGeo {
+class RdRect : public HG::Math::HGRect, public DrawableGeo {
 public:
 	SDL_Rect r;
 	const SDL_Rect& ToSDLRect() {
@@ -36,26 +36,33 @@ public:
 /// @tparam _dT 
 /// @ref https://gist.github.com/Gumichan01/332c26f6197a432db91cc4327fcabb1c
 template<typename _dT>
-class RdCircle : public HG::Math::HGCircle<_dT>, public RenderableGeo {
+class RdCircle : public HG::Math::HGCircle<_dT>, public DrawableGeo {
 public:
+    RdCircle() = default;
+    RdCircle( const HG::Math::HGCircle<_dT>& rhs ) {
+        this->tCenter = rhs.tCenter;
+        this->Radius = rhs.Radius;
+    }
 	int Draw( Renderer2D* pRd ) override {
-        int offsetx, offsety, d;
+        _dT offsetx, offsety, d;
         int status;
-
+        auto X = this->tCenter.X;
+        auto Y = this->tCenter.Y;
         offsetx = 0;
-        offsety = radius;
+        auto &Radius = this->Radius;
+        offsety = Radius;
         d = Radius - 1;
         status = 0;
 
         while( offsety >= offsetx ) {
-            status += SDL_RenderDrawPoint( renderer, X + offsetx, Y + offsety );
-            status += SDL_RenderDrawPoint( renderer, X + offsety, Y + offsetx );
-            status += SDL_RenderDrawPoint( renderer, X - offsetx, Y + offsety );
-            status += SDL_RenderDrawPoint( renderer, X - offsety, Y + offsetx );
-            status += SDL_RenderDrawPoint( renderer, X + offsetx, Y - offsety );
-            status += SDL_RenderDrawPoint( renderer, X + offsety, Y - offsetx );
-            status += SDL_RenderDrawPoint( renderer, X - offsetx, Y - offsety );
-            status += SDL_RenderDrawPoint( renderer, X - offsety, Y - offsetx );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsetx, Y + offsety );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsety, Y + offsetx );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsetx, Y + offsety );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsety, Y + offsetx );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsetx, Y - offsety );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsety, Y - offsetx );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsetx, Y - offsety );
+            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsety, Y - offsetx );
 
             if( status < 0 ) {
                 status = -1;
@@ -65,7 +72,7 @@ public:
             if( d >= 2 * offsetx ) {
                 d -= 2 * offsetx + 1;
                 offsetx += 1;
-            } else if( d < 2 * ( radius - offsety ) ) {
+            } else if( d < 2 * ( Radius - offsety ) ) {
                 d += 2 * offsety - 1;
                 offsety -= 1;
             } else {
@@ -77,20 +84,22 @@ public:
         return status;
 	}
 	int Fill( Renderer2D* pRd ) override {
-        int offsetx, offsety, d;
+        _dT offsetx, offsety, d;
         int status;
-
+        auto X = this->tCenter.X;
+        auto Y = this->tCenter.Y;
         offsetx = 0;
+        auto& Radius = this->Radius;
         offsety = Radius;
         d = Radius - 1;
         status = 0;
 
         while( offsety >= offsetx ) {
 
-            status += SDL_RenderDrawLine( renderer, X - offsety, Y + offsetx, X + offsety, Y + offsetx );
-            status += SDL_RenderDrawLine( renderer, X - offsetx, Y + offsety, X + offsetx, Y + offsety );
-            status += SDL_RenderDrawLine( renderer, Y - offsetx, Y - offsety, X + offsetx, Y - offsety );
-            status += SDL_RenderDrawLine( renderer, Y - offsety, Y - offsetx, X + offsety, Y - offsetx );
+            status += SDL_RenderDrawLine( pRd->pHandle, X - offsety, Y + offsetx, X + offsety, Y + offsetx );
+            status += SDL_RenderDrawLine( pRd->pHandle, X - offsetx, Y + offsety, X + offsetx, Y + offsety );
+            status += SDL_RenderDrawLine( pRd->pHandle, Y - offsetx, Y - offsety, X + offsetx, Y - offsety );
+            status += SDL_RenderDrawLine( pRd->pHandle, Y - offsety, Y - offsetx, X + offsety, Y - offsetx );
 
             if( status < 0 ) {
                 status = -1;
@@ -100,7 +109,7 @@ public:
             if( d >= 2 * offsetx ) {
                 d -= 2 * offsetx + 1;
                 offsetx += 1;
-            } else if( d < 2 * ( radius - offsety ) ) {
+            } else if( d < 2 * ( Radius - offsety ) ) {
                 d += 2 * offsety - 1;
                 offsety -= 1;
             } else {
@@ -115,8 +124,7 @@ public:
 
 class Geometry : public HG::HGComponent {
 public:
-	HG_COMPONENT_RENDERABLE
-
+    std::vector<DrawableGeo*> m_vecDrawableGeos;
 	Geometry() : HG::HGComponent() { 
 		nRenderIndex = HG::HGRenderableComponentSeq::GEOMETRY;
 	}
