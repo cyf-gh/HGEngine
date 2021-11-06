@@ -1,24 +1,17 @@
-## HoneyGame
-HoneyGame - Reborn of st2d
+## HGEngine
+HGEngine - an Unity like 2D game engine
 
 ### TODO
 
-#### Utility
-
-- [ ] Timer
-
-#### Camera
-
-- [ ] Get rid of rotated GameObjects
-
-#### Component
+#### Components
 
 - [x] Transform
-- [ ] Rigidbody
-
-Optimization
-
-- [ ] ToSDLXXX no copy
+- [x] Rigidbody
+- [x] Collision
+- [x] Animation
+- [x] Label
+- [x] Spirte
+- [ ] Geometry
 
 ### Dependencies
 * https://github.com/cyf-gh/sdl2-cmake-scripts
