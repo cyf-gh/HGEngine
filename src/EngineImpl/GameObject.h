@@ -46,6 +46,7 @@ public:
 	bool IsInCameraView();
 	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
 	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {
+		++pComp->nRefCount;
 		m_vecComponents.push_back( static_cast< HG::HGComponent* >( pComp ) );
 		static_cast< HG::HGComponent* >( pComp )->SetGameObject( this );
 		return pComp;
@@ -93,6 +94,7 @@ public:
 		int i = 0;
 		for( auto& c : m_vecComponents ) {
 			if( typeid( T ).hash_code() == typeid( *c ).hash_code() ) {
+				--((*(m_vecComponents.begin() + i))->nRefCount);
 				m_vecComponents.erase( m_vecComponents.begin() + i );
 				return true;
 			}

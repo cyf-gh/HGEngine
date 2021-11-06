@@ -28,6 +28,12 @@ protected:
 	HGEngine::V1SDL::GameObject *m_pGameObject;
 	
 public:
+	/// @brief 组件引用计数
+	/// @see 
+	///	* GameObject::~GameObject()
+	/// * GameObject::RemoveComponent()
+	/// * GameObject::AddComponent( HG::HGComponent* pComp )
+	int nRefCount;
 	/// @brief 渲染索引，值越小越渲染在下层
 	int nRenderIndex;
 	/// @brief 返回渲染目标
@@ -48,8 +54,8 @@ public:
 	/// @return 父GameObject
 	HGEngine::V1SDL::GameObject *GetGameObject() const { return m_pGameObject; }
 	void SetGameObject( HGEngine::V1SDL::GameObject *pGameObject ) { m_pGameObject = pGameObject; }
-	explicit HGComponent( const char* strName ) : nRenderIndex( HGRenderableComponentSeq::UNRENDERABLE ), m_pGameObject( nullptr ), HGObject<HGComponent>( strName ) { }
-	explicit HGComponent() : nRenderIndex( HGRenderableComponentSeq::UNRENDERABLE ), m_pGameObject( nullptr ), HGObject<HGComponent>() { }
+	explicit HGComponent( const char* strName ) : nRefCount( 0 ), nRenderIndex( HGRenderableComponentSeq::UNRENDERABLE ), m_pGameObject( nullptr ), HGObject<HGComponent>( strName ) { }
+	explicit HGComponent() : nRefCount( 0 ), nRenderIndex( HGRenderableComponentSeq::UNRENDERABLE ), m_pGameObject( nullptr ), HGObject<HGComponent>() { }
 	virtual ~HGComponent() = default;
 };
 }

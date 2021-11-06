@@ -91,7 +91,12 @@ HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nu
 GameObject::~GameObject() {
     for( auto& c : m_vecComponents ) {
         HG_LOG_INFO( std::format( "GameObject[{}]=>Component[{}] ~Destructed", GetName(), c->GetName() ).c_str() );
-        HG_SAFE_DEL( c );
+        --c->nRefCount;
+        if( c->nRefCount == 0 ) {
+            HG_SAFE_DEL( c );
+        } else {
+            c = nullptr;
+        }
     }
     HG_LOG_INFO( std::format( "GameObject[{}] ~Destructed", GetName() ).c_str() );
 }
