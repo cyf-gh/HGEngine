@@ -11,6 +11,7 @@
 namespace HGEngine {
 namespace V1SDL {
 
+class DrawableGeo;
 class GameObject;
 
 class Renderer2D : public HGEngine::V1SDL::Renderer {
@@ -19,7 +20,10 @@ public:
 	SDL_Texture* CreateTextureFromFile( const char* pStrFileName );
 	void Copy( const GameObject* pGameObject, const SDL_Rect* pSrcRect,const SDL_Rect* pDstRect );
 	void CopyEx( const GameObject* pGameObject, const SDL_Rect* pSrcRect,const SDL_Rect* pDstRect, const double f64Angle, const SDL_Point* pCenter, const SDL_RendererFlip &tFlip );
-	
+	void SetDrawColor( Uint8 r, Uint8 g, Uint8 b, Uint8 a );
+	void SetDrawColor( const DrawableGeo* pdg );
+	void SetDrawColor( const HG::Math::HGColor& tc );
+	int DrawLine( int x, int y, int xx, int yy );
 	Renderer2D(
 		SDL_Window* pWindow,
 		int index = -1,

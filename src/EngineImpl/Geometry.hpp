@@ -10,11 +10,22 @@ namespace V1SDL {
 struct DrawableGeo {
 	virtual int Draw( Renderer2D* pRd ) = 0;
 	virtual int Fill( Renderer2D* pRd ) = 0;
+    UINT8 r, g, b, a;
+    void SetColor( UINT8 r, UINT8 g, UINT8 b, UINT8 a ) {
+        this->r = r;
+        this->g = g;
+        this->b = b;
+        this->a = a;
+    }
+    bool IsVisiable;
+    DrawableGeo() : IsVisiable( true ) {};
 };
 
+/// @brief 可绘制 Rect
 class RdRect : public HG::Math::HGRect, public DrawableGeo {
-public:
+private:
 	SDL_Rect r;
+public:
 	const SDL_Rect& ToSDLRect() {
 		r.x = X;
 		r.y = Y;
@@ -30,9 +41,19 @@ public:
 		ToSDLRect();
 		return SDL_RenderFillRect( pRd->pHandle, &r );
 	}
+    RdRect() = default;
+    RdRect( const HG::Math::HGRect& rhs ) : DrawableGeo() {
+        Set( rhs );
+    }
+    void Set( const HG::Math::HGRect& rhs ) {
+        this->X = rhs.X;
+        this->Y = rhs.Y;
+        this->H = rhs.H;
+        this->W = rhs.W;
+    }
 };
 
-/// @brief 
+/// @brief 可绘制 Circle
 /// @tparam _dT 
 /// @ref https://gist.github.com/Gumichan01/332c26f6197a432db91cc4327fcabb1c
 template<typename _dT>
@@ -40,8 +61,8 @@ class RdCircle : public HG::Math::HGCircle<_dT>, public DrawableGeo {
 public:
     RdCircle() = default;
     RdCircle( const HG::Math::HGCircle<_dT>& rhs ) {
-        this->tCenter = rhs.tCenter;
-        this->Radius = rhs.Radius;
+        this->tCenter = static_cast<_dT>( rhs.tCenter );
+        this->Radius = static_cast<_dT>( rhs.Radius );
     }
 	int Draw( Renderer2D* pRd ) override {
         _dT offsetx, offsety, d;
@@ -120,20 +141,6 @@ public:
         }
         return status;
 	}
-};
-
-class Geometry : public HG::HGComponent {
-public:
-    std::vector<DrawableGeo*> m_vecDrawableGeos;
-	Geometry() : HG::HGComponent() { 
-		nRenderIndex = HG::HGRenderableComponentSeq::GEOMETRY;
-	}
-	Geometry( const char* strName ) : HG::HGComponent( strName ) {
-		nRenderIndex = HG::HGRenderableComponentSeq::GEOMETRY;
-	}
-	~Geometry() { }
-private:
-
 };
 
 }

@@ -20,6 +20,11 @@ private:
 	Font* m_pFont;
 
 public:
+	/// @brief 可以指定文字于 GameObject 中的位置
+	HG::Math::HGRect m_tRect;
+
+public:
+	HG::Math::HGRect* GetLocalRectOffset() override { return &m_tRect; }
 	HG_COMPONENT_RENDERABLE
 	void* GetRenderTarget( Renderer2D* pRd ) override {
 		RenderText2Texture( pRd );
@@ -64,14 +69,14 @@ public:
 		}
 		return false;
 	}
-	explicit Label( const char* strName, const char* str, Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ) { 
+	explicit Label( const char* strName, const char* str,  Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ), m_tRect() {
 		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
 	}
-	explicit Label( const char* strName, const char* str, const char* strFontName ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), Text( str ) { 
+	explicit Label( const char* strName, const char* str, const char* strFontName ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), Text( str ), m_tRect() {
 		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
 		SetFont( strFontName );
 	}
-	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ) { };
+	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), m_tRect() { };
 	virtual ~Label() {
 		if( m_pTx != nullptr ) {
 			SDL_DestroyTexture( m_pTx );

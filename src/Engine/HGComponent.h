@@ -36,6 +36,9 @@ public:
 	int nRefCount;
 	/// @brief 渲染索引，值越小越渲染在下层
 	int nRenderIndex;
+	/// @brief 获取可渲染组件位于 GameObject 本地坐标的偏移
+	/// @return 
+	virtual HG::Math::HGRect* GetLocalRectOffset() { return nullptr; }
 	/// @brief 返回渲染目标
 	/// @note 仅在 IsRenderable() == true 时返回句柄
 	/// @return 渲染句柄

@@ -25,9 +25,13 @@ public:
 	/// @brief 判断鼠标是否落在该Transform中
 	/// @return 是否落在其中 
 	bool IsMouseIn() {
-		auto pc = HG_ENGINE_CURRENT_SCENE()->GetMainCamera();
-		HG::Math::HGVec2<float>& gpos = pc->GetComponent<Transform>()->tPosition;
-		return ( ToHGRectGlobal().IsIn( HG_ENGINE_INPUT()->GetGlobalMousePos( gpos.X, gpos.Y ) ) );
+		if( m_pGameObject->IsFixedToCamera() ) {
+			return ( ToHGRectGlobal().IsIn( HG_ENGINE_INPUT()->GetGlobalMousePos( 0, 0 ) ) );
+		} else {
+			auto pc = HG_ENGINE_CURRENT_SCENE()->GetMainCamera();
+			HG::Math::HGVec2<float>& gpos = pc->GetComponent<Transform>()->tPosition;
+			return ( ToHGRectGlobal().IsIn( HG_ENGINE_INPUT()->GetGlobalMousePos( gpos.X, gpos.Y ) ) );
+		}
 	}
 	/// \brief 
 	/// 局部坐标系中的位置，也可理解为对原物体的裁剪位置<br>

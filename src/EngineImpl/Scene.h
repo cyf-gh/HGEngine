@@ -26,7 +26,7 @@ protected:
 	Camera *m_pMainCamera;
 	std::unordered_map<std::string, GUI*> m_umGUIs;
 public:
-	GUI* CreateGUI( const std::string& name, bool isVisiable = false );
+	GUI* TryCreateGUI( const std::string& name, bool isVisiable = false );
 	GUI* GetGUI( const std::string& name );
 	Camera *GetMainCamera() const { return m_pMainCamera; }
 	void SetMainCamera( Camera * pCamera ) { m_pMainCamera = pCamera; }

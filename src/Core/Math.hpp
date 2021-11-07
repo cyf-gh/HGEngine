@@ -93,12 +93,22 @@ static HG_INLINE f32 inv_sqrt( f32 X ) {
 	return X;
 }
 
+class HGColor {
+public:
+	un8 R, G, B, A;
+	void Set( un8 r, un8 g, un8 b, un8 a ) {
+		R = r; G = g; B = b; A = a;
+	}
+	HGColor( un8 r, un8 g, un8 b, un8 a ) :
+		R( r ), G( g ), B( b ), A( a ) { }
+	HGColor() = default;
+};
 
 template<typename digit_type>
 class HGVec2 {
 
-public: 
-static HGVec2<digit_type> kZeroVec;
+public:
+	static HGVec2<digit_type> kZeroVec;
 
 public:
 	digit_type X;
@@ -118,7 +128,7 @@ public:
 		return ( !IsEqualF( base, 0 ) ) ?
 			( 1 / base ) : 0;
 	}
-	
+
 	const bool IsEqual( const HGVec2& v ) const {
 		return IsEqualF( X, v.X ) && IsEqualF( Y, v.Y );
 	}
@@ -178,7 +188,7 @@ public:
 		: X( 0 ), Y( 0 ) { }
 	virtual	~HGVec2() { }
 
-	HG_INLINE bool operator==( const HGVec2<digit_type> &v ) {
+	HG_INLINE bool operator==( const HGVec2<digit_type>& v ) {
 		return this->IsEqual( v );
 	}
 };
@@ -298,13 +308,40 @@ public:
 struct HGRect {
 	n32 X, Y;
 	un32 H, W;
-	
-	HGRect( n32 x, n32 y, un32 h, un32 w ): X(x), Y(y), H(h), W(w) {};
-	HGRect() = default;
+
+	HGRect( n32 x, n32 y, un32 h, un32 w ) : X( x ), Y( y ), H( h ), W( w ) { };
+	HGRect() : HGRect( 0, 0, 0, 0 ) { }
+	HGRect& Set( n32 x, n32 y, un32 h, un32 w ) {
+		X = x; Y = y; H = h; W = w;
+		return *this;
+	}
+	HGRect& Set( const HGRect& rhs ) {
+		X = rhs.X; Y = rhs.Y; H = rhs.H; W = rhs.W;
+		return *this;
+	}
 	HG_INLINE n32 Left() const { return X; }
 	HG_INLINE n32 Right() const { return X + W; }
 	HG_INLINE n32 Top() const { return Y; }
 	HG_INLINE n32 Bottom() const { return Y + H; }
+
+	HG_INLINE bool IsZero() const {
+		return X == 0 && Y == 0 && H == 0 && W == 0;
+	}
+	
+	HG_INLINE bool IsZeroSize() const {
+		return H == 0 && W == 0;
+	}
+
+	HG_INLINE HGRect& Scale( f32 d ) {
+		f32 sh = d* H;
+		f32 sw = d* W;
+		
+		X += ( W - sw ) / 2;
+		Y += ( H - sh ) / 2;
+		
+		H = sh; W = sw;
+		return *this;
+	}
 
 	template<typename digit_type>
 	HG_INLINE HGShape<digit_type>& ToShape( HGShape<digit_type>& inout ) {
@@ -323,7 +360,7 @@ struct HGRect {
 	/// \note  包括相交情况
 	HG_INLINE bool IsOverlap( const HGRect& dstRect ) {
 		return ( !( ( Right() < dstRect.Left() ) || ( Left() > dstRect.Right() ) ) &&
-			!( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
+				 !( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
 	}
 	HG_INLINE bool IsIn( const HGRect& dstRect ) {
 		const HGRect* r1 = &dstRect;
@@ -333,7 +370,7 @@ struct HGRect {
 	}
 	HG_INLINE bool IsIntersect( const HGRect& dstRect ) {
 		return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||
-			( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
+				 ( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
 	}
 	/// \brief 矩形与园是否重叠
 	/// \note  包括相交情况

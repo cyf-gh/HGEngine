@@ -28,10 +28,13 @@ protected:
 	Layer* m_pLayer;
 	bool mIsEnable = false;
 	void renderCameraView( Renderer2D* pRenderer );
+	bool m_isFixedToCamera;
+	bool m_isGUI;
 
 public:
 	std::vector<HG::HGComponent*> m_vecComponents;
-
+	bool SetFixedToCamera( const bool isFixed = true ) { m_isFixedToCamera = isFixed; }
+	bool IsFixedToCamera() const { return m_isFixedToCamera; }
 	virtual GameObject* Clone() { return new GameObject( *this ); };
 	virtual void Update( void* pEvent );
 	virtual void Render( void* pRenderer );
@@ -114,7 +117,7 @@ public:
 	///	* 当直接在C++代码中创建GameObject时，请调用该构造函数
 	/// @param strName 
 	/// @param pScene 
-	explicit GameObject( const char* strName, Scene* pScene = nullptr );
+	explicit GameObject( const char* strName, Scene* pScene = nullptr, bool isFixed2Camera = false, bool isGui = false );
 	/// @brief 创建一个仅携带Behavior的GameObject
 	explicit GameObject();
 	virtual ~GameObject();

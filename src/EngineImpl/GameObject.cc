@@ -25,11 +25,13 @@ void GameObject::renderCameraView( Renderer2D* pRenderer ) {
         auto pCam = m_pScene->GetMainCamera();
         if( pCam != nullptr ) {
             auto pCamTransform = pCam->GetComponent<Transform>();
-            if( pCam->RenderInViewOnly && !this->IsInCameraView() ) {
-                return;
+            if( !IsFixedToCamera() ) {
+                if( pCam->RenderInViewOnly && !this->IsInCameraView() ) {
+                    return;
+                }
+                tDestRect.x -= pCamTransform->tPosition.X;
+                tDestRect.y -= pCamTransform->tPosition.Y;
             }
-            tDestRect.x -= pCamTransform->tPosition.X;
-            tDestRect.y -= pCamTransform->tPosition.Y;
         }
     }
     pRenderer->CopyEx( this, pTransform->IsZeroLocal() ? nullptr : &tSrcRect, pTransform->IsZeroGlobal() ? nullptr : &tDestRect, pTransform->f64Angle, &tCenterPt, SDL_FLIP_NONE );
@@ -69,8 +71,8 @@ bool HGEngine::V1SDL::GameObject::IsInCameraView() {
      }
 }
 
-GameObject::GameObject( const char* strName, Scene* pScene )
-: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), m_pLayer( nullptr ) {
+GameObject::GameObject( const char* strName, Scene* pScene, bool isFixed2Camera, bool isGui )
+: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), m_pLayer( nullptr ), m_isFixedToCamera( isFixed2Camera ), m_isGUI( isGui ) {
     AddComponent( new HGBehaviour( "Behaviour" ) );
 	AddComponent( new Transform( "Transform" ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
@@ -83,7 +85,7 @@ GameObject::GameObject( const char* strName, Scene* pScene )
     }
 }
 
-HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nullptr ), m_vecComponents(), m_pLayer( nullptr ) {
+HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nullptr ), m_vecComponents(), m_pLayer( nullptr ), m_isFixedToCamera( false ), m_isGUI( false ) {
     AddComponent( new HGBehaviour( "Behaviour" ) );
     HG_LOG_INFO( std::format( "GameObject[{}] !Constructed Default", UID ).c_str() );
 }

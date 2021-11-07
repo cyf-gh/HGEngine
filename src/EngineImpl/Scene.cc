@@ -32,7 +32,7 @@ Scene::~Scene() {
 	HG_LOG_INFO( std::format( "Scene[{}] ~Destructed", GetName() ).c_str() );
 }
 
-GUI* HGEngine::V1SDL::Scene::CreateGUI( const std::string& name, bool isVisiable ) {
+GUI* HGEngine::V1SDL::Scene::TryCreateGUI( const std::string& name, bool isVisiable ) {
 	m_umGUIs[name] = new GUI( this, isVisiable );
 	return m_umGUIs[name];
 }
@@ -91,7 +91,7 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 	}
 	for( auto& gg : m_umGUIs ) {
 		auto& g = gg.second;
-		g->unUIIndex = 0;
+		g->m_unUIIndex = 0;
 		if( g->IsVisiable ) {
 			HG_EVENT_CALLRAW_NO_DATA( g->OnGUI, g );
 		}

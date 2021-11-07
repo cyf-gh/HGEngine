@@ -188,7 +188,7 @@
     <ClInclude Include="..\src\EngineImpl\GameObject.h" />
     <ClInclude Include="..\src\engineImpl\Geometry.hpp" />
     <ClInclude Include="..\src\engineImpl\GUI.hpp" />
-    <ClInclude Include="..\src\engineImpl\GUI\Controller.hpp" />
+    <ClInclude Include="..\src\engineImpl\GUI\GUIContent.hpp" />
     <ClInclude Include="..\src\EngineImpl\Init.h" />
     <ClInclude Include="..\src\engineImpl\Label.hpp" />
     <ClInclude Include="..\src\EngineImpl\Layer.h" />

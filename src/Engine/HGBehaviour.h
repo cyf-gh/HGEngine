@@ -35,6 +35,7 @@ public:
 	/// render event
 	/// \note 
 	/// * pData 为 HGEngine::V1SDL::Render2D
+	/// * 在 renderCameraView 调用之前被调用
 	/// \see HGEngine::V1SDL::Scene::Render
 	pEvent OnRender;
 	/// \brief 

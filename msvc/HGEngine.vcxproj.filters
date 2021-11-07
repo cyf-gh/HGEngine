@@ -69,7 +69,7 @@
     <ClInclude Include="..\src\engineImpl\Label.hpp">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\engineImpl\GUI\Controller.hpp">
+    <ClInclude Include="..\src\engineImpl\GUI\GUIContent.hpp">
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\engineImpl\Geometry.hpp">

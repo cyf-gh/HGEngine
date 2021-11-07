@@ -47,15 +47,19 @@ HG_SCRIPT_START( SCRIPT1 )
 
 HG_LOG_INFO( EngineImpl::GetEngine()->GetCurrentScene()->GetName() );
 
-EngineImpl::GetEngine()->GetCurrentScene()->CreateGUI( "test_gui", true );
+EngineImpl::GetEngine()->GetCurrentScene()->TryCreateGUI( "test_gui", true );
 
 EngineImpl::GetEngine()->GetCurrentScene()->GetGUI( "test_gui" )->OnGUI = HG_EVENT_IMPL {
 	auto gui = static_cast<GUI*>( pThis );
 	gui->strFontName = "f";
 
-	if ( gui->Button( "Button", HGRect( 0, 0, 30, 100 ) ) ) {
+	if ( gui->Button( "Button", HGRect( 10, 100, 30, 100 ) ) ) {
 	HG_LOG_INFOF( "Y:{}", EngineImpl::GetEngine()->GetInput()->tGlobalMousePos.Y );
 		HG_LOG_INFO( "Button Clicked" );
+	}
+	bool ischecked = false;
+	if( gui->Checkbox( "Checkbox1", HGRect( 40, 140, 30, 100 ), ischecked ) ) {
+		HG_LOG_INFO( ischecked ? "Checked" : "Unchecked" );
 	}
 	return 0;
 };
@@ -220,7 +224,7 @@ HG_EVENT_BIND( pImgTestColMain, OnRender ) {
 	static f32 r = 300.f;
 	r = r <= 0 ? 300.f : --r;
 	RdCircle<f32> cccc;
-	SDL_SetRenderDrawColor( HG_ENGINE_RENDERER2D->pHandle, 0,0,0,255);
+	HG_ENGINE_RENDERER2D->SetDrawColor( 0,0,0,255 );
 	cccc.Radius = r;
 	cccc.tCenter.X = 400;
 	cccc.tCenter.Y = 100;
