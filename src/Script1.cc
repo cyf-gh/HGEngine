@@ -17,14 +17,14 @@
 #include <engineImpl/Spirte.hpp>
 #include <engineImpl/GUI.hpp>
 #include <engineImpl/Geometry.hpp>
-
+#include <engineImpl\Effect.hpp>
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace std;
 
 template<class T>
-string CheckMarshal(T* t, const char* str = "def") {
+string CheckMarshal( T* t, const char* str = "def" ) {
 	rapidjson::StringBuffer strBuf;
 	rapidjson::Writer<rapidjson::StringBuffer> writer( strBuf );
 	writer.StartObject();
@@ -50,12 +50,13 @@ HG_LOG_INFO( EngineImpl::GetEngine()->GetCurrentScene()->GetName() );
 EngineImpl::GetEngine()->GetCurrentScene()->TryCreateGUI( "test_gui", true );
 
 EngineImpl::GetEngine()->GetCurrentScene()->GetGUI( "test_gui" )->OnGUI = HG_EVENT_IMPL {
-	auto gui = static_cast<GUI*>( pThis );
+	auto gui = static_cast< GUI* >( pThis );
 	gui->strFontName = "f";
 
-	if ( gui->Button( "Button", HGRect( 10, 100, 30, 100 ) ) ) {
+	if( gui->Button( "Fade Out", HGRect( 10, 100, 30, 100 ) ) ) {
 	HG_LOG_INFOF( "Y:{}", EngineImpl::GetEngine()->GetInput()->tGlobalMousePos.Y );
-		HG_LOG_INFO( "Button Clicked" );
+		HG_ENGINE_FIND_GAMEOBJECT( "camera" )->GetComponent<Effect>()->Reset();
+		HG_LOG_INFO( "Button Fade Out Clicked" );
 	}
 	bool ischecked = false;
 	if( gui->Checkbox( "Checkbox1", HGRect( 40, 140, 30, 100 ), ischecked ) ) {
@@ -67,11 +68,14 @@ EngineImpl::GetEngine()->GetCurrentScene()->GetGUI( "test_gui" )->OnGUI = HG_EVE
 Camera* pCamera = new Camera( "camera" );
 pCamera->Enable();
 pCamera->SetCameraSizeToRendererSize();
+auto* e = new Effect( "Effect" );
+e->m_tSolidColor.Set( 0, 0, 0, 0 );
+pCamera->AddComponent( e );
 EngineImpl::GetEngine()->GetCurrentScene()->SetMainCamera( pCamera );
 
 EngineImpl::GetEngine()->GetAssetManager()->CreateTexture( "test", R"(C:\Users\cyf-desktop\Pictures\1.png)" );
 EngineImpl::GetEngine()->GetAssetManager()->CreateFont( "f", R"(C:\Users\cyf-desktop\Documents\Minimal.ttf)", 50 );
-auto ptest = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>("test");
+auto ptest = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>( "test" );
 
 GameObject* pImgTest = new GameObject( "test_full_screen" );
 GameObject* pImgTestColMain = new GameObject( "test_main" );
@@ -85,14 +89,14 @@ pImgTestCol2->AddComponent( ppps );
 
 auto t = static_cast< Timer* >( pImgTest->AddComponent( new Timer() ) );
 
-t->DelayStart( 2, 1, 10, 
-	HG_EVENT_IMPL {
-		HG_LOG_SUCCESS( "Timer Interval!!!!" ); return 0;
-	}, HG_EVENT_IMPL {
-		HG_LOG_SUCCESS( "Timer Complete!!!!" ); return 0;
-	}, HG_EVENT_IMPL {
-		HG_LOG_SUCCESS( "Timer Start!!!!" ); return 0;
-	} );
+t->DelayStart( 2, 1, 10,
+			   HG_EVENT_IMPL {
+				   HG_LOG_SUCCESS( "Timer Interval!!!!" ); return 0;
+			   }, HG_EVENT_IMPL {
+				   HG_LOG_SUCCESS( "Timer Complete!!!!" ); return 0;
+			   }, HG_EVENT_IMPL {
+				   HG_LOG_SUCCESS( "Timer Start!!!!" ); return 0;
+			   } );
 
 auto bcMain = static_cast< BoxCollision* >( pImgTestColMain->AddComponent( new BoxCollision( "Collision" ) ) );
 auto rb = static_cast< RigidBody* >( pImgTestColMain->AddComponent( new RigidBody( "RigidBody" ) ) );
@@ -101,7 +105,7 @@ auto rb2 = static_cast< RigidBody* >( pImgTestCol2->AddComponent( new RigidBody(
 HGSize<un32> s;
 s.W = 48;
 s.H = 48;
-auto an = static_cast<Animator2D*>(pImgTestColMain->AddComponent(new Animator2D("Animator", s, 3, 4, 1, 0.4f, true)));
+auto an = static_cast< Animator2D* >( pImgTestColMain->AddComponent( new Animator2D( "Animator", s, 3, 4, 1, 0.4f, true ) ) );
 
 
 CheckMarshal( an );
@@ -126,7 +130,7 @@ dfMain->tRect.H = 300;
 
 
 rapidjson::StringBuffer strBuf;
-rapidjson::Writer<rapidjson::StringBuffer> writer(strBuf);
+rapidjson::Writer<rapidjson::StringBuffer> writer( strBuf );
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -139,9 +143,8 @@ cout << data << endl;
 
 rapidjson::Document doc;
 doc.Parse( data.c_str() );
-if (doc.HasParseError())
-{
-	printf("parseÊ§°Ü:%d\n", doc.GetParseError());
+if( doc.HasParseError() ) {
+	printf( "parseÊ§°Ü:%d\n", doc.GetParseError() );
 }
 Transform ttt;
 HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
@@ -149,10 +152,10 @@ HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
 ////////////////////////////////////////////////////////////////////////////
 
 vector<string> a = vector<string>();
-a.push_back("123");a.push_back("123");a.push_back("123");a.push_back("123");a.push_back("123");
+a.push_back( "123" ); a.push_back( "123" ); a.push_back( "123" ); a.push_back( "123" ); a.push_back( "123" );
 rapidjson::StringBuffer strBuf2;
 
-rapidjson::Writer<rapidjson::StringBuffer> writer2(strBuf2);
+rapidjson::Writer<rapidjson::StringBuffer> writer2( strBuf2 );
 writer2.StartObject();
 HG::Serialization::Marshal( a, "123", writer2 );
 writer2.EndObject();
@@ -195,6 +198,9 @@ auto pg = GameObjectFactory::CreateByJson<GameObject>( j, false, "test_json_main
 HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
 	auto df = _this->GetComponent<Transform>();
+	auto eff = _this->GetComponent<Effect>();
+	eff->Play( HG_ENGINE_TIMEDELTA, Effect::Fading::HG_EFFECT_FADING_OUT );
+
 	switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 	case SDL_KEYDOWN:
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
@@ -219,12 +225,11 @@ HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	return 0;
 };
 
-
 HG_EVENT_BIND( pImgTestColMain, OnRender ) {
 	static f32 r = 300.f;
 	r = r <= 0 ? 300.f : --r;
 	RdCircle<f32> cccc;
-	HG_ENGINE_RENDERER2D->SetDrawColor( 0,0,0,255 );
+	HG_ENGINE_RENDERER2D->SetDrawColor( 0, 0, 0, 255 );
 	cccc.Radius = r;
 	cccc.tCenter.X = 400;
 	cccc.tCenter.Y = 100;
@@ -288,7 +293,7 @@ HG_EVENT_BIND( pImgTestColMain, OnFixedUpdate ) {
 	switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 	case SDL_KEYDOWN:
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_SPACE ) {
-		if ( rb->Velocity.Y <= 10 ) {
+		if( rb->Velocity.Y <= 10 ) {
 			rb->MovePosition( rb->Velocity.X, -200 );
 		}
 	}
@@ -310,12 +315,11 @@ HG_EVENT_BIND( pImgTestColMain, OnFixedUpdate ) {
 	break;
 
 	}
-	if ( HG::Math::Abs( rb->Velocity.X ) <= 5  )
-	{
+	if( HG::Math::Abs( rb->Velocity.X ) <= 5 ) {
 		an->IsIdle = true;
 	}
-	if (an != nullptr) {
-		an->Play(HG_ENGINE_TIMEDELTA);
+	if( an != nullptr ) {
+		an->Play( HG_ENGINE_TIMEDELTA );
 	}
 	return 0;
 };
@@ -338,13 +342,13 @@ static int coll = 0;
 HG_EVENT_BIND( pImgTestColMain, OnCollisionStay ) {
 	auto t = HG_ENGINE_FIND_GAMEOBJECT( "test_texts" )->GetComponent<Label>();
 	coll++;
-	t->Text = "OnCollisionStay | " + std::to_string(coll);
+	t->Text = "OnCollisionStay | " + std::to_string( coll );
 	return 0;
 };
 HG_EVENT_BIND( pImgTestColMain, OnCollisionExit ) {
-	coll= 0;
+	coll = 0;
 	auto t = ( HG_ENGINE_FIND_GAMEOBJECT( "test_texts" )->GetComponent<Label>() );
-	t->Text = "OnCollisionExit | " + std::to_string(coll);
+	t->Text = "OnCollisionExit | " + std::to_string( coll );
 	return 0;
 };
 

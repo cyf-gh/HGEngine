@@ -1,9 +1,3 @@
-#include "Scene.h"
-#include "Scene.h"
-//
-// Created by cyf-m on 2020/11/28.
-//
-
 #include <Log.h>
 #include "Scene.h"
 #include "Animation.h"
@@ -39,6 +33,12 @@ GUI* HGEngine::V1SDL::Scene::TryCreateGUI( const std::string& name, bool isVisia
 
 GUI* HGEngine::V1SDL::Scene::GetGUI( const std::string& name ) {
 	return m_umGUIs[name];
+}
+
+void HGEngine::V1SDL::Scene::SetMainCamera( Camera* pCamera ) {
+	umGameObjectsByName[pCamera->GetName()] = pCamera;
+	m_pMainCamera = pCamera;
+	m_vecLayers[HG_LAYER_INDEX::HG_LAYER_CAMERA]->AttachGameObject( pCamera );
 }
 
 void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
@@ -100,10 +100,13 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 
 void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {
 	for( auto& it : umGameObjectsByName ) {
-		if( it.second->IsEnable() ) {
+		if( it.second->IsEnable() && it.second != m_pMainCamera ) {
 			HG_EVENT_CALL( OnUpdate, &HGMainLoop::tEvent, it.second );
 			it.second->Render( pRenderer );
 			HG_EVENT_CALL( OnPostRender, pRenderer, it.second );
 		}
 	}
+	HG_EVENT_CALL( OnUpdate, &HGMainLoop::tEvent, m_pMainCamera );
+	m_pMainCamera->Render( pRenderer );
+	HG_EVENT_CALL( OnPostRender, pRenderer, m_pMainCamera );
 }

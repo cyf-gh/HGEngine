@@ -8,6 +8,7 @@ namespace HGEngine { namespace V1SDL { class GameObject; } }
 namespace HGEngine {
 namespace V1SDL {
 class Renderer2D;
+class Texture;
 }}
 
 namespace HG {
@@ -17,6 +18,7 @@ enum HGRenderableComponentSeq : int {
 	SPRITE,
 	GEOMETRY,
 	LABEL,
+	EFFECT,
 	HGRENDERABLECOMPONENTSEQ_LENTH
 };
 /// \brief 
@@ -42,7 +44,7 @@ public:
 	/// @brief 返回渲染目标
 	/// @note 仅在 IsRenderable() == true 时返回句柄
 	/// @return 渲染句柄
-	virtual void* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) { return nullptr; }
+	virtual HGEngine::V1SDL::Texture* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) { return nullptr; }
 	/// @brief 返回该组件是否能被渲染
 	/// @return 是否能被渲染
 	virtual bool IsRenderable() { return false; }

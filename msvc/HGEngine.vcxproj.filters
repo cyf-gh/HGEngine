@@ -79,6 +79,9 @@
     <ClInclude Include="..\src\engineImpl\GUI.hpp">
       <Filter>GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\engineImpl\Effect.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

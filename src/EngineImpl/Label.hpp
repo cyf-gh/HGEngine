@@ -6,6 +6,7 @@
 #include "EngineImpl.h"
 #include "Renderer2D.h"
 #include "Asset.h"
+#include "Texture.h"
 
 namespace HGEngine {
 namespace V1SDL {
@@ -16,7 +17,7 @@ class Label : public HG::HGComponent {
 private:
 	SDL_Surface* m_pSf;
 	SDL_Texture* m_pTx;
-
+	Texture m_tT;
 	Font* m_pFont;
 
 public:
@@ -26,9 +27,10 @@ public:
 public:
 	HG::Math::HGRect* GetLocalRectOffset() override { return &m_tRect; }
 	HG_COMPONENT_RENDERABLE
-	void* GetRenderTarget( Renderer2D* pRd ) override {
+	Texture* GetRenderTarget( Renderer2D* pRd ) override {
 		RenderText2Texture( pRd );
-		return m_pTx; 
+		m_tT.SetHandle( m_pTx );
+		return &m_tT; 
 	}
 	std::string Text;
 	SDL_Color tColor;
@@ -43,7 +45,12 @@ public:
 		SetFont( pT );
 	}
 	SDL_Texture* GetTexture() const { return m_pTx; }
-	
+	/// @brief 输出原始字体大小
+	void SetFontSize2Rect() {
+		if( m_pTx != nullptr ) {
+			m_tRect.SetSize( m_tT.GetSize() );
+		}
+	}
 	/// @brief 
 	/// @param pRenderer 
 	/// @return 当渲染成功时返回true
@@ -69,14 +76,14 @@ public:
 		}
 		return false;
 	}
-	explicit Label( const char* strName, const char* str,  Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ), m_tRect() {
+	explicit Label( const char* strName, const char* str,  Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ), m_tRect(), m_tT( strName, m_pTx ) {
 		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
 	}
-	explicit Label( const char* strName, const char* str, const char* strFontName ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), Text( str ), m_tRect() {
+	explicit Label( const char* strName, const char* str, const char* strFontName ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), Text( str ), m_tRect(), m_tT( strName, m_pTx ) {
 		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
 		SetFont( strFontName );
 	}
-	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), m_tRect() { };
+	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), m_tRect(), m_tT( "", m_pTx ) { };
 	virtual ~Label() {
 		if( m_pTx != nullptr ) {
 			SDL_DestroyTexture( m_pTx );

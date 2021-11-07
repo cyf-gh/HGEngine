@@ -29,7 +29,7 @@ public:
 	GUI* TryCreateGUI( const std::string& name, bool isVisiable = false );
 	GUI* GetGUI( const std::string& name );
 	Camera *GetMainCamera() const { return m_pMainCamera; }
-	void SetMainCamera( Camera * pCamera ) { m_pMainCamera = pCamera; }
+	void SetMainCamera( Camera * pCamera );
 	/// \brief 将一个GameObject加入场景<br>attach a new game object to scene
 	/// \note 
 	/// * 同名GameObject并不会覆盖原有的GameObject <br>game object which has a duplicated name will not recover the old one

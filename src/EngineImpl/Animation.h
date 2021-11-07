@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Math.hpp>
 #include <vector>
 #include "../Engine/HGComponent.h"
@@ -47,7 +48,7 @@ public:
 		const un32 idleIndex,
 		const float f32Interval,
 		const bool isIdle = true );
-	void Play( const f32 f32DeltaTime, const char cMode = HG_ANIMATOR_PLAYMODE_REWIND);
+	void Play( const f32 f32DeltaTime, const char cMode = HG_ANIMATOR_PLAYMODE_REWIND );
 	void ForceSetFrame();
 
 	~Animator2D();

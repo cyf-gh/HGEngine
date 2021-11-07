@@ -12,6 +12,7 @@ HGEngine - an Unity like 2D game engine
 - [x] Label
 - [x] Spirte
 - [ ] Geometry
+- [ ] Effect
 
 ### UI
 

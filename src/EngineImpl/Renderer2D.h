@@ -23,12 +23,16 @@ public:
 	void SetDrawColor( Uint8 r, Uint8 g, Uint8 b, Uint8 a );
 	void SetDrawColor( const DrawableGeo* pdg );
 	void SetDrawColor( const HG::Math::HGColor& tc );
+	void SetDrawBlendMode( const SDL_BlendMode eBm = SDL_BLENDMODE_BLEND );
 	int DrawLine( int x, int y, int xx, int yy );
 	Renderer2D(
 		SDL_Window* pWindow,
 		int index = -1,
-		Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC )
-		: Renderer( pWindow, index, flags ) { };
+		Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC,
+		const SDL_BlendMode eBm = SDL_BLENDMODE_BLEND )
+		: Renderer( pWindow, index, flags ) { 
+		SetDrawBlendMode( eBm );
+	};
 };
 }
 }

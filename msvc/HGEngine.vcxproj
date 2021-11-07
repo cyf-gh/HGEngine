@@ -182,6 +182,7 @@
     <ClInclude Include="..\src\EngineImpl\Asset.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\Collision.h" />
+    <ClInclude Include="..\src\engineImpl\Effect.hpp" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
     <ClInclude Include="..\src\EngineImpl\EngineObjectSerilization.hpp" />
     <ClInclude Include="..\src\EngineImpl\Font.hpp" />

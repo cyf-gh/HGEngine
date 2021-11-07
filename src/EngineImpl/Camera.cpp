@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "EngineImpl.h"
 #include "../Engine/HGBehaviour.h"
+#include "Effect.hpp"
 #include "Transform.hpp"
 
 using namespace HGEngine::V1SDL;
@@ -15,6 +16,10 @@ void HGEngine::V1SDL::Camera::Update( void* pEvent ) {
 
 void HGEngine::V1SDL::Camera::Render( void* pRenderer ) {
 	HG_EVENT_CALL( OnRender, pRenderer, this );
+	auto* pe = GetComponent<Effect>();
+	if( pe != nullptr ) {
+		pe->GetRenderTarget( HG_ENGINE_RENDERER2D );
+	}
 }
 
 void Camera::SetCameraSizeToRendererSize() {

@@ -311,6 +311,10 @@ struct HGRect {
 
 	HGRect( n32 x, n32 y, un32 h, un32 w ) : X( x ), Y( y ), H( h ), W( w ) { };
 	HGRect() : HGRect( 0, 0, 0, 0 ) { }
+	template<typename _dT>
+	HGRect& SetSize( const HGSize<_dT>& size ) {
+		H = size.H; W = size.W;
+	}
 	HGRect& Set( n32 x, n32 y, un32 h, un32 w ) {
 		X = x; Y = y; H = h; W = w;
 		return *this;

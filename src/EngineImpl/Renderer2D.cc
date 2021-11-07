@@ -38,18 +38,7 @@ SDL_Texture* Renderer2D::CreateTextureFromFile( const char* pStrFileName ) {
 }
 
 void Renderer2D::Copy( const GameObject* pGameObject, const SDL_Rect* pSrcRect, const SDL_Rect* pDstRect ) {
-	if( !pGameObject ) {
-		return;
-	}
-	auto vecRC = pGameObject->GetRenderableComponentsSorted();
-	for( auto& rc : vecRC ) {
-		if( rc != nullptr ) {
-			auto* pRt = rc->GetRenderTarget( this );
-			if( pRt != nullptr ) {
-				SDL_RenderCopy( pHandle, static_cast< SDL_Texture* >( pRt ), pSrcRect, pDstRect );
-			}
-		}
-	}
+	CopyEx( pGameObject, pSrcRect, pDstRect, 0, nullptr, SDL_FLIP_NONE );
 }
 
 void HGEngine::V1SDL::Renderer2D::CopyEx( const GameObject* pGameObject, const SDL_Rect* pSrcRect, const SDL_Rect* pDstRect, const double f64Angle, const SDL_Point* pCenter, const SDL_RendererFlip& tFlip ) {
@@ -63,17 +52,17 @@ void HGEngine::V1SDL::Renderer2D::CopyEx( const GameObject* pGameObject, const S
 			auto* pLR = rc->GetLocalRectOffset();
 			if( pRt != nullptr ) {
 				if( pLR == nullptr ) {
-					SDL_RenderCopyEx( pHandle, static_cast< SDL_Texture* >( pRt ), pSrcRect, pDstRect, f64Angle, pCenter, tFlip );
+					SDL_RenderCopyEx( pHandle, pRt->GetHandle(), pSrcRect, pDstRect, f64Angle, pCenter, tFlip );
 				} else {
 					if( pLR->IsZero() ) {
-						SDL_RenderCopyEx( pHandle, static_cast< SDL_Texture* >( pRt ), pSrcRect, pDstRect, f64Angle, pCenter, tFlip );
+						SDL_RenderCopyEx( pHandle, pRt->GetHandle(), pSrcRect, pDstRect, f64Angle, pCenter, tFlip );
 					} else {
 						SDL_Rect r;
 						r.x = pLR->X + pDstRect->x;
 						r.y = pLR->Y + pDstRect->y;
 						r.w = pLR->W;
 						r.h = pLR->H;
-						SDL_RenderCopyEx( pHandle, static_cast< SDL_Texture* >( pRt ), pSrcRect, &r, f64Angle, pCenter, tFlip );
+						SDL_RenderCopyEx( pHandle, pRt->GetHandle(), pSrcRect, &r, f64Angle, pCenter, tFlip );
 					}
 				}
 			}
@@ -91,6 +80,10 @@ void HGEngine::V1SDL::Renderer2D::SetDrawColor( const DrawableGeo* pdg ) {
 
 void HGEngine::V1SDL::Renderer2D::SetDrawColor( const HG::Math::HGColor& tc ) {
 	SetDrawColor( tc.R, tc.G, tc.B, tc.A );
+}
+
+void HGEngine::V1SDL::Renderer2D::SetDrawBlendMode( const SDL_BlendMode eBm ) {
+	SDL_SetRenderDrawBlendMode( pHandle, eBm );
 }
 
 int HGEngine::V1SDL::Renderer2D::DrawLine( int x, int y, int xx, int yy ) {
