@@ -109,6 +109,9 @@ namespace HG {
             Log2File( sdlCategory, message, "WARNING" );
             Log2Console( sdlCategory, message, "WARNING" );
         }
+        void Debug( const int sdlCategory, const char* message ) {
+            Log2Console( sdlCategory, message, "DEBUG" );
+        }
         void FlushLogFile() { tOfs.flush(); }
     private:
         std::ofstream tOfs;
@@ -161,6 +164,13 @@ HG::Log->Warning( 3, std::format( FMT, ARGS ).c_str() )
 
 #define HG_LOG_SUCCESS( info ) \
 HG::Log->Success( 3, info )
+
+#ifdef HG_RELEASE
+#   define HG_LOG_DEBUGF( FMT, ARGS )
+#else
+#   define HG_LOG_DEBUGF( FMT, ARGS ) \
+HG::Log->Debug( 3, std::format( FMT, ARGS ).c_str() )
+#endif
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_SUCCESS( info ) \

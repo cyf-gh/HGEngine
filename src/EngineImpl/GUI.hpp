@@ -12,6 +12,7 @@
 #include "EngineImpl.h"
 #include "Geometry.hpp"
 #include "GUI/GUIContent.hpp"
+#include "GUI/GUILayout.hpp"
 
 namespace HGEngine {
 namespace V1SDL {
@@ -44,7 +45,7 @@ protected:
 	}
 	
 	HG_INLINE bool ProcGUI( const char* strText, const HG::Math::HGRect& tRect, HG::pEvent OnLeave, HG::pEvent OnClick, HG::pEvent OnContentUpdate, HG::pEvent OnHover ) {
-		bool isClick = false;
+		bool m_isClick = false;
 		bool islfDown = HG_ENGINE_INPUT()->IsLeftMousePressed();
 		auto &ui = m_vecGUIs[m_unUIIndex];
 
@@ -63,8 +64,8 @@ protected:
 			ptr->SetGlobalRect( tRect );
 			plb->Text = strText;
 		}
-		isClick = isMouseIn && islfDown;
-		if( isClick ) {
+		m_isClick = isMouseIn && islfDown;
+		if( m_isClick ) {
 			if( m_unCurrentHoverGUIUID != m_vecGUIs[m_unUIIndex]->UID ) {
 				// OnClick
 				m_unCurrentHoverGUIUID = m_vecGUIs[m_unUIIndex]->UID;
@@ -72,10 +73,10 @@ protected:
 			} else {
 				// OnHover
 				HG_EVENT_CALLRAW_NO_DATA( OnHover, ui );
-				isClick = false;
+				m_isClick = false;
 			}
 		}
-		return isClick;
+		return m_isClick;
 	}
 
 public:
@@ -85,7 +86,7 @@ public:
 	bool IsVisiable;
 	HG::pEvent OnGUI;
 
-	bool Button( const char* strText, const HG::Math::HGRect& tRect, bool isFixed = true ) {
+	bool Button( const char* strText, const HG::Math::HGRect& tRect, bool isFixed = true, UI::UILayout* pLayout = nullptr ) {
 		TryCreateGUI<UI::ButtonContent>( "btn", strText, tRect, isFixed );
 		auto isclick = ProcGUI( strText, tRect, nullptr, nullptr ,nullptr, nullptr );
 		++m_unUIIndex;

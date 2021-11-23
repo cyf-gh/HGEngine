@@ -190,6 +190,7 @@
     <ClInclude Include="..\src\engineImpl\Geometry.hpp" />
     <ClInclude Include="..\src\engineImpl\GUI.hpp" />
     <ClInclude Include="..\src\engineImpl\GUI\GUIContent.hpp" />
+    <ClInclude Include="..\src\engineImpl\GUI\GUILayout.hpp" />
     <ClInclude Include="..\src\EngineImpl\Init.h" />
     <ClInclude Include="..\src\engineImpl\Label.hpp" />
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
@@ -203,10 +204,12 @@
     <ClInclude Include="..\src\EngineImpl\Thread.h" />
     <ClInclude Include="..\src\EngineImpl\Timer.hpp" />
     <ClInclude Include="..\src\EngineImpl\Transform.hpp" />
+    <ClInclude Include="..\src\engineImpl\EventTrigger.hpp" />
     <ClInclude Include="..\src\EngineImpl\Window.h" />
     <ClInclude Include="..\src\Engine\HG.h" />
     <ClInclude Include="..\src\Engine\HGBehaviour.h" />
     <ClInclude Include="..\src\Engine\HGComponent.h" />
+    <ClInclude Include="..\src\engine\HGEngine.hpp" />
     <ClInclude Include="..\src\engine\HGEvent.hpp" />
     <ClInclude Include="..\src\engine\HGInput.hpp" />
     <ClInclude Include="..\src\Engine\HGObject.h" />

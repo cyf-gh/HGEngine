@@ -5,6 +5,7 @@
 #include "EngineImpl.h"
 #include "Timer.hpp"
 #include "GUI.hpp"
+#include "EventTrigger.hpp"
 
 using namespace HGEngine::V1SDL;
 using namespace HGEngine;
@@ -84,6 +85,10 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 			for( auto& t : timers ) {
 				t->TikTok( HG_ENGINE_TIMEDELTA );
 			}
+			auto* et = it.second->GetComponent<EventTrigger>();
+			if( et != nullptr ) {
+				et->ProcEvents();
+			}
 		}
 	}
 	for( auto& it : m_vecLayers ) {
@@ -110,3 +115,4 @@ void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {
 	m_pMainCamera->Render( pRenderer );
 	HG_EVENT_CALL( OnPostRender, pRenderer, m_pMainCamera );
 }
+

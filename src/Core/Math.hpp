@@ -406,7 +406,9 @@ struct HGRect {
 	HG_INLINE double GetDiagonal() {
 		return 1 / inv_sqrt( f32( H * H + W * W ) );
 	}
-
+	HG_INLINE bool IsEqual( const HGRect& r ) {
+		return r.X == X && r.Y == Y && r.W == W && r.H == H;
+	}
 	template<typename digit_type>
 	HG_INLINE HGCircle<digit_type> GetCircumscribedCircle() {
 		HGCircle<digit_type> c;

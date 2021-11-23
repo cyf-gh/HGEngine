@@ -82,6 +82,13 @@
     <ClInclude Include="..\src\engineImpl\Effect.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\engine\HGEngine.hpp" />
+    <ClInclude Include="..\src\engineImpl\GUI\GUILayout.hpp">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engineImpl\EventTrigger.hpp">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />

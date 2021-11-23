@@ -11,7 +11,7 @@ HG_SCRIPT_INIT
 
 HGMain( int argc, char** argv ) {
 	// scenes -> engine -> game objects
-	auto* pScene = new Scene( "SceneMainGame" );
+	auto* pScene = new Scene( "Default" );
 	auto* tEngine = new EngineImpl( argc, argv );
 	HG_SCRIPT_BINDALL();
 

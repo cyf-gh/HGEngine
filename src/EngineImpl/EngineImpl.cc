@@ -1,3 +1,4 @@
+#include "EngineImpl.h"
 //
 // Created by cyf-m on 2020/11/27.
 //
@@ -115,6 +116,10 @@ void EngineImpl::NavigateScene( const char* strSceneName ) {
 	} else {
 		HG_LOG_FAILED( std::string( "no such scene named:" ).append( strSceneName ).c_str() );
 	}
+}
+
+Scene* HGEngine::V1SDL::EngineImpl::FindScene( const char* strSceneName ) {
+	return Scene::Find( strSceneName );
 }
 
 

@@ -1,23 +1,4 @@
-#include <string>
-#include <filesystem>
-#include <rapidjson/writer.h>
-#include <rapidjson/prettywriter.h>
-#include <Math.hpp>
-#include <core/Test.hpp>
-#include <engine/HGEvent.hpp>
-#include <engineImpl/EngineImpl.h>
-#include <engineImpl/Scene.h>
-#include <engineImpl/Collision.h>
-#include <engineImpl/RigidBody.h>
-#include <engineImpl/Animation.h>
-#include <engineImpl/EngineObjectSerilization.hpp>
-#include <engineImpl/Asset.h>
-#include <engineImpl/Timer.hpp>
-#include <engineImpl/Label.hpp>
-#include <engineImpl/Spirte.hpp>
-#include <engineImpl/GUI.hpp>
-#include <engineImpl/Geometry.hpp>
-#include <engineImpl\Effect.hpp>
+#include <engine/HGEngine.hpp>
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
@@ -79,7 +60,9 @@ auto ptest = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>( "tes
 
 GameObject* pImgTest = new GameObject( "test_full_screen" );
 GameObject* pImgTestColMain = new GameObject( "test_main" );
+pImgTestColMain->AddComponent( new EventTrigger() );
 GameObject* pImgTestCol2 = new GameObject( "test_main_2" );
+pImgTestCol2->AddComponent( new EventTrigger() );
 
 auto ppps = new Spirte( "Sprite", "test" );
 

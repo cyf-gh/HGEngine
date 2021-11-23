@@ -3,6 +3,8 @@
 /// \details recover from https://github.com/cyf-gh/stLib/blob/fdc497dfaeac5de1c2aabf872478b6147e2ac936/src/core/Def.h
 #pragma once
 
+#include <string>
+
 #define HG_SAFE_DEL( P ) if ( P != nullptr ) { delete P; P = nullptr; }
 #define HG_SAFE_DEL_ARR( ARRAY ) if ( ARRAY != nullptr ) { delete []ARRAY; ARRAY = nullptr; }
 
@@ -29,6 +31,8 @@ namespace Memory {
 }
 }
 
+#define HG_EMPTY_STRING ""
+#define HG_EMPTY_STRINGW _T("")
 
 /// \brief ban not sure binary copy.\
 /// \note 
