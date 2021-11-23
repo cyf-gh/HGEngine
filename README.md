@@ -13,6 +13,7 @@ HGEngine - an Unity like 2D game engine
 - [x] Spirte
 - [ ] Geometry
 - [ ] Effect
+- [x] EventTrigger
 
 ### UI
 
@@ -22,6 +23,7 @@ HGEngine - an Unity like 2D game engine
 - [ ] Input
 - [ ] Slider
 - [ ] Listbox
+- [ ] Layout
 
 ### Dependencies
 * https://github.com/cyf-gh/sdl2-cmake-scripts
