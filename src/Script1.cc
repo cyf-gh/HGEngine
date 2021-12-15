@@ -183,7 +183,10 @@ HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto df = _this->GetComponent<Transform>();
 	auto eff = _this->GetComponent<Effect>();
 	eff->Play( HG_ENGINE_TIMEDELTA, Effect::Fading::HG_EFFECT_FADING_OUT );
-
+	auto res = HG_ENGINE_INPUT()->GetDirect();
+	if( res != HG::HGInput::Direct::STAY ) {
+		HG_LOG_INFO( std::format( "{}", (int)res ).c_str() );
+	}
 	switch( HG_EVENT_ONUPDATE_EVENT->type ) {
 	case SDL_KEYDOWN:
 	HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {

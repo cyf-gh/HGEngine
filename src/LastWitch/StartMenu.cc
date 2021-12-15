@@ -12,4 +12,4 @@ canvas->OnGUI = HG_EVENT_IMPL {
 	return 0;
 };
 
-HG_SCRIPT_END_DISABLE
+HG_SCRIPT_END

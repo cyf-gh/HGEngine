@@ -31,7 +31,8 @@ public:
 	HG::pEvent PointerEnter;
 	HG::pEvent PointerUp;
 	HG::pEvent PointerDown;
-	/// @brief 每次鼠标移动时触发
+	/// @brief 
+	/// 每次鼠标移动时触发
 	HG::pEvent Drag;
 	HG::pEvent Drop;
 	HG::pEvent BeginDrag;
