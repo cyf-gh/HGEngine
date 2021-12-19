@@ -360,4 +360,4 @@ pText->Enable();
 pText2->Enable();
 
 
-HG_SCRIPT_END
+HG_SCRIPT_END_DISABLE

@@ -98,10 +98,12 @@ public:
 }
 
 }
+#define HG_ENGINE() EngineImpl::GetEngine()
 #define HG_ENGINE_TIMEDELTA EngineImpl::GetEngine()->GetFixedUpdateTimeDelta()
 #define HG_ENGINE_FIND_GAMEOBJECT( NAME ) EngineImpl::GetEngine()->GetCurrentScene()->FindGameObject(NAME)
 #define HG_ENGINE_RENDERER2D EngineImpl::GetEngine()->GetRenderer2D()
 #define HG_ENGINE_INPUT() EngineImpl::GetEngine()->GetInput()
 #define HG_ENGINE_CURRENT_SCENE() EngineImpl::GetEngine()->GetCurrentScene()
+#define HG_ENGINE_ASSET() EngineImpl::GetEngine()->GetAssetManager()
 
 #endif //HONEYGAME_ENGINEIMPL_H

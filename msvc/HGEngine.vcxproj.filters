@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\EngineImpl\RigidBody.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\engineImpl\HGEvent.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Screen.h" />

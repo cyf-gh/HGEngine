@@ -1,4 +1,5 @@
 #include <Log.h>
+#include "../engine/HGEngine.hpp"		
 #include "Scene.h"
 #include "Animation.h"
 #include "GameObject.h"
@@ -13,7 +14,8 @@ using namespace HG;
 using namespace std;
 
 Scene::Scene( const char* strName )
-	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ) {
+	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ), umGameObjectsByName() {
+	umGameObjectsByName = std::unordered_map<std::string, GameObject*>();
 	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
 		m_vecLayers.push_back( new Layer( ( string( "Layer" ) + to_string( i ) ).c_str(), i ) );
 	}
@@ -33,12 +35,13 @@ GUI* HGEngine::V1SDL::Scene::TryCreateGUI( const std::string& name, bool isVisia
 }
 
 GUI* HGEngine::V1SDL::Scene::GetGUI( const std::string& name ) {
-	return m_umGUIs[name];
+	return m_umGUIs[HG_HGXGSSNT(name.c_str())];
 }
 
 void HGEngine::V1SDL::Scene::SetMainCamera( Camera* pCamera ) {
 	umGameObjectsByName[pCamera->GetName()] = pCamera;
 	m_pMainCamera = pCamera;
+	m_pMainCamera->SetScene( this );
 	m_vecLayers[HG_LAYER_INDEX::HG_LAYER_CAMERA]->AttachGameObject( pCamera );
 }
 
@@ -64,7 +67,7 @@ void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
 }
 
 GameObject* Scene::FindGameObject( const char* strName ) {
-	return umGameObjectsByName.count( strName ) == 0 ? nullptr : umGameObjectsByName[strName];
+	return umGameObjectsByName.count( HG_HGXGSSNT( strName ) ) == 0 ? nullptr : umGameObjectsByName[HG_HGXGSSNT( strName )];
 }
 
 void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
@@ -111,8 +114,10 @@ void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {
 			HG_EVENT_CALL( OnPostRender, pRenderer, it.second );
 		}
 	}
-	HG_EVENT_CALL( OnUpdate, &HGMainLoop::tEvent, m_pMainCamera );
-	m_pMainCamera->Render( pRenderer );
-	HG_EVENT_CALL( OnPostRender, pRenderer, m_pMainCamera );
+	if( m_pMainCamera != nullptr ) {
+		HG_EVENT_CALL( OnUpdate, &HGMainLoop::tEvent, m_pMainCamera );
+		m_pMainCamera->Render( pRenderer );
+		HG_EVENT_CALL( OnPostRender, pRenderer, m_pMainCamera );
+	}
 }
 

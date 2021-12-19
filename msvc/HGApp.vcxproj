@@ -148,6 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\LastWitch\AAA.cc" />
+    <ClCompile Include="..\src\LastWitch\Init.cc" />
     <ClCompile Include="..\src\LastWitch\StartMenu.cc" />
     <ClCompile Include="..\src\Main.cc" />
     <ClCompile Include="..\src\Script1.cc" />

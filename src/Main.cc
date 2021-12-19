@@ -4,10 +4,11 @@
 #include <engineImpl/Scene.h>
 using namespace std;
 using namespace HGEngine::V1SDL;
+//
+//#pragma data_seg(".CRT$XIU")
+//
 
 #undef main
-
-HG_SCRIPT_INIT
 
 HGMain( int argc, char** argv ) {
 	// scenes -> engine -> game objects

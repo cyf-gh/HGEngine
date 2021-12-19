@@ -165,6 +165,7 @@
     <ClCompile Include="..\src\EngineImpl\Collision.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
+    <ClCompile Include="..\src\engineImpl\HGEvent.cc" />
     <ClCompile Include="..\src\EngineImpl\Init.cc" />
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
     <ClCompile Include="..\src\EngineImpl\Loop.cc" />

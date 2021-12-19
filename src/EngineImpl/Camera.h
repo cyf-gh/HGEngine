@@ -9,7 +9,7 @@
 
 namespace HGEngine {
 namespace V1SDL {
-
+class Effect;
 class Camera : public GameObject {
 public:
 	GameObject* pTarget;
@@ -20,6 +20,7 @@ public:
 	void Update( void* pEvent ) override;
 	void Render( void* pRenderer ) override;
 	GameObject* Clone() override { return new Camera( *this ); };
+	Effect *GetEffect() const;
 	/// \brief 将摄像机大小设置为Renderer输出的同样大小 <br>set view size of camera the same size as renderer output size
 	void SetCameraSizeToRendererSize();
 	virtual ~Camera() { }

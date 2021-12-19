@@ -27,5 +27,11 @@
     <ClCompile Include="..\src\LastWitch\StartMenu.cc">
       <Filter>源文件\LastWitch</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\LastWitch\Init.cc">
+      <Filter>源文件\LastWitch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LastWitch\AAA.cc">
+      <Filter>源文件\LastWitch</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

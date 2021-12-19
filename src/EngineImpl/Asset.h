@@ -9,8 +9,12 @@ class Font;
 class Texture;
 
 class Asset final {
-
+private: 
+	std::string m_strHomeDir;
 public:
+	void SetHomeDirectory( const char *strHomeDir ) {
+		m_strHomeDir = strHomeDir;
+	}
 	/// @brief 创建字体资源
 	/// @param strFontName 定义名
 	/// @param strFontFilePath 字体文件路径

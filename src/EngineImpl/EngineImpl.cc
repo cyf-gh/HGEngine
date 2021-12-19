@@ -61,8 +61,12 @@ EngineImpl::EngineImpl( int argc, char** argv )
 	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ), pInput( new HGInput ) {
 	SetEngine( this );
 
-	Init init;
-	init.App()->SDL();
+	Log->LogEnter2File();
+	if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ) {
+		Log->FailedSDL( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+	} else {
+		Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+	}
 	InitSDLImage();
 	InitSDLTtf();
 
