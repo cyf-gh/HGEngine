@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HGEngineUtil.App", "HGEngineUtil.App\HGEngineUtil.App.csproj", "{737052BE-485D-4C49-BCD1-CCED3BC6163F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{737052BE-485D-4C49-BCD1-CCED3BC6163F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{737052BE-485D-4C49-BCD1-CCED3BC6163F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{737052BE-485D-4C49-BCD1-CCED3BC6163F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{737052BE-485D-4C49-BCD1-CCED3BC6163F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {843A0075-B745-4048-9201-7C0F020C4287}
+	EndGlobalSection
+EndGlobal

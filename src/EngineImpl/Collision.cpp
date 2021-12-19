@@ -60,8 +60,6 @@ bool HGEngine::V1SDL::BoxCollision::DoCheck( GameObject* pObj ) {
 	return collided;
 }
 
-
-
 void HGEngine::V1SDL::BoxCollision::SetCollisionBoundingByTransform() {
 	auto pC = m_pGameObject->GetComponent<Transform>();
 	this->Rect = HG::Math::HGRect ( 

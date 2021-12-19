@@ -10,22 +10,23 @@ void HGEngine::V1SDL::RigidBody::Proc( f32 deltaTime ) {
 	m_pGameObject->GetComponent<Transform>()->tPosition.Y += Velocity.Y * deltaTime;
 
 	auto nextVX = Velocity.X > 0 ? Velocity.X - LinearDrag * deltaTime : Velocity.X + LinearDrag * deltaTime;
-	// auto nextVY = Velocity.Y > 0 ? Velocity.Y - LinearDrag * deltaTime : Velocity.Y + LinearDrag * deltaTime;
 
 	if( Velocity.X > 0 ) {
 		Velocity.X = nextVX <= 0 ? 0 : nextVX;
 	} else {
 		Velocity.X = nextVX >= 0 ? 0 : nextVX;
 	}
-	/*
-	if( Velocity.Y > 0 ) {
-	 	Velocity.Y = nextVY <= 0 ? 0 : nextVY;
-	} 
-	else {
-		Velocity.Y = nextVY >= 0 ? 0 : nextVY;
+	if( Mode == Modes::Plain2D ) {
+		auto nextVY = Velocity.Y > 0 ? Velocity.Y - LinearDrag * deltaTime : Velocity.Y + LinearDrag * deltaTime;
+		if( Velocity.Y > 0 ) {
+	 		Velocity.Y = nextVY <= 0 ? 0 : nextVY;
+		} 
+		else {
+			Velocity.Y = nextVY >= 0 ? 0 : nextVY;
+		}
+	} else {
+		Velocity.Y += GravityDrag * deltaTime;
 	}
-	*/
-	Velocity.Y += GravityDrag * deltaTime;
 }
 
 void HGEngine::V1SDL::RigidBody::MovePosition( HG::Math::HGVec2<f32> vec2d ) {

@@ -11,6 +11,11 @@ namespace V1SDL {
 /// * 在添加 RigidBody 后，移动物体不应该直接操作 RigidBody
 class RigidBody : public HG::HGComponent {
 public:
+	enum Modes : char {
+		Horizon2D = 0,
+		Plain2D = 1
+	};
+	char Mode;
 	f32 Mass;
 	f32 LinearDrag;
 	f32 AngularDrag;
@@ -21,7 +26,7 @@ public:
 	void MovePosition( HG::Math::HGVec2<f32> vec2d );
 	void MovePosition( const f32 x, const f32 y );
 
-	RigidBody( const char* strName ) : HGComponent( strName ), IsFrozen( false ) {
+	RigidBody( const char* strName ) : HGComponent( strName ), IsFrozen( false ), Mode( Modes::Plain2D ) {
 
 	}
 	RigidBody() :HGComponent() {}
