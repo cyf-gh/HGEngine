@@ -10,6 +10,4 @@ canvas->OnGUI = HG_EVENT_IMPL {
 	return 0;
 };
 
-EngineImpl::GetEngine()->NavigateScene( "StartMenu" );
-
 HG_SCRIPT_END

@@ -13,6 +13,10 @@ public:
 	std::vector<GameObject*> m_vecObjs;
 };
 
+class SingleUILayout : public UILayout {
+
+};
+
 class VerticalUILayout : public UILayout {
 
 };

@@ -104,6 +104,7 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 			HG_EVENT_CALLRAW_NO_DATA( g->OnGUI, g );
 		}
 	}
+	if( m_pMainCamera != nullptr ) { m_pMainCamera->Update( pEvent ); }
 }
 
 void HGEngine::V1SDL::Scene::Render( void* pRenderer ) {

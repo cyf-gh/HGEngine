@@ -4,7 +4,9 @@ HG_SCRIPT_START( SCRIPT_WORLD )
 
 auto* s = HGX::GetSceneWithGUI( "World" );
 auto* canvas = s->GetGUI( "Canvas" );
+EngineImpl::GetEngine()->NavigateScene( "World" );
 
+auto* pCamera = s->GetMainCamera();
 auto df3 = s->GetMainCamera()->GetComponent<Transform>();
 df3->tPosition.X = 0;
 df3->tPosition.Y = 0;
@@ -14,51 +16,53 @@ canvas->OnGUI = HG_EVENT_IMPL {
 	return 0;
 };
 
+// Ground
+GameObject* go_Ground = new GameObject( "World_Ground" ); go_Ground->Enable();
+auto c_Bg_Sp = new Spirte( "Sprite", "Bg" );
+go_Ground->AddComponent( c_Bg_Sp );
+auto c_Bg_Tr = go_Ground->GetComponent<Transform>();
+c_Bg_Tr->tPosition.X = -200;
+c_Bg_Tr->tPosition.Y = -200;
+c_Bg_Tr->tRect.W = 1200;
+c_Bg_Tr->tRect.H = 1200;
+
+// Main Character
 GameObject* go_MainChar = new GameObject( "World_MainChar" ); go_MainChar->Enable();
 auto c_Chars_Sp = new Spirte( "Sprite", "Chars" );
 go_MainChar->AddComponent( c_Chars_Sp );
-
-auto dfMain = go_MainChar->GetComponent<Transform>();
-dfMain->tPosition.X = 200;
-dfMain->tPosition.Y = 400;
-dfMain->tRect.W = 50;
-dfMain->tRect.H = 50;
-
+auto c_MainChar_Tr = go_MainChar->GetComponent<Transform>();
+c_MainChar_Tr->tPosition.X = 200;
+c_MainChar_Tr->tPosition.Y = 400;
+c_MainChar_Tr->tRect.W = 50;
+c_MainChar_Tr->tRect.H = 50;
 auto c_Chars_An = static_cast< Animator2D* >( go_MainChar->AddComponent( new Animator2D( "World_MainChar_Animator", HGSize<un32>( 48, 48 ), 3, 4, 1, 0.4f, true ) ) );
 auto c_Chars_BoxCol = static_cast< BoxCollision* >( go_MainChar->AddComponent( new BoxCollision( "World_MainChar_Collision" ) ) );
 auto c_Chars_Rb = static_cast< RigidBody* >( go_MainChar->AddComponent( new RigidBody( "World_MainChar_RigidBody" ) ) );
 c_Chars_Rb->LinearDrag = 50.f;
 
-HG_EVENT_BIND( s->GetMainCamera(), OnFixedUpdate ) {
+HG_EVENT_BIND( GameObject::Find( "World_MainCamera" ), OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;
-	auto df = _this->GetComponent<Transform>();
+	auto c_Camera_Tr = _this->GetComponent<Transform>();
 	auto eff = _this->GetComponent<Effect>();
+	auto go_MainChar = GameObject::Find( "World_MainChar" );
+	auto c_MainChar_Tr = go_MainChar->GetComponent<Transform>();
+
+	auto go_Bg = GameObject::Find( "World_Ground" );
+	auto c_Bg_Tr = go_Bg->GetComponent<Transform>();
+
+	static HGRect tNewCameraGRect;
+	tNewCameraGRect.X = c_MainChar_Tr->tPosition.X - ( c_Camera_Tr->tRect.W / 2 ) + ( c_MainChar_Tr->tRect.W / 2 );
+	tNewCameraGRect.Y = c_MainChar_Tr->tPosition.Y - ( c_Camera_Tr->tRect.H / 2 ) + ( c_MainChar_Tr->tRect.H / 2 );
+	tNewCameraGRect.H = c_Camera_Tr->tRect.H;
+	tNewCameraGRect.W = c_Camera_Tr->tRect.W;
+
+	if( c_Bg_Tr->ToHGRectGlobal().IsInX( tNewCameraGRect ) ) {
+		c_Camera_Tr->tPosition.X = tNewCameraGRect.X;
+	}
+	if( c_Bg_Tr->ToHGRectGlobal().IsInY( tNewCameraGRect ) ) {
+		c_Camera_Tr->tPosition.Y = tNewCameraGRect.Y;
+	}
 	eff->Play( HG_ENGINE_TIMEDELTA, Effect::Fading::HG_EFFECT_FADING_OUT );
-	auto res = HG_ENGINE_INPUT()->GetDirect();
-	if( res != HG::HGInput::Direct::STAY ) {
-		HG_LOG_INFO( std::format( "{}", ( int ) res ).c_str() );
-	}
-	switch( HG_EVENT_ONUPDATE_EVENT->type ) {
-	case SDL_KEYDOWN:
-	HG_EVENT_ONUPDATE_ISKEY( SDLK_UP ) {
-		df->tPosition.Y -= 200 * HG_ENGINE_TIMEDELTA;
-	}
-	HG_EVENT_ONUPDATE_ISKEY( SDLK_DOWN ) {
-		df->tPosition.Y += 200 * HG_ENGINE_TIMEDELTA;
-	}
-	HG_EVENT_ONUPDATE_ISKEY( SDLK_LEFT ) {
-		df->tPosition.X -= 200 * HG_ENGINE_TIMEDELTA;
-	}
-	HG_EVENT_ONUPDATE_ISKEY( SDLK_RIGHT ) {
-		df->tPosition.X += 200 * HG_ENGINE_TIMEDELTA;
-	}
-	break;
-	case SDL_QUIT:
-	HG_LOG_INFO( "bye!!!" );
-	EngineImpl::GetEngine()->Exit();
-	return 0;
-	break;
-	}
 	return 0;
 };
 

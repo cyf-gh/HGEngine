@@ -372,6 +372,16 @@ struct HGRect {
 
 		return ( r1->Bottom() <= r2->Bottom() && r1->Top() >= r2->Top() && r1->Right() <= r2->Right() && r1->Left() >= r2->Left() );
 	}
+	HG_INLINE bool IsInX( const HGRect& dstRect ) {
+		const HGRect* r1 = &dstRect;
+		const HGRect* r2 = this;
+		return ( r1->X > r2->Left() && r1->X + r1->W < r2->Right() );
+	}
+	HG_INLINE bool IsInY( const HGRect& dstRect ) {
+		const HGRect* r1 = &dstRect;
+		const HGRect* r2 = this;
+		return ( r1->Y > r2->Top() && r1->Y + r1->H < r2->Bottom() );
+	}
 	HG_INLINE bool IsIntersect( const HGRect& dstRect ) {
 		return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||
 				 ( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
