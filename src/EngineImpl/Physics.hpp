@@ -20,9 +20,7 @@ public:
 		vecRbs = std::vector<RigidBodyB2*>();
 	}
 	~HGWorld() {
-		for( RigidBodyB2* rb : vecRbs ) {
-			HG_SAFE_DEL( rb );
-		}
+		vecRbs.clear();
 	}
 	void Step() {
 		if( !Enable ) {

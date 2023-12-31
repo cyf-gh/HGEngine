@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <Math.hpp>
 #include <Memory.h>
+#include "../EngineImpl/EngineImpl.h"
+
 namespace HG {
 
 class HGInput : HG::Memory::NonCopyable {
@@ -51,6 +53,18 @@ public:
 		break;
 		case SDL_KEYUP:
 			m_lKeyCodes.remove( pe->key.keysym.sym );
+		break;
+		case SDL_WINDOWEVENT:
+
+		switch( pe->window.event ) {
+
+		case SDL_WINDOWEVENT_CLOSE:   // exit game
+			HG_ENGINE()->Exit();
+		break;
+
+		default:
+		break;
+		}
 		break;
 		}
 	}
