@@ -19,7 +19,8 @@ HGMain( int argc, char** argv ) {
 
 	auto* pScene = new Scene( "Default" );
 	auto* tEngine = new EngineImpl( argc, argv );
-	// HG_SCRIPT_BINDALL();
+	tEngine->GetEditor()->Hide();
+	HG_SCRIPT_BINDALL();
 
 	tEngine->Render();
 	HG_SAFE_DEL( pScene );

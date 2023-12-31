@@ -29,3 +29,13 @@ void Renderer::Clear(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     SDL_RenderClear( pHandle );
     SDL_SetRenderDrawColor( pHandle, rr, gg, bb, aa );
 }
+
+int HGEngine::V1SDL::Renderer::SetScale( f32 scaleX, f32 scaleY ) { 
+    return SDL_RenderSetScale( pHandle, scaleX, scaleY );
+}
+
+int HGEngine::V1SDL::Renderer::SetViewport( f32 w, f32 h ) {
+    SDL_Rect r;
+    r.x = 0; r.y = 0; r.w = w; r.h = h;
+    return SDL_RenderSetViewport( pHandle, &r );
+}

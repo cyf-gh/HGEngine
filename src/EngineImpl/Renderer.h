@@ -17,10 +17,13 @@ public:
 	SDL_Renderer* pHandle = nullptr;
 	void Present();
 	void Clear( Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 a = 255 );
+	int SetScale( f32 scaleX, f32 scaleY );
+	int SetViewport( f32 w, f32 h );
 	Renderer(
 		SDL_Window* window,
 		int index = -1,
 		Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	// void 
 	virtual ~Renderer();
 };
 }

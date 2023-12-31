@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "Thread.h"
 #include "Renderer2D.h"
+#include "Editor\Editor.h"
 
 namespace HG{
 class HGInput;

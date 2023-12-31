@@ -5,7 +5,7 @@
 #include "Editor.h"
 
 HGEngine::V1SDL::Editor::Editor( SDL_Window* pSDLWindow, SDL_Renderer* pSDL2Renderer ) :
-    m_pSDL2Renderer( pSDL2Renderer ) {
+    m_pSDL2Renderer( pSDL2Renderer ), IsHiden( false ) {
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -30,6 +30,9 @@ HGEngine::V1SDL::Editor::~Editor() {
 }
 
 int HGEngine::V1SDL::Editor::Render() {
+    if( IsHiden ) {
+        return 0;
+    }
     ImGuiIO& io = ImGui::GetIO();
 
     // Load Fonts

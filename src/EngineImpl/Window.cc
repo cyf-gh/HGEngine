@@ -6,17 +6,45 @@
 #include <Math.hpp>
 #include <Log.h>
 #include "Window.h"
+#include "EngineImpl.h"
 
 using namespace HGEngine;
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace HG;
 
+
+#pragma region Watchers
+
+static int resizingEventWatcher( void* data, SDL_Event* event ) {
+    if( event->type == SDL_WINDOWEVENT &&
+        event->window.event == SDL_WINDOWEVENT_RESIZED ) {
+        SDL_Window* win = SDL_GetWindowFromID( event->window.windowID );
+        auto* pwin = HG_ENGINE()->GetWindow();
+
+        if( win == ( SDL_Window* ) data ) {
+            switch( pwin->tResize ) {
+            case HGEngine::V1SDL::Window::Scaling:
+
+            break;
+            case HGEngine::V1SDL::Window::Expanding:
+            //auto tsize = pwin->GetSize();
+            //HG_ENGINE()->GetRenderer2D()->SetViewport( tsize.W, tsize.H );
+            //HG_ENGINE()->GetRenderer2D()->SetScale( tsize.W, tsize.H );
+            break;
+            }
+        }
+    }
+    return 0;
+}
+#pragma endregion
+
 Window::Window(
         const char *title,
         int X, int Y, int w,
-        int h, Uint32 flags ) {
+        int h, Uint32 flags ) : tResize( eResize::Expanding ) {
     this->pWin = SDL_CreateWindow( title, X, Y, w, h, flags );
+    SDL_AddEventWatch( resizingEventWatcher, pWin );
     HG_LOG_CHECK_SDL_HANDLE_IS_NULL(this->pWin, SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow");
 }
 
@@ -35,6 +63,15 @@ HGResult Window::GetSize(HGSize<un32>* pSize ) {
     return HG_ERR_OK;
 }
 
+HG::Math::HGSize<un32> HGEngine::V1SDL::Window::GetSize() {
+    int w = 0, h = 0;
+    SDL_GetWindowSize( this->pWin, &w, &h );
+    HG::Math::HGSize<un32> size( w, h );
+    return size;
+}
+
+
+
 HGResult Window::SetCenterScreen() {
     HGPos tPos;
     HGSize<un32> tSize;
@@ -45,5 +82,3 @@ HGResult Window::SetCenterScreen() {
     SDL_SetWindowPosition( pWin, tPos.X, tPos.Y );
     return HG_ERR_OK;
 }
-
-

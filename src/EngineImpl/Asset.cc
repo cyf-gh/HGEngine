@@ -13,6 +13,10 @@ Font* HGEngine::V1SDL::Asset::CreateFont( const char *strFontName, const char *s
 }
 
 Texture* HGEngine::V1SDL::Asset::CreateTexture( const char* strTextureName, const char* strTextureFilePath ) {
-	auto pF = new Texture( strTextureName, ( m_strHomeDir + strTextureFilePath ).c_str() );
+	Texture* pF = nullptr;
+
+	pF = new Texture( strTextureName, ( m_strHomeDir + ( 
+		std::filesystem::exists( strTextureFilePath ) ? strTextureFilePath : R"(\Assets\null.png)" ) ).c_str() );
+
 	return pF;
 }

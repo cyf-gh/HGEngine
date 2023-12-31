@@ -157,6 +157,7 @@
     <ClInclude Include="..\src\Core\Serialization.h" />
     <ClInclude Include="..\src\Core\Test.hpp" />
     <ClInclude Include="..\src\Core\Type.h" />
+    <ClInclude Include="File.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
