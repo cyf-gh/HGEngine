@@ -18,6 +18,7 @@ namespace HGEngine {
 namespace V1SDL {
 class Scene;
 class Asset;
+class Editor;
 /// \brief main loop of engine
 /// \details main loop is a event loop main thread
 /// , faster is better
@@ -66,6 +67,7 @@ private:
 	Renderer2D* pRenderer;
 	Asset* pAsset;
 	Scene* pCurrentScene;
+	Editor* pEditor;
 	static void SetEngine( EngineImpl* pEngine ) { EngineImpl::pEngine = pEngine; }
 
 public:
@@ -82,6 +84,7 @@ public:
 	static Scene* FindScene( const char* strSceneName );
 	static EngineImpl* pEngine;
 	
+	Editor* GetEditor() const { return pEditor; }
 	Asset* GetAssetManager() const { return pAsset; }
 	float GetFixedUpdateTimeDelta() const { return tLoopMain.DeltaTime(); }
 	HGEngine::V1SDL::Window* GetWindow() const { return pWindow; }
@@ -89,7 +92,7 @@ public:
 
 	void Exit();
 
-	int Run() override;
+	int Render() override;
 
 	explicit EngineImpl( int argc, char** argv );
 	virtual ~EngineImpl();

@@ -4,16 +4,18 @@
 
 #include <cmath>
 #include <Log.h>
-
+#include "EngineImpl.h"
 #include "Loop.h"
 
 using namespace HGEngine;
 using namespace HG;
+using namespace V1SDL;
 
-void Loop::Run() {
+void Loop::Render() {
     Uint64 un64Start = 0;
     Uint64 un64End = 0;
     unCurrentElapsedTimeMS = 0;
+    
     while( true ) {
         un64Start = SDL_GetPerformanceCounter();
         switch ( eStatus ) {

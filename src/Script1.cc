@@ -4,6 +4,7 @@ using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace std;
 
+/*
 template<class T>
 string CheckMarshal( T* t, const char* str = "def" ) {
 	rapidjson::StringBuffer strBuf;
@@ -22,7 +23,7 @@ string CheckMarshal( T* t, const char* str = "def" ) {
 	//}
 	//T ttt;
 	//HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
-}
+}*/
 
 HG_SCRIPT_START( SCRIPT1 )
 
@@ -91,7 +92,7 @@ s.H = 48;
 auto an = static_cast< Animator2D* >( pImgTestColMain->AddComponent( new Animator2D( "Animator", s, 3, 4, 1, 0.4f, true ) ) );
 
 
-CheckMarshal( an );
+// CheckMarshal( an );
 
 rb->LinearDrag = 50.0f;
 rb->Velocity.X = 0.f;
@@ -111,7 +112,7 @@ dfMain->tPosition.Y = 500;
 dfMain->tRect.W = 1000;
 dfMain->tRect.H = 300;
 
-
+/*
 rapidjson::StringBuffer strBuf;
 rapidjson::Writer<rapidjson::StringBuffer> writer( strBuf );
 
@@ -130,7 +131,7 @@ if( doc.HasParseError() ) {
 	printf( "parse ß∞‹:%d\n", doc.GetParseError() );
 }
 Transform ttt;
-HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
+// HG::Serialization::Unmarshal( ttt, "unmarshal", doc["123"], doc );
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -145,7 +146,7 @@ writer2.EndObject();
 
 data = strBuf2.GetString();
 cout << data << endl;
-
+*/
 
 pImgTestColMain->Enable();
 pImgTestCol2->Enable();
@@ -173,10 +174,6 @@ auto df3 = pCamera->GetComponent<Transform>();
 df3->tPosition.X = 0;
 df3->tPosition.Y = 0;
 
-CheckMarshal<GameObject>( pText );
-rapidjson::Document doc2;
-auto j = CheckMarshal<GameObject>( pImgTestColMain, "Obj" );
-auto pg = GameObjectFactory::CreateByJson<GameObject>( j, false, "test_json_main" );
 
 HG_EVENT_BIND( pCamera, OnFixedUpdate ) {
 	auto _this = HG_EVENT_THIS_GAMEOBJECT;

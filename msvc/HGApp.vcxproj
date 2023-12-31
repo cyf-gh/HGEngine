@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core;..\.ref\rapidjson\include;..\.ref\utest.h;..\src\</IncludePath>
+    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core;..\.ref\rapidjson\include;..\.ref\utest.h;..\src\;..\third_party\imgui;..\third_party\imgui\backends</IncludePath>
     <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>HGEngine_x86d.lib;HGLib_x86d.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>HGEngine_x86d.lib;HGLib_x86d.lib;SDL2.lib;SDL2_image.lib;SDL2_ttf.lib;imgui_msvc_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

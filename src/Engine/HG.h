@@ -12,7 +12,7 @@ namespace HG {
         /// \note 
         /// * 与渲染线程不同步 <br> async with render thread 
         /// * OnFixedUpdate于此函数中处理
-        virtual int Run() = 0;
+        virtual int Render() = 0;
     };
 }
 

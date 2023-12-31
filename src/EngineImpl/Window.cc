@@ -38,7 +38,7 @@ HGResult Window::GetSize(HGSize<un32>* pSize ) {
 HGResult Window::SetCenterScreen() {
     HGPos tPos;
     HGSize<un32> tSize;
-    HG_RESULT_RES
+    HG_RESULT_RES;
 
     HG_CHECK_ERR(GetSize(&tSize ) )
     HG_CHECK_ERR(tScreen.GetCenterPos(tSize.W, tSize.H, &tPos ) )

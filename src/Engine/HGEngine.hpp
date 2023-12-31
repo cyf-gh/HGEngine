@@ -2,8 +2,6 @@
 
 #include <string>
 #include <filesystem>
-#include <rapidjson/writer.h>
-#include <rapidjson/prettywriter.h>
 #include <Math.hpp>
 #include "HGEvent.hpp"
 #include "../engineImpl/EngineImpl.h"

@@ -1,11 +1,14 @@
+/*
 #pragma once
 
-#undef GetObject
+#include <nameof.hpp>
 #include <string>
+#undef GetObject()
+#undef min()
+#undef max()
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/document.h>
-#include <nameof.hpp>
 #include "Log.h"
 #include "Type.h"
 #include "Math.hpp"
@@ -239,3 +242,4 @@ HG_UNMARSHAL_FULLSPEC( Math::HGRect ) {
 }
 
 }
+*/

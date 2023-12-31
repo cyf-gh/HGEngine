@@ -1,3 +1,4 @@
+/*
 #pragma once 
 #include <Serialization.h>
 #include <Memory.h>
@@ -230,3 +231,4 @@ HG_UNMARSHAL_FULLSPEC( SDL_Color ) {
 }
 
 }
+*/

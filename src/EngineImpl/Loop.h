@@ -29,7 +29,7 @@ namespace HGEngine {
         };
         LoopStatus eStatus;
         /// \brief start loop process
-        void Run();
+        void Render();
         /// \brief method overwritten will be invoked every unRunInterval time
         /// \sa unRunInterval
         /// \sa eStatus

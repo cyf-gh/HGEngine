@@ -25,6 +25,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="..\src\engineImpl\HGEvent.cc" />
+    <ClCompile Include="..\src\EngineImpl\Editor\Editor.cc">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Screen.h" />
@@ -90,6 +93,9 @@
     <ClInclude Include="..\src\engineImpl\EventTrigger.hpp">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\Editor\Editor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
@@ -106,6 +112,9 @@
     </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{00cdb638-b003-484c-978e-4469613f90f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{dc1e3056-a726-4d2c-a371-b9a1fa8b2d8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
