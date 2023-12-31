@@ -1,5 +1,5 @@
 #include <algorithm>
-#include "../Core/Log.h"
+#include "Log.hpp"
 #include "Scene.h"
 #include "Transform.hpp"
 #include "Layer.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include <Log.h>
+#include "Log.hpp"
 
 namespace HG {
 namespace Test {

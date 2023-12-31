@@ -74,7 +74,8 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)_x86d</TargetName>
     <OutDir>$(SolutionDir)$(Configuration)\..\Libs\</OutDir>
-    <IncludePath>..\.ref\rapidjson\include;..\.ref\nameof\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\third_party\rapidjson\include;..\third_party\nameof\include;$(IncludePath)</IncludePath>
+    <IntDir>$(Configuration)\HGLib</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -150,7 +151,6 @@
     <ClInclude Include="..\src\core\Any.hpp" />
     <ClInclude Include="..\src\Core\Directory.hpp" />
     <ClInclude Include="..\src\Core\Error.h" />
-    <ClInclude Include="..\src\Core\Log.h" />
     <ClInclude Include="..\src\Core\Math.hpp" />
     <ClInclude Include="..\src\Core\Memory.h" />
     <ClInclude Include="..\src\Core\Random.h" />

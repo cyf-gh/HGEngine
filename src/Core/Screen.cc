@@ -2,7 +2,7 @@
 // Created by cyf-m on 2020/11/25.
 //
 #include <SDL.h>
-#include <Log.h>
+#include "../EngineImpl/Log.hpp"
 #include "Screen.h"
 
 using namespace HGEngine;
@@ -15,7 +15,7 @@ HGResult Screen::GetCenterPos(int w, int h, HGPos *pCenterPos, int displayIndex)
 
     SDL_LogInfo( SDL_LOG_CATEGORY_SYSTEM, "Get center position of window index: %d", displayIndex );
     if ( SDL_GetDesktopDisplayMode(displayIndex, &dm) != 0 ) {
-        Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_GetDesktopDisplayMode");
+        HGLog::Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_GetDesktopDisplayMode");
         return HG_ERR_NULL_OUTPUT;
     }
 

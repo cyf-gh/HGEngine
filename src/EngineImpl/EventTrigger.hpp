@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Log.h>
+#include "Log.hpp"
 #include "../Engine/HGEvent.hpp"
 #include "../Engine/HGComponent.h"
 #include "../engineImpl/EngineImpl.h"

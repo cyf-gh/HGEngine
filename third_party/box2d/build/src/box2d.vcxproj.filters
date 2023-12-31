@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_broad_phase.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_chain_shape.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_circle_shape.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_collide_circle.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_collide_edge.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_collide_polygon.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_collision.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_distance.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_dynamic_tree.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_edge_shape.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_polygon_shape.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\collision\b2_time_of_impact.cpp">
+      <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\common\b2_block_allocator.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\common\b2_draw.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\common\b2_math.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\common\b2_settings.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\common\b2_stack_allocator.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\common\b2_timer.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_body.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_chain_circle_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_chain_polygon_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_circle_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_contact_manager.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_contact_solver.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_distance_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_edge_circle_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_edge_polygon_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_fixture.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_friction_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_gear_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_island.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_motor_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_mouse_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_polygon_circle_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_polygon_contact.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_prismatic_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_pulley_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_revolute_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_weld_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_wheel_joint.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_world.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_world_callbacks.cpp">
+      <Filter>src\dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\src\rope\b2_rope.cpp">
+      <Filter>src\rope</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_chain_circle_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_chain_polygon_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_circle_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_contact_solver.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_edge_circle_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_edge_polygon_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_island.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_polygon_circle_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\src\dynamics\b2_polygon_contact.h">
+      <Filter>src\dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_api.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_block_allocator.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_body.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_broad_phase.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_chain_shape.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_circle_shape.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_collision.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_common.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_contact.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_contact_manager.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_distance.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_distance_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_draw.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_dynamic_tree.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_edge_shape.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_fixture.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_friction_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_gear_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_growable_stack.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_math.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_motor_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_mouse_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_polygon_shape.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_prismatic_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_pulley_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_revolute_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_rope.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_settings.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_shape.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_stack_allocator.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_time_of_impact.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_timer.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_time_step.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_types.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_weld_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_wheel_joint.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_world.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\b2_world_callbacks.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\include\box2d\box2d.h">
+      <Filter>include\box2d</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="G:\Repos\HGEngine\third_party\box2d\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{E559E962-58A0-3443-9A0A-05997EB7CE44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\box2d">
+      <UniqueIdentifier>{1BF63E01-7EEC-3B67-8283-5194AA06E4D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{8B32DC85-A1F7-361E-811C-7189587E2468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\collision">
+      <UniqueIdentifier>{D6EA050E-9479-3BCD-B86B-D934B539BBEB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\common">
+      <UniqueIdentifier>{1C93B51C-3E85-333D-9FCA-A185A512A55C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\dynamics">
+      <UniqueIdentifier>{3341F0A2-C2F8-34C0-A0E8-C2872370B8BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rope">
+      <UniqueIdentifier>{A99B383A-E338-38B1-ACF5-84981D512982}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

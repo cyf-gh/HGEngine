@@ -3,7 +3,7 @@
 //
 
 #include <SDL.h>
-#include <Log.h>
+#include "Log.hpp"
 #include "Renderer.h"
 
 using namespace HGEngine::V1SDL;

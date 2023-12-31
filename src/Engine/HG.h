@@ -18,5 +18,6 @@ namespace HG {
 
 #define HGMain( ARGC, ARGV ) int main( ARGC, ARGV )
 
+#define HG_ERASE_IN_VEC( pt, vec ) vec.erase( std::remove( vec.begin(), vec.end(), pt ), vec.end() );
 
 #endif //HONEYGAME_HG_H

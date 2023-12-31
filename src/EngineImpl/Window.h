@@ -27,7 +27,7 @@ class Window : HG::Memory::NonCopyable {
         HG::Math::HGSize<un32> GetSize();
         Window(const char *title,
                int X, int Y, int w,
-               int h, Uint32 flags = SDL_WINDOW_SHOWN);
+               int h, Uint32 flags = SDL_WINDOW_SHOWN, bool hideConsole = true );
         virtual ~Window();
 };
 }

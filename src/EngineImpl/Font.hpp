@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL_ttf.h>
-#include <Log.h>
+#include "Log.hpp"
 #include "../Engine/HGObject.h"
 
 namespace HGEngine {

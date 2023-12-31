@@ -1,10 +1,33 @@
 #pragma once
 
+#include <unordered_map>
+#include <box2d\box2d.h>
 #include "../Engine/HGEvent.hpp"
 #include "../Engine/HGComponent.h"
 
 namespace HGEngine {
 namespace V1SDL {
+
+class HGWorld;
+class Transform;
+
+class RigidBodyB2 : public HG::HGComponent {
+public:
+	const float PPM = 32.f;
+private:
+	b2Body* pBody;
+	b2Fixture* pFixture;
+	b2FixtureDef tFixtureDef;
+	b2BodyDef tBodyDef;
+	b2PolygonShape tBox;
+	HGWorld* pWorld;
+public:
+	bool IsSyncTransform;
+	void Sync2Transform();
+	void ApplyForce( const b2Vec2& vec );
+	RigidBodyB2( HGWorld *pworld, Transform *tr, bool isDynmaic, const char* strName );
+	~RigidBodyB2();
+};
 /// \brief 刚体组件
 /// \note
 /// * 对于一个 RigidBody，附加该组件的 GameObject 必须添加了 Collision 和 Transform

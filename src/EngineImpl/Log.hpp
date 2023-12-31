@@ -4,9 +4,9 @@
 #include <fstream>
 #include <ctime>
 #include <iostream>
-#include "Memory.h"
-#include "Error.h"
-#include "Directory.hpp"
+#include <Memory.h>
+#include <Error.h>
+#include <Directory.hpp>
 
 namespace HG {
     class HGLog {
@@ -58,6 +58,7 @@ namespace HG {
             if ( !tOfs.is_open() ) {
                 std::cerr << "failed to open file: " << HG_ERR_SYS_ERROR() << std::endl;
                 std::cerr<<" log component may do not work";
+                assert( false );
             }
         };
         ~HGLog() {
@@ -76,6 +77,7 @@ namespace HG {
         }
         void Log2Console(  const int sdlCategory, const char* message, const char* category ) {
             std::cout << category  << "\t[" << getTimeStr() << "]" << "("<< sdlCategory << ")\t" << message << std::endl;
+            HGLogStr += ( std::string( category )+ "\t" + '[' + std::string( getTimeStr() ) + "]" + message + "\n" );
         }
         void FailedSDL(const int sdlCategory, const char* strFuncName ) {
             Log2File( sdlCategory, getErrorDesc( strFuncName ).c_str(), "FAILED SDL" );
@@ -113,13 +115,16 @@ namespace HG {
             Log2Console( sdlCategory, message, "DEBUG" );
         }
         void FlushLogFile() { tOfs.flush(); }
+
+        std::string GetString() { std::stringstream ss; ss << std::cout.rdbuf(); return ss.str(); }
+        static HGLog *Log;
+        static std::string HGLogStr;
     private:
         std::ofstream tOfs;
         char *strDate;
         char *strTime;
         tm *ptm;
     };
-    static auto* Log = new HGLog();
 }
 
 /// \brief check if SDL object return with a non-nullptr value and log verbose
@@ -131,51 +136,51 @@ if ( P == nullptr){ \
     HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ); \
     return; \
 } else { \
-    HG::Log->Success( SDL_LOG_CATEGORY, FUNC_NAME ); \
+    HG::HGLog::Log->Success( SDL_LOG_CATEGORY, FUNC_NAME ); \
 }
 
 /// \brief log the SDL error directly
 /// \sa HG_LOG_CHECK_SDL_HANDLE_IS_NULL
 #define HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ) \
-HG::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
+HG::HGLog::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
 
 /// \brief log info
 #define HG_LOG_INFO( info ) \
-HG::Log->Info( 3, info )
+HG::HGLog::Log->Info( 3, info )
 
 #define HG_LOG_INFOF( FMT, ARGS ) \
-HG::Log->Info( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::Log->Info( 3, std::format( FMT, ARGS ).c_str() )
 
 /// \brief log failed info
 #define HG_LOG_FAILED( info ) \
-HG::Log->Failed( 3, info )
+HG::HGLog::Log->Failed( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_FAILEDF( FMT, ARGS ) \
-HG::Log->Failed( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::Log->Failed( 3, std::format( FMT, ARGS ).c_str() )
 
 /// \brief log failed info
 #define HG_LOG_WARNNING( info ) \
-HG::Log->Warning( 100, info )
+HG::HGLog::Log->Warning( 100, info )
 
 /// \brief log failed info
 #define HG_LOG_WARNNINGF( FMT, ARGS ) \
-HG::Log->Warning( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::Log->Warning( 3, std::format( FMT, ARGS ).c_str() )
 
 #define HG_LOG_SUCCESS( info ) \
-HG::Log->Success( 3, info )
+HG::HGLog::Log->Success( 3, info )
 
 #ifdef HG_RELEASE
 #   define HG_LOG_DEBUGF( FMT, ARGS )
 #else
 #   define HG_LOG_DEBUGF( FMT, ARGS ) \
-HG::Log->Debug( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::Log->Debug( 3, std::format( FMT, ARGS ).c_str() )
 #endif
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_SUCCESS( info ) \
-HG::Log->AssertSuccess( 3, info )
+HG::HGLog::Log->AssertSuccess( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_FAILED( info ) \
-HG::Log->AssertFailed( 3, info )
+HG::HGLog::Log->AssertFailed( 3, info )

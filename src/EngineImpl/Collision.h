@@ -14,7 +14,7 @@ namespace V1SDL {
 /// 且 Collision 在初始化时必须
 class Collision : public HG::HGComponent {
 protected:
-	virtual char checkWhichSideCol( GameObject* pRectColObj ) = 0;
+	virtual char checkWhichSideCol(  GameObject* pRectColObj ) = 0;
 	virtual bool CanLeave(GameObject* pRectColObj) = 0;
 
 protected:

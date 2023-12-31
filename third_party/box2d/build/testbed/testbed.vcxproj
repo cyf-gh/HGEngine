@@ -1,0 +1,805 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BE243430-ABAD-39AA-B68F-63E3E4CB928E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>testbed</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">G:\Repos\HGEngine\third_party\box2d\build\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">testbed.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">testbed</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">testbed</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">G:\Repos\HGEngine\third_party\box2d\build\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">testbed.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">testbed</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">testbed</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|x64'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">G:\Repos\HGEngine\third_party\box2d\build\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">testbed.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">testbed</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">testbed</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">G:\Repos\HGEngine\third_party\box2d\build\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">testbed.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">testbed</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">testbed</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">G:/Repos/HGEngine/third_party/box2d/testbed</LocalDebuggerWorkingDirectory>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug\box2d.lib;..\bin\Debug\glfw.lib;..\bin\Debug\imgui.lib;..\bin\Debug\sajson.lib;..\bin\Debug\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/Debug/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/Debug/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Debug\box2d.lib;..\bin\Debug\glfw.lib;..\bin\Debug\imgui.lib;..\bin\Debug\sajson.lib;..\bin\Debug\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/Debug/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/Debug/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Release\box2d.lib;..\bin\Release\glfw.lib;..\bin\Release\imgui.lib;..\bin\Release\sajson.lib;..\bin\Release\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/Release/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/Release/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\Release\box2d.lib;..\bin\Release\glfw.lib;..\bin\Release\imgui.lib;..\bin\Release\sajson.lib;..\bin\Release\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/Release/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/Release/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\MinSizeRel\box2d.lib;..\bin\MinSizeRel\glfw.lib;..\bin\MinSizeRel\imgui.lib;..\bin\MinSizeRel\sajson.lib;..\bin\MinSizeRel\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/MinSizeRel/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/MinSizeRel/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\MinSizeRel\box2d.lib;..\bin\MinSizeRel\glfw.lib;..\bin\MinSizeRel\imgui.lib;..\bin\MinSizeRel\sajson.lib;..\bin\MinSizeRel\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/MinSizeRel/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/MinSizeRel/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\RelWithDebInfo\box2d.lib;..\bin\RelWithDebInfo\glfw.lib;..\bin\RelWithDebInfo\imgui.lib;..\bin\RelWithDebInfo\sajson.lib;..\bin\RelWithDebInfo\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/RelWithDebInfo/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/RelWithDebInfo/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>G:\Repos\HGEngine\third_party\box2d\testbed;G:\Repos\HGEngine\third_party\box2d\src\..\include;G:\Repos\HGEngine\third_party\box2d\extern\glfw\include;G:\Repos\HGEngine\third_party\box2d\extern\imgui\..;G:\Repos\HGEngine\third_party\box2d\extern\sajson\..;G:\Repos\HGEngine\third_party\box2d\extern\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message>
+      </Message>
+      <Command>setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -E copy_directory G:/Repos/HGEngine/third_party/box2d/testbed/data/ G:/Repos/HGEngine/third_party/box2d/build/testbed/data/
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\bin\RelWithDebInfo\box2d.lib;..\bin\RelWithDebInfo\glfw.lib;..\bin\RelWithDebInfo\imgui.lib;..\bin\RelWithDebInfo\sajson.lib;..\bin\RelWithDebInfo\glad.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>G:/Repos/HGEngine/third_party/box2d/build/bin/RelWithDebInfo/testbed.lib</ImportLibrary>
+      <ProgramDataBaseFile>G:/Repos/HGEngine/third_party/box2d/build/bin/RelWithDebInfo/testbed.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="G:\Repos\HGEngine\third_party\box2d\testbed\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule G:/Repos/HGEngine/third_party/box2d/testbed/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"G:\Program Files\CMake\bin\cmake.exe" -SG:/Repos/HGEngine/third_party/box2d -BG:/Repos/HGEngine/third_party/box2d/build --check-stamp-file G:/Repos/HGEngine/third_party/box2d/build/testbed/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">G:\Repos\HGEngine\third_party\box2d\build\testbed\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\draw.cpp" />
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\testbed\draw.h" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\imgui_impl_glfw.cpp" />
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\testbed\imgui_impl_glfw.h" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\imgui_impl_opengl3.cpp" />
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\testbed\imgui_impl_opengl3.h" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\main.cpp" />
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\testbed\settings.h" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\settings.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\test.cpp" />
+    <ClInclude Include="G:\Repos\HGEngine\third_party\box2d\testbed\test.h" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\benchmark_boxes.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\add_pair.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\apply_force.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\body_types.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\box_stack.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\breakable.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\bridge.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\bullet_test.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\cantilever.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\car.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\chain.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\chain_problem.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\character_collision.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\circle_stack.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\collision_filtering.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\collision_processing.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\compound_shapes.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\confined.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\continuous_test.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\convex_hull.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\conveyor_belt.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\distance_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\distance_test.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\dominos.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\dump_loader.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\dynamic_tree.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\edge_shapes.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\edge_test.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\friction.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\gear_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\heavy1.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\heavy2.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\mobile_balanced.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\mobile_unbalanced.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\motor_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\pinball.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\platformer.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\polygon_collision.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\polygon_shapes.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\prismatic_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\pulley_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\pyramid.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\ray_cast.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\restitution.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\revolute_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\rope.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\sensor.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\shape_cast.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\shape_editing.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\skier.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\slider_crank_1.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\slider_crank_2.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\theo_jansen.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\tiles.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\time_of_impact.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\tumbler.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\web.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\wheel_joint.cpp" />
+    <ClCompile Include="G:\Repos\HGEngine\third_party\box2d\testbed\tests\wrecking_ball.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="G:\Repos\HGEngine\third_party\box2d\build\ZERO_CHECK.vcxproj">
+      <Project>{C07739CD-E624-3880-B12A-D3740E10B09A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="G:\Repos\HGEngine\third_party\box2d\build\src\box2d.vcxproj">
+      <Project>{244114C1-08BB-31BA-8B7C-7FBC5F67B803}</Project>
+      <Name>box2d</Name>
+    </ProjectReference>
+    <ProjectReference Include="G:\Repos\HGEngine\third_party\box2d\build\extern\glad\glad.vcxproj">
+      <Project>{1B4C76D2-D0FE-35D5-BAD7-10FDF26AD179}</Project>
+      <Name>glad</Name>
+    </ProjectReference>
+    <ProjectReference Include="G:\Repos\HGEngine\third_party\box2d\build\extern\glfw\glfw.vcxproj">
+      <Project>{8F34C046-5C4D-30C1-8092-D1EAA979B5E0}</Project>
+      <Name>glfw</Name>
+    </ProjectReference>
+    <ProjectReference Include="G:\Repos\HGEngine\third_party\box2d\build\extern\imgui\imgui.vcxproj">
+      <Project>{8758A4BE-CDD9-3856-A26C-7B0D6181901E}</Project>
+      <Name>imgui</Name>
+    </ProjectReference>
+    <ProjectReference Include="G:\Repos\HGEngine\third_party\box2d\build\extern\sajson\sajson.vcxproj">
+      <Project>{AFA6A88D-252F-33A0-8FCE-6882D250C195}</Project>
+      <Name>sajson</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

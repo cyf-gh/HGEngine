@@ -59,6 +59,14 @@ public:
 		tPosition.X = rect.X;
 		tPosition.Y = rect.Y;
 	}
+	
+	void SetGlobalRect( f32 x, f32 y, un32 w, un32 h ) {
+		tRect.H = h;
+		tRect.W = w;
+		tPosition.X = x;
+		tPosition.Y = y;
+	}
+
 	void SetLocalRect( const HG::Math::HGRect& rect ) {
 		tLocalRect.H = rect.H;
 		tLocalRect.W = rect.W;

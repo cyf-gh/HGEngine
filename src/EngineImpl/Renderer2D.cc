@@ -5,7 +5,7 @@
 #include <string>
 #include <SDL_image.h>
 #include <Math.hpp>
-#include <Log.h>
+#include "Log.hpp"
 #include "Spirte.hpp"
 #include "Renderer2D.h"
 #include "Texture.h"

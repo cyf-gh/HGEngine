@@ -38,9 +38,6 @@
     <ClInclude Include="..\src\Core\Error.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Core\Log.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Core\Math.hpp">
       <Filter>头文件</Filter>
     </ClInclude>

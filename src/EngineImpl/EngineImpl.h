@@ -4,10 +4,12 @@
 #ifndef HONEYGAME_ENGINEIMPL_H
 #define HONEYGAME_ENGINEIMPL_H
 
+#include "Log.hpp"
 #include "../Engine/HG.h"
 #include "Loop.h"
 #include "Window.h"
 #include "Thread.h"
+#include "Physics.hpp"
 #include "Renderer2D.h"
 #include "Editor\Editor.h"
 
@@ -64,14 +66,16 @@ private:
 	HGEngine::V1SDL::Thread* pRenderThread {};
 	HG::HGInput* pInput;
 	HGEngine::V1SDL::Window* pWindow;
-
+	
 	Renderer2D* pRenderer;
 	Asset* pAsset;
 	Scene* pCurrentScene;
 	Editor* pEditor;
+	HG::HGLog *pLog;
 	static void SetEngine( EngineImpl* pEngine ) { EngineImpl::pEngine = pEngine; }
 
 public:
+	Physics tPhyiscs;
 	/// \brief 获取主线程句柄 <br>get main loop handle
 	/// \note
 	/// 该循环运行于主线程之中

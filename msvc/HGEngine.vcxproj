@@ -73,11 +73,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\.ref\nameof\include;..\src\Core;..\.ref\rapidjson\include;..\.ref\utest.h;..\msvc\imgui_msvc</IncludePath>
-    <ExternalIncludePath>..\.ref\SDL2\include;..\.ref\SDL2_image\include;..\.ref\SDL2_ttf\include;..\third_party\imgui;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\.ref\SDL2\lib\x86;..\.ref\SDL2_image\lib\x86;..\.ref\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\nameof\include;..\src\Core;..\third_party\rapidjson\include;..\third_party\utest.h;..\msvc\imgui_msvc;..\third_party\box2d\include</IncludePath>
+    <ExternalIncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\imgui;..\third_party\box2d\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\third_party\SDL2\lib\x86;..\third_party\SDL2_image\lib\x86;..\third_party\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\..\Libs</OutDir>
     <TargetName>$(ProjectName)_x86d</TargetName>
+    <IntDir>$(Configuration)\HGEngine</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -99,7 +100,6 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,11 +154,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="..\src\CMakeLists.txt" />
-    <Text Include="..\src\Core\CMakeLists.txt" />
-    <Text Include="..\src\EngineImpl\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\src\Core\Screen.cc" />
     <ClCompile Include="..\src\EngineImpl\Animation.cpp" />
     <ClCompile Include="..\src\EngineImpl\Asset.cc" />
@@ -170,6 +165,7 @@
     <ClCompile Include="..\src\engineImpl\HGEvent.cc" />
     <ClCompile Include="..\src\EngineImpl\Init.cc" />
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Log.cc" />
     <ClCompile Include="..\src\EngineImpl\Loop.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
@@ -185,7 +181,9 @@
     <ClInclude Include="..\src\EngineImpl\Asset.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\Collision.h" />
+    <ClInclude Include="..\src\EngineImpl\Debug.hpp" />
     <ClInclude Include="..\src\EngineImpl\Editor\Editor.h" />
+    <ClInclude Include="..\src\EngineImpl\Editor\LogViewer.hpp" />
     <ClInclude Include="..\src\engineImpl\Effect.hpp" />
     <ClInclude Include="..\src\EngineImpl\EngineImpl.h" />
     <ClInclude Include="..\src\EngineImpl\EngineObjectSerilization.hpp" />
@@ -198,7 +196,9 @@
     <ClInclude Include="..\src\EngineImpl\Init.h" />
     <ClInclude Include="..\src\engineImpl\Label.hpp" />
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
+    <ClInclude Include="..\src\EngineImpl\Log.hpp" />
     <ClInclude Include="..\src\EngineImpl\Loop.h" />
+    <ClInclude Include="..\src\EngineImpl\Physics.hpp" />
     <ClInclude Include="..\src\EngineImpl\Renderer.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
     <ClInclude Include="..\src\EngineImpl\RigidBody.h" />

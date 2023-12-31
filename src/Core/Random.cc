@@ -6,20 +6,8 @@
 
 #include "Random.h"
 
-using namespace HG::Random;
-
-un32 Random::GetRandUInt( un32 max ) {
-    return GetRandUInt() % ( max + 1 );
-}
-
-
-f32 Random::GetRandFloat() {
-    return GetRandUInt( 1000000 ) / 1000000.f;
-}
-
-f32 Random::GetRandFloat( f32 minBound, f32 maxBound ) {
-    return GetRandFloat() * ( maxBound - minBound ) + minBound;
-}
+using namespace HG;
+using namespace Random;
 
 RandomWELL512::RandomWELL512() {
     SetSeed( 123 );
@@ -76,4 +64,18 @@ un32 RandomXORSHIFT::GetRandUInt() {
     z = t ^ X ^ Y;
 
     return z;
+}
+
+
+un32 HG::Random::Random::GetRandUInt( un32 max ) {
+    return GetRandUInt() % ( max + 1 );
+}
+
+
+f32 HG::Random::Random::GetRandFloat() {
+    return GetRandUInt( 1000000 ) / 1000000.f;
+}
+
+f32 HG::Random::Random::GetRandFloat( f32 minBound, f32 maxBound ) {
+    return GetRandFloat() * ( maxBound - minBound ) + minBound;
 }

@@ -4,7 +4,7 @@
 
 #include <Error.h>
 #include <Math.hpp>
-#include <Log.h>
+#include "Log.hpp"
 #include "Window.h"
 #include "EngineImpl.h"
 
@@ -42,7 +42,9 @@ static int resizingEventWatcher( void* data, SDL_Event* event ) {
 Window::Window(
         const char *title,
         int X, int Y, int w,
-        int h, Uint32 flags ) : tResize( eResize::Expanding ) {
+        int h, Uint32 flags, bool hideConsole ) : tResize( eResize::Expanding ) {
+    HWND windowHandle = GetConsoleWindow();
+    ShowWindow( windowHandle, hideConsole ? SW_HIDE : SW_SHOW );
     this->pWin = SDL_CreateWindow( title, X, Y, w, h, flags );
     SDL_AddEventWatch( resizingEventWatcher, pWin );
     HG_LOG_CHECK_SDL_HANDLE_IS_NULL(this->pWin, SDL_LOG_CATEGORY_SYSTEM, "SDL_CreateWindow");

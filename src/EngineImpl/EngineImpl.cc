@@ -10,9 +10,10 @@
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <string>
-#include "../Core/Log.h"
-#include "../Core/Error.h"
+#include "Log.hpp"
+#include <Error.h>
 #include "../engine/HGInput.hpp"
+#include "Physics.hpp"
 #include "EngineImpl.h"
 #include "Camera.h"
 #include "Window.h"
@@ -62,27 +63,27 @@ void InitSDLTtf() {
 }
 
 EngineImpl::EngineImpl( int argc, char** argv )
-	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ), pInput( new HGInput ), pEditor( nullptr ) {
+	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ), pInput( new HGInput ), pEditor( nullptr ), pLog( HG::HGLog::Log ) {
 	SetEngine( this );
-
-	Log->LogEnter2File();
+	
+	HGLog::Log->LogEnter2File();
 	if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ) {
-		Log->FailedSDL( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+		HGLog::Log->FailedSDL( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
 	} else {
-		Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+		HGLog::Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
 	}
 	InitSDLImage();
 	InitSDLTtf();
 
-	Log->Info( SDL_LOG_CATEGORY_SYSTEM, "Starting HoneyGame Engine ..." );
+	HGLog::Log->Info( SDL_LOG_CATEGORY_SYSTEM, "Starting HoneyGame Engine ..." );
 
 	pWindow = new Window( "HG Engine", 0, 0, 1280, 1024, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN ); // | SDL_WINDOW_RESIZABLE );
 	pWindow->SetCenterScreen();
 
 	pRenderer = new Renderer2D( pWindow->Handle() );
-
+	
 	tLoopUpdate.unPaddingInterval = 100;
-	tLoopUpdate.unRunInterval = 50;
+	tLoopUpdate.unRunInterval = 2;
 
 	tLoopRender.unPaddingInterval = 100;
 	tLoopRender.unRunInterval = 1;  // v-sync here, frame locked to screen fresh-rate.
@@ -95,6 +96,8 @@ EngineImpl::EngineImpl( int argc, char** argv )
 	pEditor = new Editor( pWindow->Handle(), pRenderer->pHandle );
 
 	pAsset = new Asset();
+
+	tPhyiscs.AddWorld( b2Vec2( 0.0f, 10.0f ), 1.0f / 100.0f, 6, 2 );
 }
 
 EngineImpl::~EngineImpl() {
@@ -144,7 +147,6 @@ SDL_Event HGMainLoop::tEvent = SDL_Event();
 void HGMainLoop::_RunTask() {
 	( SDL_PollEvent( &HGMainLoop::tEvent ) != 0 ) ;
 	{
-		
 		HG_ENGINE_INPUT()->Proc( &tEvent );
 		ImGui_ImplSDL2_ProcessEvent( &tEvent );
 		EngineImpl::GetEngine()->GetCurrentScene()->Update( ( void* ) &HGMainLoop::tEvent );
@@ -166,6 +168,9 @@ static int _UpdateThreadFn( void* data ) {
 }
 
 void HGUpdateLoop::_RunTask() { 
+	for( HGWorld* world : HG_ENGINE()->tPhyiscs.Worlds ) {
+		world->Step();
+	}
 	// EngineImpl::GetEngine()->GetCurrentScene()->Update();
 }
 

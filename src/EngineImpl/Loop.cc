@@ -3,7 +3,7 @@
 //
 
 #include <cmath>
-#include <Log.h>
+#include "Log.hpp"
 #include "EngineImpl.h"
 #include "Loop.h"
 
@@ -15,7 +15,7 @@ void Loop::Render() {
     Uint64 un64Start = 0;
     Uint64 un64End = 0;
     unCurrentElapsedTimeMS = 0;
-    
+    // WARNNING: DO NOT ADD CODE HERE!!!    
     while( true ) {
         un64Start = SDL_GetPerformanceCounter();
         switch ( eStatus ) {
@@ -31,7 +31,7 @@ void Loop::Render() {
                 this->_PaddingTask();
                 break;
             default:
-                Log->Fault( SDL_LOG_CATEGORY_SYSTEM, "Unknown loop status. loop break." );
+                HGLog::Log->Fault( SDL_LOG_CATEGORY_SYSTEM, "Unknown loop status. loop break." );
                 return;
         }
         un64End = SDL_GetPerformanceCounter();
@@ -41,19 +41,19 @@ void Loop::Render() {
     }
     THREAD_EXIT:
     m_IsExit = true;
-    Log->Info(SDL_LOG_CATEGORY_SYSTEM, std::format(  "{}::Run() -Exit", GetName() ).c_str() );
+    HGLog::Log->Info(SDL_LOG_CATEGORY_SYSTEM, std::format(  "{}::Run() -Exit", GetName() ).c_str() );
 }
 
 void Loop::_RunTask() {
-    Log->Warning(SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_RunTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
+    HGLog::Log->Warning(SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_RunTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
     eStatus = STOP;
 }
 
 void Loop::_PaddingTask() {
-    Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_PaddingTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
+    HGLog::Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_PaddingTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
     eStatus = STOP;
 }
 
 void Loop::_StopTask() {
-    Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_StopTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
+    HGLog::Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_StopTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
 }
