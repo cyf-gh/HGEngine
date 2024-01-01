@@ -54,7 +54,7 @@ bool HGEngine::V1SDL::Layer::DetachGameObject( const char* strName ) {
 bool HGEngine::V1SDL::Layer::DetachGameObject( const un32 Id ) {
 	vector<int>::iterator it;
 	bool detached = false;
-	for( int i = 0; i < m_vecObjs.size(); ++i ) {
+	for( auto i = 0; i < m_vecObjs.size(); ++i ) {
 		if( m_vecObjs[i]->UID == Id ) {
 			HG_EVENT_CALL( OnDetachFromLayer, &LayerIndex, m_vecObjs[i] );
 			m_vecObjs[i]->SetLayer( nullptr );
@@ -62,13 +62,13 @@ bool HGEngine::V1SDL::Layer::DetachGameObject( const un32 Id ) {
 			detached = true;
 		}
 	}
-	for( int i = 0; i < m_vecX.size(); ++i ) {
+	for( auto i = 0; i < m_vecX.size(); ++i ) {
 		if( m_vecX[i]->UID == Id ) {
 			m_vecX.erase( m_vecX.begin() + i );
 			break;
 		}
 	}
-	for( int i = 0; i < m_vecY.size(); ++i ) {
+	for( auto i = 0; i < m_vecY.size(); ++i ) {
 		if( m_vecY[i]->UID == Id ) {
 			m_vecY.erase( m_vecY.begin() + i );
 			break;

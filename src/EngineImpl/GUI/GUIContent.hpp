@@ -29,7 +29,7 @@ public:
 		auto* r = &m_pGameObject->GetComponent<Label>()->m_tRect;
 		*r = m_pGameObject->GetComponent<Transform>()->ToHGRectGlobal();
 		r->X = 0; r->Y = 0;
-		m_pGameObject->GetComponent<Label>()->m_tRect.Set( r->Scale( 0.7 ) );
+		m_pGameObject->GetComponent<Label>()->m_tRect.Set( r->Scale( 0.7f ) );
 	}
 	RdRect m_tRR;
 	HG::Math::HGColor m_tBackgroundColor;
@@ -72,7 +72,7 @@ public:
 		auto* r = &m_pGameObject->GetComponent<Label>()->m_tRect;
 		auto& trr = m_pGameObject->GetComponent<Transform>()->ToHGRectGlobal();
 		m_centerY = trr.Y;
-		trr.Scale( 0.7 );
+		trr.Scale( 0.7f );
 		trr.X = 30; trr.Y = trr.Y - m_centerY;
 		m_centerY = trr.Y;
 		m_pGameObject->GetComponent<Label>()->m_tRect.Set( trr );

@@ -46,10 +46,10 @@ public:
 		auto r = m_f32PlayedTime / m_f32PlayTime;
 		switch( eFlag ) {
 		case HG_EFFECT_FADING_IN:
-			m_tSolidColor.A = 255 * ( 1.f - r );
+			m_tSolidColor.A = static_cast<un8>(255 * ( 1.f - r ));
 		break;
 		case HG_EFFECT_FADING_OUT:
-			m_tSolidColor.A = 255 * r;
+			m_tSolidColor.A = static_cast<un8>( 255 * r);
 		break;
 		default:
 		break;

@@ -36,6 +36,6 @@ int HGEngine::V1SDL::Renderer::SetScale( f32 scaleX, f32 scaleY ) {
 
 int HGEngine::V1SDL::Renderer::SetViewport( f32 w, f32 h ) {
     SDL_Rect r;
-    r.x = 0; r.y = 0; r.w = w; r.h = h;
+    r.x = 0; r.y = 0; r.w = static_cast<int>(w); r.h = static_cast< int >( h);
     return SDL_RenderSetViewport( pHandle, &r );
 }

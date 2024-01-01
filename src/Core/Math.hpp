@@ -123,7 +123,7 @@ public:
 		return HGVec2( X * base, Y * base );
 	}
 	const digit_type Norm()  const {
-		const digit_type base = inv_sqrt( X * X + Y * Y );
+		const digit_type base = static_cast<digit_type>( inv_sqrt( X * X + Y * Y ) );
 
 		return ( !IsEqualF( base, 0 ) ) ?
 			( 1 / base ) : 0;
@@ -171,8 +171,8 @@ public:
 	static void Rotate( const HGVec2& vCenter, const HGVec2& v1, double a, HGVec2& vOut ) {
 		digit_type x = v1.X; digit_type y = v1.Y;
 		digit_type rx0 = vCenter.X; digit_type ry0 = vCenter.Y;
-		vOut.X = ( x - rx0 ) * cos( a / 180 * ST_PI ) - ( y - ry0 ) * sin( a / 180 * ST_PI ) + rx0;
-		vOut.Y = ( x - rx0 ) * sin( a / 180 * ST_PI ) + ( y - ry0 ) * cos( a / 180 * ST_PI ) + ry0;
+		vOut.X = static_cast<digit_type>( ( x - rx0 ) * cos( a / 180 * ST_PI ) - ( y - ry0 ) * sin( a / 180 * ST_PI ) + rx0 );
+		vOut.Y = static_cast< digit_type >( ( x - rx0 ) * sin( a / 180 * ST_PI ) + ( y - ry0 ) * cos( a / 180 * ST_PI ) + ry0 );
 	}
 	static HGVec2 Add( const HGVec2& v1, const HGVec2& v2 ) {
 		return HGVec2( v1.X + v2.X, v1.Y + v2.Y );
@@ -340,10 +340,10 @@ struct HGRect {
 		f32 sh = d* H;
 		f32 sw = d* W;
 		
-		X += ( W - sw ) / 2;
-		Y += ( H - sh ) / 2;
+		X += ( W - static_cast<n32>(sw) ) / 2;
+		Y += ( H - static_cast<n32>(sh) ) / 2;
 		
-		H = sh; W = sw;
+		H = static_cast< n32 >( sh ); W = static_cast< n32 >( sw );
 		return *this;
 	}
 
@@ -375,12 +375,12 @@ struct HGRect {
 	HG_INLINE bool IsInX( const HGRect& dstRect ) {
 		const HGRect* r1 = &dstRect;
 		const HGRect* r2 = this;
-		return ( r1->X > r2->Left() && r1->X + r1->W < r2->Right() );
+		return ( r1->X > r2->Left() && static_cast<n32>( r1->X + r1->W ) <  r2->Right() );
 	}
 	HG_INLINE bool IsInY( const HGRect& dstRect ) {
 		const HGRect* r1 = &dstRect;
 		const HGRect* r2 = this;
-		return ( r1->Y > r2->Top() && r1->Y + r1->H < r2->Bottom() );
+		return ( r1->Y > r2->Top() && static_cast< n32 >( r1->Y + r1->H ) < r2->Bottom() );
 	}
 	HG_INLINE bool IsIntersect( const HGRect& dstRect ) {
 		return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||

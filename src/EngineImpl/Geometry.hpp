@@ -74,16 +74,16 @@ public:
         offsety = Radius;
         d = Radius - 1;
         status = 0;
-
+       
         while( offsety >= offsetx ) {
-            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsetx, Y + offsety );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsety, Y + offsetx );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsetx, Y + offsety );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsety, Y + offsetx );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsetx, Y - offsety );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X + offsety, Y - offsetx );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsetx, Y - offsety );
-            status += SDL_RenderDrawPoint( pRd->pHandle, X - offsety, Y - offsetx );
+            status += SDL_RenderDrawPoint( pRd->pHandle,  static_cast< int >(X + offsetx), static_cast< int >( Y + offsety ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X + offsety ), static_cast< int >( Y + offsetx ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X - offsetx ), static_cast< int >( Y + offsety ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X - offsety ), static_cast< int >( Y + offsetx ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X + offsetx ), static_cast< int >( Y - offsety ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X + offsety ), static_cast< int >( Y - offsetx ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X - offsetx ), static_cast< int >( Y - offsety ));
+            status += SDL_RenderDrawPoint( pRd->pHandle, static_cast< int >( X - offsety ), static_cast< int >( Y - offsetx ));
 
             if( status < 0 ) {
                 status = -1;
@@ -117,10 +117,10 @@ public:
 
         while( offsety >= offsetx ) {
 
-            status += SDL_RenderDrawLine( pRd->pHandle, X - offsety, Y + offsetx, X + offsety, Y + offsetx );
-            status += SDL_RenderDrawLine( pRd->pHandle, X - offsetx, Y + offsety, X + offsetx, Y + offsety );
-            status += SDL_RenderDrawLine( pRd->pHandle, Y - offsetx, Y - offsety, X + offsetx, Y - offsety );
-            status += SDL_RenderDrawLine( pRd->pHandle, Y - offsety, Y - offsetx, X + offsety, Y - offsetx );
+            status += SDL_RenderDrawLine( pRd->pHandle, static_cast<int>(X - offsety), static_cast<int>(Y + offsetx), static_cast< int >( X + offsety), static_cast< int >( Y + offsetx ));
+            status += SDL_RenderDrawLine( pRd->pHandle, static_cast< int >( X - offsetx ), static_cast< int >( Y + offsety ), static_cast< int >( X + offsetx ), static_cast< int >( Y + offsety ));
+            status += SDL_RenderDrawLine( pRd->pHandle, static_cast< int >( Y - offsetx ), static_cast< int >( Y - offsety ), static_cast< int >( X + offsetx ), static_cast< int >( Y - offsety ));
+            status += SDL_RenderDrawLine( pRd->pHandle, static_cast< int >( Y - offsety ), static_cast< int >( Y - offsetx ), static_cast< int >( X + offsety ), static_cast< int >( Y - offsetx ));
 
             if( status < 0 ) {
                 status = -1;

@@ -56,8 +56,8 @@ public:
 	void SetGlobalRect( const HG::Math::HGRect& rect ) {
 		tRect.H = rect.H;
 		tRect.W = rect.W;
-		tPosition.X = rect.X;
-		tPosition.Y = rect.Y;
+		tPosition.X = static_cast< float >( rect.X );
+		tPosition.Y = static_cast< float >( rect.Y );
 	}
 	
 	void SetGlobalRect( f32 x, f32 y, un32 w, un32 h ) {
@@ -70,8 +70,8 @@ public:
 	void SetLocalRect( const HG::Math::HGRect& rect ) {
 		tLocalRect.H = rect.H;
 		tLocalRect.W = rect.W;
-		tLocalPos.X = rect.X;
-		tLocalPos.Y = rect.Y;
+		tLocalPos.X = static_cast<float>( rect.X );
+		tLocalPos.Y = static_cast<float>( rect.Y );
 	}
 
 	bool IsSameGlobalRect( const HG::Math::HGRect& rect ) const {
