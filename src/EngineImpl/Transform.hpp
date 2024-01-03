@@ -97,7 +97,7 @@ public:
 	///	* 旋转后的矩形 以四个二维向量作为保存
 	/// * rect after being rotated which contains 4 vectors
 	void GetRotatedRectGlobal(
-		HG::Math::HGShape<float>& tRect ) {
+		HG::Math::HGPolygon<float>& tRect ) {
 		this->ToHGRectGlobal().ToShape<float>( tRect );
 		tRect.Rotate( f64Angle, tRotateCenter.ToVec2<float>() );
 	}
@@ -138,6 +138,10 @@ public:
 		m_tRectGlobal.W = static_cast< un32 >( tRect.W );
 		return m_tRectGlobal;
 	}
+
+	HG_INLINE HG::Math::HGShape *GetLocalShape() { return &m_tRectLocal; }
+	HG_INLINE HG::Math::HGShape* GetGlobalShape() { return &m_tRectGlobal; }
+
 	/// \brief 
 	/// * 将物体于世界的坐标与大小归零
 	/// * reset the global position and size to zero

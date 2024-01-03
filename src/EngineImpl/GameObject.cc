@@ -61,7 +61,7 @@ bool HGEngine::V1SDL::GameObject::IsInCameraView() {
      if( IsEqual( pT->f64Angle, (double)0 ) ) {
          return !( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) );
      } else {
-        HGShape<double> s;
+        HGPolygon<double> s;
         HGVec2<double> c;
         rect1.ToShape( s );
         c.X = pT->tRotateCenter.X + pT->tPosition.X;

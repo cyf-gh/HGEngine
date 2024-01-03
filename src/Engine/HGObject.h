@@ -9,15 +9,20 @@
 #include <unordered_map>
 #include <Type.h>
 #include <Error.h>
-#include <Math.hpp>
 #include <Random.h>
+#include <Math.hpp>
 
 namespace HG {
 
 template<class T> class HGObject {
+private:
+	void EnsureUni( const char* strName ) {
+		HG_ASSERT( umTheseOnes.find( strName ) == umTheseOnes.end() );
+		HG_ASSERT( umTheseOnesById.find( UID ) == umTheseOnesById.end() );
+	}
 protected:
 	std::string mStrName;
-
+	
 public:
 	typedef T obj_type;
 
@@ -33,10 +38,12 @@ public:
 	const char* GetName() const { return mStrName.c_str(); }
 	const void SetName( const char* strName ) { mStrName = strName; }
 	explicit HGObject( const char* strName ) : mStrName( strName ), UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
+		EnsureUni( strName );
 		HGObject<T>::umTheseOnes[strName] = static_cast< T* >( this );
 		HGObject<T>::umTheseOnesById[UID] = static_cast< T* >( this );
 	}
 	explicit HGObject() : UID( HG::Random::RandomXORSHIFT::Random.GetRandUInt() ) {
+		EnsureUni( strName );
 		mStrName = std::to_string( UID );
 		umTheseOnes[mStrName.c_str()] = static_cast< T* >( this );
 		umTheseOnesById[UID]		  = static_cast< T* >( this );

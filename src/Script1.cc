@@ -348,7 +348,7 @@ HG_EVENT_BIND( pImgTest, OnFixedUpdate ) {
 	// df->f64Angle += 40 * HG_ENGINE_TIMEDELTA;
 
 
-	HG::Math::HGShape<float> s;
+	HG::Math::HGPolygon<float> s;
 	df->GetRotatedRectGlobal( s );
 	return 0;
 };

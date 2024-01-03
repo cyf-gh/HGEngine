@@ -11,6 +11,9 @@ namespace HG {
 namespace Math {
 
 static const f32 ST_PI = 3.141592654f;
+static const float PPM = 32.f;
+
+
 
 static HG_INLINE f64 Max( f64 num1, f64 num2 ) {
 	return num1 > num2 ? num1 : num2;
@@ -230,29 +233,46 @@ static HG_INLINE HGPos& Center( const HGVec2<float>& tPos, const HGSize<un32>& t
 	return p;
 }
 
+struct HGShape {
+	enum Shapes {
+		Rect,
+		Circle,
+		Polygon
+	};
+	virtual Shapes GetShape() const = 0;
+};
+
 template<typename digit_type>
-struct HGCircle {
-	HGVec2<digit_type> tCenter;
+struct HGCircle : HGShape {
+	
+	Shapes GetShape() const { return Shapes::Circle; }
+	
 	digit_type Radius;
+	HGVec2<digit_type> tCenter;
 public:
 	HG_INLINE bool IsOverlap( const HGCircle& c ) {
 		return Radius <= HGVec2<digit_type>::Sub( tCenter, c.tCenter ).Norm();
 	}
 };
 
+typedef HGCircle<f32> HGCircleF32;
+
 /// \brief 形状
 /// \note  由点的有序集合组成
 template<typename digit_type>
-struct HGShape {
+struct HGPolygon : HGShape {
+public 
+	Shapes GetShape() const { return Shapes::Polygon; }
+
 public:
 	std::vector<HGVec2<digit_type>> vecPoints;
-	HGShape* AddVec2( digit_type x, digit_type y ) {
+	HGPolygon* AddVec2( digit_type x, digit_type y ) {
 		HGVec2<digit_type> v;
 		v.X = x; v.Y = y;
 		vecPoints.push_back( v );
 		return this;
 	}
-	HG_INLINE HGShape* Rotate( double a, const HGVec2<digit_type>& vCenter ) {
+	HG_INLINE HGPolygon* Rotate( double a, const HGVec2<digit_type>& vCenter ) {
 		for( HGVec2<digit_type>& pt : vecPoints ) {
 			pt.Rotate( vCenter, pt, a, pt );
 		}
@@ -296,7 +316,7 @@ public:
 		}
 		return *p;
 	}
-	HGShape() : vecPoints() { }
+	HGPolygon() : vecPoints() { }
 	/// @brief	通过[]操作符获得点坐标
 	/// @param	i 点索引
 	/// @return 下表索引的点
@@ -305,7 +325,10 @@ public:
 	}
 };
 
-struct HGRect {
+struct HGRect : HGShape {
+	public:
+		Shapes GetShape() const { return Shapes::Rect; }
+
 	n32 X, Y;
 	un32 H, W;
 
@@ -348,7 +371,7 @@ struct HGRect {
 	}
 
 	template<typename digit_type>
-	HG_INLINE HGShape<digit_type>& ToShape( HGShape<digit_type>& inout ) {
+	HG_INLINE HGPolygon<digit_type>& ToShape( HGPolygon<digit_type>& inout ) {
 		inout.AddVec2( static_cast< digit_type >( Left() ), static_cast< digit_type >( Top() ) )->AddVec2( static_cast< digit_type >( Left() ), static_cast< digit_type >( Bottom() ) )
 			->AddVec2( static_cast< digit_type >( Right() ), static_cast< digit_type >( Top() ) )->AddVec2( static_cast< digit_type >( Right() ), static_cast< digit_type >( Bottom() ) );
 		return inout;
@@ -426,6 +449,23 @@ struct HGRect {
 		c.Radius = GetDiagonal() / 2;
 		return c;
 	}
+	HG_INLINE un32 ShorterSide() {
+		return H > W ? W : H;
+	}
+	HG_INLINE un32 LongerSide() {
+		return H < W ? W : H;
+	}
+	/// @brief 内径圆半径
+	/// @return 
+	HG_INLINE f32 BoreRadius() {
+		return Half( ShorterSide() );
+	}
+	/// @brief 外径圆半径
+	/// @return 
+	HG_INLINE f32 OuterCircleRadius() {
+		return Half( GetDiagonal() );
+	}
+
 };
 
 }

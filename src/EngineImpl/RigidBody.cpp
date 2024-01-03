@@ -4,6 +4,7 @@
 #include "RigidBody.h"
 
 using namespace HGEngine::V1SDL;
+using namespace HG::Math;
 #pragma region HG
 void HGEngine::V1SDL::RigidBody::Proc( f32 deltaTime ) {
 	if( IsFrozen ) {
@@ -43,8 +44,8 @@ void HGEngine::V1SDL::RigidBody::MovePosition( const f32 x, const f32 y ) {
 #pragma endregion
 #pragma region box2d
 
-void HGEngine::V1SDL::RigidBodyB2::Sync2Transform() {
-	auto tr = m_pGameObject->GetComponent<Transform>();
+void HGEngine::V1SDL::RigidBodyB2::Sync2Transform( Transform* pTr ) {
+	auto tr = pTr == nullptr ? m_pGameObject->GetComponent<Transform>() : pTr;
 	auto posVec = pBody->GetPosition();
 	auto angle = pBody->GetAngle();
 	tr->f64Angle = angle;
@@ -56,28 +57,59 @@ void HGEngine::V1SDL::RigidBodyB2::ApplyForce( const b2Vec2& vec ) {
 	pBody->ApplyForceToCenter( vec, true );
 }
 
-HGEngine::V1SDL::RigidBodyB2::RigidBodyB2( HGWorld* pworld, Transform *tr, bool isDynmaic, const char* strName ) : pWorld( pworld), IsSyncTransform( true ), HGComponent( strName ) {
+void HGEngine::V1SDL::RigidBodyB2::SetAwake( bool isAwake ) {
+	pBody->SetAwake( isAwake );
+}
+
+HGEngine::V1SDL::RigidBodyB2::RigidBodyB2( HGWorld* pworld, Transform *tr, bool isDynmaic, const char* strName )
+: pWorld( pworld), IsSyncTransform( true ), tBodyDef(), tBox(), tCircle(), HGComponent( strName ) {
 	pWorld->vecRbs.push_back( this );
 	auto rect = tr->ToHGRectGlobal();
 	tBodyDef.type = isDynmaic ? b2_dynamicBody : b2_staticBody;
 	// body def
 	tBodyDef.position.Set( rect.GetCenter().X / PPM, rect.GetCenter().Y / PPM );
 	// body
-	
 	pBody = pWorld->Handle.CreateBody( &tBodyDef );
 	// shape
 	tBox.SetAsBox( tr->tRect.W / PPM / 2.0f, tr->tRect.H / PPM / 2.0f );
-	
 	tFixtureDef.shape = &tBox;
 	tFixtureDef.density = 1.0f;
 	tFixtureDef.friction = 0.3f;
-	
 	// Add the ground fixture to the ground body.
 	pFixture = pBody->CreateFixture( &tFixtureDef );
-	pBody->SetAwake( true );
+	SetAwake( true );
 }
 
-HGEngine::V1SDL::RigidBodyB2::~RigidBodyB2() { 
+HGEngine::V1SDL::RigidBodyB2::RigidBodyB2( HGWorld* pworld, const b2BodyDef& tbodyDef, const b2FixtureDef& tfixtureDef, HGShape* pshape, const char* strName ) : 
+		pWorld( pworld ), 
+		IsSyncTransform( true ), 
+		tBodyDef( tbodyDef ), 
+		tFixtureDef( tfixtureDef ), 
+		tBox(), tCircle(), 
+		pShape( pshape ), 
+		HGComponent( strName ) {
+	pWorld->vecRbs.push_back( this );
+	switch( pshape->GetShape() ) {
+	case HGShape::Rect:
+	auto pRect = dynamic_cast<HGRect*>( pshape );
+	tBox.SetAsBox( pRect->W / PPM / 2.0f, pRect->H / PPM / 2.0f );
+	tFixtureDef.shape = &tBox;
+	break;
+	case HGShape::Circle:
+	auto pCir = dynamic_cast<HGCircleF32*>( pshape );
+	tCircle.m_radius = pCir->Radius;
+	tFixtureDef.shape = &tCircle;
+	break;
+	default:
+	HG_ASSERT( false );
+	break;
+	}
+	pBody = pWorld->Handle.CreateBody( &tBodyDef );
+	pFixture = pBody->CreateFixture( &tFixtureDef );
+	SetAwake( true );
+}
+
+HGEngine::V1SDL::RigidBodyB2::~RigidBodyB2() {
 	pBody->DestroyFixture( pFixture );
 	pWorld->Handle.DestroyBody( pBody );
 	HG_ERASE_IN_VEC( this, pWorld->vecRbs );

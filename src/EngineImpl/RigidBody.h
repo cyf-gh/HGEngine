@@ -10,28 +10,50 @@ namespace V1SDL {
 
 class HGWorld;
 class Transform;
-
+/// \brief box2d刚体组件
+/// \note
+/// \see 
+/// HGEngine::V1SDL::HGWorld
+/// \todo
+/// 检测碰撞
 class RigidBodyB2 : public HG::HGComponent {
 public:
-	const float PPM = 32.f;
 private:
-	b2Body* pBody;
-	b2Fixture* pFixture;
-	b2FixtureDef tFixtureDef;
-	b2BodyDef tBodyDef;
-	b2PolygonShape tBox;
-	HGWorld* pWorld;
+	b2Body*				pBody;
+	b2Fixture*			pFixture;
+	b2FixtureDef		tFixtureDef;
+	b2BodyDef			tBodyDef;
+
+	b2PolygonShape		tBox;
+	b2CircleShape		tCircle;
+
+	HGWorld*			pWorld;
+	HGShape*			pShape;	
+
 public:
 	bool IsSyncTransform;
-	void Sync2Transform();
+	/// \brief 将body的数据同步至Transform组件
+	/// \param pTr 希望同步的数据
+	void Sync2Transform( Transform* pTr = nullptr );
 	void ApplyForce( const b2Vec2& vec );
-	RigidBodyB2( HGWorld *pworld, Transform *tr, bool isDynmaic, const char* strName );
-	~RigidBodyB2();
+	void SetAwake( bool isAwake );
+	/// \brief 将构建一个与Transform同样尺寸位置的矩形Rigidbody
+	/// \param pworld		所处的世界
+	/// \param tr			Transform组件
+	/// \param isDynmaic	如为false则不动
+	/// \param strName		component名字
+	explicit RigidBodyB2( HGWorld *pworld, Transform *tr, bool isDynmaic, const char* strName );
+	explicit RigidBodyB2( HGWorld* pworld, const b2BodyDef& tBodyDef, const b2FixtureDef& tFixtureDef, HGShape *pShape, const char* strName );
+	virtual ~RigidBodyB2();
 };
+
+#pragma region HG
 /// \brief 刚体组件
 /// \note
 /// * 对于一个 RigidBody，附加该组件的 GameObject 必须添加了 Collision 和 Transform
 /// * 在添加 RigidBody 后，移动物体不应该直接操作 RigidBody
+/// \deprecated 
+/// 已弃用，请使用RigidBodyB2替代
 class RigidBody : public HG::HGComponent {
 public:
 	enum Modes : char {
@@ -50,9 +72,10 @@ public:
 	void MovePosition( const f32 x, const f32 y );
 
 	RigidBody( const char* strName ) : HGComponent( strName ), IsFrozen( false ), Mode( Modes::Plain2D ) {
-
+		HG_ASSERT( false );
 	}
 	RigidBody() :HGComponent() {}
 };
+#pragma endregion
 }
 }
