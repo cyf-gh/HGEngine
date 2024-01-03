@@ -8,10 +8,14 @@
 
 namespace HGEngine {
 namespace V1SDL {
+
+#ifdef HGENGINE_EXPERIMENT
 /// \brief 碰撞组件
 /// \note 
 /// * 如果要以父类的形式获取，则代码必须写作 GetComponent<Collision>("Collision")
 /// 且 Collision 在初始化时必须
+/// /// \deprecated 
+/// 已弃用，请使用RigidBodyB2替代
 class Collision : public HG::HGComponent {
 protected:
 	virtual char checkWhichSideCol(  GameObject* pRectColObj ) = 0;
@@ -65,6 +69,7 @@ public:
 	explicit CircleCollision( const char* strName ) : Collision( strName ), Circle() {}
 	virtual ~CircleCollision(){}
 };
+#endif // HGENGINE_EXPERIMENT
 
 }
 

@@ -24,6 +24,8 @@ enum HGRenderableComponentSeq : int {
 /// \brief 
 /// 组件基类，其集合由GameObject拥有<br>
 /// Component base class, the set of components is owned by GameObject
+/// \note 
+/// 原则上不允许组件有互相调用的情况
 /// \see HGEngine::V1SDL::GameObject
 class HGComponent : public HGObject<HGComponent> {
 protected:

@@ -23,7 +23,7 @@ public:
 	void SetTexture( const char* strTextureName ) {
 		auto pT = EngineImpl::GetEngine()->GetAssetManager()->GetAsset<Texture>( strTextureName );
 		if( pT == nullptr ) {
-			HG_LOG_WARNNING( std::format( "Texture[{}] does not exsit in SetTexture()", strTextureName ).c_str() );
+			HG_LOG_WARNNING( std::format( "Texture[{}] does not exist in SetTexture()", strTextureName ).c_str() );
 			return;
 		}
 		SetTexture( pT );

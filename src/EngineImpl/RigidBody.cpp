@@ -5,6 +5,8 @@
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
+
+#ifdef HGENGINE_EXPERIMENT
 #pragma region HG
 void HGEngine::V1SDL::RigidBody::Proc( f32 deltaTime ) {
 	if( IsFrozen ) {
@@ -42,6 +44,8 @@ void HGEngine::V1SDL::RigidBody::MovePosition( const f32 x, const f32 y ) {
 	Velocity.Y = y;
 }
 #pragma endregion
+#endif
+
 #pragma region box2d
 
 void HGEngine::V1SDL::RigidBodyB2::Sync2Transform( Transform* pTr ) {

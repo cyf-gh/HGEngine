@@ -34,10 +34,10 @@ HGEngine::V1SDL::Animator2D::Animator2D( const char* strName, const HG::Math::HG
 	}
 }
 
-void HGEngine::V1SDL::Animator2D::Play( const f32 f32DeltaTime, const char cMode ) {
+void HGEngine::V1SDL::Animator2D::Play( const f32 f32DeltaTime,  Transform* pTr, const char cMode ) {
 	if( IsIdle ) {
 		m_f32Delta = 0.f;
-		ForceSetFrame();
+		ForceSetFrame( pTr );
 		return;
 	}
 	m_f32Delta += f32DeltaTime;
@@ -61,13 +61,13 @@ void HGEngine::V1SDL::Animator2D::Play( const f32 f32DeltaTime, const char cMode
 		Col = ( Col >= m_vecFrames[Row].size() ) ? 0 : Col;
 		break;
 		}
-		ForceSetFrame();
+		ForceSetFrame( pTr );
 	}
 }
 
 
-void HGEngine::V1SDL::Animator2D::ForceSetFrame() {
-	auto tr = m_pGameObject->GetComponent<Transform>();
+void HGEngine::V1SDL::Animator2D::ForceSetFrame( Transform* pTr ) {
+	auto tr = pTr;
 	if( IsIdle ) {
 		auto f = m_vecFrames[Row][m_unIdleFrameIndex];
 		tr->tLocalPos = f.tPos;

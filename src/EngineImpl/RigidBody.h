@@ -5,6 +5,8 @@
 #include "../Engine/HGEvent.hpp"
 #include "../Engine/HGComponent.h"
 
+namespace HG { namespace Math { struct HGShape; } }
+
 namespace HGEngine {
 namespace V1SDL {
 
@@ -28,7 +30,7 @@ private:
 	b2CircleShape		tCircle;
 
 	HGWorld*			pWorld;
-	HGShape*			pShape;	
+	HG::Math::HGShape*	pShape;	
 
 public:
 	bool IsSyncTransform;
@@ -43,10 +45,10 @@ public:
 	/// \param isDynmaic	如为false则不动
 	/// \param strName		component名字
 	explicit RigidBodyB2( HGWorld *pworld, Transform *tr, bool isDynmaic, const char* strName );
-	explicit RigidBodyB2( HGWorld* pworld, const b2BodyDef& tBodyDef, const b2FixtureDef& tFixtureDef, HGShape *pShape, const char* strName );
+	explicit RigidBodyB2( HGWorld* pworld, const b2BodyDef& tBodyDef, const b2FixtureDef& tFixtureDef, HG::Math::HGShape *pShape, const char* strName );
 	virtual ~RigidBodyB2();
 };
-
+#ifdef HGENGINE_EXPERIMENT
 #pragma region HG
 /// \brief 刚体组件
 /// \note
@@ -77,5 +79,6 @@ public:
 	RigidBody() :HGComponent() {}
 };
 #pragma endregion
+#endif
 }
 }
