@@ -84,7 +84,8 @@ public:
 	const HGRenderLoop& GetRenderLoop() { return tLoopRender; }
 	HG::HGInput* GetInput() { return pInput; }
 	Scene* GetCurrentScene() { return pCurrentScene; }
-	void NavigateScene( const char* strSceneName );
+	Scene* NavigateScene( const char* strSceneName );
+	void NavigateScene( Scene* pScene );
 	static EngineImpl* GetEngine() { return pEngine; }
 	static Scene* FindScene( const char* strSceneName );
 	static EngineImpl* pEngine;

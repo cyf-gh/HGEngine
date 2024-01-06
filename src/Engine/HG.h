@@ -16,6 +16,9 @@ namespace HG {
     };
 }
 
+#undef HGENGINE_GUI         // use imgui
+#undef HGENGINE_PHYSICS     // use box2d
+
 #define HGMain( ARGC, ARGV ) int main( ARGC, ARGV )
 
 #define HG_ERASE_IN_VEC( pt, vec ) vec.erase( std::remove( vec.begin(), vec.end(), pt ), vec.end() );

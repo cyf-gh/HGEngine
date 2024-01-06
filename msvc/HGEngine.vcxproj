@@ -73,8 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\nameof\include;..\src\Core;..\third_party\rapidjson\include;..\third_party\utest.h;..\msvc\imgui_msvc;..\third_party\box2d\include</IncludePath>
-    <ExternalIncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\imgui;..\third_party\box2d\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <IncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\nameof\include;..\src\Core;..\third_party\rapidjson\include;..\third_party\utest.h;..\msvc\imgui_msvc;..\third_party\box2d\include;..\third_party\UDRefl\include</IncludePath>
+    <ExternalIncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\imgui;..\third_party\box2d\include;..\third_party\UDRefl\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>..\third_party\SDL2\lib\x86;..\third_party\SDL2_image\lib\x86;..\third_party\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\..\Libs</OutDir>
     <TargetName>$(ProjectName)_x86d</TargetName>

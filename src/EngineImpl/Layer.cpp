@@ -12,6 +12,7 @@ using namespace std;
 
 void HGEngine::V1SDL::Layer::DoCheck() {
 	int j = 0;
+	#ifdef HGENGINE_PHYSICS
 	for( auto& x : m_vecX ) {
 		Collision* col = x->GetComponent<BoxCollision>( "Collision" );
 		if( col == nullptr ) {
@@ -29,6 +30,7 @@ CONTI:
 			rb->Proc( HG_ENGINE_TIMEDELTA );
 		}
 	}
+	#endif 
 }
 
 void HGEngine::V1SDL::Layer::AttachGameObject( GameObject* pGameObject ) {

@@ -4,6 +4,7 @@
 #include "../GameObject.h"
 #include "../Transform.hpp"
 
+#ifdef HGENGINE_GUI
 namespace HGEngine {
 namespace V1SDL {
 namespace UI {
@@ -123,3 +124,4 @@ public:
 }
 }
 }
+#endif

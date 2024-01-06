@@ -16,4 +16,9 @@ public:
 private:
 	SDL_Renderer*m_pSDL2Renderer;
 };
+class EditorFrame {
+public:
+	
+};
+
 }}

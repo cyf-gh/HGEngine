@@ -117,7 +117,7 @@ int HGEngine::V1SDL::Editor::Render() {
             ImGui::Begin( "Log Window", &show_log_window );   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
             ImGui::InputTextMultiline( "Log", HG::HGLog::HGLogStr.data(), HG::HGLog::HGLogStr.size() );
             //static char input[100];
-            //ImGui::InputText( "123", input, sizeof( input ) );
+            ImGui::Text( "Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate );
             ImGui::End();   
         }
         

@@ -17,7 +17,7 @@ Scene::Scene( const char* strName )
 	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ), umGameObjectsByName() {
 	umGameObjectsByName = std::unordered_map<std::string, GameObject*>();
 	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
-		m_vecLayers.push_back( new Layer( ( string( "Layer" ) + to_string( i ) ).c_str(), i ) );
+		m_vecLayers.push_back( new Layer( ( "Layer" + to_string( i ) ).c_str(), i ) );
 	}
 	HG_LOG_INFO( std::format( "Scene[{}] !Constructed", GetName() ).c_str() );
 }
@@ -28,7 +28,7 @@ Scene::~Scene() {
 	}
 	HG_LOG_INFO( std::format( "Scene[{}] ~Destructed", GetName() ).c_str() );
 }
-
+#ifdef HGENGINE_GUI
 GUI* HGEngine::V1SDL::Scene::TryCreateGUI( const std::string& name, bool isVisiable ) {
 	m_umGUIs[name] = new GUI( this, isVisiable );
 	return m_umGUIs[name];
@@ -37,7 +37,7 @@ GUI* HGEngine::V1SDL::Scene::TryCreateGUI( const std::string& name, bool isVisia
 GUI* HGEngine::V1SDL::Scene::GetGUI( const std::string& name ) {
 	return m_umGUIs[HG_HGXGSSNT(name.c_str())];
 }
-
+#endif 
 void HGEngine::V1SDL::Scene::SetMainCamera( Camera* pCamera ) {
 	umGameObjectsByName[pCamera->GetName()] = pCamera;
 	m_pMainCamera = pCamera;
@@ -97,6 +97,7 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 	for( auto& it : m_vecLayers ) {
 		it->DoCheck();
 	}
+	#ifdef HGENGINE_GUI
 	for( auto& gg : m_umGUIs ) {
 		auto& g = gg.second;
 		g->m_unUIIndex = 0;
@@ -104,6 +105,7 @@ void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
 			HG_EVENT_CALLRAW_NO_DATA( g->OnGUI, g );
 		}
 	}
+	#endif
 	if( m_pMainCamera != nullptr ) { m_pMainCamera->Update( pEvent ); }
 }
 

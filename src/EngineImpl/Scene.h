@@ -26,8 +26,10 @@ protected:
 	Camera *m_pMainCamera;
 	std::unordered_map<std::string, GUI*> m_umGUIs;
 public:
+	#ifdef HGENGINE_GUI
 	GUI* TryCreateGUI( const std::string& name, bool isVisiable = false );
 	GUI* GetGUI( const std::string& name );
+	#endif 
 	Camera *GetMainCamera() const { return m_pMainCamera; }
 	void SetMainCamera( Camera * pCamera );
 	/// \brief 将一个GameObject加入场景<br>attach a new game object to scene

@@ -7,6 +7,8 @@
 namespace HGEngine {
 namespace V1SDL {
 
+class Transform;
+
 class Animator2D : public HG::HGComponent
 {
 public:

@@ -6,6 +6,8 @@
 #include "Transform.hpp"
 #include "GUI.hpp"
 
+#ifdef HGENGINE_PHYSICS
+
 char HGEngine::V1SDL::BoxCollision::checkWhichSideCol( GameObject* pRectColObj ) {
 	auto tr2 = pRectColObj->GetComponent<BoxCollision>();
 
@@ -121,3 +123,5 @@ void HGEngine::V1SDL::Collision::procCollided( bool collided, GameObject* pObj )
 		}
 	}
 }
+
+#endif // HGENGINE_PHYSICS

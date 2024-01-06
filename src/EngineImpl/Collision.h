@@ -9,7 +9,7 @@
 namespace HGEngine {
 namespace V1SDL {
 
-#ifdef HGENGINE_EXPERIMENT
+#ifdef HGENGINE_PHYSICS
 /// \brief 碰撞组件
 /// \note 
 /// * 如果要以父类的形式获取，则代码必须写作 GetComponent<Collision>("Collision")
@@ -69,7 +69,7 @@ public:
 	explicit CircleCollision( const char* strName ) : Collision( strName ), Circle() {}
 	virtual ~CircleCollision(){}
 };
-#endif // HGENGINE_EXPERIMENT
+#endif // HGENGINE_PHYSICS
 
 }
 

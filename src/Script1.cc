@@ -4,6 +4,7 @@ using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 using namespace std;
 
+#ifdef ENABLE_SCRIPT1
 /*
 template<class T>
 string CheckMarshal( T* t, const char* str = "def" ) {
@@ -358,3 +359,5 @@ pText2->Enable();
 
 
 HG_SCRIPT_END_DISABLE
+
+#endif

@@ -261,7 +261,7 @@ typedef HGCircle<f32> HGCircleF32;
 /// \note  由点的有序集合组成
 template<typename digit_type>
 struct HGPolygon : HGShape {
-public 
+public:
 	Shapes GetShape() const { return Shapes::Polygon; }
 
 public:

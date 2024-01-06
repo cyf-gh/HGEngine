@@ -48,7 +48,7 @@ public:
 	explicit RigidBodyB2( HGWorld* pworld, const b2BodyDef& tBodyDef, const b2FixtureDef& tFixtureDef, HG::Math::HGShape *pShape, const char* strName );
 	virtual ~RigidBodyB2();
 };
-#ifdef HGENGINE_EXPERIMENT
+#ifdef HGENGINE_PHYSICS
 #pragma region HG
 /// \brief ¸ÕÌå×é¼þ
 /// \note

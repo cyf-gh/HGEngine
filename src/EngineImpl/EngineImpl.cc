@@ -123,13 +123,18 @@ void EngineImpl::Exit() {
 	tLoopMain.eStatus = Loop::STOP;
 }
 
-void EngineImpl::NavigateScene( const char* strSceneName ) {
+Scene* EngineImpl::NavigateScene( const char* strSceneName ) {
 	pCurrentScene = static_cast<Scene*>( Scene::Find( strSceneName ) );
 	if( pCurrentScene != nullptr ) {
 		HG_EVENT_CALLRAW_NO_DATA( pCurrentScene->OnAttach, pCurrentScene );
 	} else {
 		HG_LOG_FAILED( std::string( "no such scene named:" ).append( strSceneName ).c_str() );
 	}
+	return pCurrentScene;
+}
+
+void HGEngine::V1SDL::EngineImpl::NavigateScene( Scene* pScene ) {
+	NavigateScene( pScene->GetName() );
 }
 
 Scene* HGEngine::V1SDL::EngineImpl::FindScene( const char* strSceneName ) {

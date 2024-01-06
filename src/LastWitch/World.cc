@@ -3,7 +3,7 @@
 using namespace std;
 void CreateC() {
 
-	for( size_t i = 3; i < 50; i++ ) {
+	for( size_t i = 4; i < 50; i++ ) {
 		GameObject* go_MainChar2 = new GameObject( format( "World_MainChar{}", i ).c_str() ); go_MainChar2->Enable();
 		auto c_Chars_Sp2 = new Spirte( format( "Sprite{}", i ).c_str(), "Chars" );
 		go_MainChar2->AddComponent( c_Chars_Sp2 );
@@ -16,8 +16,8 @@ void CreateC() {
 HG_SCRIPT_START( SCRIPT_WORLD ) {
 
 	auto* s = HGX::GetSceneWithGUI( "World" );
-	auto* canvas = s->GetGUI( "Canvas" );
-	EngineImpl::GetEngine()->NavigateScene( "World" );
+	// auto* canvas = s->GetGUI( "Canvas" );
+	EngineImpl::GetEngine()->NavigateScene( s );
 	
 	// GameObject* go_World = new GameObject("World"); go_World->Enable();
 
@@ -27,10 +27,10 @@ HG_SCRIPT_START( SCRIPT_WORLD ) {
 	df3->tPosition.X = 0;
 	df3->tPosition.Y = 0;
 
-	canvas->OnGUI = HG_EVENT_IMPL {
-		auto gui = static_cast< GUI* >( pThis );
-		return 0;
-	};
+	//canvas->OnGUI = HG_EVENT_IMPL {
+	//	auto gui = static_cast< GUI* >( pThis );
+	//	return 0;
+	//};
 
 	// Ground
 	GameObject* go_Ground = new GameObject( "World_Ground" ); go_Ground->Enable();
@@ -64,8 +64,8 @@ HG_SCRIPT_START( SCRIPT_WORLD ) {
 	c_MainChar_Tr2->SetGlobalRect( 0,0,50,50 );
 	auto c_Chars_Rb2 = static_cast< RigidBodyB2* >( go_MainChar2->AddComponent( new RigidBodyB2( HG_ENGINE()->tPhyiscs.FirstWorld(), c_MainChar_Tr2, true, "World_MainChar2_RigidBody2" ) ) );
 	CreateC();
-
-	HG_EVENT_BIND( GameObject::Find( "World_MainCamera" ), OnFixedUpdate ) {
+	
+	HG_EVENT_BIND( s->GetMainCamera(), OnFixedUpdate ) {
 		auto _this = HG_EVENT_THIS_GAMEOBJECT;
 		auto c_Camera_Tr = _this->GetComponent<Transform>();
 		auto eff = _this->GetComponent<Effect>();

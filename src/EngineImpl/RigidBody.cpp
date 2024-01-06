@@ -6,7 +6,7 @@
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
 
-#ifdef HGENGINE_EXPERIMENT
+#ifdef HGENGINE_PHYSICS
 #pragma region HG
 void HGEngine::V1SDL::RigidBody::Proc( f32 deltaTime ) {
 	if( IsFrozen ) {
@@ -94,19 +94,17 @@ HGEngine::V1SDL::RigidBodyB2::RigidBodyB2( HGWorld* pworld, const b2BodyDef& tbo
 		HGComponent( strName ) {
 	pWorld->vecRbs.push_back( this );
 	switch( pshape->GetShape() ) {
-	case HGShape::Rect:
-	auto pRect = dynamic_cast<HGRect*>( pshape );
-	tBox.SetAsBox( pRect->W / PPM / 2.0f, pRect->H / PPM / 2.0f );
-	tFixtureDef.shape = &tBox;
-	break;
-	case HGShape::Circle:
-	auto pCir = dynamic_cast<HGCircleF32*>( pshape );
-	tCircle.m_radius = pCir->Radius;
-	tFixtureDef.shape = &tCircle;
-	break;
-	default:
-	HG_ASSERT( false );
-	break;
+		case HGShape::Rect:
+		tBox.SetAsBox( dynamic_cast< HGRect* >( pshape )->W / PPM / 2.0f, dynamic_cast< HGRect* >( pshape )->H / PPM / 2.0f );
+		tFixtureDef.shape = &tBox;
+		break;
+		case HGShape::Circle:
+		tCircle.m_radius = dynamic_cast< HGCircleF32* >( pshape )->Radius;
+		tFixtureDef.shape = &tCircle;
+		break;
+		default:
+		HG_ASSERT( false );
+		break;
 	}
 	pBody = pWorld->Handle.CreateBody( &tBodyDef );
 	pFixture = pBody->CreateFixture( &tFixtureDef );

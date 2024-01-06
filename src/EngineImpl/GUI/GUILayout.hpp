@@ -4,6 +4,7 @@
 #include <Math.hpp>
 #include "../GameObject.h"
 
+#ifdef HGENGINE_GUI
 namespace HGEngine {
 namespace V1SDL {
 namespace UI {
@@ -32,3 +33,4 @@ class TableUILayout: public UILayout {
 }
 }
 }
+#endif

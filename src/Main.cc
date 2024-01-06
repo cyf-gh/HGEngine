@@ -12,7 +12,25 @@ using namespace HG;
 
 #undef main
 
+
 HGMain( int argc, char** argv ) {
+	// scenes -> engine -> game objects
+    //SDL_RendererInfo info;
+    //SDL_GetRendererInfo(renderer, &info);
+    //SDL_Log("Current SDL_Renderer: %s", info.name);
+	auto* pScene = new Scene( "Default" );
+	auto* tEngine = new EngineImpl( argc, argv );
+	// tEngine->GetEditor()->Hide();
+	HG_SCRIPT_BINDALL();
+
+	tEngine->Render();
+	HG_SAFE_DEL( pScene );
+	HG_SAFE_DEL( tEngine );
+	return 0;
+}
+
+
+void B2DExample() {
 	b2Vec2 gravity( 0.0f, -10.0f );
 
 	// Construct a world object, which will hold and simulate the rigid bodies.
@@ -78,19 +96,4 @@ HGMain( int argc, char** argv ) {
 
 		HG_LOG_INFO( std::format( "{} {} {}\n", position.x, position.y, angle ).c_str() );
 	}
-
-	// scenes -> engine -> game objects
-    //SDL_RendererInfo info;
-    //SDL_GetRendererInfo(renderer, &info);
-    //SDL_Log("Current SDL_Renderer: %s", info.name);
-	auto* pScene = new Scene( "Default" );
-	auto* tEngine = new EngineImpl( argc, argv );
-	// tEngine->GetEditor()->Hide();
-	HG_SCRIPT_BINDALL();
-
-	tEngine->Render();
-	HG_SAFE_DEL( pScene );
-	HG_SAFE_DEL( tEngine );
-	return 0;
 }
-

@@ -14,6 +14,8 @@
 #include "GUI/GUIContent.hpp"
 #include "GUI/GUILayout.hpp"
 
+#ifdef HGENGINE_GUI
+
 namespace HGEngine {
 namespace V1SDL {
 class GUI : HG::Memory::NonCopyable {
@@ -109,6 +111,6 @@ public:
 private:
 
 };
-
 }
 }
+#endif 

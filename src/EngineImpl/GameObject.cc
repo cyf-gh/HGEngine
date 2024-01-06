@@ -73,8 +73,8 @@ bool HGEngine::V1SDL::GameObject::IsInCameraView() {
 
 GameObject::GameObject( const char* strName, Scene* pScene, bool isFixed2Camera, bool isGui )
 : HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), m_pLayer( nullptr ), m_isFixedToCamera( isFixed2Camera ), m_isGUI( isGui ) {
-    AddComponent( new HGBehaviour( "Behaviour" ) );
-	AddComponent( new Transform( "Transform" ) );
+    AddComponent( new HGBehaviour(  "Behaviour" ) );
+	AddComponent( new Transform( "Transform"  ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
     HG_LOG_INFO( std::format("GameObject[{}] !Constructed", GetName() ).c_str() );
     if ( m_pScene == nullptr ) {

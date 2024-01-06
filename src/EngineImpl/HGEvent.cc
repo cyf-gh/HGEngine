@@ -1,5 +1,5 @@
 #include "../engine/HGEvent.hpp"
-
+#include <../EngineImpl/Log.hpp>
 using namespace HG;
 
 static std::vector<HG::pEventNoArg>* p_vecEvents;
@@ -15,7 +15,11 @@ HG::InitBindingEventsImpl::InitBindingEventsImpl( pEventNoArg pE, bool isEnable 
 void HG::InitBindingEventsImpl::InvokeAll() {
 	for( pEventNoArg& e : *p_vecEvents ) {
 		if( e != nullptr ) {
-			e();
+			try {
+				e();
+			} catch(...) {
+				HG_LOG_FAILED( "failed in InvokeAll" );
+			}
 		}
 	}
 }

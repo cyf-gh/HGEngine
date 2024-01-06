@@ -33,6 +33,7 @@ static const string& GetSceneSpecName( const char* strSceneName, const char* str
 #define HG_HGXGSSN( name ) HGX::GetSceneSpecName( strSceneName, name ).c_str()
 #define HG_HGXGSSNT( name ) HGX::GetSceneSpecName( mStrName.c_str(), name ).c_str()
 
+#ifdef HGENGINE_GUI
 /// @brief 快速获得一个具有GUI层场景，具有Canvas Camera CameraEffect
 /// @note 如果场景不存在则会被创建
 /// @param strSceneName 场景名称
@@ -44,7 +45,7 @@ static Scene* GetSceneWithGUI( const char* strSceneName, const char* strGUIName 
 		s = new Scene( strSceneName );
 	}
 	// Canvas
-	auto* canvas = s->TryCreateGUI( HG_HGXGSSN( "Canvas" ), true );
+	// auto* canvas = s->TryCreateGUI( HG_HGXGSSN( "Canvas" ), true );
 	// Camera
 	Camera* pCamera = new Camera( HG_HGXGSSN( "MainCamera" ), s );
 	pCamera->Enable();
@@ -55,6 +56,7 @@ static Scene* GetSceneWithGUI( const char* strSceneName, const char* strGUIName 
 	s->SetMainCamera( pCamera );
 	return s;
 }
+#endif
 
 }
 
