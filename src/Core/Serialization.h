@@ -1,4 +1,3 @@
-/*
 #pragma once
 
 #include <nameof.hpp>
@@ -9,22 +8,23 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/document.h>
-#include "Log.h"
+#include "Log.hpp"
 #include "Type.h"
 #include "Math.hpp"
+#include "Error.h"
 
 #define HG_MARSHAL_START						out.StartObject();
 #define HG_MARSHAL_END							out.EndObject();
 
-/// \brief ÉèÖÃ¼üÃû
+/// \brief ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½
 /// \note 
-/// * µ±strNameÎª¿Õ×Ö·û´®Ê±£¬²»»áÉèÖÃ¼üÃû
+/// * ï¿½ï¿½strNameÎªï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½
 #define HG_MARSHAL_SETKEY						if ( strcmp( strName, "" ) != 0 ) { out.Key( strName ); }
 
-/// \brief Ðû¸æ¿ªÊ¼¹¹½¨¶ÔÏóÐòÁÐ»¯
+/// \brief ï¿½ï¿½ï¿½æ¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½
 /// \note 
-/// * µ±¹¹½¨¶ÔÏóÐòÁÐ»¯Ê±£¬¸Ã¶ÔÏó»áÒÔ "ObjName" : { ... } µÄÐÎÊ½±»¸½¼ÓÓÚ out ÖÐ
-/// * ´æÔÚ½«Íö JSON ×Ö·û´®´¢´æÆ÷ buffer Óë Writer writer
+/// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½Ê±ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ObjName" : { ... } ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ out ï¿½ï¿½
+/// * ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ JSON ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ buffer ï¿½ï¿½ Writer writer
 #define HG_MARSHAL_OBJECT_START					rapidjson::StringBuffer buffer; rapidjson::Writer<rapidjson::StringBuffer> writer(buffer); writer.StartObject()
 #define HG_MARSHAL_OBJECT_SETPROP( PROP )		HG::Serialization::Marshal( PROP, std::string( NAMEOF( PROP ) ).c_str(), writer )
 #define HG_MARSHAL_OBJECT_END					 writer.EndObject(); HG_MARSHAL_SETKEY; out.RawValue( buffer.GetString(), strlen( buffer.GetString() ), rapidjson::kObjectType ); return out;
@@ -40,10 +40,105 @@
 #define HG_UNMARSHAL_FULLSPEC( T )				template<> HG_INLINE T& Unmarshal( T& t, const char* strName, const rapidjson::Value& in, rapidjson::Document& rd )
 
 namespace HG {
-/// \brief ¶ÔÏóÐòÁÐ»¯
+/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½
 /// \note 
-/// * µ±¶ÔÏóµÄÊôÐÔ±»±©Â¶Ê±£¬Ó¦µ±ÖØÐ´¸Ã¶ÔÏóÀàÐÍµÄ Marshal Unmarshal È«ÌØ»¯Ä£°åº¯Êý
+/// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Â¶Ê±ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½Íµï¿½ Marshal Unmarshal È«ï¿½Ø»ï¿½Ä£ï¿½åº¯ï¿½ï¿½
 namespace Serialization {
+
+/// \brief Serialize an object to JSON string
+/// \tparam T Object type
+/// \param obj Object to serialize
+/// \return JSON string
+template<typename T>
+std::string ToJson(T& obj) {
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    Marshal(obj, "root", writer);
+    return buffer.GetString();
+}
+
+/// \brief Deserialize a JSON string to object
+/// \tparam T Object type
+/// \param json JSON string
+/// \return Deserialized object (via out parameter)
+template<typename T>
+Result FromJson(const char* json, T& outObj) {
+    if (json == nullptr || strlen(json) == 0) {
+        return Result(HG_ERR_PARSE_FAILED, "Empty JSON string");
+    }
+    
+    rapidjson::Document doc;
+    doc.Parse(json);
+    
+    if (doc.HasParseError()) {
+        return Result(HG_ERR_PARSE_FAILED, "JSON parse error");
+    }
+    
+    if (!doc.IsObject()) {
+        return Result(HG_ERR_PARSE_FAILED, "JSON root must be an object");
+    }
+    
+    try {
+        Unmarshal(outObj, "root", doc, doc);
+        return Result(HG_ERR_OK);
+    } catch (const Exception& e) {
+        return Result(HG_ERR_PARSE_FAILED, e.GetMessage());
+    } catch (const std::exception& e) {
+        return Result(HG_ERR_PARSE_FAILED, e.what());
+    }
+}
+
+/// \brief Save object to file
+/// \tparam T Object type
+/// \param obj Object to save
+/// \param filePath File path
+/// \return Result code
+template<typename T>
+Result SaveToFile(T& obj, const char* filePath) {
+    if (filePath == nullptr || strlen(filePath) == 0) {
+        return Result(HG_ERR_INVALID_PARAM, "Invalid file path");
+    }
+    
+    std::string json = ToJson(obj);
+    
+    FILE* fp = fopen(filePath, "w");
+    if (fp == nullptr) {
+        return Result(HG_ERR_UNKNOWN, "Failed to open file for writing");
+    }
+    
+    fwrite(json.c_str(), 1, json.length(), fp);
+    fclose(fp);
+    
+    return Result(HG_ERR_OK);
+}
+
+/// \brief Load object from file
+/// \tparam T Object type
+/// \param filePath File path
+/// \param outObj Output object
+/// \return Result code
+template<typename T>
+Result LoadFromFile(const char* filePath, T& outObj) {
+    if (filePath == nullptr || strlen(filePath) == 0) {
+        return Result(HG_ERR_INVALID_PARAM, "Invalid file path");
+    }
+    
+    FILE* fp = fopen(filePath, "r");
+    if (fp == nullptr) {
+        return Result(HG_ERR_NOT_FOUND, "File not found");
+    }
+    
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    
+    std::string json;
+    json.resize(size);
+    fread(&json[0], 1, size, fp);
+    fclose(fp);
+    
+    return FromJson(json.c_str(), outObj);
+}
 
 template<typename T>
 HG_INLINE rapidjson::Writer<rapidjson::StringBuffer>& Marshal( T& t, const char* strName, rapidjson::Writer<rapidjson::StringBuffer>& out ) {
@@ -176,7 +271,7 @@ HG_UNMARSHAL_FULLSPEC( std::string ) {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
 
 HG_MARSHAL_FULLSPEC( Math::HGVec2<float> ) {
 	HG_MARSHAL_OBJECT_START;
@@ -242,4 +337,3 @@ HG_UNMARSHAL_FULLSPEC( Math::HGRect ) {
 }
 
 }
-*/
