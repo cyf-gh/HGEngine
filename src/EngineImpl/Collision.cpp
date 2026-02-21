@@ -30,13 +30,15 @@ bool HGEngine::V1SDL::BoxCollision::CanLeave( GameObject* pRectColObj ) {
 	auto key = checkWhichSideCol( pRectColObj );
 	switch( key ) {
 	case HG_BC_TOP:
-	if( rbThis->Velocity.Y < 0 ) { rbThis->Velocity.Y = 0; return true; } break;
+		if( rbThis->Velocity.Y < 0 ) { rbThis->Velocity.Y = 0; return true; } break;
 	case HG_BC_BOTTOM:
-	if( rbThis->Velocity.Y > 0 ) { rbThis->Velocity.Y = 0; return true; } break;
+		if( rbThis->Velocity.Y > 0 ) { rbThis->Velocity.Y = 0; return true; } break;
 	case HG_BC_LEFT:
-	if( rbThis->Velocity.X < 0 ) { rbThis->Velocity.X = 0; return true; } break;
+		if( rbThis->Velocity.X < 0 ) { rbThis->Velocity.X = 0; return true; } break;
 	case HG_BC_RIGHT:
-	if( rbThis->Velocity.X > 0 ) { rbThis->Velocity.X = 0; return true; } break;
+		if( rbThis->Velocity.X > 0 ) { rbThis->Velocity.X = 0; return true; } break;
+	default:
+		break;
 	}
 	return false;
 }
@@ -91,11 +93,11 @@ bool HGEngine::V1SDL::CircleCollision::DoCheck( GameObject* pObj ) {
 void HGEngine::V1SDL::Collision::procCollided( bool collided, GameObject* pObj ) {
 	if( std::find( m_lColList.begin(), m_lColList.end(), pObj ) != m_lColList.end() ) {
 		if( collided ) {
-			// Ö®Ç°ÒÑ¾­Åö×²¹ýÇÒ¼ÌÐøÅö×²
+			// Ö®Ç°ï¿½Ñ¾ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½×²
 			HG_EVENT_CALL( OnCollisionStay, pObj, this->m_pGameObject );
 			HG_EVENT_CALL( OnCollisionStay, this->m_pGameObject, pObj );
 		} else {
-			// Ö®Ç°ÒÑ¾­Åö×²¹ýµ«ÏÖÔÚ²»Åö×²
+			// Ö®Ç°ï¿½Ñ¾ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½×²
 			HG_EVENT_CALL( OnCollisionExit, pObj, this->m_pGameObject );
 			HG_EVENT_CALL( OnCollisionExit, this->m_pGameObject, pObj );
 			for( auto itList = m_lColList.begin(); itList != m_lColList.end(); ) {

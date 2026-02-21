@@ -8,6 +8,7 @@
 #include <string>
 #include <format>
 #include <unordered_map>
+#include <algorithm>
 #include <Type.h>
 #include <Error.h>
 #include <Random.h>
@@ -45,10 +46,12 @@ public:
 	bool HasParent() const { return pParent != nullptr; }
 	void SetParent( HGObject* pp ) {
 		if( pParent != nullptr ) {
-			if( pp != nullptr ) {
+			HG_ERASE_IN_VEC( this, pParent->Children );
+		}
+		if( pp != nullptr ) {
+			auto it = std::find( pp->Children.begin(), pp->Children.end(), this );
+			if( it == pp->Children.end() ) {
 				pp->Children.push_back( this );
-			} else {
-				HG_ERASE_IN_VEC( this, pParent->Children );
 			}
 		}
 		pParent = pp;
@@ -57,7 +60,7 @@ public:
 
 	const char* GetName() const { return mStrName.c_str(); }
 
-	const void SetName( const char* strName ) {
+	void SetName( const char* strName ) {
 		auto node = umTheseOnes.extract( GetName() );
 		if( node.empty() == false ) {
 			node.key() = strName;
@@ -78,8 +81,8 @@ public:
 		umTheseOnesById[UID] = static_cast< T* >( this );
 	}
 	virtual ~HGObject() {
-		umTheseOnes[GetName()] = nullptr;
-		umTheseOnesById[UID] = nullptr;
+		umTheseOnes.erase( GetName() );
+		umTheseOnesById.erase( UID );
 	}
 };
 

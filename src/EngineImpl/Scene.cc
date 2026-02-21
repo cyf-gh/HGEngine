@@ -14,7 +14,7 @@ using namespace HG;
 using namespace std;
 
 Scene::Scene( const char* strName )
-	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ), umGameObjectsByName() {
+	: HGObject<Scene>( strName ), m_pMainCamera( nullptr ), m_vecLayers(), OnAttach( nullptr ), umGameObjectsByName(), m_bIsStart( false ) {
 	umGameObjectsByName = std::unordered_map<std::string, GameObject*>();
 	for( int i = 0; i < HG_LAYER_LENGTH; ++i ) {
 		m_vecLayers.push_back( new Layer( ( "Layer" + to_string( i ) ).c_str(), i ) );
@@ -71,15 +71,14 @@ GameObject* Scene::FindGameObject( const char* strName ) {
 }
 
 void HGEngine::V1SDL::Scene::Update( void* pEvent ) {
-	static bool IsStart = false;
-	// Ê×´ÎÔËÐÐµ÷ÓÃ
-	if( !IsStart ) {
+	// ï¿½×´ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½
+	if( !m_bIsStart ) {
 		for( auto& it : umGameObjectsByName ) {
 			if( it.second->IsEnable() ) {
 				HG_EVENT_CALL( Start, pEvent, it.second );
 			}
 		}
-		IsStart = true;
+		m_bIsStart = true;
 	}
 	for( auto& it : umGameObjectsByName ) {
 		if( it.second->IsEnable() ) {

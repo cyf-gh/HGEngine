@@ -15,16 +15,17 @@ namespace HGEngine {
 namespace V1SDL {
 class Camera;
 class GUI;
-/// \brief ÓÎÏ·³¡¾° <br>Scene
+/// \brief ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ <br>Scene
 /// \note 
-/// * Scene::OnAttachÓÚEngineImpl::NavigateScene±»µ÷ÓÃ <br>Scene::OnAttach will be invoked in EngineImpl::NavigateScene
-/// * ËùÓÐµÄ³¡¾°¶¼Ó¦µ±ÔÚEngineµÄ¹¹ÔìÖ®Ç°Íê³É <br>all scene should be constructed before the construction of Engine
+/// * Scene::OnAttachï¿½ï¿½EngineImpl::NavigateSceneï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <br>Scene::OnAttach will be invoked in EngineImpl::NavigateScene
+/// * ï¿½ï¿½ï¿½ÐµÄ³ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Engineï¿½Ä¹ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ <br>all scene should be constructed before the construction of Engine
 class Scene : public HG::HGObject<Scene> {
 protected:
 	std::unordered_map<std::string, GameObject*> umGameObjectsByName;
 	std::vector<Layer*> m_vecLayers;
 	Camera *m_pMainCamera;
 	std::unordered_map<std::string, GUI*> m_umGUIs;
+	bool m_bIsStart;
 public:
 	#ifdef HGENGINE_GUI
 	GUI* TryCreateGUI( const std::string& name, bool isVisiable = false );
@@ -32,14 +33,14 @@ public:
 	#endif 
 	Camera *GetMainCamera() const { return m_pMainCamera; }
 	void SetMainCamera( Camera * pCamera );
-	/// \brief ½«Ò»¸öGameObject¼ÓÈë³¡¾°<br>attach a new game object to scene
+	/// \brief ï¿½ï¿½Ò»ï¿½ï¿½GameObjectï¿½ï¿½ï¿½ë³¡ï¿½ï¿½<br>attach a new game object to scene
 	/// \note 
-	/// * Í¬ÃûGameObject²¢²»»á¸²¸ÇÔ­ÓÐµÄGameObject <br>game object which has a duplicated name will not recover the old one
-	/// * ¸Ã·½·¨²»Ó¦¸ÃÓÉÓÃ»§µ÷ÓÃ£¬GameObjectµÄ¹¹Ôì½«×Ô¶¯µ÷ÓÃ¸Ã·½·¨ <br> this method should NOT be invoked by user; it will be invoked in the constructor of GameObject
+	/// * Í¬ï¿½ï¿½GameObjectï¿½ï¿½ï¿½ï¿½ï¿½á¸²ï¿½ï¿½Ô­ï¿½Ðµï¿½GameObject <br>game object which has a duplicated name will not recover the old one
+	/// * ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ã£ï¿½GameObjectï¿½Ä¹ï¿½ï¿½ì½«ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ã¸Ã·ï¿½ï¿½ï¿½ <br> this method should NOT be invoked by user; it will be invoked in the constructor of GameObject
 	/// \sa GameObject::GameObject
 	void AttachGameObject( GameObject* pGameObject, char LayerIndex = 0 );
-	/// \brief Í¨¹ýNameÑ°ÕÒGameObject<br>find game object by name
-	/// \return µ±Î´ÕÒµ½ÏàÓ¦Ãû×ÖµÄGameObjectÊ±£¬·µ»Ønullptr<br>nullptr when the specified game object does not exist
+	/// \brief Í¨ï¿½ï¿½NameÑ°ï¿½ï¿½GameObject<br>find game object by name
+	/// \return ï¿½ï¿½Î´ï¿½Òµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Öµï¿½GameObjectÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nullptr<br>nullptr when the specified game object does not exist
 	GameObject* FindGameObject( const char* strName );
 
 	void Update( void* pEvent );

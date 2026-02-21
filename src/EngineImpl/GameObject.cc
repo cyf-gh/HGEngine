@@ -18,6 +18,9 @@ using namespace HG::Math;
 
 void GameObject::renderCameraView( Renderer2D* pRenderer ) {
     auto pTransform = GetComponent<Transform>();
+    if( pTransform == nullptr ) {
+        return;
+    }
     auto& tSrcRect = pTransform->ToSDLRectLocal();
     auto& tDestRect = pTransform->ToSDLRectGlobal();
     auto& tCenterPt = pTransform->ToSDLPoint();
@@ -92,13 +95,15 @@ HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nu
 
 GameObject::~GameObject() {
     for( auto& c : m_vecComponents ) {
-        c->nRefCount = c->nRefCount == 0 ? c->nRefCount : --c->nRefCount;
-        if( c->nRefCount == 0 ) {
-            HG_LOG_INFO( std::format( "GameObject[{}]=>Component[{}] ~Destructed", GetName(), c->GetName() ).c_str() );
-            HG_SAFE_DEL( c );
-        } else {
-            HG_LOG_INFO( std::format( "GameObject[{}]=>Component[{}] ~Ref-- == [{}]", GetName(), c->GetName(), c->nRefCount ).c_str() );
-            c = nullptr;
+        if( c != nullptr ) {
+            --c->nRefCount;
+            if( c->nRefCount == 0 ) {
+                HG_LOG_INFO( std::format( "GameObject[{}]=>Component[{}] ~Destructed", GetName(), c->GetName() ).c_str() );
+                HG_SAFE_DEL( c );
+            } else {
+                HG_LOG_INFO( std::format( "GameObject[{}]=>Component[{}] ~Ref-- == [{}]", GetName(), c->GetName(), c->nRefCount ).c_str() );
+                c = nullptr;
+            }
         }
     }
     HG_LOG_INFO( std::format( "GameObject[{}] ~Destructed", GetName() ).c_str() );

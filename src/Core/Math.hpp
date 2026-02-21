@@ -174,8 +174,9 @@ public:
 	static void Rotate( const HGVec2& vCenter, const HGVec2& v1, double a, HGVec2& vOut ) {
 		digit_type x = v1.X; digit_type y = v1.Y;
 		digit_type rx0 = vCenter.X; digit_type ry0 = vCenter.Y;
-		vOut.X = static_cast<digit_type>( ( x - rx0 ) * cos( a / 180 * ST_PI ) - ( y - ry0 ) * sin( a / 180 * ST_PI ) + rx0 );
-		vOut.Y = static_cast< digit_type >( ( x - rx0 ) * sin( a / 180 * ST_PI ) + ( y - ry0 ) * cos( a / 180 * ST_PI ) + ry0 );
+		double rad = a / 180.0 * ST_PI;
+		vOut.X = static_cast<digit_type>( ( x - rx0 ) * cos( rad ) - ( y - ry0 ) * sin( rad ) + rx0 );
+		vOut.Y = static_cast< digit_type >( ( x - rx0 ) * sin( rad ) + ( y - ry0 ) * cos( rad ) + ry0 );
 	}
 	static HGVec2 Add( const HGVec2& v1, const HGVec2& v2 ) {
 		return HGVec2( v1.X + v2.X, v1.Y + v2.Y );
@@ -257,8 +258,8 @@ public:
 
 typedef HGCircle<f32> HGCircleF32;
 
-/// \brief ÐÎ×´
-/// \note  ÓÉµãµÄÓÐÐò¼¯ºÏ×é³É
+/// \brief ï¿½ï¿½×´
+/// \note  ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½ò¼¯ºï¿½ï¿½ï¿½ï¿½
 template<typename digit_type>
 struct HGPolygon : HGShape {
 public:
@@ -278,7 +279,7 @@ public:
 		}
 		return this;
 	}
-	/// \brief µÃµ½Íâ¾¶Ô²
+	/// \brief ï¿½Ãµï¿½ï¿½â¾¶Ô²
 	HG_INLINE HGCircle<digit_type> GetCircumscribedCircle() {
 		if( vecPoints.size() != 4 ) {
 			return HGCircle<digit_type>();
@@ -288,7 +289,7 @@ public:
 		c.Radius = HGVec2<digit_type>::Sub( vecPoints[0], vecPoints[3] ).Norm() / 2;
 		return c;
 	}
-	/// \brief »ñÈ¡¾àÀëÔ­µã×î½üµÄµã
+	/// \brief ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½
 	HG_INLINE HGVec2<digit_type>Min() {
 		digit_type min = 0;
 		HGVec2<digit_type>* p = nullptr;
@@ -302,7 +303,7 @@ public:
 		}
 		return *p;
 	}
-	/// \brief »ñÈ¡¾àÀëÔ­µã×îÔ¶µÄµã
+	/// \brief ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Äµï¿½
 	HG_INLINE HGVec2<digit_type>Max() {
 		digit_type max = 0;
 		HGVec2<digit_type>* p = nullptr;
@@ -317,9 +318,9 @@ public:
 		return *p;
 	}
 	HGPolygon() : vecPoints() { }
-	/// @brief	Í¨¹ý[]²Ù×÷·û»ñµÃµã×ø±ê
-	/// @param	i µãË÷Òý
-	/// @return ÏÂ±íË÷ÒýµÄµã
+	/// @brief	Í¨ï¿½ï¿½[]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
+	/// @param	i ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/// @return ï¿½Â±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½
 	HG_INLINE HGVec2<digit_type> operator[]( const int i ) {
 		return vecPoints[i];
 	}
@@ -383,8 +384,8 @@ struct HGRect : HGShape {
 		p.Y = this->Y + ( H >> 1 );
 		return p;
 	}
-	/// \brief ¾ØÐÎÓë¾ØÐÎÊÇ·ñÖØµþ
-	/// \note  °üÀ¨Ïà½»Çé¿ö
+	/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Øµï¿½
+	/// \note  ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½ï¿½ï¿½
 	HG_INLINE bool IsOverlap( const HGRect& dstRect ) {
 		return ( !( ( Right() < dstRect.Left() ) || ( Left() > dstRect.Right() ) ) &&
 				 !( Bottom() < dstRect.Top() || ( Top() > dstRect.Bottom() ) ) );
@@ -409,8 +410,8 @@ struct HGRect : HGShape {
 		return ( ( Right() == dstRect.Left() ) || ( Left() == dstRect.Right() ) ||
 				 ( Bottom() == dstRect.Top() || ( Top() == dstRect.Bottom() ) ) );
 	}
-	/// \brief ¾ØÐÎÓëÔ°ÊÇ·ñÖØµþ
-	/// \note  °üÀ¨Ïà½»Çé¿ö
+	/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½Ç·ï¿½ï¿½Øµï¿½
+	/// \note  ï¿½ï¿½ï¿½ï¿½ï¿½à½»ï¿½ï¿½ï¿½
 	template<typename digit_type>
 	HG_INLINE bool IsOverlap( const HGCircle<digit_type>& dstCircle ) {
 		HGVec2<digit_type> vecClosest;
@@ -455,12 +456,12 @@ struct HGRect : HGShape {
 	HG_INLINE un32 LongerSide() {
 		return H < W ? W : H;
 	}
-	/// @brief ÄÚ¾¶Ô²°ë¾¶
+	/// @brief ï¿½Ú¾ï¿½Ô²ï¿½ë¾¶
 	/// @return 
 	HG_INLINE f32 BoreRadius() {
 		return Half( ShorterSide() );
 	}
-	/// @brief Íâ¾¶Ô²°ë¾¶
+	/// @brief ï¿½â¾¶Ô²ï¿½ë¾¶
 	/// @return 
 	HG_INLINE f32 OuterCircleRadius() {
 		return Half( GetDiagonal() );

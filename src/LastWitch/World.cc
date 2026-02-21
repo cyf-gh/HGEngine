@@ -1,5 +1,7 @@
 #include <engine/HGEngine.hpp>
 
+#define HGENGINE_GUI
+
 using namespace std;
 void CreateC() {
 

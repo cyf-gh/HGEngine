@@ -43,6 +43,11 @@ public:
 			HG_SAFE_DEL( w );
 		}
 	}
+	/// @brief 该方法将会创建一个新world
+	/// @param g 
+	/// @param timeStep 
+	/// @param velocityIterations 
+	/// @param positionIterations 
 	void AddWorld( b2Vec2 g, f32 timeStep, n32 velocityIterations, n32 positionIterations ) {
 		Worlds.push_back( new HGWorld( g, timeStep, velocityIterations, positionIterations ) );
 	}
