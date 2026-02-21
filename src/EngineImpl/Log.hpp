@@ -4,127 +4,257 @@
 #include <fstream>
 #include <ctime>
 #include <iostream>
+#include <sstream>
 #include <Memory.h>
 #include <Error.h>
 #include <Directory.hpp>
+#include <mutex>
 
 namespace HG {
-    class HGLog {
-    private:
-        HG_INLINE const char* timeSprintf( const int t ) {
-            return t < 10 ? "0%d" : "%d";
-        }
-        const std::string getErrorDesc( const char * strFuncName, const char* strMsg = "" ) {
-            std::string desc( strFuncName );
-            desc += " failed: %s";
-            desc += strMsg;
-            return desc;
-        }
-        inline const char *getDateStr() {
-            time_t now = time(nullptr );
 
-            ptm = localtime(&now);
-            std::string t = "%d-";
-            t += timeSprintf( ptm->tm_mon );
-            t += "-";
-            t += timeSprintf( ptm->tm_mday );
-            sprintf_s( strDate, 20, t.c_str(), 1900 + ptm->tm_year, 1 + ptm->tm_mon, ptm->tm_mday );
-            return strDate;
-        }
-        inline const char *getTimeStr() {
-            time_t now = time( nullptr );
+/// \brief Log level enum
+enum class LogLevel {
+    Debug = 0,
+    Info = 1,
+    Warning = 2,
+    Error = 3,
+    Fatal = 4,
+    None = 5
+};
 
-            ptm = localtime(&now);
-            std::string t;
-            t += timeSprintf( ptm->tm_hour );
-            t += ":";
-            t += timeSprintf( ptm->tm_min );
-            t += ":";
-            t += timeSprintf( ptm->tm_sec );
-            sprintf_s( strTime, 10, t.c_str(), ptm->tm_hour, ptm->tm_min, ptm->tm_sec );
-            return strTime;
+/// \brief Get log level string
+inline const char* LogLevelToString(LogLevel level) {
+    switch (level) {
+        case LogLevel::Debug:   return "DEBUG";
+        case LogLevel::Info:    return "INFO ";
+        case LogLevel::Warning: return "WARN ";
+        case LogLevel::Error:   return "ERROR";
+        case LogLevel::Fatal:   return "FATAL";
+        default:                return "UNKNOWN";
+    }
+}
+
+/// \brief Logger class with level-based logging
+class HGLog {
+private:
+    static HGLog* s_Instance;
+    static std::mutex s_Mutex;
+
+    LogLevel m_MinLevel;
+    std::ofstream m_File;
+    bool m_OutputToConsole;
+    bool m_OutputToFile;
+    std::string m_LogBuffer;
+
+    char m_DateStr[20];
+    char m_TimeStr[10];
+    tm* m_pTm;
+
+    void updateTime() {
+        time_t now = time(nullptr);
+        m_pTm = localtime(&now);
+        sprintf_s(m_DateStr, sizeof(m_DateStr), "%04d-%02d-%02d", 
+            1900 + m_pTm->tm_year, 1 + m_pTm->tm_mon, m_pTm->tm_mday);
+        sprintf_s(m_TimeStr, sizeof(m_TimeStr), "%02d:%02d:%02d", 
+            m_pTm->tm_hour, m_pTm->tm_min, m_pTm->tm_sec);
+    }
+
+    void logMessage(LogLevel level, const char* message, const char* category = nullptr) {
+        if (level < m_MinLevel) return;
+
+        std::lock_guard<std::mutex> lock(s_Mutex);
+        updateTime();
+
+        std::ostringstream oss;
+        if (category) {
+            oss << category << "\t";
+        }
+        oss << "[" << m_TimeStr << "] " 
+            << LogLevelToString(level) << ": " 
+            << message;
+
+        std::string logStr = oss.str();
+
+        if (m_OutputToConsole) {
+            std::cout << logStr << std::endl;
         }
 
-    public:
-        /// \param strLogFilePath log file path, like "./Log/"
-        /// \note rather ./Log/ than ./Log
-        explicit HGLog( const char* strLogFilePath = "./Log/")
-            :ptm( nullptr ), strTime( new char[10] ), strDate( new char[20] ) {
-            HGDirectory::CreateDirectoryIfDoesNotExsit( strLogFilePath );
-            
-            std::string strLogFile( strLogFilePath );
-            strLogFile.append( getDateStr() ).append(".txt" );
-            tOfs.open( strLogFile.c_str(), std::ofstream::out | std::ofstream::app );
-            if ( !tOfs.is_open() ) {
-                std::cerr << "failed to open file: " << HG_ERR_SYS_ERROR() << std::endl;
-                std::cerr<<" log component may do not work";
-                assert( false );
+        if (m_OutputToFile && m_File.is_open()) {
+            m_File << m_DateStr << "\t" << logStr << std::endl;
+            m_File.flush();
+        }
+
+        m_LogBuffer += logStr;
+        m_LogBuffer += "\n";
+    }
+
+public:
+    /// \brief Get singleton instance
+    static HGLog* GetInstance() {
+        if (s_Instance == nullptr) {
+            s_Instance = new HGLog();
+        }
+        return s_Instance;
+    }
+
+    /// \brief Initialize logger
+    /// \param logPath Path to log directory (e.g., "./Log/")
+    /// \param minLevel Minimum log level to output
+    /// \param outputToConsole Enable console output
+    /// \param outputToFile Enable file output
+    static void Initialize(const char* logPath = "./Log/", 
+                          LogLevel minLevel = LogLevel::Debug,
+                          bool outputToConsole = true,
+                          bool outputToFile = true) {
+        std::lock_guard<std::mutex> lock(s_Mutex);
+        if (s_Instance != nullptr) {
+            delete s_Instance;
+        }
+        s_Instance = new HGLog(logPath, minLevel, outputToConsole, outputToFile);
+    }
+
+    /// \brief Shutdown logger
+    static void Shutdown() {
+        std::lock_guard<std::mutex> lock(s_Mutex);
+        if (s_Instance != nullptr) {
+            delete s_Instance;
+            s_Instance = nullptr;
+        }
+    }
+
+    /// \brief Constructor
+    explicit HGLog(const char* logPath = "./Log/",
+                  LogLevel minLevel = LogLevel::Debug,
+                  bool outputToConsole = true,
+                  bool outputToFile = true)
+        : m_MinLevel(minLevel), m_OutputToConsole(outputToConsole), 
+          m_OutputToFile(outputToFile), m_pTm(nullptr) {
+        if (m_OutputToFile) {
+            HGDirectory::CreateDirectoryIfDoesNotExsit(logPath);
+            std::string logFile(logPath);
+            updateTime();
+            logFile += m_DateStr;
+            logFile += ".log";
+            m_File.open(logFile.c_str(), std::ofstream::out | std::ofstream::app);
+            if (!m_File.is_open()) {
+                std::cerr << "Failed to open log file: " << logFile << std::endl;
+                m_OutputToFile = false;
             }
-        };
-        ~HGLog() {
-            tOfs.close();
-            HG_SAFE_DEL( ptm );
-            HG_SAFE_DEL_ARR( strTime );
-            HG_SAFE_DEL_ARR( strDate );
         }
-        void Log2File( const int priority, const char* message, const char* category ) {
-            tOfs << category << "\t[" << getTimeStr() << "]" << "("<< priority << ")\t" << message << std::endl;
-            tOfs.flush();
-        }
-        void LogEnter2File() {
-            tOfs << std::endl;
-            tOfs.flush();
-        }
-        void Log2Console(  const int sdlCategory, const char* message, const char* category ) {
-            std::cout << category  << "\t[" << getTimeStr() << "]" << "("<< sdlCategory << ")\t" << message << std::endl;
-            HGLogStr += ( std::string( category )+ "\t" + '[' + std::string( getTimeStr() ) + "]" + message + "\n" );
-        }
-        void FailedSDL(const int sdlCategory, const char* strFuncName ) {
-            Log2File( sdlCategory, getErrorDesc( strFuncName ).c_str(), "FAILED SDL" );
-            Log2Console( sdlCategory, getErrorDesc( strFuncName ).c_str(), "FAILED SDL" );
-        }
-        void Failed( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "FAILED" );
-            Log2Console( sdlCategory, message, "FAILED" );
-        }
-        void AssertFailed( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "ASSERT FAILED" );
-            Log2Console( sdlCategory, message, "ASSERT FAILED" );
-        }
-        void AssertSuccess( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "ASSERT SUCCESS" );
-            Log2Console( sdlCategory, message, "ASSERT SUCCESS" );
-        }
-        void Fault( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "FAULT" );
-            Log2Console( sdlCategory, message, "FAULT" );
-        }
-        void Success( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "SUCCESS" );
-            Log2Console( sdlCategory, message, "SUCCESS" );
-        }
-        void Info( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "INFO" );
-            Log2Console( sdlCategory, message, "INFO" );
-        }
-        void Warning( const int sdlCategory, const char* message ) {
-            Log2File( sdlCategory, message, "WARNING" );
-            Log2Console( sdlCategory, message, "WARNING" );
-        }
-        void Debug( const int sdlCategory, const char* message ) {
-            Log2Console( sdlCategory, message, "DEBUG" );
-        }
-        void FlushLogFile() { tOfs.flush(); }
+    }
 
-        std::string GetString() { std::stringstream ss; ss << std::cout.rdbuf(); return ss.str(); }
-        static HGLog *Log;
-        static std::string HGLogStr;
-    private:
-        std::ofstream tOfs;
-        char *strDate;
-        char *strTime;
-        tm *ptm;
-    };
+    /// \brief Destructor
+    ~HGLog() {
+        if (m_File.is_open()) {
+            m_File.close();
+        }
+    }
+
+    /// \brief Set minimum log level
+    void SetMinLevel(LogLevel level) { m_MinLevel = level; }
+
+    /// \brief Get minimum log level
+    LogLevel GetMinLevel() const { return m_MinLevel; }
+
+    /// \brief Enable/disable console output
+    void SetConsoleOutput(bool enable) { m_OutputToConsole = enable; }
+
+    /// \brief Enable/disable file output
+    void SetFileOutput(bool enable) { m_OutputToFile = enable; }
+
+    /// \brief Log debug message
+    void Debug(const char* message, const char* category = nullptr) {
+        logMessage(LogLevel::Debug, message, category);
+    }
+
+    /// \brief Log info message
+    void Info(const char* message, const char* category = nullptr) {
+        logMessage(LogLevel::Info, message, category);
+    }
+
+    /// \brief Log warning message
+    void Warning(const char* message, const char* category = nullptr) {
+        logMessage(LogLevel::Warning, message, category);
+    }
+
+    /// \brief Log error message
+    void Error(const char* message, const char* category = nullptr) {
+        logMessage(LogLevel::Error, message, category);
+    }
+
+    /// \brief Log fatal message
+    void Fatal(const char* message, const char* category = nullptr) {
+        logMessage(LogLevel::Fatal, message, category);
+    }
+
+    /// \brief Get log buffer content
+    std::string GetBuffer() const { return m_LogBuffer; }
+
+    /// \brief Clear log buffer
+    void ClearBuffer() { m_LogBuffer.clear(); }
+
+    /// \brief Flush log file
+    void Flush() {
+        if (m_File.is_open()) {
+            m_File.flush();
+        }
+    }
+
+    // Legacy compatibility methods
+    void Log2File(int priority, const char* message, const char* category) {
+        LogLevel level = static_cast<LogLevel>(priority);
+        logMessage(level, message, category);
+    }
+
+    void Log2Console(int priority, const char* message, const char* category) {
+        LogLevel level = static_cast<LogLevel>(priority);
+        logMessage(level, message, category);
+    }
+
+    void FailedSDL(int category, const char* strFuncName) {
+        Error(strFuncName, "SDL_ERROR");
+    }
+
+    void Failed(int category, const char* message) {
+        Error(message);
+    }
+
+    void AssertFailed(int category, const char* message) {
+        Error(message, "ASSERT_FAILED");
+    }
+
+    void AssertSuccess(int category, const char* message) {
+        Debug(message, "ASSERT_SUCCESS");
+    }
+
+    void Fault(int category, const char* message) {
+        Fatal(message);
+    }
+
+    void Success(int category, const char* message) {
+        Info(message);
+    }
+
+    void Info(int category, const char* message) {
+        Info(message);
+    }
+
+    void Warning(int category, const char* message) {
+        Warning(message);
+    }
+
+    void Debug(int category, const char* message) {
+        Debug(message);
+    }
+};
+
+/// \brief Global log instance (legacy compatibility)
+#define HG_LOG HG::HGLog::GetInstance()
+
+// Initialization macros
+#define HG_LOG_INIT(PATH, LEVEL) HG::HGLog::Initialize(PATH, LEVEL)
+#define HG_LOG_SHUTDOWN() HG::HGLog::Shutdown()
+
 }
 
 /// \brief check if SDL object return with a non-nullptr value and log verbose
@@ -133,54 +263,54 @@ namespace HG {
 /// \param FUNC_NAME e.g. "foo::foo"
 #define HG_LOG_CHECK_SDL_HANDLE_IS_NULL( P, SDL_LOG_CATEGORY, FUNC_NAME ) \
 if ( P == nullptr){ \
-    HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ); \
+    HG_LOG->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME ); \
     return; \
 } else { \
-    HG::HGLog::Log->Success( SDL_LOG_CATEGORY, FUNC_NAME ); \
+    HG_LOG->Success( SDL_LOG_CATEGORY, FUNC_NAME ); \
 }
 
 /// \brief log the SDL error directly
 /// \sa HG_LOG_CHECK_SDL_HANDLE_IS_NULL
 #define HG_LOG_SDL_ERROR( SDL_LOG_CATEGORY, FUNC_NAME ) \
-HG::HGLog::Log->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
+HG::HGLog::GetInstance()->FailedSDL( SDL_LOG_CATEGORY, FUNC_NAME );
 
 /// \brief log info
 #define HG_LOG_INFO( info ) \
-HG::HGLog::Log->Info( 3, info )
+HG::HGLog::GetInstance()->Info( info )
 
 #define HG_LOG_INFOF( FMT, ARGS ) \
-HG::HGLog::Log->Info( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::GetInstance()->Info( std::format( FMT, ARGS ).c_str() )
 
 /// \brief log failed info
 #define HG_LOG_FAILED( info ) \
-HG::HGLog::Log->Failed( 3, info )
+HG::HGLog::GetInstance()->Failed( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_FAILEDF( FMT, ARGS ) \
-HG::HGLog::Log->Failed( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::GetInstance()->Failed( 3, std::format( FMT, ARGS ).c_str() )
 
 /// \brief log failed info
 #define HG_LOG_WARNNING( info ) \
-HG::HGLog::Log->Warning( 100, info )
+HG::HGLog::GetInstance()->Warning( 100, info )
 
 /// \brief log failed info
 #define HG_LOG_WARNNINGF( FMT, ARGS ) \
-HG::HGLog::Log->Warning( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::GetInstance()->Warning( std::format( FMT, ARGS ).c_str() )
 
 #define HG_LOG_SUCCESS( info ) \
-HG::HGLog::Log->Success( 3, info )
+HG::HGLog::GetInstance()->Success( 3, info )
 
 #ifdef HG_RELEASE
 #   define HG_LOG_DEBUGF( FMT, ARGS )
 #else
 #   define HG_LOG_DEBUGF( FMT, ARGS ) \
-HG::HGLog::Log->Debug( 3, std::format( FMT, ARGS ).c_str() )
+HG::HGLog::GetInstance()->Debug( std::format( FMT, ARGS ).c_str() )
 #endif
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_SUCCESS( info ) \
-HG::HGLog::Log->AssertSuccess( 3, info )
+HG::HGLog::GetInstance()->AssertSuccess( 3, info )
 
 /// \brief log failed info
 #define HG_LOG_TEST_ASSERT_FAILED( info ) \
-HG::HGLog::Log->AssertFailed( 3, info )
+HG::HGLog::GetInstance()->AssertFailed( 3, info )

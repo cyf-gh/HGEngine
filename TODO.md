@@ -38,30 +38,34 @@
 
 ---
 
-## 中优先级
+## 中优先级 ✅ (已完成)
 
 ### 构建系统
-- [ ] **修复 CMake 构建**
+- [x] **修复 CMake 构建**
   - README 提到 CMake 目前不工作
   - 位置: `src/CMakeLists.txt`
+  - 实现: 完整的CMake配置，支持SDL2/SDL2_image/SDL2_ttf从third_party加载
 
 ### 测试
-- [ ] **集成单元测试框架**
+- [x] **集成单元测试框架**
   - utest.h 已集成但无自动化测试
   - 添加 CMake 测试目标
-  - 位置: `src/Core/Test.hpp`
+  - 位置: `src/Core/Test.hpp`, `src/Core/test/main.cpp`
+  - 实现: `TestSuite` 类, `HG_TEST_REGISTER`/`HG_TEST_RUN_ALL` 宏
 
 ### 日志系统
-- [ ] **实现分级日志 (DEBUG/INFO/WARN/ERROR)**
+- [x] **实现分级日志 (DEBUG/INFO/WARN/ERROR)**
   - 当前日志系统过于简单
   - 添加日志级别过滤和输出目标控制
   - 位置: `src/EngineImpl/Log.hpp`
+  - 实现: `LogLevel` 枚举, `HGLog` 改进, 线程安全, 文件和控制台输出
 
 ### 配置管理
-- [ ] **添加配置文件支持**
+- [x] **添加配置文件支持**
   - 当前硬编码值过多 (如窗口大小、帧率等)
   - 使用 JSON 格式的配置文件
-  - 新建: `src/Core/Config.h`
+  - 位置: `src/Core/Config.h` (新建)
+  - 实现: `Config` 类, Get/Set方法, 文件加载/保存, 默认值宏
 
 ### 资源管理
 - [ ] **实现资源池/缓存**

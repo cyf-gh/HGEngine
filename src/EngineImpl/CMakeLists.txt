@@ -1,17 +1,21 @@
-set( SDL2_IMAGE_PATH "L:/SDL2_image-2.0.5/x86_64-w64-mingw32")
-
-find_package( SDL2 REQUIRED )
-find_package( SDL2_image REQUIRED )
-
-if ( NOT SDL2_IMAGE_FOUND )
-    message(FATAL_ERROR "SDL_IMAGE not found!")
-endif( NOT SDL2_IMAGE_FOUND )
-
-include_directories( ${SDL2_INCLUDE_DIR} )
-include_directories( ${SDL2_IMAGE_INCLUDE_DIRS} )
-
+# EngineImpl library
 aux_source_directory(. DIR_ENGINE_IMPL_SRCS)
-add_library ( EngineImpl ${DIR_ENGINE_IMPL_SRCS} )
-target_link_libraries( EngineImpl HGCore )
-target_link_libraries( EngineImpl ${SDL2_IMAGE_LIBRARIES} )
+
+add_library(EngineImpl STATIC ${DIR_ENGINE_IMPL_SRCS})
+
+# Include directories for EngineImpl
+target_include_directories(EngineImpl PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Editor
+    ${CMAKE_CURRENT_SOURCE_DIR}/GUI
+)
+
+# Link dependencies
+target_link_libraries(EngineImpl PUBLIC HGCore)
+
+# Compile definitions
+target_compile_definitions(EngineImpl PRIVATE
+    _CRT_SECURE_NO_WARNINGS
+    HGENGINE_PHYSICS
+)
 
