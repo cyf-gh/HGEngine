@@ -1,6 +1,10 @@
 #include "ParticleSystem.h"
 #include "EngineImpl.h"
+#include "Transform.hpp"
+#include <Math.hpp>
 #include <cmath>
+
+using namespace HG::Math;
 
 namespace HGEngine {
 namespace V1SDL {
@@ -75,7 +79,7 @@ void ParticleSystem::Emit() {
     float angleRad = angle * 3.14159265359f / 180.0f;
     float speed = m_Config.minSpeed + (rand() % 100) / 100.0f * (m_Config.maxSpeed - m_Config.minSpeed);
     
-    p.position = GetGameObject()->tPosition;
+    p.position = GetGameObject()->GetComponent<Transform>()->tPosition;
     p.velocity.X = cosf(angleRad) * speed;
     p.velocity.Y = sinf(angleRad) * speed;
     p.acceleration = m_Config.gravity;
@@ -119,15 +123,15 @@ void ParticleSystem::UpdateParticle(Particle& p, float deltaTime) {
     float lifeRatio = p.lifeTime / p.maxLifeTime;
     p.size = m_Config.minSize + (1.0f - lifeRatio) * (m_Config.maxSize - m_Config.minSize) * m_Config.sizeOverLifetime;
     
-    float r = m_Config.startColor.r + (m_Config.endColor.r - m_Config.startColor.r) * (1.0f - lifeRatio);
-    float g = m_Config.startColor.g + (m_Config.endColor.g - m_Config.startColor.g) * (1.0f - lifeRatio);
-    float b = m_Config.startColor.b + (m_Config.endColor.b - m_Config.startColor.b) * (1.0f - lifeRatio);
-    float a = m_Config.startColor.a + (m_Config.endColor.a - m_Config.startColor.a) * (1.0f - lifeRatio);
+    float r = m_Config.startColor.R + (m_Config.endColor.R - m_Config.startColor.R) * (1.0f - lifeRatio);
+    float g = m_Config.startColor.G + (m_Config.endColor.G - m_Config.startColor.G) * (1.0f - lifeRatio);
+    float b = m_Config.startColor.B + (m_Config.endColor.B - m_Config.startColor.B) * (1.0f - lifeRatio);
+    float a = m_Config.startColor.A + (m_Config.endColor.A - m_Config.startColor.A) * (1.0f - lifeRatio);
     
-    p.color.r = (unsigned char)r;
-    p.color.g = (unsigned char)g;
-    p.color.b = (unsigned char)b;
-    p.color.a = (unsigned char)a;
+    p.color.R = (unsigned char)r;
+    p.color.G = (unsigned char)g;
+    p.color.B = (unsigned char)b;
+    p.color.A = (unsigned char)a;
     p.alpha = a / 255.0f;
 }
 

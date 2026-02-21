@@ -6,6 +6,7 @@
 #include <mutex>
 
 #include "Asset.h"
+#include "Texture.h"
 
 namespace HGEngine {
 namespace V1SDL {
@@ -93,13 +94,8 @@ public:
 
     void SetMaxCacheSize(int maxMemoryMB);
 
-    template<typename T>
-    T* LoadResource(const char* name, const char* filePath);
-
-    template<typename T>
-    T* GetResource(const char* name);
-
-    template<typename T>
+    Texture* LoadTexture(const char* name, const char* filePath);
+    void* GetResource(const char* name);
     void ReleaseResource(const char* name);
 
     void UnloadResource(const char* name);
@@ -110,7 +106,7 @@ public:
 
     void UnloadOldest(int count);
 
-    bool IsCached(const char* name) const;
+    bool IsCached(const char* name);
 
     int GetCacheCount() const { return (int)m_Cache.size(); }
 
@@ -118,9 +114,9 @@ public:
 
     int GetResourceCount() const { return (int)m_Cache.size(); }
 
-    const char* GetResourcePath(const char* name) const;
+    const char* GetResourcePath(const char* name);
 
-    int GetResourceRefCount(const char* name) const;
+    int GetResourceRefCount(const char* name);
 
     void SetResourceMemorySize(const char* name, int sizeBytes);
 
@@ -135,11 +131,6 @@ private:
 
     void UpdateMemoryUsage(int delta);
 };
-
-/// \brief Get global asset manager
-inline AssetManager* GetAssetManager() {
-    return AssetManager::GetInstance();
-}
 
 } // namespace V1SDL
 } // namespace HGEngine

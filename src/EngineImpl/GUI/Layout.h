@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "HGComponent.h"
+#include "../Engine/HGComponent.h"
 #include "Transform.hpp"
 
 namespace HGEngine {

@@ -7,7 +7,7 @@
 namespace HGEngine {
 namespace V1SDL {
 
-enum class HG_LAYER_INDEX : char {
+enum HG_LAYER_INDEX : char {
 	HG_LAYER_0 = 0,
 	HG_LAYER_1,
 	HG_LAYER_2,

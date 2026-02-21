@@ -10,8 +10,9 @@
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <string>
-#include "Log.hpp"
 #include <Error.h>
+
+#include "Log.hpp"
 #include "../engine/HGInput.hpp"
 #include "Physics.hpp"
 #include "EngineImpl.h"
@@ -63,19 +64,19 @@ void InitSDLTtf() {
 }
 
 EngineImpl::EngineImpl( int argc, char** argv )
-	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ), pInput( new HGInput ), pEditor( nullptr ), pLog( HG::HGLog::Log ) {
+	: pCurrentScene( nullptr ), pWindow( nullptr ), pUpdateThread( nullptr ), pRenderThread( nullptr ), pRenderer( nullptr ), pAsset( nullptr ), pAssetManager( nullptr ), pInput( new HGInput ), pEditor( nullptr ), pLog( HG_LOG ) {
 	SetEngine( this );
 	
-	HGLog::Log->LogEnter2File();
+	// HG_LOG->Log2File();
 	if( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ) {
-		HGLog::Log->FailedSDL( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+		HG_LOG->FailedSDL( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
 	} else {
-		HGLog::Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+		HG_LOG->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
 	}
 	InitSDLImage();
 	InitSDLTtf();
 
-	HGLog::Log->Info( SDL_LOG_CATEGORY_SYSTEM, "Starting HoneyGame Engine ..." );
+	HG_LOG->Info( SDL_LOG_CATEGORY_SYSTEM, "Starting HoneyGame Engine ..." );
 
 	pWindow = new Window( "HG Engine", 0, 0, 1280, 1024, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN ); // | SDL_WINDOW_RESIZABLE );
 	pWindow->SetCenterScreen();
@@ -97,10 +98,14 @@ EngineImpl::EngineImpl( int argc, char** argv )
 
 	pAsset = new Asset();
 
+	pAssetManager = AssetManager::GetInstance();
+	pAssetManager->SetMaxCacheSize( 256 );
+
 	tPhyiscs.AddWorld( b2Vec2( 0.0f, 10.0f ), 1.0f / 100.0f, 6, 2 );
 }
 
 EngineImpl::~EngineImpl() {
+	AssetManager::Destroy();
 	IMG_Quit();
 	SDL_Quit();
 	TTF_Quit();
@@ -205,3 +210,9 @@ void HGRenderLoop::_RunTask() {
 void HGRenderLoop::_PaddingTask() { }
 
 void HGRenderLoop::_StopTask() { }
+
+/// \brief Find game object in current scene
+HGEngine::V1SDL::GameObject* HGEngine::V1SDL::FindGameObject(const char* name)
+{
+	return EngineImpl::GetEngine()->GetCurrentScene()->FindGameObject(name);
+}

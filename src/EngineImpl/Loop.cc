@@ -31,7 +31,7 @@ void Loop::Render() {
                 this->_PaddingTask();
                 break;
             default:
-                HGLog::Log->Fault( SDL_LOG_CATEGORY_SYSTEM, "Unknown loop status. loop break." );
+                HG_LOG->Fault( SDL_LOG_CATEGORY_SYSTEM, "Unknown loop status. loop break." );
                 return;
         }
         un64End = SDL_GetPerformanceCounter();
@@ -41,19 +41,19 @@ void Loop::Render() {
     }
     THREAD_EXIT:
     m_IsExit = true;
-    HGLog::Log->Info(SDL_LOG_CATEGORY_SYSTEM, std::format(  "{}::Run() -Exit", GetName() ).c_str() );
+    HG_LOG->Info(SDL_LOG_CATEGORY_SYSTEM, std::format(  "{}::Run() -Exit", GetName() ).c_str() );
 }
 
 void Loop::_RunTask() {
-    HGLog::Log->Warning(SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_RunTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
+    HG_LOG->Warning(SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_RunTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
     eStatus = STOP;
 }
 
 void Loop::_PaddingTask() {
-    HGLog::Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_PaddingTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
+    HG_LOG->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_PaddingTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
     eStatus = STOP;
 }
 
 void Loop::_StopTask() {
-    HGLog::Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_StopTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
+    HG_LOG->Warning( SDL_LOG_CATEGORY_SYSTEM, std::format( "In {}::_StopTask; nothing to do. Thread will be stopped.", GetName() ).c_str() );
 }

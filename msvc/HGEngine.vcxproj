@@ -73,9 +73,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\nameof\include;..\src\Core;..\third_party\rapidjson\include;..\third_party\utest.h;..\msvc\imgui_msvc;..\third_party\box2d\include;..\third_party\UDRefl\include</IncludePath>
-    <ExternalIncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\imgui;..\third_party\box2d\include;..\third_party\UDRefl\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>..\third_party\SDL2\lib\x86;..\third_party\SDL2_image\lib\x86;..\third_party\SDL2_ttf\lib\x86;..\msvc\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\SDL2_mixer\include;..\third_party\nameof\include;..\src\Core;..\third_party\rapidjson\include;..\third_party\utest.h;..\msvc\imgui_msvc;..\third_party\box2d\include;..\third_party\UDRefl\include</IncludePath>
+    <ExternalIncludePath>..\third_party\SDL2_mixer\include;..\third_party\SDL2\include;..\third_party\SDL2_image\include;..\third_party\SDL2_ttf\include;..\third_party\imgui;..\third_party\box2d\include;..\third_party\UDRefl\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>..\third_party\SDL2\lib\x86;..\third_party\SDL2_image\lib\x86;..\third_party\SDL2_ttf\lib\x86;..\msvc\Libs;..\third_party\SDL2_mixer\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)$(Configuration)\..\Libs</OutDir>
     <TargetName>$(ProjectName)_x86d</TargetName>
     <IntDir>$(Configuration)\HGEngine</IntDir>
@@ -156,10 +156,14 @@
   <ItemGroup>
     <ClCompile Include="..\src\Core\Screen.cc" />
     <ClCompile Include="..\src\EngineImpl\Animation.cpp" />
+    <ClCompile Include="..\src\EngineImpl\AnimationStateMachine.cpp" />
     <ClCompile Include="..\src\EngineImpl\Asset.cc" />
+    <ClCompile Include="..\src\EngineImpl\AssetManager.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Audio.cpp" />
     <ClCompile Include="..\src\EngineImpl\Camera.cpp" />
     <ClCompile Include="..\src\EngineImpl\Collision.cpp" />
     <ClCompile Include="..\src\EngineImpl\Editor\Editor.cc" />
+    <ClCompile Include="..\src\EngineImpl\Effect.cpp" />
     <ClCompile Include="..\src\EngineImpl\EngineImpl.cc" />
     <ClCompile Include="..\src\EngineImpl\GameObject.cc" />
     <ClCompile Include="..\src\engineImpl\HGEvent.cc" />
@@ -167,10 +171,12 @@
     <ClCompile Include="..\src\EngineImpl\Layer.cpp" />
     <ClCompile Include="..\src\EngineImpl\Log.cc" />
     <ClCompile Include="..\src\EngineImpl\Loop.cc" />
+    <ClCompile Include="..\src\EngineImpl\ParticleSystem.cpp" />
     <ClCompile Include="..\src\EngineImpl\Renderer.cc" />
     <ClCompile Include="..\src\EngineImpl\Renderer2D.cc" />
     <ClCompile Include="..\src\EngineImpl\RigidBody.cpp" />
     <ClCompile Include="..\src\EngineImpl\Scene.cc" />
+    <ClCompile Include="..\src\EngineImpl\SceneLoader.cpp" />
     <ClCompile Include="..\src\EngineImpl\Texture.cc" />
     <ClCompile Include="..\src\EngineImpl\Thread.cc" />
     <ClCompile Include="..\src\EngineImpl\Window.cc" />
@@ -178,7 +184,10 @@
   <ItemGroup>
     <ClInclude Include="..\src\Core\Screen.h" />
     <ClInclude Include="..\src\EngineImpl\Animation.h" />
+    <ClInclude Include="..\src\EngineImpl\AnimationStateMachine.h" />
     <ClInclude Include="..\src\EngineImpl\Asset.h" />
+    <ClInclude Include="..\src\EngineImpl\AssetManager.h" />
+    <ClInclude Include="..\src\EngineImpl\Audio.h" />
     <ClInclude Include="..\src\EngineImpl\Camera.h" />
     <ClInclude Include="..\src\EngineImpl\Collision.h" />
     <ClInclude Include="..\src\EngineImpl\Debug.hpp" />
@@ -198,11 +207,14 @@
     <ClInclude Include="..\src\EngineImpl\Layer.h" />
     <ClInclude Include="..\src\EngineImpl\Log.hpp" />
     <ClInclude Include="..\src\EngineImpl\Loop.h" />
+    <ClInclude Include="..\src\EngineImpl\ParticleSystem.h" />
     <ClInclude Include="..\src\EngineImpl\Physics.hpp" />
     <ClInclude Include="..\src\EngineImpl\Renderer.h" />
     <ClInclude Include="..\src\EngineImpl\Renderer2D.h" />
     <ClInclude Include="..\src\EngineImpl\RigidBody.h" />
     <ClInclude Include="..\src\EngineImpl\Scene.h" />
+    <ClInclude Include="..\src\EngineImpl\SceneLoader.h" />
+    <ClInclude Include="..\src\EngineImpl\SpatialGrid.h" />
     <ClInclude Include="..\src\engineImpl\Spirte.hpp" />
     <ClInclude Include="..\src\EngineImpl\Texture.h" />
     <ClInclude Include="..\src\EngineImpl\Thread.h" />
@@ -221,7 +233,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
+    <None Include="..\src\EngineImpl\README.md" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\EngineImpl\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

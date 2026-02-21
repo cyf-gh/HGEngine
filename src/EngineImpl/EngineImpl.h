@@ -1,16 +1,15 @@
 /// \file EngineImpl.h
 /// \brief Engine implementation
+#pragma once
 
-#ifndef HONEYGAME_ENGINEIMPL_H
-#define HONEYGAME_ENGINEIMPL_H
-
-#include "Log.hpp"
 #include "../Engine/HG.h"
+#include "Log.hpp"
 #include "Loop.h"
 #include "Window.h"
 #include "Thread.h"
 #include "Physics.hpp"
 #include "Renderer2D.h"
+#include "AssetManager.h"
 #include "Editor\Editor.h"
 
 namespace HG{
@@ -21,6 +20,7 @@ namespace HGEngine {
 namespace V1SDL {
 class Scene;
 class Asset;
+class AssetManager;
 class Editor;
 /// \brief main loop of engine
 /// \details main loop is a event loop main thread
@@ -69,6 +69,7 @@ private:
 	
 	Renderer2D* pRenderer;
 	Asset* pAsset;
+	AssetManager* pAssetManager;
 	Scene* pCurrentScene;
 	Editor* pEditor;
 	HG::HGLog *pLog;
@@ -92,6 +93,7 @@ public:
 	
 	Editor* GetEditor() const { return pEditor; }
 	Asset* GetAssetManager() const { return pAsset; }
+	AssetManager* GetResourceManager() const { return pAssetManager; }
 	float GetFixedUpdateTimeDelta() const { return tLoopMain.DeltaTime(); }
 	HGEngine::V1SDL::Window* GetWindow() const { return pWindow; }
 	Renderer2D* GetRenderer2D() const { return pRenderer; }
@@ -105,8 +107,6 @@ public:
 };
 
 }
-}
-
 }
 
 // Inline functions for engine access
@@ -126,10 +126,7 @@ inline float GetEngineTimeDelta()
 }
 
 /// \brief Find game object in current scene
-inline HGEngine::V1SDL::GameObject* FindGameObject(const char* name)
-{
-    return EngineImpl::GetEngine()->GetCurrentScene()->FindGameObject(name);
-}
+inline HGEngine::V1SDL::GameObject* FindGameObject(const char* name);
 
 /// \brief Get renderer 2D
 inline Renderer2D* GetRenderer2D()
@@ -149,10 +146,10 @@ inline Scene* GetCurrentScene()
     return EngineImpl::GetEngine()->GetCurrentScene();
 }
 
-/// \brief Get asset manager
-inline Asset* GetAssetManager()
+/// \brief Get resource manager (AssetManager)
+inline AssetManager* GetResourceManager()
 {
-    return EngineImpl::GetEngine()->GetAssetManager();
+    return EngineImpl::GetEngine()->GetResourceManager();
 }
 
 } // namespace V1SDL
@@ -165,6 +162,6 @@ inline Asset* GetAssetManager()
 #define HG_ENGINE_RENDERER2D HGEngine::V1SDL::GetRenderer2D()
 #define HG_ENGINE_INPUT() HGEngine::V1SDL::GetInput()
 #define HG_ENGINE_CURRENT_SCENE() HGEngine::V1SDL::GetCurrentScene()
-#define HG_ENGINE_ASSET() HGEngine::V1SDL::GetAssetManager()
-
-#endif //HONEYGAME_ENGINEIMPL_H
+#define HG_ENGINE_ASSET() HGEngine::V1SDL::GetEngine()->GetAssetManager()
+#define HG_ENGINE_ASSETMANAGER() HGEngine::V1SDL::GetAssetManager()
+#define HG_ENGINE_RESOURCES() HGEngine::V1SDL::GetResourceManager()

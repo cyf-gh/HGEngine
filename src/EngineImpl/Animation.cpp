@@ -4,6 +4,7 @@
 
 using namespace HGEngine::V1SDL;
 using namespace HG::Math;
+using namespace HG;
 
 
 bool HGEngine::V1SDL::Animator2D::CheckFramesValid() {
@@ -45,7 +46,7 @@ void HGEngine::V1SDL::Animator2D::Play( const f32 f32DeltaTime,  Transform* pTr,
 		auto tf = m_vecFrames[Row].size();
 		m_f32Delta = 0.f;
 		switch( cMode ) {
-		case HG_ANIMATOR_PLAYMODE_REWIND:
+		case HG_ANIMATOR_PLAYMODE::HG_ANIMATOR_PLAYMODE_REWIND:
 		Col = isPosPlay ? Col + 1 : Col - 1;
 		if( Col >= tf - 1 ) {
 			Col = tf - 1;
@@ -55,7 +56,7 @@ void HGEngine::V1SDL::Animator2D::Play( const f32 f32DeltaTime,  Transform* pTr,
 			isPosPlay = true;
 		}
 		break;
-		case HG_ANIMATOR_PLAYMODE_LOOP:
+		case HG_ANIMATOR_PLAYMODE::HG_ANIMATOR_PLAYMODE_LOOP:
 		++Col;
 		Row = ( Row >= m_vecFrames.size() ) ? 0 : Row;
 		Col = ( Col >= m_vecFrames[Row].size() ) ? 0 : Col;

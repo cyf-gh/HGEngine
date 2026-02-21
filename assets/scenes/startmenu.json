@@ -1,0 +1,86 @@
+{
+    "name": "StartMenu",
+    "background": "Bg",
+    "cameraX": 400,
+    "cameraY": 300,
+    "cameraWidth": 800,
+    "cameraHeight": 600,
+    "objects": [
+        {
+            "name": "Background",
+            "sprite": "Bg",
+            "x": 400,
+            "y": 300,
+            "width": 800,
+            "height": 600
+        },
+        {
+            "name": "Title",
+            "x": 400,
+            "y": 150,
+            "width": 300,
+            "height": 80,
+            "properties": {
+                "text": "HGEngine Demo"
+            }
+        }
+    ],
+    "ui": [
+        {
+            "name": "MenuLayout",
+            "type": "VerticalLayout",
+            "x": 400,
+            "y": 350,
+            "width": 200,
+            "height": 200,
+            "properties": {
+                "spacing": "15",
+                "alignment": "MiddleCenter"
+            },
+            "children": [
+                {
+                    "name": "Button_Play",
+                    "type": "Button",
+                    "width": 200,
+                    "height": 50,
+                    "properties": { "text": "Play Game" }
+                },
+                {
+                    "name": "Button_Options",
+                    "type": "Button",
+                    "width": 200,
+                    "height": 50,
+                    "properties": { "text": "Options" }
+                },
+                {
+                    "name": "Button_Exit",
+                    "type": "Button",
+                    "width": 200,
+                    "height": 50,
+                    "properties": { "text": "Exit" }
+                }
+            ]
+        },
+        {
+            "name": "SettingsPanel",
+            "x": 400,
+            "y": 525,
+            "children": [
+                {
+                    "name": "Slider_Volume",
+                    "type": "Slider",
+                    "width": 200,
+                    "height": 30,
+                    "properties": { "min": "0", "max": "128", "value": "64" }
+                },
+                {
+                    "name": "Checkbox_Fullscreen",
+                    "type": "Checkbox",
+                    "width": 150,
+                    "height": 30,
+                    "properties": { "text": "Fullscreen", "checked": "false" }
+                }
+            ]
+        }
+    ]
+}

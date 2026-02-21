@@ -1,9 +1,9 @@
 //
 // Created by cyf-m on 2020/11/28.
 //
-
 #ifndef HONEYGAME_RANDOM_H
 #define HONEYGAME_RANDOM_H
+#pragma once
 
 #include "Type.h"
 
@@ -29,12 +29,33 @@ public:
 	static RandomXORSHIFT Random;
 };
 
+class RandomWELL512 : public Random {
+private:
+	n32				m_state[16];
+	n32				m_index;
+	n32				m_rdmSeed;
+
+public:
+	un32			GetRandUInt() override;
+
+	un32			GetRandSeed();
+	void			SetSeed(un32 seed);
+
+	RandomWELL512();
+	explicit RandomWELL512(un32 seed);
+	~RandomWELL512() = default;
+};
+}
+}
+
+
+
 /// \brief Get random unsigned 32-bit integer
 inline un32 RandomUInt()
 {
     return HG::Random::RandomXORSHIFT::Random.GetRandUInt();
 }
 
-#define HG_RANDOM_UN32 RandomUInt()
+#define HG_RANDOM_UN32 HG::Random::RandomXORSHIFT::Random.GetRandUInt()
 
 #endif //HONEYGAME_RANDOM_H

@@ -16,7 +16,7 @@ private:
 	Texture* m_pTx;
 public:
 	HG_COMPONENT_RENDERABLE
-	Texture* GetRenderTarget( Renderer2D* pRd ) override { return m_pTx; }
+	Texture* GetRenderTarget( Renderer2D* pRd ) { return m_pTx; }
 
 	Texture* GetTexture() const { return m_pTx; }
 	void SetTexture( Texture* t ) { m_pTx = t; }

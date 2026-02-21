@@ -41,12 +41,11 @@ inline void SafeDeleteArray(T*& p)
         p = nullptr;
     }
 }
-
-/// \brief Zero memory
-inline void ZeroMemory(void* p, int len)
-{
-    memset(p, 0, len);
-}
+//
+///// \brief Zero memory
+//inline void* ZeroMemory(void* p, int len) {
+//    return memset(p, 0, len);
+//}
 
 } // namespace Memory
 } // namespace HG

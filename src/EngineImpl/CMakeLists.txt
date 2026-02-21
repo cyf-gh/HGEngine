@@ -19,3 +19,10 @@ target_compile_definitions(EngineImpl PRIVATE
     HGENGINE_PHYSICS
 )
 
+# Add imgui library path for linking
+if(WIN32)
+    target_link_libraries(EngineImpl PRIVATE
+        "${CMAKE_SOURCE_DIR}/../msvc/Libs/imgui_msvc_d.lib"
+    )
+endif()
+

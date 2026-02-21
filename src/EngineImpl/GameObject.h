@@ -42,11 +42,9 @@ public:
 	void Enable() { m_bIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
 	void Disable() { m_bIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
 	bool IsEnable() const { return m_bIsEnable; }
-	
-	/// \brief GameObject �Ƿ��� Camera �� View ֮��
-	/// \note
-	/// * �÷���δʹ�� Collision ���
-	bool IsInCameraView() const;
+
+	bool IsInCameraView();
+
 	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
 	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {
 		++pComp->nRefCount;
@@ -64,18 +62,7 @@ public:
 		}
 		return vecComps;
 	}
-	std::vector<HG::HGComponent*> GetRenderableComponentsSorted() const {
-		std::vector<HG::HGComponent*> vecRC;
-		for( auto& c : m_vecComponents ) {
-			if( c->IsRenderable() ) {
-				vecRC.push_back( c );
-			}
-		}
-		std::sort( vecRC.begin(), vecRC.end(), []( HG::HGComponent* c1, HG::HGComponent* c2 ) {
-			return c1->nRenderIndex < c2->nRenderIndex;
-		} );
-		return vecRC;
-	}
+	std::vector<HG::HGComponent*> GetRenderableComponentsSorted() const;
 
 	template<typename T> T* GetComponent() const {
 		for( auto& c : m_vecComponents ) {

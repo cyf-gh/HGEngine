@@ -16,6 +16,31 @@ using namespace HGEngine::V1SDL;
 using namespace HG;
 using namespace HG::Math;
 
+bool GameObject::IsInCameraView() {
+    auto pScene = EngineImpl::GetEngine()->GetCurrentScene();
+    if (nullptr == pScene) { return false; }
+    auto pCam = pScene->GetMainCamera();
+    if (pCam == nullptr) {
+        return false;
+    }
+    auto* pCamTransform = pCam->GetComponent<Transform>();
+    auto* pT = GetComponent<Transform>();
+    auto& rect1 = pT->ToHGRectGlobal();
+    auto& rect2 = pCamTransform->ToHGRectGlobal();
+    if (IsEqual(pT->f64Angle, (double)0)) {
+        return !((!rect1.IsOverlap(rect2)) && !rect1.IsIn(rect2) && !rect2.IsIn(rect1));
+    }
+    else {
+        HGPolygon<double> s;
+        HGVec2<double> c;
+        rect1.ToShape(s);
+        c.X = pT->tRotateCenter.X + pT->tPosition.X;
+        c.Y = pT->tRotateCenter.Y + pT->tPosition.Y;
+        s.Rotate(pT->f64Angle, c);
+        return rect2.IsOverlap(s.GetCircumscribedCircle());
+    }
+}
+
 void GameObject::renderCameraView( Renderer2D* pRenderer ) {
     auto pTransform = GetComponent<Transform>();
     if( pTransform == nullptr ) {
@@ -50,28 +75,17 @@ void HGEngine::V1SDL::GameObject::Render( void* pRenderer ) {
     renderCameraView( pRd2D );
 }
 
-bool HGEngine::V1SDL::GameObject::IsInCameraView() const {
-    auto pScene = EngineImpl::GetEngine()->GetCurrentScene();
-    if ( nullptr == pScene ) { return false; }
-    auto pCam =  pScene->GetMainCamera();
-    if( pCam == nullptr ) {
-        return false;
+std::vector<HG::HGComponent*> HGEngine::V1SDL::GameObject::GetRenderableComponentsSorted() const {
+    std::vector<HG::HGComponent*> vecRC;
+    for (auto& c : m_vecComponents) {
+        if (c->IsRenderable()) {
+            vecRC.push_back(c);
+        }
     }
-    auto pCamTransform = pCam->GetComponent<Transform>();
-    auto pT = this->GetComponent<Transform>();
-    auto& rect1 = pT->ToHGRectGlobal();
-    auto& rect2 = pCamTransform->ToHGRectGlobal();
-     if( IsEqual( pT->f64Angle, (double)0 ) ) {
-         return !( ( !rect1.IsOverlap( rect2 ) ) && !rect1.IsIn( rect2 ) && !rect2.IsIn( rect1 ) );
-     } else {
-        HGPolygon<double> s;
-        HGVec2<double> c;
-        rect1.ToShape( s );
-        c.X = pT->tRotateCenter.X + pT->tPosition.X;
-        c.Y = pT->tRotateCenter.Y + pT->tPosition.Y;
-        s.Rotate( pT->f64Angle, c );
-        return rect2.IsOverlap( s.GetCircumscribedCircle() );
-     }
+    std::sort(vecRC.begin(), vecRC.end(), [](HG::HGComponent* c1, HG::HGComponent* c2) {
+        return c1->nRenderIndex < c2->nRenderIndex;
+        });
+    return vecRC;
 }
 
 GameObject::GameObject( const char* strName, Scene* pScene, bool isFixed2Camera, bool isGui )

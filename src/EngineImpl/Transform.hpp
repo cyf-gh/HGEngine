@@ -185,15 +185,7 @@ public:
 		tLocalRect.H = 0;
 		tLocalRect.W = 0;
 	}
-	/// \brief 
-	/// * �������ڱ��ص��������С����
-	/// * reset the local position and size to zero
-	void ZeroLocal() {
-		tLocalPos.X = 0;
-		tLocalPos.Y = 0;
-		tLocalRect.H = 0;
-		tLocalRect.W = 0;
-	}
+
 	Transform() : HG::HGComponent(), m_bIsDirty(true) { }
 	Transform( const char* strName ) : HG::HGComponent( strName ), m_bIsDirty(true) {
 		ZeroLocal();

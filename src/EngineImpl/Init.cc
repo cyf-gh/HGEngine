@@ -12,14 +12,13 @@ using namespace HG;
 
 Init* Init::SDL() {
     if ( SDL_Init( SDL_INIT_EVERYTHING ) == -1 ){
-        HGLog::Log->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init");
+        HG_LOG->FailedSDL(SDL_LOG_CATEGORY_SYSTEM, "SDL_Init");
     } else {
-        HGLog::Log->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
+        HG_LOG->Success( SDL_LOG_CATEGORY_SYSTEM, "SDL_Init" );
     }
     return this;
 }
 
 Init* Init::App() {
-    HGLog::Log->LogEnter2File();
     return this;
 }

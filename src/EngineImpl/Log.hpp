@@ -13,7 +13,7 @@
 namespace HG {
 
 /// \brief Log level enum
-enum class LogLevel {
+enum LogLevel {
     Debug = 0,
     Info = 1,
     Warning = 2,
@@ -96,7 +96,9 @@ public:
         }
         return s_Instance;
     }
-
+    static std::string& GetLogBuffer() {
+        return s_Instance->m_LogBuffer;
+    }
     /// \brief Initialize logger
     /// \param logPath Path to log directory (e.g., "./Log/")
     /// \param minLevel Minimum log level to output
@@ -250,6 +252,7 @@ public:
 
 /// \brief Global log instance (legacy compatibility)
 #define HG_LOG HG::HGLog::GetInstance()
+#define HG_LOG_STRBUFF HG::HGLog::GetInstance()->GetBuffer()
 
 // Initialization macros
 #define HG_LOG_INIT(PATH, LEVEL) HG::HGLog::Initialize(PATH, LEVEL)

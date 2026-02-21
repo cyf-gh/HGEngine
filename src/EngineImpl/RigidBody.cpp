@@ -114,7 +114,7 @@ HGEngine::V1SDL::RigidBodyB2::RigidBodyB2( HGWorld* pworld, const b2BodyDef& tbo
 HGEngine::V1SDL::RigidBodyB2::~RigidBodyB2() {
 	pBody->DestroyFixture( pFixture );
 	pWorld->Handle.DestroyBody( pBody );
-	HG_ERASE_IN_VEC( this, pWorld->vecRbs );
+	HG::EraseInVec<RigidBodyB2>( this, pWorld->vecRbs );
 }
 
 #pragma endregion

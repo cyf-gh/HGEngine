@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL.h>
+
 struct SDL_Window;
 struct SDL_Renderer;
 struct ImGuiIO;
@@ -16,9 +18,4 @@ public:
 private:
 	SDL_Renderer*m_pSDL2Renderer;
 };
-class EditorFrame {
-public:
-	
-};
-
 }}

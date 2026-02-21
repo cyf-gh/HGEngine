@@ -29,6 +29,16 @@
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EngineImpl\Log.cc" />
+    <ClCompile Include="..\src\EngineImpl\Effect.cpp" />
+    <ClCompile Include="..\src\EngineImpl\Audio.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\AssetManager.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EngineImpl\AnimationStateMachine.cpp" />
+    <ClCompile Include="..\src\EngineImpl\ParticleSystem.cpp" />
+    <ClCompile Include="..\src\EngineImpl\SceneLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Screen.h" />
@@ -105,10 +115,21 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EngineImpl\Physics.hpp" />
+    <ClInclude Include="..\src\EngineImpl\Audio.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\AssetManager.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineImpl\AnimationStateMachine.h" />
+    <ClInclude Include="..\src\EngineImpl\ParticleSystem.h" />
+    <ClInclude Include="..\src\EngineImpl\SceneLoader.h" />
+    <ClInclude Include="..\src\EngineImpl\SpatialGrid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\Core\README.md" />
     <None Include="packages.config" />
+    <None Include="..\src\EngineImpl\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -120,5 +141,8 @@
     <Filter Include="Editor">
       <UniqueIdentifier>{dc1e3056-a726-4d2c-a371-b9a1fa8b2d8d}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\EngineImpl\CMakeLists.txt" />
   </ItemGroup>
 </Project>

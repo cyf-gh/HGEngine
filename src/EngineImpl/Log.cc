@@ -2,6 +2,6 @@
 
 using namespace HG;
 
-HGLog* HGLog::Log = new HGLog();
+HGLog* HGLog::s_Instance = new HGLog();
 
-std::string HGLog::HGLogStr = "";
+std::mutex HGLog::s_Mutex = std::mutex();

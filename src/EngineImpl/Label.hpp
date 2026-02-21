@@ -25,9 +25,9 @@ public:
 	HG::Math::HGRect m_tRect;
 
 public:
-	HG::Math::HGRect* GetLocalRectOffset() override { return &m_tRect; }
+	HG::Math::HGRect* GetLocalRectOffset() { return &m_tRect; }
 	HG_COMPONENT_RENDERABLE
-	Texture* GetRenderTarget( Renderer2D* pRd ) override {
+	Texture* GetRenderTarget( Renderer2D* pRd ) {
 		RenderText2Texture( pRd );
 		m_tT.SetHandle( m_pTx );
 		return &m_tT; 

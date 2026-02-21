@@ -68,10 +68,11 @@
   - 实现: `Config` 类, Get/Set方法, 文件加载/保存, 默认值宏
 
 ### 资源管理
-- [ ] **实现资源池/缓存**
+- [x] **实现资源池/缓存**
   - 避免重复加载相同资源
   - 添加资源引用计数
-  - 位置: `src/EngineImpl/Asset.h`
+  - 位置: `src/EngineImpl/AssetManager.h` (新建)
+  - 实现: AssetManager 类, ResourceHandle, 缓存, 引用计数
 
 ---
 

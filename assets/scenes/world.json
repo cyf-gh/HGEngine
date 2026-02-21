@@ -1,0 +1,114 @@
+{
+    "name": "World",
+    "background": "Bg",
+    "cameraX": 400,
+    "cameraY": 300,
+    "cameraWidth": 800,
+    "cameraHeight": 600,
+    "objects": [
+        {
+            "name": "Ground",
+            "sprite": "Bg",
+            "x": -200,
+            "y": -200,
+            "width": 1200,
+            "height": 1200
+        },
+        {
+            "name": "MainCharacter",
+            "sprite": "Chars",
+            "x": 300,
+            "y": 400,
+            "width": 50,
+            "height": 50,
+            "physics": true,
+            "static": false
+        },
+        {
+            "name": "Platform1",
+            "sprite": "Chars",
+            "x": 0,
+            "y": 700,
+            "width": 1000,
+            "height": 50,
+            "physics": true,
+            "static": true
+        },
+        {
+            "name": "Box1",
+            "sprite": "Chars",
+            "x": 0,
+            "y": 0,
+            "width": 50,
+            "height": 50,
+            "physics": true,
+            "static": false
+        }
+    ],
+    "ui": [
+        {
+            "name": "MainLayout",
+            "type": "VerticalLayout",
+            "x": 400,
+            "y": 300,
+            "width": 200,
+            "height": 400,
+            "properties": {
+                "spacing": "10",
+                "padding": "20",
+                "alignment": "TopCenter"
+            },
+            "children": [
+                {
+                    "name": "Button_Jump",
+                    "type": "Button",
+                    "width": 150,
+                    "height": 40,
+                    "properties": {
+                        "text": "Jump!"
+                    }
+                },
+                {
+                    "name": "Slider_Speed",
+                    "type": "Slider",
+                    "width": 200,
+                    "height": 30,
+                    "properties": {
+                        "min": "0",
+                        "max": "200",
+                        "value": "100"
+                    }
+                },
+                {
+                    "name": "Checkbox_Sound",
+                    "type": "Checkbox",
+                    "width": 150,
+                    "height": 30,
+                    "properties": {
+                        "text": "Enable Sound",
+                        "checked": "true"
+                    }
+                },
+                {
+                    "name": "Listbox_Items",
+                    "type": "Listbox",
+                    "width": 150,
+                    "height": 100,
+                    "properties": {
+                        "items": "Sword;Shield;Potion;Key"
+                    }
+                },
+                {
+                    "name": "InputField_Name",
+                    "type": "InputField",
+                    "width": 200,
+                    "height": 30,
+                    "properties": {
+                        "placeholder": "Enter name...",
+                        "maxLength": "32"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -3,7 +3,7 @@
 #include <vector>
 #include <cstddef>
 
-#include "HGComponent.h"
+#include "../Engine/HGComponent.h"
 #include "Renderer2D.h"
 #include "Transform.hpp"
 

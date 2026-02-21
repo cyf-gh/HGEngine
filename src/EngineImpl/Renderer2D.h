@@ -106,7 +106,7 @@ public:
 
     void SetDrawColor( Uint8 r, Uint8 g, Uint8 b, Uint8 a );
     void SetDrawColor( const DrawableGeo* pdg );
-    void SetDrawColor( const HG::math::HGColor& tc );
+    void SetDrawColor( const HG::Math::HGColor& tc );
     void SetDrawBlendMode( const SDL_BlendMode eBm = SDL_BLENDMODE_BLEND );
     int DrawLine( int x, int y, int xx, int yy );
     explicit Renderer2D(

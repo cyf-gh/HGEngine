@@ -5,16 +5,17 @@
 #include <string>
 #include "HGObject.h"
 
-namespace HGEngine { namespace V1SDL { class GameObject; } }
-
-namespace HGEngine {
-namespace V1SDL {
+namespace HGEngine { 
+namespace V1SDL { 
+class GameObject; 
 class Renderer2D;
 class Texture;
-}}
+} }
+
+
 
 namespace HG {
-
+class HGComponent;
 /// \brief Component type info for runtime registration
 struct ComponentTypeInfo {
     const char* name;
@@ -74,7 +75,7 @@ public:
     }
 };
 
-enum class HGRenderableComponentSeq : int {
+enum HGRenderableComponentSeq : int {
 	UNRENDERABLE = -999,
 	DEFAULT = 0,
 	SPRITE,
@@ -83,6 +84,8 @@ enum class HGRenderableComponentSeq : int {
 	EFFECT,
 	HGRENDERABLECOMPONENTSEQ_LENTH
 };
+#define HG_COMPONENT_MUTILABLE bool IsOneOnlyPerGameObject() { return false; }
+#define HG_COMPONENT_RENDERABLE bool IsRenderable() { return true; }
 
 /// \brief 
 /// ������࣬�伯����GameObjectӵ��<br>
@@ -104,33 +107,19 @@ public:
 	/// @brief ��Ⱦ������ֵԽСԽ��Ⱦ���²�
 	int nRenderIndex;
 
-	/// @brief ��ȡ����Ⱦ���λ�� GameObject ���������ƫ��
-	/// @return 
-	virtual HG::Math::HGRect* GetLocalRectOffset() { return nullptr; }
-	/// @brief ������ȾĿ��
-	/// @note ���� IsRenderable() == true ʱ���ؾ��
-	/// @return ��Ⱦ���
-	virtual HGEngine::V1SDL::Texture* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) { return nullptr; }
-	/// @brief ���ظ�����Ƿ��ül�Ⱦ
-	/// @return �Ƿ��ül�Ⱦ
-	virtual bool IsRenderable() { return false; }
-	/// @brief ������������Ⱦ
-	#define HG_COMPONENT_RENDERABLE bool IsRenderable() override { return true; }
-	/// @brief �������GameObject�Ƿ���Ψһ��
-	/// @return �Ƿ�Ψһ
-	virtual bool IsOneOnlyPerGameObject() { return true; }
-	/// @brief ������������ظ�������ͬһGameObject
-	#define HG_COMPONENT_MUTILABLE bool IsOneOnlyPerGameObject() override { return false; }
-	/// @brief ���ظ�GameObject
-	/// @return ��GameObject
+    inline virtual HG::Math::HGRect* GetLocalRectOffset() { return nullptr; }
+    inline virtual HGEngine::V1SDL::Texture* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) { return nullptr; }
+	inline virtual bool IsRenderable() { return false; }
+    inline virtual bool IsOneOnlyPerGameObject() { return false; }
+
 	HGEngine::V1SDL::GameObject *GetGameObject() const { return m_pGameObject; }
-	void SetGameObject( HGEngine::V1SDL::GameObject *pGameObject ) { m_pGameObject = pGameObject; }
+    inline void SetGameObject( HGEngine::V1SDL::GameObject *pGameObject ) { m_pGameObject = pGameObject; }
 
 	/// \brief Get component type name
-	virtual const char* GetTypeName() const { return "HGComponent"; }
+    inline virtual const char* GetTypeName() const { return "HGComponent"; }
 
 	/// \brief Get component type id
-	virtual size_t GetTypeId() const { return typeid(HGComponent).hash_code(); }
+    inline virtual size_t GetTypeId() const { return typeid(HGComponent).hash_code(); }
 
 	/// \brief Register this component type (call in static initializer)
 	template<typename T>

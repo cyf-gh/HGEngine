@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Core\Memory.cpp" />
     <ClCompile Include="..\src\Core\Random.cc" />
   </ItemGroup>
   <ItemGroup>

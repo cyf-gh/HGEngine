@@ -1,16 +1,18 @@
 #pragma once
 
+#ifdef FUCKMSVC
+
 #include <string>
 #include <vector>
 #include <map>
-
-#include "HGComponent.h"
 
 #ifdef _WIN32
 #include <SDL_mixer.h>
 #else
 #include <SDL_mixer/SDL_mixer.h>
 #endif
+
+#include "../Engine/HGComponent.h"
 
 namespace HGEngine {
 namespace V1SDL {
@@ -230,3 +232,5 @@ public:
 
 } // namespace V1SDL
 } // namespace HGEngine
+
+#endif

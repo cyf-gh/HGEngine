@@ -23,7 +23,7 @@ public:
 	HG::Math::HGColor m_tSolidColor;
 	/// @brief 播放特效时长
 	f32 m_f32PlayTime;
-	HGEngine::V1SDL::Texture* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) override {
+	HGEngine::V1SDL::Texture* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) {
 		auto& gr = m_pGameObject->GetComponent<Transform>()->ToHGRectGlobal();
 		m_tRr.Set( gr );
 		pRd->SetDrawColor( m_tSolidColor );
@@ -62,6 +62,10 @@ public:
 	Effect( const char* strName, const f32 f32PlayTime = 1.8f ) : HG::HGComponent( strName ), Alpha( 255 ), m_tSolidColor(), m_f32PlayTime( f32PlayTime ), m_f32PlayedTime( 99999.f ) {
 		nRenderIndex = HG::HGRenderableComponentSeq::EFFECT;
 	}
+
+	// Inherited via HGComponent
+	HG::Math::HGRect* GetLocalRectOffset() override;
+	bool IsOneOnlyPerGameObject() override;
 };
 
 }

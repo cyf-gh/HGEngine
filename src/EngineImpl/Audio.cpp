@@ -1,3 +1,5 @@
+
+#ifdef FUCKMSVC
 #include "Audio.h"
 
 namespace HGEngine {
@@ -281,3 +283,4 @@ void AudioSource::Stop() {
 
 } // namespace V1SDL
 } // namespace HGEngine
+#endif

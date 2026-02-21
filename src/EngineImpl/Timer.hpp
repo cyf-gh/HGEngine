@@ -30,7 +30,7 @@ public:
 	/// @brief 自开始或重置起重复过的次数
 	un32 unCurrentRepeatCount;
 
-	bool IsOneOnlyPerGameObject() override { return false; }
+	bool IsOneOnlyPerGameObject() { return false; }
 
 	/// @brief 对 timer 进行时间流逝
 	/// @param f32TimeDelta 

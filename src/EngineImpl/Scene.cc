@@ -52,7 +52,7 @@ void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
 		if( LayerIndex >= HG_LAYER_0 && LayerIndex < HG_LAYER_LENGTH ) {
 			m_vecLayers[LayerIndex]->AttachGameObject( pGameObject );
 		} else {
-			HGLog::Log->Warning(
+			HG_LOG->Warning(
 				SDL_LOG_CATEGORY_SYSTEM,
 				std::format( "GameObject[{}] trying to attach to a layer which does not exsit", pGameObject->GetName() ).c_str() );
 		}
@@ -62,7 +62,7 @@ void Scene::AttachGameObject( GameObject* pGameObject, char LayerIndex ) {
 					 GetName()
 		).c_str() );
 	} else {
-		HGLog::Log->Warning( SDL_LOG_CATEGORY_SYSTEM, std::string( "trying to attach a same name game object, which will do not recover the original one. Name: " ).append( pGameObject->GetName() ).c_str() );
+		HG_LOG->Warning( SDL_LOG_CATEGORY_SYSTEM, std::string( "trying to attach a same name game object, which will do not recover the original one. Name: " ).append( pGameObject->GetName() ).c_str() );
 	}
 }
 
