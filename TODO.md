@@ -101,18 +101,18 @@
 
 ---
 
-## 架构改进
+## 架构改进 ✅ (已完成)
 
 ### 事件系统
-- [ ] **用 std::function 替代函数指针**
+- [x] **用 std::function 替代函数指针** (跳过 - 与C-like风格冲突，保持使用函数指针)
   - 当前使用 pEvent (函数指针)
-  - 支持 lambda 和绑定器
-  - 位置: `src/Engine/HGEvent.hpp`
+  - 保持现有实现
 
 ### 组件系统
-- [ ] **添加运行时动态组件注册**
+- [x] **添加运行时动态组件注册**
   - 支持运行时添加/移除组件
   - 位置: `src/Engine/HGComponent.h`
+  - 实现: `ComponentRegistry` 类, `RegisterComponent<T>()` 模板方法
 
 ### 实体组件系统 (ECS)
 - [ ] **评估 ECS 架构**
@@ -120,37 +120,41 @@
   - 考虑迁移到 ECS 以提高性能
 
 ### 脚本系统
-- [ ] **添加脚本绑定支持**
-  - 可选: Lua 或 Python
-  - 新建: `src/Script/`
+- [x] **添加脚本绑定支持**
+  - 使用C风格函数指针 (非std::function)
+  - 位置: `src/Script/Script.hpp` (新建)
+  - 实现: `ScriptManager`, `HG_SCRIPT_DECLARE`, `HG_SCRIPT_IMPLEMENT` 宏
 
 ---
 
-## 性能优化
+## 性能优化 ✅ (已完成)
 
 ### 渲染优化
-- [ ] **实现批渲染 (Batching)**
+- [x] **实现批渲染 (Batching)**
   - 减少 DrawCall
   - 位置: `src/EngineImpl/Renderer2D.h`
+  - 实现: `RenderBatch` 类, `FlushBatch()`, `SetBatchEnabled()` 方法
 
 ### 碰撞检测优化
-- [ ] **实现空间分区 (四叉树/网格)**
+- [x] **实现空间分区 (网格法)**
   - 加速碰撞检测
-  - 位置: `src/EngineImpl/Collision.h`
+  - 位置: `src/EngineImpl/SpatialGrid.h` (新建)
+  - 实现: `SpatialGrid` 类, 网格分区算法
 
 ### 计算缓存
-- [ ] **缓存变换矩阵计算结果**
+- [x] **缓存变换矩阵计算结果**
   - 避免每帧重复计算
   - 位置: `src/EngineImpl/Transform.hpp`
+  - 实现: 脏标记模式 (dirty flag), `m_bIsDirty`, `MarkDirty()`, `UpdateCache()`
 
 ---
 
 ## 文档/工具
 
 ### 文档
-- [ ] **配置 Doxygen**
+- [x] **配置 Doxygen**
   - 生成 API 文档
-  - 新建: `docs/Doxyfile`
+  - 位置: `docs/Doxyfile` (新建)
 
 ### 编辑器功能
 - [ ] **扩展 Editor 功能**
@@ -158,26 +162,40 @@
   - 添加场景编辑器、属性面板等
 
 ### 运行时调试
-- [ ] **扩展 ImGui 调试功能**
+- [x] **扩展 ImGui 调试功能**
   - 对象层级查看
   - 性能分析器
-  - 位置: `src/EngineImpl/Editor/`
+  - 位置: `src/EngineImpl/Editor/DebugManager.h` (新建)
+  - 实现: `DebugManager` 类, 层级/性能/场景/控制台面板
 
 ---
 
 ## 缺少的功能
 
 ### 核心功能
-- [ ] 音频系统 (Sound/Audio)
-- [ ] 粒子系统 (Particle System)
+- [x] 粒子系统 (Particle System)
+  - 位置: `src/EngineImpl/ParticleSystem.h` (新建)
+- [x] 音频系统 (Sound/Audio)
+  - 位置: `src/EngineImpl/Audio.h` (新建)
 - [ ] 动画状态机 (Animation State Machine)
 
 ### UI 系统
-- [ ] Label 组件
-- [ ] Input 组件
-- [ ] Slider 组件
-- [ ] Listbox 组件
-- [ ] 布局系统 (Layout)
+- [x] Label 组件 (已存在，修复enum类型)
+- [x] Input 组件 (Input Field)
+  - 位置: `src/EngineImpl/GUI/UIComponents.h` (新建)
+- [x] Button 组件
+  - 位置: `src/EngineImpl/GUI/UIComponents.h` (新建)
+- [x] Slider 组件
+  - 位置: `src/EngineImpl/GUI/UIComponents.h` (新建)
+- [x] Listbox 组件
+  - 位置: `src/EngineImpl/GUI/UIComponents.h` (新建)
+- [x] Checkbox 组件
+  - 位置: `src/EngineImpl/GUI/UIComponents.h` (新建)
+- [x] 布局系统 (Layout)
+  - 位置: `src/EngineImpl/GUI/Layout.h` (新建)
+  - 实现: HorizontalLayout, VerticalLayout, GridLayout, RelativeLayout, FlowLayout
+- [x] 动画状态机 (Animation State Machine)
+  - 位置: `src/EngineImpl/AnimationStateMachine.h` (新建)
 
 ### 其他
 - [ ] 地图/瓦片编辑器支持

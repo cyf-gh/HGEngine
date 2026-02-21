@@ -21,7 +21,7 @@ private:
 	Font* m_pFont;
 
 public:
-	/// @brief ¿ÉÒÔÖ¸¶¨ÎÄ×ÖÓÚ GameObject ÖÐµÄÎ»ÖÃ
+	/// @brief ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ GameObject ï¿½Ðµï¿½Î»ï¿½ï¿½
 	HG::Math::HGRect m_tRect;
 
 public:
@@ -45,7 +45,7 @@ public:
 		SetFont( pT );
 	}
 	SDL_Texture* GetTexture() const { return m_pTx; }
-	/// @brief Êä³öÔ­Ê¼×ÖÌå´óÐ¡
+	/// @brief ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 	void SetFontSize2Rect() {
 		if( m_pTx != nullptr ) {
 			m_tRect.SetSize( m_tT.GetSize() );
@@ -53,7 +53,7 @@ public:
 	}
 	/// @brief 
 	/// @param pRenderer 
-	/// @return µ±äÖÈ¾³É¹¦Ê±·µ»Øtrue
+	/// @return ï¿½ï¿½ï¿½ï¿½È¾ï¿½É¹ï¿½Ê±ï¿½ï¿½ï¿½ï¿½true
 	bool RenderText2Texture( Renderer2D* pRenderer ) {
 		SDL_FreeSurface( m_pSf );
 		m_pSf = nullptr;
@@ -77,13 +77,15 @@ public:
 		return false;
 	}
 	explicit Label( const char* strName, const char* str,  Font* pT = nullptr ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( pT ), Text( str ), m_tRect(), m_tT( strName, m_pTx ) {
-		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
+		nRenderIndex = (int)HG::HGRenderableComponentSeq::LABEL;
 	}
 	explicit Label( const char* strName, const char* str, const char* strFontName ) : HGComponent( strName ), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), Text( str ), m_tRect(), m_tT( strName, m_pTx ) {
-		nRenderIndex = HG::HGRenderableComponentSeq::LABEL;
+		nRenderIndex = (int)HG::HGRenderableComponentSeq::LABEL;
 		SetFont( strFontName );
 	}
-	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), m_tRect(), m_tT( "", m_pTx ) { };
+	explicit Label() : HGComponent(), m_pSf( nullptr ), m_pTx( nullptr ), m_pFont( nullptr ), m_tRect(), m_tT( "", m_pTx ) { 
+		nRenderIndex = (int)HG::HGRenderableComponentSeq::LABEL;
+	};
 	virtual ~Label() {
 		if( m_pTx != nullptr ) {
 			SDL_DestroyTexture( m_pTx );

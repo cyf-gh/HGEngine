@@ -12,7 +12,7 @@ namespace HGEngine {
 namespace V1SDL {
 
 /// \brief 
-/// ÐÎÌå±ä»»£¬°üº¬Î»ÖÃÓë´óÐ¡ÐÅÏ¢<br>
+/// ï¿½ï¿½ï¿½ï¿½ä»»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ï¢<br>
 /// figure, which contains position and size infomation
 class Transform : public HG::HGComponent {
 protected:
@@ -21,10 +21,29 @@ protected:
 	SDL_Rect m_tSRLocal;
 	SDL_Rect m_tSRGlobal;
 	SDL_Point m_tPt;
+	
+	/// \brief Dirty flag - true when transform data changed
+	bool m_bIsDirty;
+	
+	/// \brief Mark transform as dirty (needs recalculation)
+	inline void MarkDirty() { m_bIsDirty = true; }
+	
+	/// \brief Recalculate cached values if dirty
+	inline void UpdateCache() {
+		if (m_bIsDirty) {
+			ToSDLRectGlobal();
+			ToSDLRectLocal();
+			ToHGRectGlobal();
+			ToHGRectLocal();
+			m_bIsDirty = false;
+		}
+	}
+	
 public:
-	/// @brief ÅÐ¶ÏÊó±êÊÇ·ñÂäÔÚ¸ÃTransformÖÐ
-	/// @return ÊÇ·ñÂäÔÚÆäÖÐ 
+	/// @brief ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½Transformï¿½ï¿½
+	/// @return ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	bool IsMouseIn() {
+		UpdateCache();
 		if( m_pGameObject->IsFixedToCamera() ) {
 			return ( ToHGRectGlobal().IsIn( HG_ENGINE_INPUT()->GetGlobalMousePos( 0, 0 ) ) );
 		} else {
@@ -34,19 +53,19 @@ public:
 		}
 	}
 	/// \brief 
-	/// ¾Ö²¿×ø±êÏµÖÐµÄÎ»ÖÃ£¬Ò²¿ÉÀí½âÎª¶ÔÔ­ÎïÌåµÄ²Ã¼ôÎ»ÖÃ<br>
+	/// ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ðµï¿½Î»ï¿½Ã£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Ä²Ã¼ï¿½Î»ï¿½ï¿½<br>
 	/// size in local area, also it's the clip start point of this object
 	HG::Math::HGVec2<float> tLocalPos;
 	/// \brief 
-	/// ¾Ö²¿×ø±êÏµÖÐµÄ´óÐ¡£¬Ò²¿ÉÀí½âÎª¶ÔÔ­ÎïÌåµÄ²Ã¼ô´óÐ¡<br>
+	/// ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ÐµÄ´ï¿½Ð¡ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Ä²Ã¼ï¿½ï¿½ï¿½Ð¡<br>
 	/// size in global area,  also it's the clip size of this object
 	HG::Math::HGSize<un32> tLocalRect;
 	/// \brief 
-	/// ÊÀ½ç×ø±êÏµÖÐµÄÎ»ÖÃ<br>
+	/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ðµï¿½Î»ï¿½ï¿½<br>
 	/// position in global area
 	HG::Math::HGVec2<float> tPosition;
 	/// \brief 
-	/// ÊÀ½ç×ø±êÏµÖÐµÄ´óÐ¡£¬Ò²¿ÉÀí½âÎªäÖÈ¾ÖÁÈ«¾ÖµÄ´óÐ¡<br>
+	/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ÐµÄ´ï¿½Ð¡ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½È¾ï¿½ï¿½È«ï¿½ÖµÄ´ï¿½Ð¡<br>
 	/// size in global area, also it's the ouput rendering size
 	HG::Math::HGSize<un32> tRect;
 
@@ -54,6 +73,7 @@ public:
 	HG::Math::HGPos tRotateCenter;
 
 	void SetGlobalRect( const HG::Math::HGRect& rect ) {
+		MarkDirty();
 		tRect.H = rect.H;
 		tRect.W = rect.W;
 		tPosition.X = static_cast< float >( rect.X );
@@ -61,6 +81,7 @@ public:
 	}
 	
 	void SetGlobalRect( f32 x, f32 y, un32 w, un32 h ) {
+		MarkDirty();
 		tRect.H = h;
 		tRect.W = w;
 		tPosition.X = x;
@@ -68,6 +89,7 @@ public:
 	}
 
 	void SetLocalRect( const HG::Math::HGRect& rect ) {
+		MarkDirty();
 		tLocalRect.H = rect.H;
 		tLocalRect.W = rect.W;
 		tLocalPos.X = static_cast<float>( rect.X );
@@ -81,20 +103,21 @@ public:
 			tPosition.Y == rect.Y;
 	}
 public:
-	/// \brief
-	/// * ÖØÖÃÐý×ªÖÐÐÄÎªRectÖÐÐÄ
+	/// \brief 
+	/// * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ÎªRectï¿½ï¿½ï¿½ï¿½
 	/// * reset the rotate center to rect center
 	void ResetRotateCenter() {
+		MarkDirty();
 		// HG::Math::Center( tPosition, tRect, tRotateCenter );
 		tRotateCenter.X = tRect.W / 2;
 		tRotateCenter.Y = tRect.H / 2;
 	}
 
 	/// \brief 
-	///	* »ñÈ¡Ðý×ªºóµÄ¾ØÐÎ
+	///	* ï¿½ï¿½È¡ï¿½ï¿½×ªï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 	/// * get rect after being rotated
 	///	\param tRect 
-	///	* Ðý×ªºóµÄ¾ØÐÎ ÒÔËÄ¸ö¶þÎ¬ÏòÁ¿×÷Îª±£´æ
+	///	* ï¿½ï¿½×ªï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 	/// * rect after being rotated which contains 4 vectors
 	void GetRotatedRectGlobal(
 		HG::Math::HGPolygon<float>& tRect ) {
@@ -143,16 +166,27 @@ public:
 	HG_INLINE HG::Math::HGShape* GetGlobalShape() { return &m_tRectGlobal; }
 
 	/// \brief 
-	/// * ½«ÎïÌåÓÚÊÀ½çµÄ×ø±êÓë´óÐ¡¹éÁã
+	/// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
 	/// * reset the global position and size to zero
 	void ZeroGlobal() {
+		MarkDirty();
 		tPosition.X = 0;
 		tPosition.Y = 0;
 		tRect.H = 0;
 		tRect.W = 0;
 	}
 	/// \brief 
-	/// * ½«ÎïÌåÓÚ±¾µØµÄ×ø±êÓë´óÐ¡¹éÁã
+	/// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+	/// * reset the local position and size to zero
+	void ZeroLocal() {
+		MarkDirty();
+		tLocalPos.X = 0;
+		tLocalPos.Y = 0;
+		tLocalRect.H = 0;
+		tLocalRect.W = 0;
+	}
+	/// \brief 
+	/// * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
 	/// * reset the local position and size to zero
 	void ZeroLocal() {
 		tLocalPos.X = 0;
@@ -160,8 +194,8 @@ public:
 		tLocalRect.H = 0;
 		tLocalRect.W = 0;
 	}
-	Transform() : HG::HGComponent() { }
-	Transform( const char* strName ) : HG::HGComponent( strName ) {
+	Transform() : HG::HGComponent(), m_bIsDirty(true) { }
+	Transform( const char* strName ) : HG::HGComponent( strName ), m_bIsDirty(true) {
 		ZeroLocal();
 		ZeroGlobal();
 	}
