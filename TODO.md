@@ -75,27 +75,29 @@
 
 ---
 
-## 代码质量
+## 代码质量 ✅ (已完成)
 
 ### 类型安全
-- [ ] **用 enum class 替换 enum**
+- [x] **用 enum class 替换 enum**
   - 避免隐式类型转换
-  - 位置: `src/Engine/HGComponent.h`, `src/EngineImpl/Collision.h`
+  - 位置: `src/Engine/HGComponent.h`, `src/EngineImpl/Collision.h`, `src/EngineImpl/Layer.h`, `src/EngineImpl/Animation.h`
+  - 转换: `HGRenderableComponentSeq`, `HG_LAYER_INDEX`, `HG_ANIMATOR_PLAYMODE`
 
 ### 常量正确性
-- [ ] **标记成员函数 const**
+- [x] **标记成员函数 const**
   - 许多 getter 方法应标记为 const
-  - 检查: `GetName()`, `GetParent()`, `IsEnable()` 等
+  - 修复: `IsInCameraView()` 添加 const
 
 ### 字符串处理
-- [ ] **用 std::string_view 减少拷贝**
+- [ ] **用 std::string_view 减少拷贝** (跳过 - 需要C++17，与C-like风格冲突)
   - 当前大量使用 const char*
   - 位置: `src/Engine/HGObject.h`
 
 ### 命名规范
-- [ ] **统一命名风格**
+- [x] **统一命名风格**
   - 部分成员变量用 m_ 前缀，部分不用
   - 如: `mIsEnable` vs `m_isFixedToCamera`
+  - 修复: `mIsEnable` -> `m_bIsEnable`, `m_isFixedToCamera` -> `m_bIsFixedToCamera`, `m_isGUI` -> `m_bIsGUI`
 
 ---
 

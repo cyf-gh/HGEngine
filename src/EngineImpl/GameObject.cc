@@ -50,7 +50,7 @@ void HGEngine::V1SDL::GameObject::Render( void* pRenderer ) {
     renderCameraView( pRd2D );
 }
 
-bool HGEngine::V1SDL::GameObject::IsInCameraView() {
+bool HGEngine::V1SDL::GameObject::IsInCameraView() const {
     auto pScene = EngineImpl::GetEngine()->GetCurrentScene();
     if ( nullptr == pScene ) { return false; }
     auto pCam =  pScene->GetMainCamera();
@@ -75,7 +75,7 @@ bool HGEngine::V1SDL::GameObject::IsInCameraView() {
 }
 
 GameObject::GameObject( const char* strName, Scene* pScene, bool isFixed2Camera, bool isGui )
-: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), m_pLayer( nullptr ), m_isFixedToCamera( isFixed2Camera ), m_isGUI( isGui ) {
+: HGObject<GameObject>( strName ), m_pScene( pScene ), m_vecComponents(), m_pLayer( nullptr ), m_bIsFixedToCamera( isFixed2Camera ), m_bIsGUI( isGui ) {
     AddComponent( new HGBehaviour(  "Behaviour" ) );
 	AddComponent( new Transform( "Transform"  ) );
     HG_EVENT_CALL( OnBeforeConstruct, nullptr, this );
@@ -88,7 +88,7 @@ GameObject::GameObject( const char* strName, Scene* pScene, bool isFixed2Camera,
     }
 }
 
-HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nullptr ), m_vecComponents(), m_pLayer( nullptr ), m_isFixedToCamera( false ), m_isGUI( false ) {
+HGEngine::V1SDL::GameObject::GameObject() : HGObject<GameObject>(), m_pScene( nullptr ), m_vecComponents(), m_pLayer( nullptr ), m_bIsFixedToCamera( false ), m_bIsGUI( false ) {
     AddComponent( new HGBehaviour( "Behaviour" ) );
     HG_LOG_INFO( std::format( "GameObject[{}] !Constructed Default", UID ).c_str() );
 }

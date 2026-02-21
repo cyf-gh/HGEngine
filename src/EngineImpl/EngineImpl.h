@@ -53,9 +53,9 @@ public:
 	void _StopTask() override;
 };
 
-/// \brief HoneyGameÖ÷ÒýÇæ <br>engine of HG
+/// \brief HoneyGameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <br>engine of HG
 /// \note 
-/// * ³õÊ¼»¯Ë³ÐòÓ¦µ±Îª <br>the initialization order of Scenes, GameObjects, Engine Should be
+/// * ï¿½ï¿½Ê¼ï¿½ï¿½Ë³ï¿½ï¿½Ó¦ï¿½ï¿½Îª <br>the initialization order of Scenes, GameObjects, Engine Should be
 /// * Scenes -> Engine -> GameObjects
 class EngineImpl : public HG::IEngine {
 private:
@@ -76,9 +76,9 @@ private:
 
 public:
 	Physics tPhyiscs;
-	/// \brief »ñÈ¡Ö÷Ïß³Ì¾ä±ú <br>get main loop handle
+	/// \brief ï¿½ï¿½È¡ï¿½ï¿½ï¿½ß³Ì¾ï¿½ï¿½ <br>get main loop handle
 	/// \note
-	/// ¸ÃÑ­»·ÔËÐÐÓÚÖ÷Ïß³ÌÖ®ÖÐ
+	/// ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ö®ï¿½ï¿½
 	const HGMainLoop& GetMainLoop() { return tLoopMain; }
 	const HGUpdateLoop& GetUpdateLoop() { return tLoopUpdate; }
 	const HGRenderLoop& GetRenderLoop() { return tLoopRender; }
@@ -105,14 +105,66 @@ public:
 };
 
 }
+}
 
 }
-#define HG_ENGINE() HGEngine::V1SDL::EngineImpl::GetEngine()
-#define HG_ENGINE_TIMEDELTA EngineImpl::GetEngine()->GetFixedUpdateTimeDelta()
-#define HG_ENGINE_FIND_GAMEOBJECT( NAME ) EngineImpl::GetEngine()->GetCurrentScene()->FindGameObject(NAME)
-#define HG_ENGINE_RENDERER2D EngineImpl::GetEngine()->GetRenderer2D()
-#define HG_ENGINE_INPUT() EngineImpl::GetEngine()->GetInput()
-#define HG_ENGINE_CURRENT_SCENE() EngineImpl::GetEngine()->GetCurrentScene()
-#define HG_ENGINE_ASSET() EngineImpl::GetEngine()->GetAssetManager()
+
+// Inline functions for engine access
+namespace HGEngine {
+namespace V1SDL {
+
+/// \brief Get engine instance
+inline EngineImpl* GetEngine()
+{
+    return EngineImpl::GetEngine();
+}
+
+/// \brief Get fixed update time delta
+inline float GetEngineTimeDelta()
+{
+    return EngineImpl::GetEngine()->GetFixedUpdateTimeDelta();
+}
+
+/// \brief Find game object in current scene
+inline HGEngine::V1SDL::GameObject* FindGameObject(const char* name)
+{
+    return EngineImpl::GetEngine()->GetCurrentScene()->FindGameObject(name);
+}
+
+/// \brief Get renderer 2D
+inline Renderer2D* GetRenderer2D()
+{
+    return EngineImpl::GetEngine()->GetRenderer2D();
+}
+
+/// \brief Get input
+inline HG::HGInput* GetInput()
+{
+    return EngineImpl::GetEngine()->GetInput();
+}
+
+/// \brief Get current scene
+inline Scene* GetCurrentScene()
+{
+    return EngineImpl::GetEngine()->GetCurrentScene();
+}
+
+/// \brief Get asset manager
+inline Asset* GetAssetManager()
+{
+    return EngineImpl::GetEngine()->GetAssetManager();
+}
+
+} // namespace V1SDL
+} // namespace HGEngine
+
+// Legacy macros for compatibility
+#define HG_ENGINE() HGEngine::V1SDL::GetEngine()
+#define HG_ENGINE_TIMEDELTA HGEngine::V1SDL::GetEngineTimeDelta()
+#define HG_ENGINE_FIND_GAMEOBJECT( NAME ) HGEngine::V1SDL::FindGameObject(NAME)
+#define HG_ENGINE_RENDERER2D HGEngine::V1SDL::GetRenderer2D()
+#define HG_ENGINE_INPUT() HGEngine::V1SDL::GetInput()
+#define HG_ENGINE_CURRENT_SCENE() HGEngine::V1SDL::GetCurrentScene()
+#define HG_ENGINE_ASSET() HGEngine::V1SDL::GetAssetManager()
 
 #endif //HONEYGAME_ENGINEIMPL_H

@@ -7,7 +7,7 @@
 namespace HGEngine {
 namespace V1SDL {
 
-enum HG_LAYER_INDEX : char {
+enum class HG_LAYER_INDEX : char {
 	HG_LAYER_0 = 0,
 	HG_LAYER_1,
 	HG_LAYER_2,
@@ -42,24 +42,24 @@ public:
 
 	void DoCheck();
 
-	/// \brief ¼ì²éËùÔÚµÄ²ã¼¶ÊÇ·ñºÏ·¨
+	/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ²ã¼¶ï¿½Ç·ï¿½Ï·ï¿½
 	bool IsLayerIndexLegal() const { return LayerIndex >= HG_LAYER_0 && LayerIndex < HG_LAYER_LENGTH; }
 
 	/// \brief
-	/// ½«Ò»¸ö GameObject Ìí¼ÓÖÁ Layer
+	/// ï¿½ï¿½Ò»ï¿½ï¿½ GameObject ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Layer
 	void AttachGameObject( GameObject* pGameObject );
 	/// \brief
-	/// ½«Ò»¸ö GameObject ´Ó Layer ÒÆ³ý
+	/// ï¿½ï¿½Ò»ï¿½ï¿½ GameObject ï¿½ï¿½ Layer ï¿½Æ³ï¿½
 	///	\return 
-	/// µ±²»´æÔÚ¸Ã GameObject Ê±·µ»Ø false
+	/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ GameObject Ê±ï¿½ï¿½ï¿½ï¿½ false
 	bool DetachGameObject( GameObject* pGameObject );
 	bool DetachGameObject( const char *strName );
 	bool DetachGameObject( const un32 Id );
 	
 	/// \brief
-	/// ½øÐÐ°´ÕÕXÓëYÖáµÄÅÅÐò
+	/// ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½Xï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/// \note
-	///	Ó¦µ±ÔÚÒÆ¶¯ÎïÌåÊ±½øÐÐµ÷ÓÃ
+	///	Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½
 	un32 SortXY( GameObject* pGameObject );
 
 	explicit Layer( const char* strName, const char un8Index ) : HG::HGObject<Layer>( strName ), LayerIndex( un8Index ) { }

@@ -5,15 +5,25 @@
 #ifndef HONEYGAME_HG_H
 #define HONEYGAME_HG_H
 
+#include <algorithm>
+#include <vector>
+
 namespace HG { 
     class IEngine {
     public:
-        /// \brief 游戏主线程，该线程对数据可读可写 <br>this is main thread of game; this is a Read-Write thread
+        /// \brief 锟斤拷戏锟斤拷锟教＿筹拷锟斤拷锟教哆筹拷锟斤拷锟捷可讹拷锟斤拷写 <br>this is main thread of game; this is a Read-Write thread
         /// \note 
-        /// * 与渲染线程不同步 <br> async with render thread 
-        /// * OnFixedUpdate于此函数中处理
+        /// * 锟斤拷锟斤拷染锟教策筹拷同锟斤拷 <br> async with render thread 
+        /// * OnFixedUpdate锟节此猴拷锟斤拷锟叫达拷锟斤拷
         virtual int Render() = 0;
     };
+}
+
+/// \brief Erase element from vector
+template<typename T>
+inline void EraseInVec(T* pt, std::vector<T>& vec)
+{
+    vec.erase(std::remove(vec.begin(), vec.end(), pt), vec.end());
 }
 
 #undef HGENGINE_GUI         // use imgui
@@ -21,6 +31,7 @@ namespace HG {
 
 #define HGMain( ARGC, ARGV ) int main( ARGC, ARGV )
 
-#define HG_ERASE_IN_VEC( pt, vec ) vec.erase( std::remove( vec.begin(), vec.end(), pt ), vec.end() );
+// Keep macro for compatibility
+#define HG_ERASE_IN_VEC( pt, vec ) HG::EraseInVec(pt, vec)
 
 #endif //HONEYGAME_HG_H

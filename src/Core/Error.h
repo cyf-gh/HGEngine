@@ -25,8 +25,9 @@ namespace HG {
 /// HG_ERR_XXX only do process that the behavior of function has done
 /// successfully or not
 /// \sa HG_CHECK_ERR
+// Note: Using enum instead of enum class for backward compatibility with existing code
 enum {
-    HG_ERR_OK,
+    HG_ERR_OK = 0,
     HG_ERR_NULL_OUTPUT,
     HG_ERR_THREAD,
     HG_ERR_OUT_OF_MEMORY,

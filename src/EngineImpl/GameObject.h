@@ -26,27 +26,27 @@ class GameObject : public HG::HGObject<GameObject> {
 protected:
 	Scene* m_pScene;
 	Layer* m_pLayer;
-	bool mIsEnable = false;
+	bool m_bIsEnable = false;
 	void renderCameraView( Renderer2D* pRenderer );
-	bool m_isFixedToCamera;
-	bool m_isGUI;
+	bool m_bIsFixedToCamera;
+	bool m_bIsGUI;
 
 public:
 	std::vector<HG::HGComponent*> m_vecComponents;
-	bool SetFixedToCamera( const bool isFixed = true ) { m_isFixedToCamera = isFixed; }
-	bool IsFixedToCamera() const { return m_isFixedToCamera; }
+	bool SetFixedToCamera( const bool isFixed = true ) { m_bIsFixedToCamera = isFixed; }
+	bool IsFixedToCamera() const { return m_bIsFixedToCamera; }
 	virtual GameObject* Clone() { return new GameObject( *this ); };
 	virtual void Update( void* pEvent );
 	virtual void Render( void* pRenderer );
 
-	void Enable() { mIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
-	void Disable() { mIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
-	bool IsEnable() const { return mIsEnable; }
+	void Enable() { m_bIsEnable = true; HG_EVENT_CALL_NO_DATA( OnEnable, this ); }
+	void Disable() { m_bIsEnable = false; HG_EVENT_CALL_NO_DATA( OnDisable, this ); }
+	bool IsEnable() const { return m_bIsEnable; }
 	
-	/// \brief GameObject ÊÇ·ñÓÚ Camera µÄ View Ö®ÖÐ
+	/// \brief GameObject ï¿½Ç·ï¿½ï¿½ï¿½ Camera ï¿½ï¿½ View Ö®ï¿½ï¿½
 	/// \note
-	/// * ¸Ã·½·¨Î´Ê¹ÓÃ Collision ×é¼þ
-	bool IsInCameraView();
+	/// * ï¿½Ã·ï¿½ï¿½ï¿½Î´Ê¹ï¿½ï¿½ Collision ï¿½ï¿½ï¿½
+	bool IsInCameraView() const;
 	std::vector<HG::HGComponent*> GetAllComponents() const { return m_vecComponents; }
 	HG::HGComponent* AddComponent( HG::HGComponent* pComp ) {
 		++pComp->nRefCount;
@@ -111,14 +111,14 @@ public:
 	void SetLayer( Layer* pL ) { m_pLayer = pL; }
 
 	/// @brief 
-	/// * ´´½¨Ò»¸ö×Ô´øTransform Behavior Components£¬²¢¸½¼ÓÖÁµ±Ç°SceneµÄGameObject
+	/// * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ô´ï¿½Transform Behavior Componentsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Sceneï¿½ï¿½GameObject
 	///	* will create Transform and Behavior defaultly
 	/// @note 
-	///	* µ±Ö±½ÓÔÚC++´úÂëÖÐ´´½¨GameObjectÊ±£¬Çëµ÷ÓÃ¸Ã¹¹Ôìº¯Êý
+	///	* ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½C++ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½GameObjectÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸Ã¹ï¿½ï¿½ìº¯ï¿½ï¿½
 	/// @param strName 
 	/// @param pScene 
 	explicit GameObject( const char* strName, Scene* pScene = nullptr, bool isFixed2Camera = false, bool isGui = false );
-	/// @brief ´´½¨Ò»¸ö½öÐ¯´øBehaviorµÄGameObject
+	/// @brief ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½Behaviorï¿½ï¿½GameObject
 	explicit GameObject();
 	virtual ~GameObject();
 };

@@ -12,7 +12,7 @@ class Texture;
 }}
 
 namespace HG {
-enum HGRenderableComponentSeq : int {
+enum class HGRenderableComponentSeq : int {
 	UNRENDERABLE = -999,
 	DEFAULT = 0,
 	SPRITE,
@@ -22,43 +22,43 @@ enum HGRenderableComponentSeq : int {
 	HGRENDERABLECOMPONENTSEQ_LENTH
 };
 /// \brief 
-/// ×é¼þ»ùÀà£¬Æä¼¯ºÏÓÉGameObjectÓµÓÐ<br>
+/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£¬ï¿½ä¼¯ï¿½ï¿½ï¿½ï¿½GameObjectÓµï¿½ï¿½<br>
 /// Component base class, the set of components is owned by GameObject
 /// \note 
-/// Ô­ÔòÉÏ²»ÔÊÐí×é¼þÓÐ»¥Ïàµ÷ÓÃµÄÇé¿ö
+/// Ô­ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½
 /// \see HGEngine::V1SDL::GameObject
 class HGComponent : public HGObject<HGComponent> {
 protected:
 	HGEngine::V1SDL::GameObject *m_pGameObject;
 	
 public:
-	/// @brief ×é¼þÒýÓÃ¼ÆÊý
+	/// @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½
 	/// @see 
 	///	* GameObject::~GameObject()
 	/// * GameObject::RemoveComponent()
 	/// * GameObject::AddComponent( HG::HGComponent* pComp )
 	int nRefCount;
-	/// @brief äÖÈ¾Ë÷Òý£¬ÖµÔ½Ð¡Ô½äÖÈ¾ÔÚÏÂ²ã
+	/// @brief ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÔ½Ð¡Ô½ï¿½ï¿½È¾ï¿½ï¿½ï¿½Â²ï¿½
 	int nRenderIndex;
-	/// @brief »ñÈ¡¿ÉäÖÈ¾×é¼þÎ»ÓÚ GameObject ±¾µØ×ø±êµÄÆ«ÒÆ
+	/// @brief ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½È¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½ GameObject ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ«ï¿½ï¿½
 	/// @return 
 	virtual HG::Math::HGRect* GetLocalRectOffset() { return nullptr; }
-	/// @brief ·µ»ØäÖÈ¾Ä¿±ê
-	/// @note ½öÔÚ IsRenderable() == true Ê±·µ»Ø¾ä±ú
-	/// @return äÖÈ¾¾ä±ú
+	/// @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾Ä¿ï¿½ï¿½
+	/// @note ï¿½ï¿½ï¿½ï¿½ IsRenderable() == true Ê±ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½
+	/// @return ï¿½ï¿½È¾ï¿½ï¿½ï¿½
 	virtual HGEngine::V1SDL::Texture* GetRenderTarget( HGEngine::V1SDL::Renderer2D* pRd ) { return nullptr; }
-	/// @brief ·µ»Ø¸Ã×é¼þÊÇ·ñÄÜ±»äÖÈ¾
-	/// @return ÊÇ·ñÄÜ±»äÖÈ¾
+	/// @brief ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ü±ï¿½ï¿½ï¿½È¾
+	/// @return ï¿½Ç·ï¿½ï¿½Ü±ï¿½ï¿½ï¿½È¾
 	virtual bool IsRenderable() { return false; }
-	/// @brief ÉùÃ÷¸Ã×é¼þ¿ÉäÖÈ¾
+	/// @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾
 	#define HG_COMPONENT_RENDERABLE bool IsRenderable() override { return true; }
-	/// @brief ¸Ã×é¼þÔÚGameObjectÊÇ·ñÊÇÎ¨Ò»µÄ
-	/// @return ÊÇ·ñÎ¨Ò»
+	/// @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GameObjectï¿½Ç·ï¿½ï¿½ï¿½Î¨Ò»ï¿½ï¿½
+	/// @return ï¿½Ç·ï¿½Î¨Ò»
 	virtual bool IsOneOnlyPerGameObject() { return true; }
-	/// @brief ÉùÃ÷¸Ã×é¼þ¿ÉÖØ¸´´æÔÚÓÚÍ¬Ò»GameObject
+	/// @brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ò»GameObject
 	#define HG_COMPONENT_MUTILABLE bool IsOneOnlyPerGameObject() override { return false; }
-	/// @brief ·µ»Ø¸¸GameObject
-	/// @return ¸¸GameObject
+	/// @brief ï¿½ï¿½ï¿½Ø¸ï¿½GameObject
+	/// @return ï¿½ï¿½GameObject
 	HGEngine::V1SDL::GameObject *GetGameObject() const { return m_pGameObject; }
 	void SetGameObject( HGEngine::V1SDL::GameObject *pGameObject ) { m_pGameObject = pGameObject; }
 	explicit HGComponent( const char* strName ) : nRefCount( 0 ), nRenderIndex( HGRenderableComponentSeq::UNRENDERABLE ), m_pGameObject( nullptr ), HGObject<HGComponent>( strName ) { }
